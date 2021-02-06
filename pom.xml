@@ -8,7 +8,7 @@
         <version>1.0.3-SNAPSHOT</version>
     </parent>
     <groupId>org.orbisgis</groupId>
-    <artifactId>mad</artifactId>
+    <artifactId>demat</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
     <description>Dematis breton word to said "Hello". Demat is wrapper arround the Vega-lite library</description>
@@ -42,11 +42,6 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>2.12.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-json</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
