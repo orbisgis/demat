@@ -38,7 +38,7 @@ import java.util.List;
 @JsonDeserialize(using = ScaleRange.Deserializer.class)
 @JsonSerialize(using = ScaleRange.Serializer.class)
 public class ScaleRange {
-    public List<FluffyRange> unionArrayValue;
+    public Object[] unionArrayValue;
     public RangeClass rangeClassValue;
     public RangeEnum enumValue;
 
@@ -58,7 +58,7 @@ public class ScaleRange {
                     }
                     break;
                 case START_ARRAY:
-                    value.unionArrayValue = jsonParser.readValueAs(new TypeReference<List<FluffyRange>>() {});
+                    value.unionArrayValue = jsonParser.readValueAs(Object[].class);
                     break;
                 case START_OBJECT:
                     value.rangeClassValue = jsonParser.readValueAs(RangeClass.class);

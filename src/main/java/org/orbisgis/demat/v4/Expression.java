@@ -2,7 +2,7 @@ package org.orbisgis.demat.v4;
 
 import com.fasterxml.jackson.annotation.*;
 
-public class ExprRef {
+public class Expression {
     private String expr;
     private Double gamma;
     private ExprRefType type;

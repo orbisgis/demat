@@ -6,6 +6,7 @@ import org.orbisgis.demat.v4.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 public class DematTests {
 
@@ -52,6 +53,25 @@ public class DematTests {
         ColorClass color = Demat.color("properties.BUILDING_FRACTION").quantitative();
         View view = Demat.view().data(geojson).description("A Map with unique values").height(500).width(700).mark_geoshape().
                 encoding(color).projection(ProjectionType.IDENTITY);
+        view.save( "target/"+testInfo.getDisplayName()+".html",true);
+    }
+
+    @Test
+    void testDisplayMapWithInterval (TestInfo testInfo) throws IOException {
+        LinkedHashMap<Object, Object> geojson = Demat.fromJson(new File("/tmp/geoclimate_chain_estimated/osm_Lorient/grid_indicators.geojson"));
+        List features = (List) geojson.get("features");
+        Scale scale = new Scale();
+        Domain domain = new Domain();
+        domain.values = new Double[]{0d, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6};
+        scale.setDomain(domain);
+
+        Projection projection = new Projection();
+        projection.setType(ProjectionType.IDENTITY);
+        projection.setReflectY(true);
+        ColorClass color = Demat.color("properties.BUILDING_FRACTION").quantitative();
+        color.setScale(scale);
+        View view = Demat.view().data(features).description("A Map with unique values").height(500).width(700).mark_geoshape().
+                encoding(color).projection(projection);
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
     }
 

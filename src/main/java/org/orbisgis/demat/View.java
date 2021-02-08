@@ -611,4 +611,9 @@ public class View {
         this.projection=projection;
         return this;
     }
+
+    public View projection(Projection projection) {
+        this.projection=projection;
+        return this;
+    }
 }

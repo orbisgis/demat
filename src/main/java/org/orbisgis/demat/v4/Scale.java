@@ -8,7 +8,7 @@ public class Scale {
     private ScaleBins bins;
     private Aria clamp;
     private CornerRadius constant;
-    private DomainUnion domain;
+    private Domain domain;
     private DomainM domainMax;
     private CornerRadius domainMid;
     private DomainM domainMin;
@@ -122,9 +122,9 @@ public class Scale {
      * domain.
      */
     @JsonProperty("domain")
-    public DomainUnion getDomain() { return domain; }
+    public Domain getDomain() { return domain; }
     @JsonProperty("domain")
-    public void setDomain(DomainUnion value) { this.domain = value; }
+    public void setDomain(Domain value) { this.domain = value; }
 
     /**
      * Sets the maximum value in the scale domain, overriding the `domain` property. This

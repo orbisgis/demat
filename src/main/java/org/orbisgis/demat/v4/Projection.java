@@ -18,6 +18,7 @@ import java.util.List;
  * An object defining properties of the geographic projection shared by underlying layers.
  */
 public class Projection {
+    private ProjectionType type;
     private List<Double> center;
     private Double clipAngle;
     private List<List<Double>> clipExtent;
@@ -41,7 +42,6 @@ public class Projection {
     private Double spacing;
     private Double tilt;
     private List<Double> translate;
-    private ProjectionType type;
 
     /**
      * The projection's center, a two-element array of longitude and latitude in degrees.

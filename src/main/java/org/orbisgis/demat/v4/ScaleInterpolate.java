@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = ScaleInterpolate.Deserializer.class)
 @JsonSerialize(using = ScaleInterpolate.Serializer.class)
 public class ScaleInterpolate {
-    public ExprRef exprRefValue;
+    public Expression expressionValue;
     public ScaleInterpolateEnum enumValue;
 
     static class Deserializer extends JsonDeserializer<ScaleInterpolate> {
@@ -40,7 +40,7 @@ public class ScaleInterpolate {
                     }
                     break;
                 case START_OBJECT:
-                    value.exprRefValue = jsonParser.readValueAs(ExprRef.class);
+                    value.expressionValue = jsonParser.readValueAs(Expression.class);
                     break;
                 default: throw new IOException("Cannot deserialize ScaleInterpolate");
             }
@@ -51,8 +51,8 @@ public class ScaleInterpolate {
     static class Serializer extends JsonSerializer<ScaleInterpolate> {
         @Override
         public void serialize(ScaleInterpolate obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            if (obj.exprRefValue != null) {
-                jsonGenerator.writeObject(obj.exprRefValue);
+            if (obj.expressionValue != null) {
+                jsonGenerator.writeObject(obj.expressionValue);
                 return;
             }
             if (obj.enumValue != null) {

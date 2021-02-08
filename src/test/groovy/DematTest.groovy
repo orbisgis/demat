@@ -54,6 +54,23 @@ class DematTest {
     }
 
     @Test
+    void testDisplayMapWithInterval (TestInfo testInfo) throws IOException {
+        def geojson = Demat.fromJson(new File("/home/ebocher/Autres/codes/demat/src/test/resources/org/orbisgis/demat/rsu_geoindicators.geojson"));
+        Scale scale = new Scale();
+        Domain domain = new Domain();
+        domain.values = [0, 10, 20, 30]
+        scale.setDomain(domain);
+        ScaleRange scaleRange = new ScaleRange();
+        scaleRange.unionArrayValue=["orange", "green", "blue"];
+        scale.setRange(scaleRange)
+        ColorClass color = Demat.color("properties.BUILDING_FRACTION").quantitative();
+        color.setScale(scale);
+        View view = Demat.view().data(geojson).description("A Map with unique values").height(500).width(700).mark_geoshape().
+                encoding(color).projection(ProjectionType.IDENTITY);
+        view.save( "target/"+testInfo.getDisplayName()+".html",true);
+    }
+
+    @Test
     void testDisplayMapCartesianGrid (TestInfo testInfo){
         def geojson = Mad.fromJson(new File("/home/ebocher/Autres/codes/geoclimate2/geoclimate/osm/target/geoclimate_chain/osm_Pont-de-Veyle/road.geojson"))
         def  plot = Mad.Chart(values :geojson.features).height(500).width(700).description("A simple Map" ).mark_geoshape()
