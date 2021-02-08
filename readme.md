@@ -8,3 +8,21 @@ Demat is a java library to generate [Vega-lite](https://vega.github.io/vega-lite
 
 
 Demat is under active development, nothing is stable ;-)
+
+
+# Use it
+
+The folowing code : 
+```java
+
+XClass x = Demat.X("a").nominal();
+YClass y = Demat.Y("b").quantitative();
+View view = Demat.view().description("A simple bar chart").name("A simple name")
+                .data(new Object[][]{{"a", "b", "c"}, {1, 22, 12}, {200, 300, 400}})
+                .mark_bar()
+                .encoding(x, y);
+view.save( "/tmp/mybar.html");
+
+```
+
+shows https://vega.github.io/vega-lite/examples/bar.html
