@@ -11,16 +11,16 @@ import com.fasterxml.jackson.databind.annotation.*;
  * `"line"`, `"area"`, `"point"`, `"rule"`, `"geoshape"`, and `"text"`) or a [mark
  * definition object](https://vega.github.io/vega-lite/docs/mark.html#mark-def).
  */
-@JsonDeserialize(using = AnyMark.Deserializer.class)
-@JsonSerialize(using = AnyMark.Serializer.class)
-public class AnyMark {
+@JsonDeserialize(using = Mark.Deserializer.class)
+@JsonSerialize(using = Mark.Serializer.class)
+public class Mark {
     public Def defValue;
     public String stringValue;
 
-    static class Deserializer extends JsonDeserializer<AnyMark> {
+    static class Deserializer extends JsonDeserializer<Mark> {
         @Override
-        public AnyMark deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            AnyMark value = new AnyMark();
+        public Mark deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            Mark value = new Mark();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
                     break;
@@ -37,9 +37,9 @@ public class AnyMark {
         }
     }
 
-    static class Serializer extends JsonSerializer<AnyMark> {
+    static class Serializer extends JsonSerializer<Mark> {
         @Override
-        public void serialize(AnyMark obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(Mark obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.defValue != null) {
                 jsonGenerator.writeObject(obj.defValue);
                 return;

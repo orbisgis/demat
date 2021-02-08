@@ -33,33 +33,33 @@ public class HeaderConfig {
     private TitleAlignUnion labelAlign;
     private TitleAnchorEnum labelAnchor;
     private Double labelAngle;
-    private BackgroundUnion labelBaseline;
-    private BackgroundUnion labelColor;
+    private Background labelBaseline;
+    private Background labelColor;
     private String labelExpr;
-    private BackgroundUnion labelFont;
-    private CornerRadiusUnion labelFontSize;
-    private BackgroundUnion labelFontStyle;
+    private Background labelFont;
+    private CornerRadius labelFontSize;
+    private Background labelFontStyle;
     private FontWeightUnion labelFontWeight;
-    private CornerRadiusUnion labelLimit;
-    private CornerRadiusUnion labelLineHeight;
+    private CornerRadius labelLimit;
+    private CornerRadius labelLineHeight;
     private Orient labelOrient;
-    private CornerRadiusUnion labelPadding;
+    private CornerRadius labelPadding;
     private Boolean labels;
     private Orient orient;
     private Object title;
     private TitleAlignUnion titleAlign;
     private TitleAnchorEnum titleAnchor;
     private Double titleAngle;
-    private BackgroundUnion titleBaseline;
-    private BackgroundUnion titleColor;
-    private BackgroundUnion titleFont;
-    private CornerRadiusUnion titleFontSize;
-    private BackgroundUnion titleFontStyle;
+    private Background titleBaseline;
+    private Background titleColor;
+    private Background titleFont;
+    private CornerRadius titleFontSize;
+    private Background titleFontStyle;
     private FontWeightUnion titleFontWeight;
-    private CornerRadiusUnion titleLimit;
-    private CornerRadiusUnion titleLineHeight;
+    private CornerRadius titleLimit;
+    private CornerRadius titleLineHeight;
     private Orient titleOrient;
-    private CornerRadiusUnion titlePadding;
+    private CornerRadius titlePadding;
 
     /**
      * When used with the default `"number"` and `"time"` format type, the text formatting
@@ -136,17 +136,17 @@ public class HeaderConfig {
      * relative to the `titleLineHeight` rather than `titleFontSize` alone.
      */
     @JsonProperty("labelBaseline")
-    public BackgroundUnion getLabelBaseline() { return labelBaseline; }
+    public Background getLabelBaseline() { return labelBaseline; }
     @JsonProperty("labelBaseline")
-    public void setLabelBaseline(BackgroundUnion value) { this.labelBaseline = value; }
+    public void setLabelBaseline(Background value) { this.labelBaseline = value; }
 
     /**
      * The color of the header label, can be in hex color code or regular color name.
      */
     @JsonProperty("labelColor")
-    public BackgroundUnion getLabelColor() { return labelColor; }
+    public Background getLabelColor() { return labelColor; }
     @JsonProperty("labelColor")
-    public void setLabelColor(BackgroundUnion value) { this.labelColor = value; }
+    public void setLabelColor(Background value) { this.labelColor = value; }
 
     /**
      * [Vega expression](https://vega.github.io/vega/docs/expressions/) for customizing labels.
@@ -163,25 +163,25 @@ public class HeaderConfig {
      * The font of the header label.
      */
     @JsonProperty("labelFont")
-    public BackgroundUnion getLabelFont() { return labelFont; }
+    public Background getLabelFont() { return labelFont; }
     @JsonProperty("labelFont")
-    public void setLabelFont(BackgroundUnion value) { this.labelFont = value; }
+    public void setLabelFont(Background value) { this.labelFont = value; }
 
     /**
      * The font size of the header label, in pixels.
      */
     @JsonProperty("labelFontSize")
-    public CornerRadiusUnion getLabelFontSize() { return labelFontSize; }
+    public CornerRadius getLabelFontSize() { return labelFontSize; }
     @JsonProperty("labelFontSize")
-    public void setLabelFontSize(CornerRadiusUnion value) { this.labelFontSize = value; }
+    public void setLabelFontSize(CornerRadius value) { this.labelFontSize = value; }
 
     /**
      * The font style of the header label.
      */
     @JsonProperty("labelFontStyle")
-    public BackgroundUnion getLabelFontStyle() { return labelFontStyle; }
+    public Background getLabelFontStyle() { return labelFontStyle; }
     @JsonProperty("labelFontStyle")
-    public void setLabelFontStyle(BackgroundUnion value) { this.labelFontStyle = value; }
+    public void setLabelFontStyle(Background value) { this.labelFontStyle = value; }
 
     /**
      * The font weight of the header label.
@@ -198,18 +198,18 @@ public class HeaderConfig {
      * __Default value:__ `0`, indicating no limit
      */
     @JsonProperty("labelLimit")
-    public CornerRadiusUnion getLabelLimit() { return labelLimit; }
+    public CornerRadius getLabelLimit() { return labelLimit; }
     @JsonProperty("labelLimit")
-    public void setLabelLimit(CornerRadiusUnion value) { this.labelLimit = value; }
+    public void setLabelLimit(CornerRadius value) { this.labelLimit = value; }
 
     /**
      * Line height in pixels for multi-line header labels or title text with `"line-top"` or
      * `"line-bottom"` baseline.
      */
     @JsonProperty("labelLineHeight")
-    public CornerRadiusUnion getLabelLineHeight() { return labelLineHeight; }
+    public CornerRadius getLabelLineHeight() { return labelLineHeight; }
     @JsonProperty("labelLineHeight")
-    public void setLabelLineHeight(CornerRadiusUnion value) { this.labelLineHeight = value; }
+    public void setLabelLineHeight(CornerRadius value) { this.labelLineHeight = value; }
 
     /**
      * The orientation of the header label. One of `"top"`, `"bottom"`, `"left"` or `"right"`.
@@ -225,9 +225,9 @@ public class HeaderConfig {
      * __Default value:__ `10`
      */
     @JsonProperty("labelPadding")
-    public CornerRadiusUnion getLabelPadding() { return labelPadding; }
+    public CornerRadius getLabelPadding() { return labelPadding; }
     @JsonProperty("labelPadding")
-    public void setLabelPadding(CornerRadiusUnion value) { this.labelPadding = value; }
+    public void setLabelPadding(CornerRadius value) { this.labelPadding = value; }
 
     /**
      * A boolean flag indicating if labels should be included as part of the header.
@@ -292,41 +292,41 @@ public class HeaderConfig {
      * __Default value:__ `"middle"`
      */
     @JsonProperty("titleBaseline")
-    public BackgroundUnion getTitleBaseline() { return titleBaseline; }
+    public Background getTitleBaseline() { return titleBaseline; }
     @JsonProperty("titleBaseline")
-    public void setTitleBaseline(BackgroundUnion value) { this.titleBaseline = value; }
+    public void setTitleBaseline(Background value) { this.titleBaseline = value; }
 
     /**
      * Color of the header title, can be in hex color code or regular color name.
      */
     @JsonProperty("titleColor")
-    public BackgroundUnion getTitleColor() { return titleColor; }
+    public Background getTitleColor() { return titleColor; }
     @JsonProperty("titleColor")
-    public void setTitleColor(BackgroundUnion value) { this.titleColor = value; }
+    public void setTitleColor(Background value) { this.titleColor = value; }
 
     /**
      * Font of the header title. (e.g., `"Helvetica Neue"`).
      */
     @JsonProperty("titleFont")
-    public BackgroundUnion getTitleFont() { return titleFont; }
+    public Background getTitleFont() { return titleFont; }
     @JsonProperty("titleFont")
-    public void setTitleFont(BackgroundUnion value) { this.titleFont = value; }
+    public void setTitleFont(Background value) { this.titleFont = value; }
 
     /**
      * Font size of the header title.
      */
     @JsonProperty("titleFontSize")
-    public CornerRadiusUnion getTitleFontSize() { return titleFontSize; }
+    public CornerRadius getTitleFontSize() { return titleFontSize; }
     @JsonProperty("titleFontSize")
-    public void setTitleFontSize(CornerRadiusUnion value) { this.titleFontSize = value; }
+    public void setTitleFontSize(CornerRadius value) { this.titleFontSize = value; }
 
     /**
      * The font style of the header title.
      */
     @JsonProperty("titleFontStyle")
-    public BackgroundUnion getTitleFontStyle() { return titleFontStyle; }
+    public Background getTitleFontStyle() { return titleFontStyle; }
     @JsonProperty("titleFontStyle")
-    public void setTitleFontStyle(BackgroundUnion value) { this.titleFontStyle = value; }
+    public void setTitleFontStyle(Background value) { this.titleFontStyle = value; }
 
     /**
      * Font weight of the header title. This can be either a string (e.g `"bold"`, `"normal"`)
@@ -345,18 +345,18 @@ public class HeaderConfig {
      * __Default value:__ `0`, indicating no limit
      */
     @JsonProperty("titleLimit")
-    public CornerRadiusUnion getTitleLimit() { return titleLimit; }
+    public CornerRadius getTitleLimit() { return titleLimit; }
     @JsonProperty("titleLimit")
-    public void setTitleLimit(CornerRadiusUnion value) { this.titleLimit = value; }
+    public void setTitleLimit(CornerRadius value) { this.titleLimit = value; }
 
     /**
      * Line height in pixels for multi-line header title text or title text with `"line-top"` or
      * `"line-bottom"` baseline.
      */
     @JsonProperty("titleLineHeight")
-    public CornerRadiusUnion getTitleLineHeight() { return titleLineHeight; }
+    public CornerRadius getTitleLineHeight() { return titleLineHeight; }
     @JsonProperty("titleLineHeight")
-    public void setTitleLineHeight(CornerRadiusUnion value) { this.titleLineHeight = value; }
+    public void setTitleLineHeight(CornerRadius value) { this.titleLineHeight = value; }
 
     /**
      * The orientation of the header title. One of `"top"`, `"bottom"`, `"left"` or `"right"`.
@@ -372,7 +372,7 @@ public class HeaderConfig {
      * __Default value:__ `10`
      */
     @JsonProperty("titlePadding")
-    public CornerRadiusUnion getTitlePadding() { return titlePadding; }
+    public CornerRadius getTitlePadding() { return titlePadding; }
     @JsonProperty("titlePadding")
-    public void setTitlePadding(CornerRadiusUnion value) { this.titlePadding = value; }
+    public void setTitlePadding(CornerRadius value) { this.titlePadding = value; }
 }

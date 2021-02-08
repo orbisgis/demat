@@ -10,25 +10,25 @@ import com.fasterxml.jackson.annotation.*;
  * __Deprecated:__ Please avoid using width in a unit spec that's a part of a layer spec.
  */
 public class ViewBackground {
-    private CornerRadiusUnion cornerRadius;
+    private CornerRadius cornerRadius;
     private Cursor cursor;
-    private BackgroundUnion fill;
+    private Background fill;
     private Opacity fillOpacity;
-    private CornerRadiusUnion opacity;
-    private BackgroundUnion stroke;
+    private CornerRadius opacity;
+    private Background stroke;
     private Cap strokeCap;
     private StrokeDashUnion strokeDash;
-    private CornerRadiusUnion strokeDashOffset;
+    private CornerRadius strokeDashOffset;
     private StrokeJoinUnion strokeJoin;
-    private CornerRadiusUnion strokeMiterLimit;
+    private CornerRadius strokeMiterLimit;
     private Opacity strokeOpacity;
     private FontSize strokeWidth;
     private LegendText style;
 
     @JsonProperty("cornerRadius")
-    public CornerRadiusUnion getCornerRadius() { return cornerRadius; }
+    public CornerRadius getCornerRadius() { return cornerRadius; }
     @JsonProperty("cornerRadius")
-    public void setCornerRadius(CornerRadiusUnion value) { this.cornerRadius = value; }
+    public void setCornerRadius(CornerRadius value) { this.cornerRadius = value; }
 
     /**
      * The mouse cursor used over the view. Any valid [CSS cursor
@@ -45,9 +45,9 @@ public class ViewBackground {
      * __Default value:__ `undefined`
      */
     @JsonProperty("fill")
-    public BackgroundUnion getFill() { return fill; }
+    public Background getFill() { return fill; }
     @JsonProperty("fill")
-    public void setFill(BackgroundUnion value) { this.fill = value; }
+    public void setFill(Background value) { this.fill = value; }
 
     @JsonProperty("fillOpacity")
     public Opacity getFillOpacity() { return fillOpacity; }
@@ -61,9 +61,9 @@ public class ViewBackground {
      * `square` marks or layered `bar` charts and `1` otherwise.
      */
     @JsonProperty("opacity")
-    public CornerRadiusUnion getOpacity() { return opacity; }
+    public CornerRadius getOpacity() { return opacity; }
     @JsonProperty("opacity")
-    public void setOpacity(CornerRadiusUnion value) { this.opacity = value; }
+    public void setOpacity(CornerRadius value) { this.opacity = value; }
 
     /**
      * The stroke color.
@@ -71,9 +71,9 @@ public class ViewBackground {
      * __Default value:__ `"#ddd"`
      */
     @JsonProperty("stroke")
-    public BackgroundUnion getStroke() { return stroke; }
+    public Background getStroke() { return stroke; }
     @JsonProperty("stroke")
-    public void setStroke(BackgroundUnion value) { this.stroke = value; }
+    public void setStroke(Background value) { this.stroke = value; }
 
     @JsonProperty("strokeCap")
     public Cap getStrokeCap() { return strokeCap; }
@@ -86,9 +86,9 @@ public class ViewBackground {
     public void setStrokeDash(StrokeDashUnion value) { this.strokeDash = value; }
 
     @JsonProperty("strokeDashOffset")
-    public CornerRadiusUnion getStrokeDashOffset() { return strokeDashOffset; }
+    public CornerRadius getStrokeDashOffset() { return strokeDashOffset; }
     @JsonProperty("strokeDashOffset")
-    public void setStrokeDashOffset(CornerRadiusUnion value) { this.strokeDashOffset = value; }
+    public void setStrokeDashOffset(CornerRadius value) { this.strokeDashOffset = value; }
 
     @JsonProperty("strokeJoin")
     public StrokeJoinUnion getStrokeJoin() { return strokeJoin; }
@@ -96,9 +96,9 @@ public class ViewBackground {
     public void setStrokeJoin(StrokeJoinUnion value) { this.strokeJoin = value; }
 
     @JsonProperty("strokeMiterLimit")
-    public CornerRadiusUnion getStrokeMiterLimit() { return strokeMiterLimit; }
+    public CornerRadius getStrokeMiterLimit() { return strokeMiterLimit; }
     @JsonProperty("strokeMiterLimit")
-    public void setStrokeMiterLimit(CornerRadiusUnion value) { this.strokeMiterLimit = value; }
+    public void setStrokeMiterLimit(CornerRadius value) { this.strokeMiterLimit = value; }
 
     @JsonProperty("strokeOpacity")
     public Opacity getStrokeOpacity() { return strokeOpacity; }

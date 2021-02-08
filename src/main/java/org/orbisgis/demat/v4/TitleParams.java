@@ -5,30 +5,30 @@ import com.fasterxml.jackson.annotation.*;
 public class TitleParams {
     private Align align;
     private TitleAnchorEnum anchor;
-    private CornerRadiusUnion angle;
+    private CornerRadius angle;
     private Aria aria;
     private String baseline;
-    private BackgroundUnion color;
-    private CornerRadiusUnion dx;
-    private CornerRadiusUnion dy;
-    private BackgroundUnion font;
+    private Background color;
+    private CornerRadius dx;
+    private CornerRadius dy;
+    private Background font;
     private FontSize fontSize;
-    private BackgroundUnion fontStyle;
+    private Background fontStyle;
     private FontWeightUnion fontWeight;
-    private BackgroundUnion frame;
+    private Background frame;
     private FontSize limit;
-    private CornerRadiusUnion lineHeight;
-    private CornerRadiusUnion offset;
+    private CornerRadius lineHeight;
+    private CornerRadius offset;
     private TitleParamsOrient orient;
     private LegendText style;
     private LegendText subtitle;
-    private BackgroundUnion subtitleColor;
-    private BackgroundUnion subtitleFont;
+    private Background subtitleColor;
+    private Background subtitleFont;
     private FontSize subtitleFontSize;
-    private BackgroundUnion subtitleFontStyle;
+    private Background subtitleFontStyle;
     private FontWeightUnion subtitleFontWeight;
-    private CornerRadiusUnion subtitleLineHeight;
-    private CornerRadiusUnion subtitlePadding;
+    private CornerRadius subtitleLineHeight;
+    private CornerRadius subtitlePadding;
     private ConditionalValueDefTextExprRefText text;
     private Double zindex;
 
@@ -61,9 +61,9 @@ public class TitleParams {
     public void setAnchor(TitleAnchorEnum value) { this.anchor = value; }
 
     @JsonProperty("angle")
-    public CornerRadiusUnion getAngle() { return angle; }
+    public CornerRadius getAngle() { return angle; }
     @JsonProperty("angle")
-    public void setAngle(CornerRadiusUnion value) { this.angle = value; }
+    public void setAngle(CornerRadius value) { this.angle = value; }
 
     @JsonProperty("aria")
     public Aria getAria() { return aria; }
@@ -82,24 +82,24 @@ public class TitleParams {
     public void setBaseline(String value) { this.baseline = value; }
 
     @JsonProperty("color")
-    public BackgroundUnion getColor() { return color; }
+    public Background getColor() { return color; }
     @JsonProperty("color")
-    public void setColor(BackgroundUnion value) { this.color = value; }
+    public void setColor(Background value) { this.color = value; }
 
     @JsonProperty("dx")
-    public CornerRadiusUnion getDx() { return dx; }
+    public CornerRadius getDx() { return dx; }
     @JsonProperty("dx")
-    public void setDx(CornerRadiusUnion value) { this.dx = value; }
+    public void setDx(CornerRadius value) { this.dx = value; }
 
     @JsonProperty("dy")
-    public CornerRadiusUnion getDy() { return dy; }
+    public CornerRadius getDy() { return dy; }
     @JsonProperty("dy")
-    public void setDy(CornerRadiusUnion value) { this.dy = value; }
+    public void setDy(CornerRadius value) { this.dy = value; }
 
     @JsonProperty("font")
-    public BackgroundUnion getFont() { return font; }
+    public Background getFont() { return font; }
     @JsonProperty("font")
-    public void setFont(BackgroundUnion value) { this.font = value; }
+    public void setFont(Background value) { this.font = value; }
 
     @JsonProperty("fontSize")
     public FontSize getFontSize() { return fontSize; }
@@ -107,9 +107,9 @@ public class TitleParams {
     public void setFontSize(FontSize value) { this.fontSize = value; }
 
     @JsonProperty("fontStyle")
-    public BackgroundUnion getFontStyle() { return fontStyle; }
+    public Background getFontStyle() { return fontStyle; }
     @JsonProperty("fontStyle")
-    public void setFontStyle(BackgroundUnion value) { this.fontStyle = value; }
+    public void setFontStyle(Background value) { this.fontStyle = value; }
 
     @JsonProperty("fontWeight")
     public FontWeightUnion getFontWeight() { return fontWeight; }
@@ -117,9 +117,9 @@ public class TitleParams {
     public void setFontWeight(FontWeightUnion value) { this.fontWeight = value; }
 
     @JsonProperty("frame")
-    public BackgroundUnion getFrame() { return frame; }
+    public Background getFrame() { return frame; }
     @JsonProperty("frame")
-    public void setFrame(BackgroundUnion value) { this.frame = value; }
+    public void setFrame(Background value) { this.frame = value; }
 
     @JsonProperty("limit")
     public FontSize getLimit() { return limit; }
@@ -127,14 +127,14 @@ public class TitleParams {
     public void setLimit(FontSize value) { this.limit = value; }
 
     @JsonProperty("lineHeight")
-    public CornerRadiusUnion getLineHeight() { return lineHeight; }
+    public CornerRadius getLineHeight() { return lineHeight; }
     @JsonProperty("lineHeight")
-    public void setLineHeight(CornerRadiusUnion value) { this.lineHeight = value; }
+    public void setLineHeight(CornerRadius value) { this.lineHeight = value; }
 
     @JsonProperty("offset")
-    public CornerRadiusUnion getOffset() { return offset; }
+    public CornerRadius getOffset() { return offset; }
     @JsonProperty("offset")
-    public void setOffset(CornerRadiusUnion value) { this.offset = value; }
+    public void setOffset(CornerRadius value) { this.offset = value; }
 
     @JsonProperty("orient")
     public TitleParamsOrient getOrient() { return orient; }
@@ -161,14 +161,14 @@ public class TitleParams {
     public void setSubtitle(LegendText value) { this.subtitle = value; }
 
     @JsonProperty("subtitleColor")
-    public BackgroundUnion getSubtitleColor() { return subtitleColor; }
+    public Background getSubtitleColor() { return subtitleColor; }
     @JsonProperty("subtitleColor")
-    public void setSubtitleColor(BackgroundUnion value) { this.subtitleColor = value; }
+    public void setSubtitleColor(Background value) { this.subtitleColor = value; }
 
     @JsonProperty("subtitleFont")
-    public BackgroundUnion getSubtitleFont() { return subtitleFont; }
+    public Background getSubtitleFont() { return subtitleFont; }
     @JsonProperty("subtitleFont")
-    public void setSubtitleFont(BackgroundUnion value) { this.subtitleFont = value; }
+    public void setSubtitleFont(Background value) { this.subtitleFont = value; }
 
     @JsonProperty("subtitleFontSize")
     public FontSize getSubtitleFontSize() { return subtitleFontSize; }
@@ -176,9 +176,9 @@ public class TitleParams {
     public void setSubtitleFontSize(FontSize value) { this.subtitleFontSize = value; }
 
     @JsonProperty("subtitleFontStyle")
-    public BackgroundUnion getSubtitleFontStyle() { return subtitleFontStyle; }
+    public Background getSubtitleFontStyle() { return subtitleFontStyle; }
     @JsonProperty("subtitleFontStyle")
-    public void setSubtitleFontStyle(BackgroundUnion value) { this.subtitleFontStyle = value; }
+    public void setSubtitleFontStyle(Background value) { this.subtitleFontStyle = value; }
 
     @JsonProperty("subtitleFontWeight")
     public FontWeightUnion getSubtitleFontWeight() { return subtitleFontWeight; }
@@ -186,14 +186,14 @@ public class TitleParams {
     public void setSubtitleFontWeight(FontWeightUnion value) { this.subtitleFontWeight = value; }
 
     @JsonProperty("subtitleLineHeight")
-    public CornerRadiusUnion getSubtitleLineHeight() { return subtitleLineHeight; }
+    public CornerRadius getSubtitleLineHeight() { return subtitleLineHeight; }
     @JsonProperty("subtitleLineHeight")
-    public void setSubtitleLineHeight(CornerRadiusUnion value) { this.subtitleLineHeight = value; }
+    public void setSubtitleLineHeight(CornerRadius value) { this.subtitleLineHeight = value; }
 
     @JsonProperty("subtitlePadding")
-    public CornerRadiusUnion getSubtitlePadding() { return subtitlePadding; }
+    public CornerRadius getSubtitlePadding() { return subtitlePadding; }
     @JsonProperty("subtitlePadding")
-    public void setSubtitlePadding(CornerRadiusUnion value) { this.subtitlePadding = value; }
+    public void setSubtitlePadding(CornerRadius value) { this.subtitlePadding = value; }
 
     /**
      * The title text.

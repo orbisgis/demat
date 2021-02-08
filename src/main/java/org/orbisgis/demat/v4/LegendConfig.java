@@ -10,78 +10,78 @@ import com.fasterxml.jackson.annotation.*;
  */
 public class LegendConfig {
     private Aria aria;
-    private CornerRadiusUnion clipHeight;
-    private CornerRadiusUnion columnPadding;
-    private CornerRadiusUnion columns;
-    private CornerRadiusUnion cornerRadius;
-    private BackgroundUnion description;
+    private CornerRadius clipHeight;
+    private CornerRadius columnPadding;
+    private CornerRadius columns;
+    private CornerRadius cornerRadius;
+    private Background description;
     private Orientation direction;
     private Boolean disable;
-    private BackgroundUnion fillColor;
+    private Background fillColor;
     private Direction gradientDirection;
     private Double gradientHorizontalMaxLength;
     private Double gradientHorizontalMinLength;
-    private CornerRadiusUnion gradientLabelLimit;
-    private CornerRadiusUnion gradientLabelOffset;
+    private CornerRadius gradientLabelLimit;
+    private CornerRadius gradientLabelOffset;
     private FontSize gradientLength;
-    private CornerRadiusUnion gradientOpacity;
-    private BackgroundUnion gradientStrokeColor;
+    private CornerRadius gradientOpacity;
+    private Background gradientStrokeColor;
     private FontSize gradientStrokeWidth;
     private FontSize gradientThickness;
     private Double gradientVerticalMaxLength;
     private Double gradientVerticalMinLength;
     private GridAlign gridAlign;
     private TitleAlignUnion labelAlign;
-    private BackgroundUnion labelBaseline;
-    private BackgroundUnion labelColor;
-    private BackgroundUnion labelFont;
+    private Background labelBaseline;
+    private Background labelColor;
+    private Background labelFont;
     private FontSize labelFontSize;
-    private BackgroundUnion labelFontStyle;
+    private Background labelFontStyle;
     private FontWeightUnion labelFontWeight;
-    private CornerRadiusUnion labelLimit;
-    private CornerRadiusUnion labelOffset;
-    private CornerRadiusUnion labelOpacity;
+    private CornerRadius labelLimit;
+    private CornerRadius labelOffset;
+    private CornerRadius labelOpacity;
     private LabelOverlap labelOverlap;
-    private CornerRadiusUnion labelPadding;
-    private CornerRadiusUnion labelSeparation;
+    private CornerRadius labelPadding;
+    private CornerRadius labelSeparation;
     private BackgroundExprRef layout;
-    private CornerRadiusUnion legendX;
-    private CornerRadiusUnion legendY;
-    private CornerRadiusUnion offset;
+    private CornerRadius legendX;
+    private CornerRadius legendY;
+    private CornerRadius offset;
     private LegendOrient orient;
-    private CornerRadiusUnion padding;
-    private CornerRadiusUnion rowPadding;
-    private BackgroundUnion strokeColor;
+    private CornerRadius padding;
+    private CornerRadius rowPadding;
+    private Background strokeColor;
     private StrokeDashUnion strokeDash;
-    private CornerRadiusUnion strokeWidth;
-    private BackgroundUnion symbolBaseFillColor;
-    private BackgroundUnion symbolBaseStrokeColor;
+    private CornerRadius strokeWidth;
+    private Background symbolBaseFillColor;
+    private Background symbolBaseStrokeColor;
     private StrokeDashUnion symbolDash;
-    private CornerRadiusUnion symbolDashOffset;
+    private CornerRadius symbolDashOffset;
     private Direction symbolDirection;
-    private BackgroundUnion symbolFillColor;
-    private CornerRadiusUnion symbolLimit;
-    private CornerRadiusUnion symbolOffset;
-    private CornerRadiusUnion symbolOpacity;
+    private Background symbolFillColor;
+    private CornerRadius symbolLimit;
+    private CornerRadius symbolOffset;
+    private CornerRadius symbolOpacity;
     private FontSize symbolSize;
-    private BackgroundUnion symbolStrokeColor;
+    private Background symbolStrokeColor;
     private FontSize symbolStrokeWidth;
-    private BackgroundUnion symbolType;
+    private Background symbolType;
     private TickCount tickCount;
     private Object title;
     private TitleAlignUnion titleAlign;
     private TitleAnchorUnion titleAnchor;
-    private BackgroundUnion titleBaseline;
-    private BackgroundUnion titleColor;
-    private BackgroundUnion titleFont;
-    private CornerRadiusUnion titleFontSize;
-    private BackgroundUnion titleFontStyle;
+    private Background titleBaseline;
+    private Background titleColor;
+    private Background titleFont;
+    private CornerRadius titleFontSize;
+    private Background titleFontStyle;
     private FontWeightUnion titleFontWeight;
     private FontSize titleLimit;
-    private CornerRadiusUnion titleLineHeight;
-    private CornerRadiusUnion titleOpacity;
+    private CornerRadius titleLineHeight;
+    private CornerRadius titleOpacity;
     private TitleOrientUnion titleOrient;
-    private CornerRadiusUnion titlePadding;
+    private CornerRadius titlePadding;
     private Double unselectedOpacity;
     private FontSize zindex;
 
@@ -91,29 +91,29 @@ public class LegendConfig {
     public void setAria(Aria value) { this.aria = value; }
 
     @JsonProperty("clipHeight")
-    public CornerRadiusUnion getClipHeight() { return clipHeight; }
+    public CornerRadius getClipHeight() { return clipHeight; }
     @JsonProperty("clipHeight")
-    public void setClipHeight(CornerRadiusUnion value) { this.clipHeight = value; }
+    public void setClipHeight(CornerRadius value) { this.clipHeight = value; }
 
     @JsonProperty("columnPadding")
-    public CornerRadiusUnion getColumnPadding() { return columnPadding; }
+    public CornerRadius getColumnPadding() { return columnPadding; }
     @JsonProperty("columnPadding")
-    public void setColumnPadding(CornerRadiusUnion value) { this.columnPadding = value; }
+    public void setColumnPadding(CornerRadius value) { this.columnPadding = value; }
 
     @JsonProperty("columns")
-    public CornerRadiusUnion getColumns() { return columns; }
+    public CornerRadius getColumns() { return columns; }
     @JsonProperty("columns")
-    public void setColumns(CornerRadiusUnion value) { this.columns = value; }
+    public void setColumns(CornerRadius value) { this.columns = value; }
 
     @JsonProperty("cornerRadius")
-    public CornerRadiusUnion getCornerRadius() { return cornerRadius; }
+    public CornerRadius getCornerRadius() { return cornerRadius; }
     @JsonProperty("cornerRadius")
-    public void setCornerRadius(CornerRadiusUnion value) { this.cornerRadius = value; }
+    public void setCornerRadius(CornerRadius value) { this.cornerRadius = value; }
 
     @JsonProperty("description")
-    public BackgroundUnion getDescription() { return description; }
+    public Background getDescription() { return description; }
     @JsonProperty("description")
-    public void setDescription(BackgroundUnion value) { this.description = value; }
+    public void setDescription(Background value) { this.description = value; }
 
     /**
      * The direction of the legend, one of `"vertical"` or `"horizontal"`.
@@ -136,9 +136,9 @@ public class LegendConfig {
     public void setDisable(Boolean value) { this.disable = value; }
 
     @JsonProperty("fillColor")
-    public BackgroundUnion getFillColor() { return fillColor; }
+    public Background getFillColor() { return fillColor; }
     @JsonProperty("fillColor")
-    public void setFillColor(BackgroundUnion value) { this.fillColor = value; }
+    public void setFillColor(Background value) { this.fillColor = value; }
 
     @JsonProperty("gradientDirection")
     public Direction getGradientDirection() { return gradientDirection; }
@@ -168,14 +168,14 @@ public class LegendConfig {
     public void setGradientHorizontalMinLength(Double value) { this.gradientHorizontalMinLength = value; }
 
     @JsonProperty("gradientLabelLimit")
-    public CornerRadiusUnion getGradientLabelLimit() { return gradientLabelLimit; }
+    public CornerRadius getGradientLabelLimit() { return gradientLabelLimit; }
     @JsonProperty("gradientLabelLimit")
-    public void setGradientLabelLimit(CornerRadiusUnion value) { this.gradientLabelLimit = value; }
+    public void setGradientLabelLimit(CornerRadius value) { this.gradientLabelLimit = value; }
 
     @JsonProperty("gradientLabelOffset")
-    public CornerRadiusUnion getGradientLabelOffset() { return gradientLabelOffset; }
+    public CornerRadius getGradientLabelOffset() { return gradientLabelOffset; }
     @JsonProperty("gradientLabelOffset")
-    public void setGradientLabelOffset(CornerRadiusUnion value) { this.gradientLabelOffset = value; }
+    public void setGradientLabelOffset(CornerRadius value) { this.gradientLabelOffset = value; }
 
     @JsonProperty("gradientLength")
     public FontSize getGradientLength() { return gradientLength; }
@@ -183,14 +183,14 @@ public class LegendConfig {
     public void setGradientLength(FontSize value) { this.gradientLength = value; }
 
     @JsonProperty("gradientOpacity")
-    public CornerRadiusUnion getGradientOpacity() { return gradientOpacity; }
+    public CornerRadius getGradientOpacity() { return gradientOpacity; }
     @JsonProperty("gradientOpacity")
-    public void setGradientOpacity(CornerRadiusUnion value) { this.gradientOpacity = value; }
+    public void setGradientOpacity(CornerRadius value) { this.gradientOpacity = value; }
 
     @JsonProperty("gradientStrokeColor")
-    public BackgroundUnion getGradientStrokeColor() { return gradientStrokeColor; }
+    public Background getGradientStrokeColor() { return gradientStrokeColor; }
     @JsonProperty("gradientStrokeColor")
-    public void setGradientStrokeColor(BackgroundUnion value) { this.gradientStrokeColor = value; }
+    public void setGradientStrokeColor(Background value) { this.gradientStrokeColor = value; }
 
     @JsonProperty("gradientStrokeWidth")
     public FontSize getGradientStrokeWidth() { return gradientStrokeWidth; }
@@ -235,19 +235,19 @@ public class LegendConfig {
     public void setLabelAlign(TitleAlignUnion value) { this.labelAlign = value; }
 
     @JsonProperty("labelBaseline")
-    public BackgroundUnion getLabelBaseline() { return labelBaseline; }
+    public Background getLabelBaseline() { return labelBaseline; }
     @JsonProperty("labelBaseline")
-    public void setLabelBaseline(BackgroundUnion value) { this.labelBaseline = value; }
+    public void setLabelBaseline(Background value) { this.labelBaseline = value; }
 
     @JsonProperty("labelColor")
-    public BackgroundUnion getLabelColor() { return labelColor; }
+    public Background getLabelColor() { return labelColor; }
     @JsonProperty("labelColor")
-    public void setLabelColor(BackgroundUnion value) { this.labelColor = value; }
+    public void setLabelColor(Background value) { this.labelColor = value; }
 
     @JsonProperty("labelFont")
-    public BackgroundUnion getLabelFont() { return labelFont; }
+    public Background getLabelFont() { return labelFont; }
     @JsonProperty("labelFont")
-    public void setLabelFont(BackgroundUnion value) { this.labelFont = value; }
+    public void setLabelFont(Background value) { this.labelFont = value; }
 
     @JsonProperty("labelFontSize")
     public FontSize getLabelFontSize() { return labelFontSize; }
@@ -255,9 +255,9 @@ public class LegendConfig {
     public void setLabelFontSize(FontSize value) { this.labelFontSize = value; }
 
     @JsonProperty("labelFontStyle")
-    public BackgroundUnion getLabelFontStyle() { return labelFontStyle; }
+    public Background getLabelFontStyle() { return labelFontStyle; }
     @JsonProperty("labelFontStyle")
-    public void setLabelFontStyle(BackgroundUnion value) { this.labelFontStyle = value; }
+    public void setLabelFontStyle(Background value) { this.labelFontStyle = value; }
 
     @JsonProperty("labelFontWeight")
     public FontWeightUnion getLabelFontWeight() { return labelFontWeight; }
@@ -265,19 +265,19 @@ public class LegendConfig {
     public void setLabelFontWeight(FontWeightUnion value) { this.labelFontWeight = value; }
 
     @JsonProperty("labelLimit")
-    public CornerRadiusUnion getLabelLimit() { return labelLimit; }
+    public CornerRadius getLabelLimit() { return labelLimit; }
     @JsonProperty("labelLimit")
-    public void setLabelLimit(CornerRadiusUnion value) { this.labelLimit = value; }
+    public void setLabelLimit(CornerRadius value) { this.labelLimit = value; }
 
     @JsonProperty("labelOffset")
-    public CornerRadiusUnion getLabelOffset() { return labelOffset; }
+    public CornerRadius getLabelOffset() { return labelOffset; }
     @JsonProperty("labelOffset")
-    public void setLabelOffset(CornerRadiusUnion value) { this.labelOffset = value; }
+    public void setLabelOffset(CornerRadius value) { this.labelOffset = value; }
 
     @JsonProperty("labelOpacity")
-    public CornerRadiusUnion getLabelOpacity() { return labelOpacity; }
+    public CornerRadius getLabelOpacity() { return labelOpacity; }
     @JsonProperty("labelOpacity")
-    public void setLabelOpacity(CornerRadiusUnion value) { this.labelOpacity = value; }
+    public void setLabelOpacity(CornerRadius value) { this.labelOpacity = value; }
 
     /**
      * The strategy to use for resolving overlap of labels in gradient legends. If `false`, no
@@ -294,14 +294,14 @@ public class LegendConfig {
     public void setLabelOverlap(LabelOverlap value) { this.labelOverlap = value; }
 
     @JsonProperty("labelPadding")
-    public CornerRadiusUnion getLabelPadding() { return labelPadding; }
+    public CornerRadius getLabelPadding() { return labelPadding; }
     @JsonProperty("labelPadding")
-    public void setLabelPadding(CornerRadiusUnion value) { this.labelPadding = value; }
+    public void setLabelPadding(CornerRadius value) { this.labelPadding = value; }
 
     @JsonProperty("labelSeparation")
-    public CornerRadiusUnion getLabelSeparation() { return labelSeparation; }
+    public CornerRadius getLabelSeparation() { return labelSeparation; }
     @JsonProperty("labelSeparation")
-    public void setLabelSeparation(CornerRadiusUnion value) { this.labelSeparation = value; }
+    public void setLabelSeparation(CornerRadius value) { this.labelSeparation = value; }
 
     @JsonProperty("layout")
     public BackgroundExprRef getLayout() { return layout; }
@@ -309,19 +309,19 @@ public class LegendConfig {
     public void setLayout(BackgroundExprRef value) { this.layout = value; }
 
     @JsonProperty("legendX")
-    public CornerRadiusUnion getLegendX() { return legendX; }
+    public CornerRadius getLegendX() { return legendX; }
     @JsonProperty("legendX")
-    public void setLegendX(CornerRadiusUnion value) { this.legendX = value; }
+    public void setLegendX(CornerRadius value) { this.legendX = value; }
 
     @JsonProperty("legendY")
-    public CornerRadiusUnion getLegendY() { return legendY; }
+    public CornerRadius getLegendY() { return legendY; }
     @JsonProperty("legendY")
-    public void setLegendY(CornerRadiusUnion value) { this.legendY = value; }
+    public void setLegendY(CornerRadius value) { this.legendY = value; }
 
     @JsonProperty("offset")
-    public CornerRadiusUnion getOffset() { return offset; }
+    public CornerRadius getOffset() { return offset; }
     @JsonProperty("offset")
-    public void setOffset(CornerRadiusUnion value) { this.offset = value; }
+    public void setOffset(CornerRadius value) { this.offset = value; }
 
     /**
      * The orientation of the legend, which determines how the legend is positioned within the
@@ -336,19 +336,19 @@ public class LegendConfig {
     public void setOrient(LegendOrient value) { this.orient = value; }
 
     @JsonProperty("padding")
-    public CornerRadiusUnion getPadding() { return padding; }
+    public CornerRadius getPadding() { return padding; }
     @JsonProperty("padding")
-    public void setPadding(CornerRadiusUnion value) { this.padding = value; }
+    public void setPadding(CornerRadius value) { this.padding = value; }
 
     @JsonProperty("rowPadding")
-    public CornerRadiusUnion getRowPadding() { return rowPadding; }
+    public CornerRadius getRowPadding() { return rowPadding; }
     @JsonProperty("rowPadding")
-    public void setRowPadding(CornerRadiusUnion value) { this.rowPadding = value; }
+    public void setRowPadding(CornerRadius value) { this.rowPadding = value; }
 
     @JsonProperty("strokeColor")
-    public BackgroundUnion getStrokeColor() { return strokeColor; }
+    public Background getStrokeColor() { return strokeColor; }
     @JsonProperty("strokeColor")
-    public void setStrokeColor(BackgroundUnion value) { this.strokeColor = value; }
+    public void setStrokeColor(Background value) { this.strokeColor = value; }
 
     @JsonProperty("strokeDash")
     public StrokeDashUnion getStrokeDash() { return strokeDash; }
@@ -356,19 +356,19 @@ public class LegendConfig {
     public void setStrokeDash(StrokeDashUnion value) { this.strokeDash = value; }
 
     @JsonProperty("strokeWidth")
-    public CornerRadiusUnion getStrokeWidth() { return strokeWidth; }
+    public CornerRadius getStrokeWidth() { return strokeWidth; }
     @JsonProperty("strokeWidth")
-    public void setStrokeWidth(CornerRadiusUnion value) { this.strokeWidth = value; }
+    public void setStrokeWidth(CornerRadius value) { this.strokeWidth = value; }
 
     @JsonProperty("symbolBaseFillColor")
-    public BackgroundUnion getSymbolBaseFillColor() { return symbolBaseFillColor; }
+    public Background getSymbolBaseFillColor() { return symbolBaseFillColor; }
     @JsonProperty("symbolBaseFillColor")
-    public void setSymbolBaseFillColor(BackgroundUnion value) { this.symbolBaseFillColor = value; }
+    public void setSymbolBaseFillColor(Background value) { this.symbolBaseFillColor = value; }
 
     @JsonProperty("symbolBaseStrokeColor")
-    public BackgroundUnion getSymbolBaseStrokeColor() { return symbolBaseStrokeColor; }
+    public Background getSymbolBaseStrokeColor() { return symbolBaseStrokeColor; }
     @JsonProperty("symbolBaseStrokeColor")
-    public void setSymbolBaseStrokeColor(BackgroundUnion value) { this.symbolBaseStrokeColor = value; }
+    public void setSymbolBaseStrokeColor(Background value) { this.symbolBaseStrokeColor = value; }
 
     @JsonProperty("symbolDash")
     public StrokeDashUnion getSymbolDash() { return symbolDash; }
@@ -376,9 +376,9 @@ public class LegendConfig {
     public void setSymbolDash(StrokeDashUnion value) { this.symbolDash = value; }
 
     @JsonProperty("symbolDashOffset")
-    public CornerRadiusUnion getSymbolDashOffset() { return symbolDashOffset; }
+    public CornerRadius getSymbolDashOffset() { return symbolDashOffset; }
     @JsonProperty("symbolDashOffset")
-    public void setSymbolDashOffset(CornerRadiusUnion value) { this.symbolDashOffset = value; }
+    public void setSymbolDashOffset(CornerRadius value) { this.symbolDashOffset = value; }
 
     @JsonProperty("symbolDirection")
     public Direction getSymbolDirection() { return symbolDirection; }
@@ -386,24 +386,24 @@ public class LegendConfig {
     public void setSymbolDirection(Direction value) { this.symbolDirection = value; }
 
     @JsonProperty("symbolFillColor")
-    public BackgroundUnion getSymbolFillColor() { return symbolFillColor; }
+    public Background getSymbolFillColor() { return symbolFillColor; }
     @JsonProperty("symbolFillColor")
-    public void setSymbolFillColor(BackgroundUnion value) { this.symbolFillColor = value; }
+    public void setSymbolFillColor(Background value) { this.symbolFillColor = value; }
 
     @JsonProperty("symbolLimit")
-    public CornerRadiusUnion getSymbolLimit() { return symbolLimit; }
+    public CornerRadius getSymbolLimit() { return symbolLimit; }
     @JsonProperty("symbolLimit")
-    public void setSymbolLimit(CornerRadiusUnion value) { this.symbolLimit = value; }
+    public void setSymbolLimit(CornerRadius value) { this.symbolLimit = value; }
 
     @JsonProperty("symbolOffset")
-    public CornerRadiusUnion getSymbolOffset() { return symbolOffset; }
+    public CornerRadius getSymbolOffset() { return symbolOffset; }
     @JsonProperty("symbolOffset")
-    public void setSymbolOffset(CornerRadiusUnion value) { this.symbolOffset = value; }
+    public void setSymbolOffset(CornerRadius value) { this.symbolOffset = value; }
 
     @JsonProperty("symbolOpacity")
-    public CornerRadiusUnion getSymbolOpacity() { return symbolOpacity; }
+    public CornerRadius getSymbolOpacity() { return symbolOpacity; }
     @JsonProperty("symbolOpacity")
-    public void setSymbolOpacity(CornerRadiusUnion value) { this.symbolOpacity = value; }
+    public void setSymbolOpacity(CornerRadius value) { this.symbolOpacity = value; }
 
     @JsonProperty("symbolSize")
     public FontSize getSymbolSize() { return symbolSize; }
@@ -411,9 +411,9 @@ public class LegendConfig {
     public void setSymbolSize(FontSize value) { this.symbolSize = value; }
 
     @JsonProperty("symbolStrokeColor")
-    public BackgroundUnion getSymbolStrokeColor() { return symbolStrokeColor; }
+    public Background getSymbolStrokeColor() { return symbolStrokeColor; }
     @JsonProperty("symbolStrokeColor")
-    public void setSymbolStrokeColor(BackgroundUnion value) { this.symbolStrokeColor = value; }
+    public void setSymbolStrokeColor(Background value) { this.symbolStrokeColor = value; }
 
     @JsonProperty("symbolStrokeWidth")
     public FontSize getSymbolStrokeWidth() { return symbolStrokeWidth; }
@@ -421,9 +421,9 @@ public class LegendConfig {
     public void setSymbolStrokeWidth(FontSize value) { this.symbolStrokeWidth = value; }
 
     @JsonProperty("symbolType")
-    public BackgroundUnion getSymbolType() { return symbolType; }
+    public Background getSymbolType() { return symbolType; }
     @JsonProperty("symbolType")
-    public void setSymbolType(BackgroundUnion value) { this.symbolType = value; }
+    public void setSymbolType(Background value) { this.symbolType = value; }
 
     @JsonProperty("tickCount")
     public TickCount getTickCount() { return tickCount; }
@@ -449,29 +449,29 @@ public class LegendConfig {
     public void setTitleAnchor(TitleAnchorUnion value) { this.titleAnchor = value; }
 
     @JsonProperty("titleBaseline")
-    public BackgroundUnion getTitleBaseline() { return titleBaseline; }
+    public Background getTitleBaseline() { return titleBaseline; }
     @JsonProperty("titleBaseline")
-    public void setTitleBaseline(BackgroundUnion value) { this.titleBaseline = value; }
+    public void setTitleBaseline(Background value) { this.titleBaseline = value; }
 
     @JsonProperty("titleColor")
-    public BackgroundUnion getTitleColor() { return titleColor; }
+    public Background getTitleColor() { return titleColor; }
     @JsonProperty("titleColor")
-    public void setTitleColor(BackgroundUnion value) { this.titleColor = value; }
+    public void setTitleColor(Background value) { this.titleColor = value; }
 
     @JsonProperty("titleFont")
-    public BackgroundUnion getTitleFont() { return titleFont; }
+    public Background getTitleFont() { return titleFont; }
     @JsonProperty("titleFont")
-    public void setTitleFont(BackgroundUnion value) { this.titleFont = value; }
+    public void setTitleFont(Background value) { this.titleFont = value; }
 
     @JsonProperty("titleFontSize")
-    public CornerRadiusUnion getTitleFontSize() { return titleFontSize; }
+    public CornerRadius getTitleFontSize() { return titleFontSize; }
     @JsonProperty("titleFontSize")
-    public void setTitleFontSize(CornerRadiusUnion value) { this.titleFontSize = value; }
+    public void setTitleFontSize(CornerRadius value) { this.titleFontSize = value; }
 
     @JsonProperty("titleFontStyle")
-    public BackgroundUnion getTitleFontStyle() { return titleFontStyle; }
+    public Background getTitleFontStyle() { return titleFontStyle; }
     @JsonProperty("titleFontStyle")
-    public void setTitleFontStyle(BackgroundUnion value) { this.titleFontStyle = value; }
+    public void setTitleFontStyle(Background value) { this.titleFontStyle = value; }
 
     @JsonProperty("titleFontWeight")
     public FontWeightUnion getTitleFontWeight() { return titleFontWeight; }
@@ -484,14 +484,14 @@ public class LegendConfig {
     public void setTitleLimit(FontSize value) { this.titleLimit = value; }
 
     @JsonProperty("titleLineHeight")
-    public CornerRadiusUnion getTitleLineHeight() { return titleLineHeight; }
+    public CornerRadius getTitleLineHeight() { return titleLineHeight; }
     @JsonProperty("titleLineHeight")
-    public void setTitleLineHeight(CornerRadiusUnion value) { this.titleLineHeight = value; }
+    public void setTitleLineHeight(CornerRadius value) { this.titleLineHeight = value; }
 
     @JsonProperty("titleOpacity")
-    public CornerRadiusUnion getTitleOpacity() { return titleOpacity; }
+    public CornerRadius getTitleOpacity() { return titleOpacity; }
     @JsonProperty("titleOpacity")
-    public void setTitleOpacity(CornerRadiusUnion value) { this.titleOpacity = value; }
+    public void setTitleOpacity(CornerRadius value) { this.titleOpacity = value; }
 
     @JsonProperty("titleOrient")
     public TitleOrientUnion getTitleOrient() { return titleOrient; }
@@ -499,9 +499,9 @@ public class LegendConfig {
     public void setTitleOrient(TitleOrientUnion value) { this.titleOrient = value; }
 
     @JsonProperty("titlePadding")
-    public CornerRadiusUnion getTitlePadding() { return titlePadding; }
+    public CornerRadius getTitlePadding() { return titlePadding; }
     @JsonProperty("titlePadding")
-    public void setTitlePadding(CornerRadiusUnion value) { this.titlePadding = value; }
+    public void setTitlePadding(CornerRadius value) { this.titlePadding = value; }
 
     /**
      * The opacity of unselected legend entries.

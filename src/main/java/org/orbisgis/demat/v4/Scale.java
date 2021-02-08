@@ -3,21 +3,21 @@ package org.orbisgis.demat.v4;
 import com.fasterxml.jackson.annotation.*;
 
 public class Scale {
-    private CornerRadiusUnion align;
-    private CornerRadiusUnion base;
+    private CornerRadius align;
+    private CornerRadius base;
     private ScaleBins bins;
     private Aria clamp;
-    private CornerRadiusUnion constant;
+    private CornerRadius constant;
     private DomainUnion domain;
     private DomainM domainMax;
-    private CornerRadiusUnion domainMid;
+    private CornerRadius domainMid;
     private DomainM domainMin;
-    private CornerRadiusUnion exponent;
+    private CornerRadius exponent;
     private ScaleInterpolate interpolate;
     private Nice nice;
-    private CornerRadiusUnion padding;
-    private CornerRadiusUnion paddingInner;
-    private CornerRadiusUnion paddingOuter;
+    private CornerRadius padding;
+    private CornerRadius paddingInner;
+    private CornerRadius paddingOuter;
     private ScaleRange range;
     private X rangeMax;
     private X rangeMin;
@@ -37,17 +37,17 @@ public class Scale {
      * __Default value:__ `0.5`
      */
     @JsonProperty("align")
-    public CornerRadiusUnion getAlign() { return align; }
+    public CornerRadius getAlign() { return align; }
     @JsonProperty("align")
-    public void setAlign(CornerRadiusUnion value) { this.align = value; }
+    public void setAlign(CornerRadius value) { this.align = value; }
 
     /**
      * The logarithm base of the `log` scale (default `10`).
      */
     @JsonProperty("base")
-    public CornerRadiusUnion getBase() { return base; }
+    public CornerRadius getBase() { return base; }
     @JsonProperty("base")
-    public void setBase(CornerRadiusUnion value) { this.base = value; }
+    public void setBase(CornerRadius value) { this.base = value; }
 
     /**
      * Bin boundaries can be provided to scales as either an explicit array of bin boundaries or
@@ -86,9 +86,9 @@ public class Scale {
      * __Default value:__ `1`
      */
     @JsonProperty("constant")
-    public CornerRadiusUnion getConstant() { return constant; }
+    public CornerRadius getConstant() { return constant; }
     @JsonProperty("constant")
-    public void setConstant(CornerRadiusUnion value) { this.constant = value; }
+    public void setConstant(CornerRadius value) { this.constant = value; }
 
     /**
      * Customized domain values in the form of constant values or dynamic values driven by a
@@ -143,9 +143,9 @@ public class Scale {
      * property is only intended for use with scales supporting continuous, piecewise domains.
      */
     @JsonProperty("domainMid")
-    public CornerRadiusUnion getDomainMid() { return domainMid; }
+    public CornerRadius getDomainMid() { return domainMid; }
     @JsonProperty("domainMid")
-    public void setDomainMid(CornerRadiusUnion value) { this.domainMid = value; }
+    public void setDomainMid(CornerRadius value) { this.domainMid = value; }
 
     /**
      * Sets the minimum value in the scale domain, overriding the domain property. This property
@@ -160,9 +160,9 @@ public class Scale {
      * The exponent of the `pow` scale.
      */
     @JsonProperty("exponent")
-    public CornerRadiusUnion getExponent() { return exponent; }
+    public CornerRadius getExponent() { return exponent; }
     @JsonProperty("exponent")
-    public void setExponent(CornerRadiusUnion value) { this.exponent = value; }
+    public void setExponent(CornerRadius value) { this.exponent = value; }
 
     /**
      * The interpolation method for range values. By default, a general interpolator for
@@ -226,9 +226,9 @@ public class Scale {
      * sets padding such that _width/height = number of unique values * step_.
      */
     @JsonProperty("padding")
-    public CornerRadiusUnion getPadding() { return padding; }
+    public CornerRadius getPadding() { return padding; }
     @JsonProperty("padding")
-    public void setPadding(CornerRadiusUnion value) { this.padding = value; }
+    public void setPadding(CornerRadius value) { this.padding = value; }
 
     /**
      * The inner padding (spacing) within each band step of band scales, as a fraction of the
@@ -241,9 +241,9 @@ public class Scale {
      * config](https://vega.github.io/vega-lite/docs/scale.html#config)'s `bandPaddingInner`.
      */
     @JsonProperty("paddingInner")
-    public CornerRadiusUnion getPaddingInner() { return paddingInner; }
+    public CornerRadius getPaddingInner() { return paddingInner; }
     @JsonProperty("paddingInner")
-    public void setPaddingInner(CornerRadiusUnion value) { this.paddingInner = value; }
+    public void setPaddingInner(CornerRadius value) { this.paddingInner = value; }
 
     /**
      * The outer padding (spacing) at the ends of the range of band and point scales, as a
@@ -255,9 +255,9 @@ public class Scale {
      * such that _width/height = number of unique values * step_.
      */
     @JsonProperty("paddingOuter")
-    public CornerRadiusUnion getPaddingOuter() { return paddingOuter; }
+    public CornerRadius getPaddingOuter() { return paddingOuter; }
     @JsonProperty("paddingOuter")
-    public void setPaddingOuter(CornerRadiusUnion value) { this.paddingOuter = value; }
+    public void setPaddingOuter(CornerRadius value) { this.paddingOuter = value; }
 
     /**
      * The range of the scale. One of:

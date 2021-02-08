@@ -9,11 +9,11 @@ import com.fasterxml.jackson.annotation.*;
  * documentation](https://vega.github.io/vega-lite/docs/scale.html#config).
  */
 public class ScaleConfig {
-    private CornerRadiusUnion bandPaddingInner;
-    private CornerRadiusUnion bandPaddingOuter;
-    private CornerRadiusUnion barBandPaddingInner;
+    private CornerRadius bandPaddingInner;
+    private CornerRadius bandPaddingOuter;
+    private CornerRadius barBandPaddingInner;
     private Aria clamp;
-    private CornerRadiusUnion continuousPadding;
+    private CornerRadius continuousPadding;
     private Double maxBandSize;
     private Double maxFontSize;
     private Double maxOpacity;
@@ -24,10 +24,10 @@ public class ScaleConfig {
     private Double minOpacity;
     private Double minSize;
     private Double minStrokeWidth;
-    private CornerRadiusUnion pointPadding;
+    private CornerRadius pointPadding;
     private Double quantileCount;
     private Double quantizeCount;
-    private CornerRadiusUnion rectBandPaddingInner;
+    private CornerRadius rectBandPaddingInner;
     private Aria round;
     private Boolean useUnaggregatedDomain;
     private Aria xReverse;
@@ -39,9 +39,9 @@ public class ScaleConfig {
      * `rectBandPaddingInner` for rect and other marks (`0` by default)
      */
     @JsonProperty("bandPaddingInner")
-    public CornerRadiusUnion getBandPaddingInner() { return bandPaddingInner; }
+    public CornerRadius getBandPaddingInner() { return bandPaddingInner; }
     @JsonProperty("bandPaddingInner")
-    public void setBandPaddingInner(CornerRadiusUnion value) { this.bandPaddingInner = value; }
+    public void setBandPaddingInner(CornerRadius value) { this.bandPaddingInner = value; }
 
     /**
      * Default outer padding for `x` and `y` band-ordinal scales.
@@ -50,9 +50,9 @@ public class ScaleConfig {
      * * step_)
      */
     @JsonProperty("bandPaddingOuter")
-    public CornerRadiusUnion getBandPaddingOuter() { return bandPaddingOuter; }
+    public CornerRadius getBandPaddingOuter() { return bandPaddingOuter; }
     @JsonProperty("bandPaddingOuter")
-    public void setBandPaddingOuter(CornerRadiusUnion value) { this.bandPaddingOuter = value; }
+    public void setBandPaddingOuter(CornerRadius value) { this.bandPaddingOuter = value; }
 
     /**
      * Default inner padding for `x` and `y` band-ordinal scales of `"bar"` marks.
@@ -60,9 +60,9 @@ public class ScaleConfig {
      * __Default value:__ `0.1`
      */
     @JsonProperty("barBandPaddingInner")
-    public CornerRadiusUnion getBarBandPaddingInner() { return barBandPaddingInner; }
+    public CornerRadius getBarBandPaddingInner() { return barBandPaddingInner; }
     @JsonProperty("barBandPaddingInner")
-    public void setBarBandPaddingInner(CornerRadiusUnion value) { this.barBandPaddingInner = value; }
+    public void setBarBandPaddingInner(CornerRadius value) { this.barBandPaddingInner = value; }
 
     /**
      * If true, values that exceed the data domain are clamped to either the minimum or maximum
@@ -80,9 +80,9 @@ public class ScaleConfig {
      * horizontal bar.; `0` otherwise.
      */
     @JsonProperty("continuousPadding")
-    public CornerRadiusUnion getContinuousPadding() { return continuousPadding; }
+    public CornerRadius getContinuousPadding() { return continuousPadding; }
     @JsonProperty("continuousPadding")
-    public void setContinuousPadding(CornerRadiusUnion value) { this.continuousPadding = value; }
+    public void setContinuousPadding(CornerRadius value) { this.continuousPadding = value; }
 
     /**
      * The default max value for mapping quantitative fields to bar's size/bandSize.
@@ -192,9 +192,9 @@ public class ScaleConfig {
      * __Default value:__ `0.5` (which makes _width/height = number of unique values * step_)
      */
     @JsonProperty("pointPadding")
-    public CornerRadiusUnion getPointPadding() { return pointPadding; }
+    public CornerRadius getPointPadding() { return pointPadding; }
     @JsonProperty("pointPadding")
-    public void setPointPadding(CornerRadiusUnion value) { this.pointPadding = value; }
+    public void setPointPadding(CornerRadius value) { this.pointPadding = value; }
 
     /**
      * Default range cardinality for
@@ -224,9 +224,9 @@ public class ScaleConfig {
      * __Default value:__ `0`
      */
     @JsonProperty("rectBandPaddingInner")
-    public CornerRadiusUnion getRectBandPaddingInner() { return rectBandPaddingInner; }
+    public CornerRadius getRectBandPaddingInner() { return rectBandPaddingInner; }
     @JsonProperty("rectBandPaddingInner")
-    public void setRectBandPaddingInner(CornerRadiusUnion value) { this.rectBandPaddingInner = value; }
+    public void setRectBandPaddingInner(CornerRadius value) { this.rectBandPaddingInner = value; }
 
     /**
      * If true, rounds numeric output values to integers. This can be helpful for snapping to

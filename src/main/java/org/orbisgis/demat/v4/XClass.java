@@ -1,6 +1,7 @@
 package org.orbisgis.demat.v4;
 
 import com.fasterxml.jackson.annotation.*;
+import org.orbisgis.demat.api.IEncodingProperty;
 
 /**
  * X coordinates of the marks, or width of horizontal `"bar"` and `"area"` without specified
@@ -18,7 +19,7 @@ import com.fasterxml.jackson.annotation.*;
  * Definition object for a constant value (primitive value or gradient definition) of an
  * encoding channel.
  */
-public class XClass {
+public class XClass implements IEncodingProperty {
     private Aggregate aggregate;
     private Axis axis;
     private Double band;
@@ -332,7 +333,7 @@ public class XClass {
 
 
 
-    public XClass quantitive() {
+    public XClass quantitative() {
         this.setType(Type.QUANTITATIVE);
         return this;
     }

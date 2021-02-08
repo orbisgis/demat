@@ -22,11 +22,11 @@ public class LayerElement {
     private String name;
     private Projection projection;
     private Resolve resolve;
-    private TitleUnion title;
+    private Title title;
     private List<Transform> transform;
     private ViewBackground view;
     private Height width;
-    private AnyMark mark;
+    private Mark mark;
     private Map<String, SelectionDef> selection;
 
     /**
@@ -126,9 +126,9 @@ public class LayerElement {
      * Title for the plot.
      */
     @JsonProperty("title")
-    public TitleUnion getTitle() { return title; }
+    public Title getTitle() { return title; }
     @JsonProperty("title")
-    public void setTitle(TitleUnion value) { this.title = value; }
+    public void setTitle(Title value) { this.title = value; }
 
     /**
      * An array of data transformations such as filter and new field calculation.
@@ -181,9 +181,9 @@ public class LayerElement {
      * definition object](https://vega.github.io/vega-lite/docs/mark.html#mark-def).
      */
     @JsonProperty("mark")
-    public AnyMark getMark() { return mark; }
+    public Mark getMark() { return mark; }
     @JsonProperty("mark")
-    public void setMark(AnyMark value) { this.mark = value; }
+    public void setMark(Mark value) { this.mark = value; }
 
     /**
      * A key-value mapping between selection names and definitions.

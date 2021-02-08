@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.*;
 
 public class Axis {
     private Aria aria;
-    private CornerRadiusUnion bandPosition;
-    private BackgroundUnion description;
+    private CornerRadius bandPosition;
+    private Background description;
     private Aria domain;
     private Cap domainCap;
-    private BackgroundUnion domainColor;
+    private Background domainColor;
     private StrokeDashUnion domainDash;
-    private CornerRadiusUnion domainDashOffset;
-    private CornerRadiusUnion domainOpacity;
-    private CornerRadiusUnion domainWidth;
+    private CornerRadius domainDashOffset;
+    private CornerRadius domainOpacity;
+    private CornerRadius domainWidth;
     private Format format;
     private String formatType;
     private Boolean grid;
@@ -29,24 +29,24 @@ public class Axis {
     private GridColorUnion labelColor;
     private String labelExpr;
     private LabelFlush labelFlush;
-    private CornerRadiusUnion labelFlushOffset;
+    private CornerRadius labelFlushOffset;
     private ConditionalAxisPropertyStringNull labelFont;
     private GridWidthUnion labelFontSize;
     private ConditionalAxisPropertyFontStyleNull labelFontStyle;
     private FontWeight labelFontWeight;
-    private CornerRadiusUnion labelLimit;
-    private CornerRadiusUnion labelLineHeight;
+    private CornerRadius labelLimit;
+    private CornerRadius labelLineHeight;
     private GridDashOffsetUnion labelOffset;
     private GridDashOffsetUnion labelOpacity;
     private LabelOverlap labelOverlap;
     private GridDashOffsetUnion labelPadding;
     private Aria labels;
-    private CornerRadiusUnion labelSeparation;
-    private CornerRadiusUnion maxExtent;
-    private CornerRadiusUnion minExtent;
+    private CornerRadius labelSeparation;
+    private CornerRadius maxExtent;
+    private CornerRadius minExtent;
     private Double offset;
     private TitleOrientUnion orient;
-    private CornerRadiusUnion position;
+    private CornerRadius position;
     private LegendText style;
     private TickBandUnion tickBand;
     private Cap tickCap;
@@ -55,8 +55,8 @@ public class Axis {
     private AxisTickDash tickDash;
     private GridDashOffsetUnion tickDashOffset;
     private Aria tickExtra;
-    private CornerRadiusUnion tickMinStep;
-    private CornerRadiusUnion tickOffset;
+    private CornerRadius tickMinStep;
+    private CornerRadius tickOffset;
     private GridDashOffsetUnion tickOpacity;
     private Aria tickRound;
     private Aria ticks;
@@ -65,20 +65,20 @@ public class Axis {
     private LegendText title;
     private TitleAlignUnion titleAlign;
     private TitleAnchorUnion titleAnchor;
-    private CornerRadiusUnion titleAngle;
-    private BackgroundUnion titleBaseline;
-    private BackgroundUnion titleColor;
-    private BackgroundUnion titleFont;
+    private CornerRadius titleAngle;
+    private Background titleBaseline;
+    private Background titleColor;
+    private Background titleFont;
     private FontSize titleFontSize;
-    private BackgroundUnion titleFontStyle;
+    private Background titleFontStyle;
     private FontWeightUnion titleFontWeight;
     private FontSize titleLimit;
-    private CornerRadiusUnion titleLineHeight;
-    private CornerRadiusUnion titleOpacity;
-    private CornerRadiusUnion titlePadding;
-    private CornerRadiusUnion titleX;
-    private CornerRadiusUnion titleY;
-    private CornerRadiusUnion translate;
+    private CornerRadius titleLineHeight;
+    private CornerRadius titleOpacity;
+    private CornerRadius titlePadding;
+    private CornerRadius titleX;
+    private CornerRadius titleY;
+    private CornerRadius translate;
     private Values values;
     private Double zindex;
 
@@ -88,14 +88,14 @@ public class Axis {
     public void setAria(Aria value) { this.aria = value; }
 
     @JsonProperty("bandPosition")
-    public CornerRadiusUnion getBandPosition() { return bandPosition; }
+    public CornerRadius getBandPosition() { return bandPosition; }
     @JsonProperty("bandPosition")
-    public void setBandPosition(CornerRadiusUnion value) { this.bandPosition = value; }
+    public void setBandPosition(CornerRadius value) { this.bandPosition = value; }
 
     @JsonProperty("description")
-    public BackgroundUnion getDescription() { return description; }
+    public Background getDescription() { return description; }
     @JsonProperty("description")
-    public void setDescription(BackgroundUnion value) { this.description = value; }
+    public void setDescription(Background value) { this.description = value; }
 
     @JsonProperty("domain")
     public Aria getDomain() { return domain; }
@@ -108,9 +108,9 @@ public class Axis {
     public void setDomainCap(Cap value) { this.domainCap = value; }
 
     @JsonProperty("domainColor")
-    public BackgroundUnion getDomainColor() { return domainColor; }
+    public Background getDomainColor() { return domainColor; }
     @JsonProperty("domainColor")
-    public void setDomainColor(BackgroundUnion value) { this.domainColor = value; }
+    public void setDomainColor(Background value) { this.domainColor = value; }
 
     @JsonProperty("domainDash")
     public StrokeDashUnion getDomainDash() { return domainDash; }
@@ -118,19 +118,19 @@ public class Axis {
     public void setDomainDash(StrokeDashUnion value) { this.domainDash = value; }
 
     @JsonProperty("domainDashOffset")
-    public CornerRadiusUnion getDomainDashOffset() { return domainDashOffset; }
+    public CornerRadius getDomainDashOffset() { return domainDashOffset; }
     @JsonProperty("domainDashOffset")
-    public void setDomainDashOffset(CornerRadiusUnion value) { this.domainDashOffset = value; }
+    public void setDomainDashOffset(CornerRadius value) { this.domainDashOffset = value; }
 
     @JsonProperty("domainOpacity")
-    public CornerRadiusUnion getDomainOpacity() { return domainOpacity; }
+    public CornerRadius getDomainOpacity() { return domainOpacity; }
     @JsonProperty("domainOpacity")
-    public void setDomainOpacity(CornerRadiusUnion value) { this.domainOpacity = value; }
+    public void setDomainOpacity(CornerRadius value) { this.domainOpacity = value; }
 
     @JsonProperty("domainWidth")
-    public CornerRadiusUnion getDomainWidth() { return domainWidth; }
+    public CornerRadius getDomainWidth() { return domainWidth; }
     @JsonProperty("domainWidth")
-    public void setDomainWidth(CornerRadiusUnion value) { this.domainWidth = value; }
+    public void setDomainWidth(CornerRadius value) { this.domainWidth = value; }
 
     /**
      * When used with the default `"number"` and `"time"` format type, the text formatting
@@ -267,9 +267,9 @@ public class Axis {
     public void setLabelFlush(LabelFlush value) { this.labelFlush = value; }
 
     @JsonProperty("labelFlushOffset")
-    public CornerRadiusUnion getLabelFlushOffset() { return labelFlushOffset; }
+    public CornerRadius getLabelFlushOffset() { return labelFlushOffset; }
     @JsonProperty("labelFlushOffset")
-    public void setLabelFlushOffset(CornerRadiusUnion value) { this.labelFlushOffset = value; }
+    public void setLabelFlushOffset(CornerRadius value) { this.labelFlushOffset = value; }
 
     @JsonProperty("labelFont")
     public ConditionalAxisPropertyStringNull getLabelFont() { return labelFont; }
@@ -292,14 +292,14 @@ public class Axis {
     public void setLabelFontWeight(FontWeight value) { this.labelFontWeight = value; }
 
     @JsonProperty("labelLimit")
-    public CornerRadiusUnion getLabelLimit() { return labelLimit; }
+    public CornerRadius getLabelLimit() { return labelLimit; }
     @JsonProperty("labelLimit")
-    public void setLabelLimit(CornerRadiusUnion value) { this.labelLimit = value; }
+    public void setLabelLimit(CornerRadius value) { this.labelLimit = value; }
 
     @JsonProperty("labelLineHeight")
-    public CornerRadiusUnion getLabelLineHeight() { return labelLineHeight; }
+    public CornerRadius getLabelLineHeight() { return labelLineHeight; }
     @JsonProperty("labelLineHeight")
-    public void setLabelLineHeight(CornerRadiusUnion value) { this.labelLineHeight = value; }
+    public void setLabelLineHeight(CornerRadius value) { this.labelLineHeight = value; }
 
     @JsonProperty("labelOffset")
     public GridDashOffsetUnion getLabelOffset() { return labelOffset; }
@@ -337,19 +337,19 @@ public class Axis {
     public void setLabels(Aria value) { this.labels = value; }
 
     @JsonProperty("labelSeparation")
-    public CornerRadiusUnion getLabelSeparation() { return labelSeparation; }
+    public CornerRadius getLabelSeparation() { return labelSeparation; }
     @JsonProperty("labelSeparation")
-    public void setLabelSeparation(CornerRadiusUnion value) { this.labelSeparation = value; }
+    public void setLabelSeparation(CornerRadius value) { this.labelSeparation = value; }
 
     @JsonProperty("maxExtent")
-    public CornerRadiusUnion getMaxExtent() { return maxExtent; }
+    public CornerRadius getMaxExtent() { return maxExtent; }
     @JsonProperty("maxExtent")
-    public void setMaxExtent(CornerRadiusUnion value) { this.maxExtent = value; }
+    public void setMaxExtent(CornerRadius value) { this.maxExtent = value; }
 
     @JsonProperty("minExtent")
-    public CornerRadiusUnion getMinExtent() { return minExtent; }
+    public CornerRadius getMinExtent() { return minExtent; }
     @JsonProperty("minExtent")
-    public void setMinExtent(CornerRadiusUnion value) { this.minExtent = value; }
+    public void setMinExtent(CornerRadius value) { this.minExtent = value; }
 
     /**
      * The offset, in pixels, by which to displace the axis from the edge of the enclosing group
@@ -384,9 +384,9 @@ public class Axis {
      * __Default value__: `0`
      */
     @JsonProperty("position")
-    public CornerRadiusUnion getPosition() { return position; }
+    public CornerRadius getPosition() { return position; }
     @JsonProperty("position")
-    public void setPosition(CornerRadiusUnion value) { this.position = value; }
+    public void setPosition(CornerRadius value) { this.position = value; }
 
     /**
      * A string or array of strings indicating the name of custom styles to apply to the axis. A
@@ -460,14 +460,14 @@ public class Axis {
      * enforce the minimum step value.
      */
     @JsonProperty("tickMinStep")
-    public CornerRadiusUnion getTickMinStep() { return tickMinStep; }
+    public CornerRadius getTickMinStep() { return tickMinStep; }
     @JsonProperty("tickMinStep")
-    public void setTickMinStep(CornerRadiusUnion value) { this.tickMinStep = value; }
+    public void setTickMinStep(CornerRadius value) { this.tickMinStep = value; }
 
     @JsonProperty("tickOffset")
-    public CornerRadiusUnion getTickOffset() { return tickOffset; }
+    public CornerRadius getTickOffset() { return tickOffset; }
     @JsonProperty("tickOffset")
-    public void setTickOffset(CornerRadiusUnion value) { this.tickOffset = value; }
+    public void setTickOffset(CornerRadius value) { this.tickOffset = value; }
 
     @JsonProperty("tickOpacity")
     public GridDashOffsetUnion getTickOpacity() { return tickOpacity; }
@@ -531,24 +531,24 @@ public class Axis {
     public void setTitleAnchor(TitleAnchorUnion value) { this.titleAnchor = value; }
 
     @JsonProperty("titleAngle")
-    public CornerRadiusUnion getTitleAngle() { return titleAngle; }
+    public CornerRadius getTitleAngle() { return titleAngle; }
     @JsonProperty("titleAngle")
-    public void setTitleAngle(CornerRadiusUnion value) { this.titleAngle = value; }
+    public void setTitleAngle(CornerRadius value) { this.titleAngle = value; }
 
     @JsonProperty("titleBaseline")
-    public BackgroundUnion getTitleBaseline() { return titleBaseline; }
+    public Background getTitleBaseline() { return titleBaseline; }
     @JsonProperty("titleBaseline")
-    public void setTitleBaseline(BackgroundUnion value) { this.titleBaseline = value; }
+    public void setTitleBaseline(Background value) { this.titleBaseline = value; }
 
     @JsonProperty("titleColor")
-    public BackgroundUnion getTitleColor() { return titleColor; }
+    public Background getTitleColor() { return titleColor; }
     @JsonProperty("titleColor")
-    public void setTitleColor(BackgroundUnion value) { this.titleColor = value; }
+    public void setTitleColor(Background value) { this.titleColor = value; }
 
     @JsonProperty("titleFont")
-    public BackgroundUnion getTitleFont() { return titleFont; }
+    public Background getTitleFont() { return titleFont; }
     @JsonProperty("titleFont")
-    public void setTitleFont(BackgroundUnion value) { this.titleFont = value; }
+    public void setTitleFont(Background value) { this.titleFont = value; }
 
     @JsonProperty("titleFontSize")
     public FontSize getTitleFontSize() { return titleFontSize; }
@@ -556,9 +556,9 @@ public class Axis {
     public void setTitleFontSize(FontSize value) { this.titleFontSize = value; }
 
     @JsonProperty("titleFontStyle")
-    public BackgroundUnion getTitleFontStyle() { return titleFontStyle; }
+    public Background getTitleFontStyle() { return titleFontStyle; }
     @JsonProperty("titleFontStyle")
-    public void setTitleFontStyle(BackgroundUnion value) { this.titleFontStyle = value; }
+    public void setTitleFontStyle(Background value) { this.titleFontStyle = value; }
 
     @JsonProperty("titleFontWeight")
     public FontWeightUnion getTitleFontWeight() { return titleFontWeight; }
@@ -571,34 +571,34 @@ public class Axis {
     public void setTitleLimit(FontSize value) { this.titleLimit = value; }
 
     @JsonProperty("titleLineHeight")
-    public CornerRadiusUnion getTitleLineHeight() { return titleLineHeight; }
+    public CornerRadius getTitleLineHeight() { return titleLineHeight; }
     @JsonProperty("titleLineHeight")
-    public void setTitleLineHeight(CornerRadiusUnion value) { this.titleLineHeight = value; }
+    public void setTitleLineHeight(CornerRadius value) { this.titleLineHeight = value; }
 
     @JsonProperty("titleOpacity")
-    public CornerRadiusUnion getTitleOpacity() { return titleOpacity; }
+    public CornerRadius getTitleOpacity() { return titleOpacity; }
     @JsonProperty("titleOpacity")
-    public void setTitleOpacity(CornerRadiusUnion value) { this.titleOpacity = value; }
+    public void setTitleOpacity(CornerRadius value) { this.titleOpacity = value; }
 
     @JsonProperty("titlePadding")
-    public CornerRadiusUnion getTitlePadding() { return titlePadding; }
+    public CornerRadius getTitlePadding() { return titlePadding; }
     @JsonProperty("titlePadding")
-    public void setTitlePadding(CornerRadiusUnion value) { this.titlePadding = value; }
+    public void setTitlePadding(CornerRadius value) { this.titlePadding = value; }
 
     @JsonProperty("titleX")
-    public CornerRadiusUnion getTitleX() { return titleX; }
+    public CornerRadius getTitleX() { return titleX; }
     @JsonProperty("titleX")
-    public void setTitleX(CornerRadiusUnion value) { this.titleX = value; }
+    public void setTitleX(CornerRadius value) { this.titleX = value; }
 
     @JsonProperty("titleY")
-    public CornerRadiusUnion getTitleY() { return titleY; }
+    public CornerRadius getTitleY() { return titleY; }
     @JsonProperty("titleY")
-    public void setTitleY(CornerRadiusUnion value) { this.titleY = value; }
+    public void setTitleY(CornerRadius value) { this.titleY = value; }
 
     @JsonProperty("translate")
-    public CornerRadiusUnion getTranslate() { return translate; }
+    public CornerRadius getTranslate() { return translate; }
     @JsonProperty("translate")
-    public void setTranslate(CornerRadiusUnion value) { this.translate = value; }
+    public void setTranslate(CornerRadius value) { this.translate = value; }
 
     /**
      * Explicitly set the visible axis tick values.

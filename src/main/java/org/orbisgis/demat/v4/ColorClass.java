@@ -1,6 +1,7 @@
 package org.orbisgis.demat.v4;
 
 import com.fasterxml.jackson.annotation.*;
+import org.orbisgis.demat.api.IEncodingProperty;
 
 /**
  * Color of the marks – either fill or stroke color based on  the `filled` property of mark
@@ -34,7 +35,7 @@ import com.fasterxml.jackson.annotation.*;
  *
  * A FieldDef with Condition<ValueDef> {    condition: {value: ...},    field: ...,    ... }
  */
-public class ColorClass {
+public class ColorClass implements IEncodingProperty {
     private Aggregate aggregate;
     private Double band;
     private AngleBin bin;
@@ -318,4 +319,19 @@ public class ColorClass {
     public Gradient getValue() { return value; }
     @JsonProperty("value")
     public void setValue(Gradient value) { this.value = value; }
+
+    public ColorClass quantitative() {
+        this.setType(Type.QUANTITATIVE);
+        return this;
+    }
+
+    public ColorClass nominal() {
+        this.setType(Type.NOMINAL);
+        return this;
+    }
+
+    public ColorClass ordinal() {
+        this.setType(Type.ORDINAL);
+        return this;
+    }
 }

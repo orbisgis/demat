@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class FluffyConditionalExprRef {
     private ConditionalValueDefNumberExprRefPredicateComposition test;
-    private BackgroundUnion value;
+    private Background value;
     private ConditionalValueDefNumberExprRefSelectionComposition selection;
     private Aggregate aggregate;
     private Double band;
@@ -32,9 +32,9 @@ public class FluffyConditionalExprRef {
      * between `0` to `1` for opacity).
      */
     @JsonProperty("value")
-    public BackgroundUnion getValue() { return value; }
+    public Background getValue() { return value; }
     @JsonProperty("value")
-    public void setValue(BackgroundUnion value) { this.value = value; }
+    public void setValue(Background value) { this.value = value; }
 
     /**
      * A [selection name](https://vega.github.io/vega-lite/docs/selection.html), or a series of

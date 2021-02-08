@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.*;
  */
 public class FacetEncodingFieldDef {
     private Aggregate aggregate;
-    private CoordinateAlign align;
+    private ViewAlign align;
     private Double band;
     private AngleBin bin;
     private Bounds bounds;
@@ -53,9 +53,9 @@ public class FacetEncodingFieldDef {
      * __Default value:__ `"all"`.
      */
     @JsonProperty("align")
-    public CoordinateAlign getAlign() { return align; }
+    public ViewAlign getAlign() { return align; }
     @JsonProperty("align")
-    public void setAlign(CoordinateAlign value) { this.align = value; }
+    public void setAlign(ViewAlign value) { this.align = value; }
 
     /**
      * For rect-based marks (`rect`, `bar`, and `image`), mark size relative to bandwidth of

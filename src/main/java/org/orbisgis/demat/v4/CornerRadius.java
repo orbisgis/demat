@@ -6,16 +6,16 @@ import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.*;
 
-@JsonDeserialize(using = CornerRadiusUnion.Deserializer.class)
-@JsonSerialize(using = CornerRadiusUnion.Serializer.class)
-public class CornerRadiusUnion {
+@JsonDeserialize(using = CornerRadius.Deserializer.class)
+@JsonSerialize(using = CornerRadius.Serializer.class)
+public class CornerRadius{
     public Double doubleValue;
     public BackgroundExprRef backgroundExprRefValue;
 
-    static class Deserializer extends JsonDeserializer<CornerRadiusUnion> {
+    static class Deserializer extends JsonDeserializer<CornerRadius> {
         @Override
-        public CornerRadiusUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            CornerRadiusUnion value = new CornerRadiusUnion();
+        public CornerRadius deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            CornerRadius value = new CornerRadius();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
                     break;
@@ -32,9 +32,9 @@ public class CornerRadiusUnion {
         }
     }
 
-    static class Serializer extends JsonSerializer<CornerRadiusUnion> {
+    static class Serializer extends JsonSerializer<CornerRadius> {
         @Override
-        public void serialize(CornerRadiusUnion obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(CornerRadius obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.doubleValue != null) {
                 jsonGenerator.writeObject(obj.doubleValue);
                 return;

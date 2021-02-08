@@ -8,11 +8,11 @@ public class Def {
     private MarkConfigExprOrSignalRefColor color;
     private Extent extent;
     private Box median;
-    private CornerRadiusUnion opacity;
+    private CornerRadius opacity;
     private Orientation orient;
     private Box outliers;
     private Box rule;
-    private CornerRadiusUnion size;
+    private CornerRadius size;
     private Box ticks;
     private String type;
     private Double thickness;
@@ -23,80 +23,80 @@ public class Def {
     private TitleAlignUnion align;
     private Angle angle;
     private Aria aria;
-    private BackgroundUnion ariaRole;
-    private BackgroundUnion ariaRoleDescription;
+    private Background ariaRole;
+    private Background ariaRoleDescription;
     private Aria aspect;
     private Double bandSize;
-    private BackgroundUnion baseline;
+    private Background baseline;
     private Double binSpacing;
     private BlendUnion blend;
     private Double continuousBandSize;
-    private CornerRadiusUnion cornerRadius;
-    private CornerRadiusUnion cornerRadiusBottomLeft;
-    private CornerRadiusUnion cornerRadiusBottomRight;
-    private CornerRadiusUnion cornerRadiusEnd;
-    private CornerRadiusUnion cornerRadiusTopLeft;
-    private CornerRadiusUnion cornerRadiusTopRight;
+    private CornerRadius cornerRadius;
+    private CornerRadius cornerRadiusBottomLeft;
+    private CornerRadius cornerRadiusBottomRight;
+    private CornerRadius cornerRadiusEnd;
+    private CornerRadius cornerRadiusTopLeft;
+    private CornerRadius cornerRadiusTopRight;
     private CursorUnion cursor;
-    private BackgroundUnion description;
+    private Background description;
     private Dir dir;
     private Double discreteBandSize;
-    private CornerRadiusUnion dx;
-    private CornerRadiusUnion dy;
-    private BackgroundUnion ellipsis;
-    private MarkConfigExprOrSignalRefFill fill;
+    private CornerRadius dx;
+    private CornerRadius dy;
+    private Background ellipsis;
+    private MarkFill fill;
     private Boolean filled;
     private Opacity fillOpacity;
-    private BackgroundUnion font;
+    private Background font;
     private FontSize fontSize;
-    private BackgroundUnion fontStyle;
+    private Background fontStyle;
     private FontWeightUnion fontWeight;
-    private CornerRadiusUnion height;
-    private BackgroundUnion href;
-    private CornerRadiusUnion innerRadius;
+    private CornerRadius height;
+    private Background href;
+    private CornerRadius innerRadius;
     private Invalid invalid;
-    private CornerRadiusUnion limit;
+    private CornerRadius limit;
     private Line line;
-    private BackgroundUnion lineBreak;
-    private CornerRadiusUnion lineHeight;
+    private Background lineBreak;
+    private CornerRadius lineHeight;
     private Boolean order;
-    private CornerRadiusUnion outerRadius;
-    private CornerRadiusUnion padAngle;
+    private CornerRadius outerRadius;
+    private CornerRadius padAngle;
     private Point point;
-    private CornerRadiusUnion radius;
-    private CornerRadiusUnion radius2;
-    private CornerRadiusUnion radius2Offset;
-    private CornerRadiusUnion radiusOffset;
-    private BackgroundUnion shape;
+    private CornerRadius radius;
+    private CornerRadius radius2;
+    private CornerRadius radius2Offset;
+    private CornerRadius radiusOffset;
+    private Background shape;
     private Aria smooth;
-    private MarkConfigExprOrSignalRefFill stroke;
+    private MarkStroke stroke;
     private Cap strokeCap;
     private StrokeDashUnion strokeDash;
-    private CornerRadiusUnion strokeDashOffset;
+    private CornerRadius strokeDashOffset;
     private StrokeJoinUnion strokeJoin;
-    private CornerRadiusUnion strokeMiterLimit;
-    private CornerRadiusUnion strokeOffset;
+    private CornerRadius strokeMiterLimit;
+    private CornerRadius strokeOffset;
     private Opacity strokeOpacity;
     private FontSize strokeWidth;
     private LegendText style;
     private ConditionalPredicateValueDefTextExprRefText text;
-    private CornerRadiusUnion theta;
-    private CornerRadiusUnion theta2;
-    private CornerRadiusUnion theta2Offset;
-    private CornerRadiusUnion thetaOffset;
+    private CornerRadius theta;
+    private CornerRadius theta2;
+    private CornerRadius theta2Offset;
+    private CornerRadius thetaOffset;
     private Double timeUnitBand;
     private Double timeUnitBandPosition;
     private MarkConfigExprOrSignalRefTooltip tooltip;
-    private BackgroundUnion url;
-    private CornerRadiusUnion width;
+    private Background url;
+    private CornerRadius width;
     private X x;
     private X x2;
-    private CornerRadiusUnion x2Offset;
-    private CornerRadiusUnion xOffset;
+    private CornerRadius x2Offset;
+    private CornerRadius xOffset;
     private X y;
     private X y2;
-    private CornerRadiusUnion y2Offset;
-    private CornerRadiusUnion yOffset;
+    private CornerRadius y2Offset;
+    private CornerRadius yOffset;
 
     @JsonProperty("box")
     public Box getBox() { return box; }
@@ -172,9 +172,9 @@ public class Def {
      * `square` marks or layered `bar` charts and `1` otherwise.
      */
     @JsonProperty("opacity")
-    public CornerRadiusUnion getOpacity() { return opacity; }
+    public CornerRadius getOpacity() { return opacity; }
     @JsonProperty("opacity")
-    public void setOpacity(CornerRadiusUnion value) { this.opacity = value; }
+    public void setOpacity(CornerRadius value) { this.opacity = value; }
 
     /**
      * Orientation of the box plot. This is normally automatically determined based on types of
@@ -227,9 +227,9 @@ public class Def {
      * `11` for text marks.
      */
     @JsonProperty("size")
-    public CornerRadiusUnion getSize() { return size; }
+    public CornerRadius getSize() { return size; }
     @JsonProperty("size")
-    public void setSize(CornerRadiusUnion value) { this.size = value; }
+    public void setSize(CornerRadius value) { this.size = value; }
 
     @JsonProperty("ticks")
     public Box getTicks() { return ticks; }
@@ -321,14 +321,14 @@ public class Def {
     public void setAria(Aria value) { this.aria = value; }
 
     @JsonProperty("ariaRole")
-    public BackgroundUnion getAriaRole() { return ariaRole; }
+    public Background getAriaRole() { return ariaRole; }
     @JsonProperty("ariaRole")
-    public void setAriaRole(BackgroundUnion value) { this.ariaRole = value; }
+    public void setAriaRole(Background value) { this.ariaRole = value; }
 
     @JsonProperty("ariaRoleDescription")
-    public BackgroundUnion getAriaRoleDescription() { return ariaRoleDescription; }
+    public Background getAriaRoleDescription() { return ariaRoleDescription; }
     @JsonProperty("ariaRoleDescription")
-    public void setAriaRoleDescription(BackgroundUnion value) { this.ariaRoleDescription = value; }
+    public void setAriaRoleDescription(Background value) { this.ariaRoleDescription = value; }
 
     @JsonProperty("aspect")
     public Aria getAspect() { return aspect; }
@@ -359,9 +359,9 @@ public class Def {
      * __Note:__ Expression reference is *not* supported for range marks.
      */
     @JsonProperty("baseline")
-    public BackgroundUnion getBaseline() { return baseline; }
+    public Background getBaseline() { return baseline; }
     @JsonProperty("baseline")
-    public void setBaseline(BackgroundUnion value) { this.baseline = value; }
+    public void setBaseline(Background value) { this.baseline = value; }
 
     /**
      * Offset between bars for binned field. The ideal value for this is either 0 (preferred by
@@ -390,38 +390,38 @@ public class Def {
     public void setContinuousBandSize(Double value) { this.continuousBandSize = value; }
 
     @JsonProperty("cornerRadius")
-    public CornerRadiusUnion getCornerRadius() { return cornerRadius; }
+    public CornerRadius getCornerRadius() { return cornerRadius; }
     @JsonProperty("cornerRadius")
-    public void setCornerRadius(CornerRadiusUnion value) { this.cornerRadius = value; }
+    public void setCornerRadius(CornerRadius value) { this.cornerRadius = value; }
 
     @JsonProperty("cornerRadiusBottomLeft")
-    public CornerRadiusUnion getCornerRadiusBottomLeft() { return cornerRadiusBottomLeft; }
+    public CornerRadius getCornerRadiusBottomLeft() { return cornerRadiusBottomLeft; }
     @JsonProperty("cornerRadiusBottomLeft")
-    public void setCornerRadiusBottomLeft(CornerRadiusUnion value) { this.cornerRadiusBottomLeft = value; }
+    public void setCornerRadiusBottomLeft(CornerRadius value) { this.cornerRadiusBottomLeft = value; }
 
     @JsonProperty("cornerRadiusBottomRight")
-    public CornerRadiusUnion getCornerRadiusBottomRight() { return cornerRadiusBottomRight; }
+    public CornerRadius getCornerRadiusBottomRight() { return cornerRadiusBottomRight; }
     @JsonProperty("cornerRadiusBottomRight")
-    public void setCornerRadiusBottomRight(CornerRadiusUnion value) { this.cornerRadiusBottomRight = value; }
+    public void setCornerRadiusBottomRight(CornerRadius value) { this.cornerRadiusBottomRight = value; }
 
     /**
      * - For vertical bars, top-left and top-right corner radius. - For horizontal bars,
      * top-right and bottom-right corner radius.
      */
     @JsonProperty("cornerRadiusEnd")
-    public CornerRadiusUnion getCornerRadiusEnd() { return cornerRadiusEnd; }
+    public CornerRadius getCornerRadiusEnd() { return cornerRadiusEnd; }
     @JsonProperty("cornerRadiusEnd")
-    public void setCornerRadiusEnd(CornerRadiusUnion value) { this.cornerRadiusEnd = value; }
+    public void setCornerRadiusEnd(CornerRadius value) { this.cornerRadiusEnd = value; }
 
     @JsonProperty("cornerRadiusTopLeft")
-    public CornerRadiusUnion getCornerRadiusTopLeft() { return cornerRadiusTopLeft; }
+    public CornerRadius getCornerRadiusTopLeft() { return cornerRadiusTopLeft; }
     @JsonProperty("cornerRadiusTopLeft")
-    public void setCornerRadiusTopLeft(CornerRadiusUnion value) { this.cornerRadiusTopLeft = value; }
+    public void setCornerRadiusTopLeft(CornerRadius value) { this.cornerRadiusTopLeft = value; }
 
     @JsonProperty("cornerRadiusTopRight")
-    public CornerRadiusUnion getCornerRadiusTopRight() { return cornerRadiusTopRight; }
+    public CornerRadius getCornerRadiusTopRight() { return cornerRadiusTopRight; }
     @JsonProperty("cornerRadiusTopRight")
-    public void setCornerRadiusTopRight(CornerRadiusUnion value) { this.cornerRadiusTopRight = value; }
+    public void setCornerRadiusTopRight(CornerRadius value) { this.cornerRadiusTopRight = value; }
 
     @JsonProperty("cursor")
     public CursorUnion getCursor() { return cursor; }
@@ -429,9 +429,9 @@ public class Def {
     public void setCursor(CursorUnion value) { this.cursor = value; }
 
     @JsonProperty("description")
-    public BackgroundUnion getDescription() { return description; }
+    public Background getDescription() { return description; }
     @JsonProperty("description")
-    public void setDescription(BackgroundUnion value) { this.description = value; }
+    public void setDescription(Background value) { this.description = value; }
 
     @JsonProperty("dir")
     public Dir getDir() { return dir; }
@@ -448,19 +448,19 @@ public class Def {
     public void setDiscreteBandSize(Double value) { this.discreteBandSize = value; }
 
     @JsonProperty("dx")
-    public CornerRadiusUnion getDx() { return dx; }
+    public CornerRadius getDx() { return dx; }
     @JsonProperty("dx")
-    public void setDx(CornerRadiusUnion value) { this.dx = value; }
+    public void setDx(CornerRadius value) { this.dx = value; }
 
     @JsonProperty("dy")
-    public CornerRadiusUnion getDy() { return dy; }
+    public CornerRadius getDy() { return dy; }
     @JsonProperty("dy")
-    public void setDy(CornerRadiusUnion value) { this.dy = value; }
+    public void setDy(CornerRadius value) { this.dy = value; }
 
     @JsonProperty("ellipsis")
-    public BackgroundUnion getEllipsis() { return ellipsis; }
+    public Background getEllipsis() { return ellipsis; }
     @JsonProperty("ellipsis")
-    public void setEllipsis(BackgroundUnion value) { this.ellipsis = value; }
+    public void setEllipsis(Background value) { this.ellipsis = value; }
 
     /**
      * Default fill color. This property has higher precedence than `config.color`. Set to
@@ -469,9 +469,9 @@ public class Def {
      * __Default value:__ (None)
      */
     @JsonProperty("fill")
-    public MarkConfigExprOrSignalRefFill getFill() { return fill; }
+    public MarkFill getFill() { return fill; }
     @JsonProperty("fill")
-    public void setFill(MarkConfigExprOrSignalRefFill value) { this.fill = value; }
+    public void setFill(MarkFill value) { this.fill = value; }
 
     /**
      * Whether the mark's color should be used as fill color instead of stroke color.
@@ -495,9 +495,9 @@ public class Def {
     public void setFillOpacity(Opacity value) { this.fillOpacity = value; }
 
     @JsonProperty("font")
-    public BackgroundUnion getFont() { return font; }
+    public Background getFont() { return font; }
     @JsonProperty("font")
-    public void setFont(BackgroundUnion value) { this.font = value; }
+    public void setFont(Background value) { this.font = value; }
 
     @JsonProperty("fontSize")
     public FontSize getFontSize() { return fontSize; }
@@ -505,9 +505,9 @@ public class Def {
     public void setFontSize(FontSize value) { this.fontSize = value; }
 
     @JsonProperty("fontStyle")
-    public BackgroundUnion getFontStyle() { return fontStyle; }
+    public Background getFontStyle() { return fontStyle; }
     @JsonProperty("fontStyle")
-    public void setFontStyle(BackgroundUnion value) { this.fontStyle = value; }
+    public void setFontStyle(Background value) { this.fontStyle = value; }
 
     @JsonProperty("fontWeight")
     public FontWeightUnion getFontWeight() { return fontWeight; }
@@ -515,22 +515,22 @@ public class Def {
     public void setFontWeight(FontWeightUnion value) { this.fontWeight = value; }
 
     @JsonProperty("height")
-    public CornerRadiusUnion getHeight() { return height; }
+    public CornerRadius getHeight() { return height; }
     @JsonProperty("height")
-    public void setHeight(CornerRadiusUnion value) { this.height = value; }
+    public void setHeight(CornerRadius value) { this.height = value; }
 
     @JsonProperty("href")
-    public BackgroundUnion getHref() { return href; }
+    public Background getHref() { return href; }
     @JsonProperty("href")
-    public void setHref(BackgroundUnion value) { this.href = value; }
+    public void setHref(Background value) { this.href = value; }
 
     /**
      * The inner radius in pixels of arc marks. `innerRadius` is an alias for `radius2`.
      */
     @JsonProperty("innerRadius")
-    public CornerRadiusUnion getInnerRadius() { return innerRadius; }
+    public CornerRadius getInnerRadius() { return innerRadius; }
     @JsonProperty("innerRadius")
-    public void setInnerRadius(CornerRadiusUnion value) { this.innerRadius = value; }
+    public void setInnerRadius(CornerRadius value) { this.innerRadius = value; }
 
     /**
      * Defines how Vega-Lite should handle marks for invalid values (`null` and `NaN`). - If set
@@ -544,9 +544,9 @@ public class Def {
     public void setInvalid(Invalid value) { this.invalid = value; }
 
     @JsonProperty("limit")
-    public CornerRadiusUnion getLimit() { return limit; }
+    public CornerRadius getLimit() { return limit; }
     @JsonProperty("limit")
-    public void setLimit(CornerRadiusUnion value) { this.limit = value; }
+    public void setLimit(CornerRadius value) { this.limit = value; }
 
     /**
      * A flag for overlaying line on top of area marks, or an object defining the properties of
@@ -565,14 +565,14 @@ public class Def {
     public void setLine(Line value) { this.line = value; }
 
     @JsonProperty("lineBreak")
-    public BackgroundUnion getLineBreak() { return lineBreak; }
+    public Background getLineBreak() { return lineBreak; }
     @JsonProperty("lineBreak")
-    public void setLineBreak(BackgroundUnion value) { this.lineBreak = value; }
+    public void setLineBreak(Background value) { this.lineBreak = value; }
 
     @JsonProperty("lineHeight")
-    public CornerRadiusUnion getLineHeight() { return lineHeight; }
+    public CornerRadius getLineHeight() { return lineHeight; }
     @JsonProperty("lineHeight")
-    public void setLineHeight(CornerRadiusUnion value) { this.lineHeight = value; }
+    public void setLineHeight(CornerRadius value) { this.lineHeight = value; }
 
     /**
      * For line and trail marks, this `order` property can be set to `null` or `false` to make
@@ -587,14 +587,14 @@ public class Def {
      * The outer radius in pixels of arc marks. `outerRadius` is an alias for `radius`.
      */
     @JsonProperty("outerRadius")
-    public CornerRadiusUnion getOuterRadius() { return outerRadius; }
+    public CornerRadius getOuterRadius() { return outerRadius; }
     @JsonProperty("outerRadius")
-    public void setOuterRadius(CornerRadiusUnion value) { this.outerRadius = value; }
+    public void setOuterRadius(CornerRadius value) { this.outerRadius = value; }
 
     @JsonProperty("padAngle")
-    public CornerRadiusUnion getPadAngle() { return padAngle; }
+    public CornerRadius getPadAngle() { return padAngle; }
     @JsonProperty("padAngle")
-    public void setPadAngle(CornerRadiusUnion value) { this.padAngle = value; }
+    public void setPadAngle(CornerRadius value) { this.padAngle = value; }
 
     /**
      * A flag for overlaying points on top of line or area marks, or an object defining the
@@ -623,38 +623,38 @@ public class Def {
      * determined by the `x` and `y` properties.
      */
     @JsonProperty("radius")
-    public CornerRadiusUnion getRadius() { return radius; }
+    public CornerRadius getRadius() { return radius; }
     @JsonProperty("radius")
-    public void setRadius(CornerRadiusUnion value) { this.radius = value; }
+    public void setRadius(CornerRadius value) { this.radius = value; }
 
     /**
      * The secondary (inner) radius in pixels of arc marks.
      */
     @JsonProperty("radius2")
-    public CornerRadiusUnion getRadius2() { return radius2; }
+    public CornerRadius getRadius2() { return radius2; }
     @JsonProperty("radius2")
-    public void setRadius2(CornerRadiusUnion value) { this.radius2 = value; }
+    public void setRadius2(CornerRadius value) { this.radius2 = value; }
 
     /**
      * Offset for radius2.
      */
     @JsonProperty("radius2Offset")
-    public CornerRadiusUnion getRadius2Offset() { return radius2Offset; }
+    public CornerRadius getRadius2Offset() { return radius2Offset; }
     @JsonProperty("radius2Offset")
-    public void setRadius2Offset(CornerRadiusUnion value) { this.radius2Offset = value; }
+    public void setRadius2Offset(CornerRadius value) { this.radius2Offset = value; }
 
     /**
      * Offset for radius.
      */
     @JsonProperty("radiusOffset")
-    public CornerRadiusUnion getRadiusOffset() { return radiusOffset; }
+    public CornerRadius getRadiusOffset() { return radiusOffset; }
     @JsonProperty("radiusOffset")
-    public void setRadiusOffset(CornerRadiusUnion value) { this.radiusOffset = value; }
+    public void setRadiusOffset(CornerRadius value) { this.radiusOffset = value; }
 
     @JsonProperty("shape")
-    public BackgroundUnion getShape() { return shape; }
+    public Background getShape() { return shape; }
     @JsonProperty("shape")
-    public void setShape(BackgroundUnion value) { this.shape = value; }
+    public void setShape(Background value) { this.shape = value; }
 
     @JsonProperty("smooth")
     public Aria getSmooth() { return smooth; }
@@ -668,9 +668,9 @@ public class Def {
      * __Default value:__ (None)
      */
     @JsonProperty("stroke")
-    public MarkConfigExprOrSignalRefFill getStroke() { return stroke; }
+    public MarkStroke getStroke() { return stroke; }
     @JsonProperty("stroke")
-    public void setStroke(MarkConfigExprOrSignalRefFill value) { this.stroke = value; }
+    public void setStroke(MarkStroke value) { this.stroke = value; }
 
     @JsonProperty("strokeCap")
     public Cap getStrokeCap() { return strokeCap; }
@@ -683,9 +683,9 @@ public class Def {
     public void setStrokeDash(StrokeDashUnion value) { this.strokeDash = value; }
 
     @JsonProperty("strokeDashOffset")
-    public CornerRadiusUnion getStrokeDashOffset() { return strokeDashOffset; }
+    public CornerRadius getStrokeDashOffset() { return strokeDashOffset; }
     @JsonProperty("strokeDashOffset")
-    public void setStrokeDashOffset(CornerRadiusUnion value) { this.strokeDashOffset = value; }
+    public void setStrokeDashOffset(CornerRadius value) { this.strokeDashOffset = value; }
 
     @JsonProperty("strokeJoin")
     public StrokeJoinUnion getStrokeJoin() { return strokeJoin; }
@@ -693,14 +693,14 @@ public class Def {
     public void setStrokeJoin(StrokeJoinUnion value) { this.strokeJoin = value; }
 
     @JsonProperty("strokeMiterLimit")
-    public CornerRadiusUnion getStrokeMiterLimit() { return strokeMiterLimit; }
+    public CornerRadius getStrokeMiterLimit() { return strokeMiterLimit; }
     @JsonProperty("strokeMiterLimit")
-    public void setStrokeMiterLimit(CornerRadiusUnion value) { this.strokeMiterLimit = value; }
+    public void setStrokeMiterLimit(CornerRadius value) { this.strokeMiterLimit = value; }
 
     @JsonProperty("strokeOffset")
-    public CornerRadiusUnion getStrokeOffset() { return strokeOffset; }
+    public CornerRadius getStrokeOffset() { return strokeOffset; }
     @JsonProperty("strokeOffset")
-    public void setStrokeOffset(CornerRadiusUnion value) { this.strokeOffset = value; }
+    public void setStrokeOffset(CornerRadius value) { this.strokeOffset = value; }
 
     @JsonProperty("strokeOpacity")
     public Opacity getStrokeOpacity() { return strokeOpacity; }
@@ -743,34 +743,34 @@ public class Def {
      * - For text marks, polar coordinate angle in radians.
      */
     @JsonProperty("theta")
-    public CornerRadiusUnion getTheta() { return theta; }
+    public CornerRadius getTheta() { return theta; }
     @JsonProperty("theta")
-    public void setTheta(CornerRadiusUnion value) { this.theta = value; }
+    public void setTheta(CornerRadius value) { this.theta = value; }
 
     /**
      * The end angle of arc marks in radians. A value of 0 indicates up or “north”, increasing
      * values proceed clockwise.
      */
     @JsonProperty("theta2")
-    public CornerRadiusUnion getTheta2() { return theta2; }
+    public CornerRadius getTheta2() { return theta2; }
     @JsonProperty("theta2")
-    public void setTheta2(CornerRadiusUnion value) { this.theta2 = value; }
+    public void setTheta2(CornerRadius value) { this.theta2 = value; }
 
     /**
      * Offset for theta2.
      */
     @JsonProperty("theta2Offset")
-    public CornerRadiusUnion getTheta2Offset() { return theta2Offset; }
+    public CornerRadius getTheta2Offset() { return theta2Offset; }
     @JsonProperty("theta2Offset")
-    public void setTheta2Offset(CornerRadiusUnion value) { this.theta2Offset = value; }
+    public void setTheta2Offset(CornerRadius value) { this.theta2Offset = value; }
 
     /**
      * Offset for theta.
      */
     @JsonProperty("thetaOffset")
-    public CornerRadiusUnion getThetaOffset() { return thetaOffset; }
+    public CornerRadius getThetaOffset() { return thetaOffset; }
     @JsonProperty("thetaOffset")
-    public void setThetaOffset(CornerRadiusUnion value) { this.thetaOffset = value; }
+    public void setThetaOffset(CornerRadius value) { this.thetaOffset = value; }
 
     /**
      * Default relative band size for a time unit. If set to `1`, the bandwidth of the marks
@@ -812,14 +812,14 @@ public class Def {
     public void setTooltip(MarkConfigExprOrSignalRefTooltip value) { this.tooltip = value; }
 
     @JsonProperty("url")
-    public BackgroundUnion getURL() { return url; }
+    public Background getURL() { return url; }
     @JsonProperty("url")
-    public void setURL(BackgroundUnion value) { this.url = value; }
+    public void setURL(Background value) { this.url = value; }
 
     @JsonProperty("width")
-    public CornerRadiusUnion getWidth() { return width; }
+    public CornerRadius getWidth() { return width; }
     @JsonProperty("width")
-    public void setWidth(CornerRadiusUnion value) { this.width = value; }
+    public void setWidth(CornerRadius value) { this.width = value; }
 
     /**
      * X coordinates of the marks, or width of horizontal `"bar"` and `"area"` without specified
@@ -848,17 +848,17 @@ public class Def {
      * Offset for x2-position.
      */
     @JsonProperty("x2Offset")
-    public CornerRadiusUnion getX2Offset() { return x2Offset; }
+    public CornerRadius getX2Offset() { return x2Offset; }
     @JsonProperty("x2Offset")
-    public void setX2Offset(CornerRadiusUnion value) { this.x2Offset = value; }
+    public void setX2Offset(CornerRadius value) { this.x2Offset = value; }
 
     /**
      * Offset for x-position.
      */
     @JsonProperty("xOffset")
-    public CornerRadiusUnion getXOffset() { return xOffset; }
+    public CornerRadius getXOffset() { return xOffset; }
     @JsonProperty("xOffset")
-    public void setXOffset(CornerRadiusUnion value) { this.xOffset = value; }
+    public void setXOffset(CornerRadius value) { this.xOffset = value; }
 
     /**
      * Y coordinates of the marks, or height of vertical `"bar"` and `"area"` without specified
@@ -887,15 +887,15 @@ public class Def {
      * Offset for y2-position.
      */
     @JsonProperty("y2Offset")
-    public CornerRadiusUnion getY2Offset() { return y2Offset; }
+    public CornerRadius getY2Offset() { return y2Offset; }
     @JsonProperty("y2Offset")
-    public void setY2Offset(CornerRadiusUnion value) { this.y2Offset = value; }
+    public void setY2Offset(CornerRadius value) { this.y2Offset = value; }
 
     /**
      * Offset for y-position.
      */
     @JsonProperty("yOffset")
-    public CornerRadiusUnion getYOffset() { return yOffset; }
+    public CornerRadius getYOffset() { return yOffset; }
     @JsonProperty("yOffset")
-    public void setYOffset(CornerRadiusUnion value) { this.yOffset = value; }
+    public void setYOffset(CornerRadius value) { this.yOffset = value; }
 }

@@ -1,18 +1,31 @@
-package org.orbisgis.demat.v4;
+package org.orbisgis.demat;
 
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.orbisgis.demat.api.IEncodingProperty;
+import org.orbisgis.demat.v4.*;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import static j2html.TagCreator.*;
+import static j2html.TagCreator.rawHtml;
 
 /**
  * A Vega-Lite top-level specification. This is the root class for all Vega-Lite
  * specifications. (The json schema is generated from this type.)
  */
-public class Coordinate {
+public class View {
     private String schema;
-    private CoordinateAlign align;
+    private ViewAlign align;
     private Autosize autosize;
-    private BackgroundUnion background;
+    private Background background;
     private Bounds bounds;
     private Center center;
     private Config config;
@@ -21,7 +34,7 @@ public class Coordinate {
     private String description;
     private Encoding encoding;
     private Height height;
-    private AnyMark mark;
+    private Mark mark;
     private String name;
     private Padding padding;
     private List<Parameter> params;
@@ -29,16 +42,16 @@ public class Coordinate {
     private Resolve resolve;
     private Map<String, SelectionDef> selection;
     private Spacing spacing;
-    private TitleUnion title;
+    private Title title;
     private List<Transform> transform;
     private Map<String, Object> usermeta;
     private ViewBackground view;
     private Height width;
     private Double columns;
     private Facet facet;
-    private CoordinateSpec spec;
+    private ViewSpec spec;
     private List<LayerElement> layer;
-    private RepeatUnion repeat;
+    private Repeat repeat;
     private List<NormalizedSpec> concat;
     private List<NormalizedSpec> vconcat;
     private List<NormalizedSpec> hconcat;
@@ -70,9 +83,9 @@ public class Coordinate {
      * __Default value:__ `"all"`.
      */
     @JsonProperty("align")
-    public CoordinateAlign getAlign() { return align; }
+    public ViewAlign getAlign() { return align; }
     @JsonProperty("align")
-    public void setAlign(CoordinateAlign value) { this.align = value; }
+    public void setAlign(ViewAlign value) { this.align = value; }
 
     /**
      * How the visualization size should be determined. If a string, should be one of `"pad"`,
@@ -92,9 +105,9 @@ public class Coordinate {
      * __Default value:__ `"white"`
      */
     @JsonProperty("background")
-    public BackgroundUnion getBackground() { return background; }
+    public Background getBackground() { return background; }
     @JsonProperty("background")
-    public void setBackground(BackgroundUnion value) { this.background = value; }
+    public void setBackground(Background value) { this.background = value; }
 
     /**
      * The bounds calculation method to use for determining the extent of a sub-plot. One of
@@ -207,9 +220,9 @@ public class Coordinate {
      * definition object](https://vega.github.io/vega-lite/docs/mark.html#mark-def).
      */
     @JsonProperty("mark")
-    public AnyMark getMark() { return mark; }
+    public Mark getMark() { return mark; }
     @JsonProperty("mark")
-    public void setMark(AnyMark value) { this.mark = value; }
+    public void setMark(Mark value) { this.mark = value; }
 
     /**
      * Name of the visualization for later reference.
@@ -290,9 +303,9 @@ public class Coordinate {
      * Title for the plot.
      */
     @JsonProperty("title")
-    public TitleUnion getTitle() { return title; }
+    public Title getTitle() { return title; }
     @JsonProperty("title")
-    public void setTitle(TitleUnion value) { this.title = value; }
+    public void setTitle(Title value) { this.title = value; }
 
     /**
      * An array of data transformations such as filter and new field calculation.
@@ -382,9 +395,9 @@ public class Coordinate {
      * A specification of the view that gets repeated.
      */
     @JsonProperty("spec")
-    public CoordinateSpec getSpec() { return spec; }
+    public ViewSpec getSpec() { return spec; }
     @JsonProperty("spec")
-    public void setSpec(CoordinateSpec value) { this.spec = value; }
+    public void setSpec(ViewSpec value) { this.spec = value; }
 
     /**
      * Layer or single view specifications to be layered.
@@ -408,9 +421,9 @@ public class Coordinate {
      * and `{"repeat": "column"}` can be used to refer to the repeated field respectively.
      */
     @JsonProperty("repeat")
-    public RepeatUnion getRepeat() { return repeat; }
+    public Repeat getRepeat() { return repeat; }
     @JsonProperty("repeat")
-    public void setRepeat(RepeatUnion value) { this.repeat = value; }
+    public void setRepeat(Repeat value) { this.repeat = value; }
 
     /**
      * A list of views to be concatenated.
@@ -435,4 +448,167 @@ public class Coordinate {
     public List<NormalizedSpec> getHconcat() { return hconcat; }
     @JsonProperty("hconcat")
     public void setHconcat(List<NormalizedSpec> value) { this.hconcat = value; }
+
+
+    public View description(String description) {
+        this.description=description;
+        return this;
+    }
+
+    public View name(String name) {
+        this.name=name;
+        return this;
+    }
+
+    public View data(Object[][] values) {
+        this.setData(ViewUtils.urlData(values));
+        return this;
+    }
+
+    public View data(List<Map> values) {
+        this.setData(ViewUtils.urlData(values));
+        return this;
+    }
+
+    public View data(LinkedHashMap values) {
+        this.setData(ViewUtils.urlData(values));
+        return this;
+    }
+
+    public View mark_geoshape() {
+        Mark mark = new Mark();
+        mark.stringValue = "geoshape";
+        this.mark= mark;
+        return this;
+    }
+
+    public View mark_bar() {
+        Mark mark = new Mark();
+        mark.stringValue = "bar";
+        this.mark= mark;
+        return this;
+    }
+
+    public View height(double height){
+        Height height_ = new Height();
+        height_.doubleValue=height;
+        this.height= height_;
+        return this;
+    }
+
+    public View width(double width){
+        Height height_ = new Height();
+        height_.doubleValue=width;
+        this.width= height_;
+        return this;
+    }
+
+    public View encoding(IEncodingProperty... properties) {
+        Encoding encoding = new Encoding();
+        for (IEncodingProperty property:properties){
+            if(property  instanceof XClass){
+                encoding.setX((XClass) property);
+            }
+            else if(property  instanceof YClass){
+                encoding.setY((YClass) property);
+            }
+            else if(property  instanceof ColorClass){
+                encoding.setColor((ColorClass) property);
+            }
+        }
+        this.setEncoding(encoding);
+         return this;
+    }
+
+    public String toJson() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        return objectMapper.writeValueAsString(this);
+    }
+
+    /**
+     * Save into an html file
+     * @param path
+     * @return
+     */
+    public String save(String path) throws IOException {
+        return save(path, false);
+    }
+
+    /**
+     * Save into an html file
+     * @param path
+     * @param delete
+     * @return
+     */
+    public String save(String path, boolean delete) throws IOException {
+        if(path==null || path.isEmpty()){
+            return null;
+        }
+        File outputFile = new File(path);
+        if(outputFile.exists() ){
+            if(delete){
+                outputFile.delete();
+            }
+            else{
+                return null;
+            }
+        }
+        StringBuilder json =  new StringBuilder("var spec =\n");
+        json.append(toJson()).append(";\n var opt = {\"renderer\": \"canvas\", \"actions\": true};\n" +
+                " vegaEmbed(\"#vis\", spec, opt);");
+        FileWriter fileWriter = new FileWriter(outputFile);
+        html(
+                head(
+                        meta().withCharset("UTF-8"),
+                        script().withSrc("https://cdn.jsdelivr.net/npm/vega@5.17.0"),
+                        script().withSrc("https://cdn.jsdelivr.net/npm/vega-lite@4.17.0"),
+                        script().withSrc("https://cdn.jsdelivr.net/npm/vega-embed@6.12.2")
+                ),
+                body (
+                        div().withId("vis"),
+                        script(rawHtml(json.toString()))
+
+                )
+        ).render(fileWriter);
+        fileWriter.close();
+        return outputFile.getAbsolutePath();
+    }
+
+    public View mark(Mark mark){
+        this.mark= mark;
+        return this;
+    }
+
+    public View hconcat(View... views) {
+        ArrayList<NormalizedSpec> hconcat_ = new ArrayList<>();;
+        for(View view :views){
+            NormalizedSpec normalizedSpec = new NormalizedSpec();
+            normalizedSpec.setAlign(view.getAlign());
+            normalizedSpec.setBounds(view.getBounds());
+            normalizedSpec.setCenter(view.getCenter());
+            normalizedSpec.setColumns(view.getColumns());
+            normalizedSpec.setData(view.getData());
+            normalizedSpec.setDescription(view.getDescription());
+            normalizedSpec.setEncoding(view.getEncoding());
+            normalizedSpec.setConcat(view.getConcat());
+            normalizedSpec.setFacet(view.getFacet());
+            normalizedSpec.setMark(view.getMark());
+            normalizedSpec.setHeight(view.getHeight());
+            normalizedSpec.setWidth(view.getWidth());
+            normalizedSpec.setName(view.getName());
+            normalizedSpec.setRepeat(view.getRepeat());
+            hconcat_.add(normalizedSpec);
+
+        }
+        this.hconcat=hconcat_;
+        return this;
+    }
+
+    public View projection(ProjectionType projectionType) {
+        Projection projection = new Projection();
+        projection.setType(projectionType);
+        this.projection=projection;
+        return this;
+    }
 }

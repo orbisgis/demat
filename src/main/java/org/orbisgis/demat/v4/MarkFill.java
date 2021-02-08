@@ -6,16 +6,16 @@ import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.*;
 
-@JsonDeserialize(using = MarkConfigExprOrSignalRefFill.Deserializer.class)
-@JsonSerialize(using = MarkConfigExprOrSignalRefFill.Serializer.class)
-public class MarkConfigExprOrSignalRefFill {
+@JsonDeserialize(using = MarkFill.Deserializer.class)
+@JsonSerialize(using = MarkFill.Serializer.class)
+public class MarkFill {
     public FluffyLinearGradient fluffyLinearGradientValue;
     public String stringValue;
 
-    static class Deserializer extends JsonDeserializer<MarkConfigExprOrSignalRefFill> {
+    static class Deserializer extends JsonDeserializer<MarkFill> {
         @Override
-        public MarkConfigExprOrSignalRefFill deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            MarkConfigExprOrSignalRefFill value = new MarkConfigExprOrSignalRefFill();
+        public MarkFill deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            MarkFill value = new MarkFill();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
                     break;
@@ -32,9 +32,9 @@ public class MarkConfigExprOrSignalRefFill {
         }
     }
 
-    static class Serializer extends JsonSerializer<MarkConfigExprOrSignalRefFill> {
+    static class Serializer extends JsonSerializer<MarkFill> {
         @Override
-        public void serialize(MarkConfigExprOrSignalRefFill obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(MarkFill obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.fluffyLinearGradientValue != null) {
                 jsonGenerator.writeObject(obj.fluffyLinearGradientValue);
                 return;

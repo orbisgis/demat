@@ -24,26 +24,26 @@ import java.util.Map;
  * Base interface for a horizontal concatenation specification.
  */
 public class NormalizedSpec {
-    private CoordinateAlign align;
+    private ViewAlign align;
     private Bounds bounds;
     private Center center;
     private URLData data;
     private String description;
     private Encoding encoding;
     private Height height;
-    private AnyMark mark;
+    private Mark mark;
     private String name;
     private Projection projection;
     private Resolve resolve;
     private Map<String, SelectionDef> selection;
     private Spacing spacing;
-    private TitleUnion title;
+    private Title title;
     private List<Transform> transform;
     private ViewBackground view;
     private Height width;
     private List<LayerElement> layer;
     private Double columns;
-    private RepeatUnion repeat;
+    private Repeat repeat;
     private NormalizedSpecSpec spec;
     private Facet facet;
     private List<NormalizedSpec> concat;
@@ -66,9 +66,9 @@ public class NormalizedSpec {
      * __Default value:__ `"all"`.
      */
     @JsonProperty("align")
-    public CoordinateAlign getAlign() { return align; }
+    public ViewAlign getAlign() { return align; }
     @JsonProperty("align")
-    public void setAlign(CoordinateAlign value) { this.align = value; }
+    public void setAlign(ViewAlign value) { this.align = value; }
 
     /**
      * The bounds calculation method to use for determining the extent of a sub-plot. One of
@@ -162,9 +162,9 @@ public class NormalizedSpec {
      * definition object](https://vega.github.io/vega-lite/docs/mark.html#mark-def).
      */
     @JsonProperty("mark")
-    public AnyMark getMark() { return mark; }
+    public Mark getMark() { return mark; }
     @JsonProperty("mark")
-    public void setMark(AnyMark value) { this.mark = value; }
+    public void setMark(Mark value) { this.mark = value; }
 
     /**
      * Name of the visualization for later reference.
@@ -224,9 +224,9 @@ public class NormalizedSpec {
      * Title for the plot.
      */
     @JsonProperty("title")
-    public TitleUnion getTitle() { return title; }
+    public Title getTitle() { return title; }
     @JsonProperty("title")
-    public void setTitle(TitleUnion value) { this.title = value; }
+    public void setTitle(Title value) { this.title = value; }
 
     /**
      * An array of data transformations such as filter and new field calculation.
@@ -312,9 +312,9 @@ public class NormalizedSpec {
      * and `{"repeat": "column"}` can be used to refer to the repeated field respectively.
      */
     @JsonProperty("repeat")
-    public RepeatUnion getRepeat() { return repeat; }
+    public Repeat getRepeat() { return repeat; }
     @JsonProperty("repeat")
-    public void setRepeat(RepeatUnion value) { this.repeat = value; }
+    public void setRepeat(Repeat value) { this.repeat = value; }
 
     /**
      * A specification of the view that gets repeated.

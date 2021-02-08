@@ -38,16 +38,16 @@ import com.fasterxml.jackson.databind.annotation.*;
  *
  * __Default value:__ `"middle"`
  */
-@JsonDeserialize(using = BackgroundUnion.Deserializer.class)
-@JsonSerialize(using = BackgroundUnion.Serializer.class)
-public class BackgroundUnion {
+@JsonDeserialize(using = Background.Deserializer.class)
+@JsonSerialize(using = Background.Serializer.class)
+public class Background {
     public BackgroundExprRef backgroundExprRefValue;
     public String stringValue;
 
-    static class Deserializer extends JsonDeserializer<BackgroundUnion> {
+    static class Deserializer extends JsonDeserializer<Background> {
         @Override
-        public BackgroundUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            BackgroundUnion value = new BackgroundUnion();
+        public Background deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            Background value = new Background();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
                     break;
@@ -64,9 +64,9 @@ public class BackgroundUnion {
         }
     }
 
-    static class Serializer extends JsonSerializer<BackgroundUnion> {
+    static class Serializer extends JsonSerializer<Background> {
         @Override
-        public void serialize(BackgroundUnion obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(Background obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.backgroundExprRefValue != null) {
                 jsonGenerator.writeObject(obj.backgroundExprRefValue);
                 return;

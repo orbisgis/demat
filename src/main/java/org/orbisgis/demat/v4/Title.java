@@ -11,17 +11,17 @@ import java.util.List;
 /**
  * Title for the plot.
  */
-@JsonDeserialize(using = TitleUnion.Deserializer.class)
-@JsonSerialize(using = TitleUnion.Serializer.class)
-public class TitleUnion {
+@JsonDeserialize(using = Title.Deserializer.class)
+@JsonSerialize(using = Title.Serializer.class)
+public class Title {
     public List<String> stringArrayValue;
     public TitleParams titleParamsValue;
     public String stringValue;
 
-    static class Deserializer extends JsonDeserializer<TitleUnion> {
+    static class Deserializer extends JsonDeserializer<Title> {
         @Override
-        public TitleUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            TitleUnion value = new TitleUnion();
+        public Title deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            Title value = new Title();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
                     break;
@@ -41,9 +41,9 @@ public class TitleUnion {
         }
     }
 
-    static class Serializer extends JsonSerializer<TitleUnion> {
+    static class Serializer extends JsonSerializer<Title> {
         @Override
-        public void serialize(TitleUnion obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(Title obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.stringArrayValue != null) {
                 jsonGenerator.writeObject(obj.stringArrayValue);
                 return;

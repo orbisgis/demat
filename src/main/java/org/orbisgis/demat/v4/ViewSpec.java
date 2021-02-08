@@ -30,7 +30,7 @@ import java.util.Map;
  * A unit specification, which can contain either [primitive marks or composite
  * marks](https://vega.github.io/vega-lite/docs/mark.html#types).
  */
-public class CoordinateSpec {
+public class ViewSpec {
     private URLData data;
     private String description;
     private SpecEncoding encoding;
@@ -39,18 +39,18 @@ public class CoordinateSpec {
     private String name;
     private Projection projection;
     private Resolve resolve;
-    private TitleUnion title;
+    private Title title;
     private List<Transform> transform;
     private ViewBackground view;
     private Height width;
-    private AnyMark mark;
+    private Mark mark;
     private Map<String, SelectionDef> selection;
-    private CoordinateAlign align;
+    private ViewAlign align;
     private Bounds bounds;
     private Center center;
     private Spacing spacing;
     private Double columns;
-    private RepeatUnion repeat;
+    private Repeat repeat;
     private NormalizedSpecSpec spec;
     private FacetFieldName facet;
     private List<Spec> concat;
@@ -154,9 +154,9 @@ public class CoordinateSpec {
      * Title for the plot.
      */
     @JsonProperty("title")
-    public TitleUnion getTitle() { return title; }
+    public Title getTitle() { return title; }
     @JsonProperty("title")
-    public void setTitle(TitleUnion value) { this.title = value; }
+    public void setTitle(Title value) { this.title = value; }
 
     /**
      * An array of data transformations such as filter and new field calculation.
@@ -209,9 +209,9 @@ public class CoordinateSpec {
      * definition object](https://vega.github.io/vega-lite/docs/mark.html#mark-def).
      */
     @JsonProperty("mark")
-    public AnyMark getMark() { return mark; }
+    public Mark getMark() { return mark; }
     @JsonProperty("mark")
-    public void setMark(AnyMark value) { this.mark = value; }
+    public void setMark(Mark value) { this.mark = value; }
 
     /**
      * A key-value mapping between selection names and definitions.
@@ -237,9 +237,9 @@ public class CoordinateSpec {
      * __Default value:__ `"all"`.
      */
     @JsonProperty("align")
-    public CoordinateAlign getAlign() { return align; }
+    public ViewAlign getAlign() { return align; }
     @JsonProperty("align")
-    public void setAlign(CoordinateAlign value) { this.align = value; }
+    public void setAlign(ViewAlign value) { this.align = value; }
 
     /**
      * The bounds calculation method to use for determining the extent of a sub-plot. One of
@@ -324,9 +324,9 @@ public class CoordinateSpec {
      * and `{"repeat": "column"}` can be used to refer to the repeated field respectively.
      */
     @JsonProperty("repeat")
-    public RepeatUnion getRepeat() { return repeat; }
+    public Repeat getRepeat() { return repeat; }
     @JsonProperty("repeat")
-    public void setRepeat(RepeatUnion value) { this.repeat = value; }
+    public void setRepeat(Repeat value) { this.repeat = value; }
 
     /**
      * A specification of the view that gets repeated.

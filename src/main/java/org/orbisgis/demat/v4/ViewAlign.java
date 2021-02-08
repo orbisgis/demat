@@ -21,16 +21,16 @@ import com.fasterxml.jackson.databind.annotation.*;
  *
  * __Default value:__ `"all"`.
  */
-@JsonDeserialize(using = CoordinateAlign.Deserializer.class)
-@JsonSerialize(using = CoordinateAlign.Serializer.class)
-public class CoordinateAlign {
+@JsonDeserialize(using = ViewAlign.Deserializer.class)
+@JsonSerialize(using = ViewAlign.Serializer.class)
+public class ViewAlign {
     public RowColLayoutAlign rowColLayoutAlignValue;
     public LayoutAlign enumValue;
 
-    static class Deserializer extends JsonDeserializer<CoordinateAlign> {
+    static class Deserializer extends JsonDeserializer<ViewAlign> {
         @Override
-        public CoordinateAlign deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            CoordinateAlign value = new CoordinateAlign();
+        public ViewAlign deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            ViewAlign value = new ViewAlign();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
                     break;
@@ -51,9 +51,9 @@ public class CoordinateAlign {
         }
     }
 
-    static class Serializer extends JsonSerializer<CoordinateAlign> {
+    static class Serializer extends JsonSerializer<ViewAlign> {
         @Override
-        public void serialize(CoordinateAlign obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(ViewAlign obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.rowColLayoutAlignValue != null) {
                 jsonGenerator.writeObject(obj.rowColLayoutAlignValue);
                 return;

@@ -35,7 +35,7 @@ public class Config {
     private AxisConfig axisYPoint;
     private AxisConfig axisYQuantitative;
     private AxisConfig axisYTemporal;
-    private BackgroundUnion background;
+    private Background background;
     private BarConfig bar;
     private BoxPlotConfig boxplot;
     private MarkConfig circle;
@@ -55,7 +55,7 @@ public class Config {
     private RectConfig image;
     private LegendConfig legend;
     private LineConfig line;
-    private BackgroundUnion lineBreak;
+    private Background lineBreak;
     private MarkConfig mark;
     private String numberFormat;
     private Padding padding;
@@ -302,9 +302,9 @@ public class Config {
      * __Default value:__ `"white"`
      */
     @JsonProperty("background")
-    public BackgroundUnion getBackground() { return background; }
+    public Background getBackground() { return background; }
     @JsonProperty("background")
-    public void setBackground(BackgroundUnion value) { this.background = value; }
+    public void setBackground(Background value) { this.background = value; }
 
     /**
      * Bar-Specific Config
@@ -494,9 +494,9 @@ public class Config {
      * signal-valued, either string or regular expression (regexp) values are valid.
      */
     @JsonProperty("lineBreak")
-    public BackgroundUnion getLineBreak() { return lineBreak; }
+    public Background getLineBreak() { return lineBreak; }
     @JsonProperty("lineBreak")
-    public void setLineBreak(BackgroundUnion value) { this.lineBreak = value; }
+    public void setLineBreak(Background value) { this.lineBreak = value; }
 
     /**
      * Mark Config

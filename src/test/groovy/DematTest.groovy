@@ -2,9 +2,10 @@
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo
 import org.orbisgis.demat.Demat
-import org.orbisgis.demat.v4.Encoding
+import org.orbisgis.demat.View
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.orbisgis.demat.v4.*;
 
 class DematTest {
 
@@ -13,28 +14,42 @@ class DematTest {
 
     @Test
     void testSimpleBarChart(TestInfo testInfo){
-        Encoding encoding = Demat.encoding();
-        encoding.x=Demat.X("a").nominal();
-        encoding.y= Demat.Y("b").quantitive();
-        def plot = Demat.chart().data([
+        View plot = Demat.view().data([
                 ["a": "A", "b": 28], ["a": "B", "b": 55], ["a": "C", "b": 43],
                 ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
                 ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52] ]).mark_bar().
-                encoding(encoding)
+                encoding(Demat.X("a").nominal(),Demat.Y("b").quantitive() )
         plot.save("target/${testInfo.displayName}.html",true)
     }
 
     @Test
     void testResponsiveBarChart(TestInfo testInfo){
-        def plot = Mad.Chart(values :Mad.fromJson(getClass().getResourceAsStream("cars.json"))).mark_bar()
+        def plot =  Demat.chart().data(Demat.fromJson(getClass().getResourceAsStream("cars.json"))).mark_bar()
                 .encoding(X.field("Origin"),Y.field().count() )
         plot.save("target/${testInfo.displayName}.html",true)
     }
 
     @Test
     void testDisplayMap (TestInfo testInfo){
-        def geojson = Mad.fromJson(getClass().getResourceAsStream("rsu_geoindicators.geojson"))
-        def  plot = Mad.Chart(values :geojson.features).height(500).width(700).description("A simple Map" ).mark_geoshape()
+        def geojson = Demat.fromJson(new File("/home/ebocher/Autres/codes/demat/src/test/resources/org/orbisgis/demat/rsu_geoindicators.geojson"))
+        View plot = Demat.view().data(geojson).height(500).width(500).mark_geoshape();
+        plot.save("target/${testInfo.displayName}.html",true)
+    }
+
+    @Test
+    void testDisplayMapWithCustomMark (TestInfo testInfo){
+        def geojson = Demat.fromJson(new File("/home/ebocher/Autres/codes/demat/src/test/resources/org/orbisgis/demat/rsu_geoindicators.geojson"))
+        Mark mark= new Mark();
+        Def definition = new Def();
+        definition.type="geoshape"
+        MarkFill markFillDef = new MarkFill()
+        markFillDef.stringValue="#eee"
+        definition.fill=markFillDef
+        MarkStroke markStrokeDef= new MarkStroke();
+        markStrokeDef.stringValue="#757575"
+        definition.stroke=markStrokeDef
+        mark.defValue=definition
+        View plot = Demat.view().data(geojson).height(500).width(500).mark(mark)
         plot.save("target/${testInfo.displayName}.html",true)
     }
 
@@ -42,14 +57,6 @@ class DematTest {
     void testDisplayMapCartesianGrid (TestInfo testInfo){
         def geojson = Mad.fromJson(new File("/home/ebocher/Autres/codes/geoclimate2/geoclimate/osm/target/geoclimate_chain/osm_Pont-de-Veyle/road.geojson"))
         def  plot = Mad.Chart(values :geojson.features).height(500).width(700).description("A simple Map" ).mark_geoshape()
-        plot.save("target/${testInfo.displayName}.html",true)
-    }
-
-    @Test
-    void testDisplayMapWithCustomMark (TestInfo testInfo){
-        def geojson = Mad.fromJson(getClass().getResourceAsStream("rsu_geoindicators.geojson"))
-        def plot = Mad.Chart(values :geojson.features[0..10]).description("A Map with custom mark").height(500).width(700).mark(
-                type:"geoshape", fill: "#eee", stroke:"#757575")
         plot.save("target/${testInfo.displayName}.html",true)
     }
 
@@ -72,7 +79,18 @@ class DematTest {
 
     @Test
     void testDisplayCorpenicus(TestInfo testInfo){
-        def geojson = Mad.fromJson(new File("/tmp/geoclimate_chain/osm_angers/grid_indicators.geojson"))
+        def geojson = Demat.fromJson(new File("/home/ebocher/Autres/codes/demat/src/test/resources/org/orbisgis/demat/rsu_geoindicators.geojson"))
+
+        XClass x = Demat.X("a").nominal();
+        YClass y = Demat.Y("b").quantitive();
+        View view = Demat.view().description("A concatenation of horizontal maps")
+                .data(geojson);
+        View bar_one = Demat.view().mark_bar().encoding(x, y);
+        y = Demat.Y("c").quantitive();
+        View bar_two  = Demat.view().mark_bar().encoding(x, y);
+        view.hconcat(bar_one, bar_two);
+        view.save( "target/"+testInfo.getDisplayName()+".html",true);
+
         def plot = Mad.Chart(values :geojson.features).projection("type":"identity").description("A Map with unique values").height(500).width(700).
                 repeat(["row":["properties.BUILDING_FRACTION", "properties.WATER_FRACTION"]]).
                 mark(["type":"geoshape",  "stroke": "green"]).
