@@ -4,36 +4,51 @@ import com.fasterxml.jackson.annotation.*;
 import org.orbisgis.demat.api.IEncodingProperty;
 
 /**
- * X coordinates of the marks, or width of horizontal `"bar"` and `"area"` without specified
- * `x2` or `width`.
+ * Color of the marks – either fill or stroke color based on  the `filled` property of mark
+ * definition. By default, `color` represents fill color for `"area"`, `"bar"`, `"tick"`,
+ * `"text"`, `"trail"`, `"circle"`, and `"square"` / stroke color for `"line"` and
+ * `"point"`.
  *
- * The `value` of this channel can be a number or a string `"width"` for the width of the
- * plot.
+ * __Default value:__ If undefined, the default color depends on [mark
+ * config](https://vega.github.io/vega-lite/docs/config.html#mark-config)'s `color`
+ * property.
  *
- * Y coordinates of the marks, or height of vertical `"bar"` and `"area"` without specified
- * `y2` or `height`.
+ * _Note:_ 1) For fine-grained control over both fill and stroke colors of the marks, please
+ * use the `fill` and `stroke` channels. The `fill` or `stroke` encodings have higher
+ * precedence than `color`, thus may override the `color` encoding if conflicting encodings
+ * are specified. 2) See the scale documentation for more information about customizing
+ * [color scheme](https://vega.github.io/vega-lite/docs/scale.html#scheme).
  *
- * The `value` of this channel can be a number or a string `"height"` for the height of the
- * plot.
+ * Fill color of the marks. __Default value:__ If undefined, the default color depends on
+ * [mark config](https://vega.github.io/vega-lite/docs/config.html#mark-config)'s `color`
+ * property.
  *
- * Definition object for a constant value (primitive value or gradient definition) of an
- * encoding channel.
+ * _Note:_ The `fill` encoding has higher precedence than `color`, thus may override the
+ * `color` encoding if conflicting encodings are specified.
+ *
+ * Stroke color of the marks. __Default value:__ If undefined, the default color depends on
+ * [mark config](https://vega.github.io/vega-lite/docs/config.html#mark-config)'s `color`
+ * property.
+ *
+ * _Note:_ The `stroke` encoding has higher precedence than `color`, thus may override the
+ * `color` encoding if conflicting encodings are specified.
+ *
+ * A FieldDef with Condition<ValueDef> {    condition: {value: ...},    field: ...,    ... }
  */
-public class YClass implements IEncodingProperty {
+public class Color implements IEncodingProperty {
     private Aggregate aggregate;
-    private Axis axis;
     private Double band;
-    private DescriptionBin bin;
+    private AngleBin bin;
+    private ColorCondition condition;
     private Field field;
-    private ImputeParams impute;
+    private Legend legend;
     private Scale scale;
     private SortUnion sort;
-    private Stack stack;
     private TimeUnitUnion timeUnit;
     private LegendText title;
     private Type type;
     private PrimitiveValue datum;
-    private Coordinate value;
+    private Gradient value;
 
     /**
      * Aggregation function for the field (e.g., `"mean"`, `"sum"`, `"median"`, `"min"`,
@@ -48,20 +63,6 @@ public class YClass implements IEncodingProperty {
     public Aggregate getAggregate() { return aggregate; }
     @JsonProperty("aggregate")
     public void setAggregate(Aggregate value) { this.aggregate = value; }
-
-    /**
-     * An object defining properties of axis's gridlines, ticks and labels. If `null`, the axis
-     * for the encoding channel will be removed.
-     *
-     * __Default value:__ If undefined, default [axis
-     * properties](https://vega.github.io/vega-lite/docs/axis.html) are applied.
-     *
-     * __See also:__ [`axis`](https://vega.github.io/vega-lite/docs/axis.html) documentation.
-     */
-    @JsonProperty("axis")
-    public Axis getAxis() { return axis; }
-    @JsonProperty("axis")
-    public void setAxis(Axis value) { this.axis = value; }
 
     /**
      * For rect-based marks (`rect`, `bar`, and `image`), mark size relative to bandwidth of
@@ -99,9 +100,24 @@ public class YClass implements IEncodingProperty {
      * __See also:__ [`bin`](https://vega.github.io/vega-lite/docs/bin.html) documentation.
      */
     @JsonProperty("bin")
-    public DescriptionBin getBin() { return bin; }
+    public AngleBin getBin() { return bin; }
     @JsonProperty("bin")
-    public void setBin(DescriptionBin value) { this.bin = value; }
+    public void setBin(AngleBin value) { this.bin = value; }
+
+    /**
+     * One or more value definition(s) with [a selection or a test
+     * predicate](https://vega.github.io/vega-lite/docs/condition.html).
+     *
+     * __Note:__ A field definition's `condition` property can only contain [conditional value
+     * definitions](https://vega.github.io/vega-lite/docs/condition.html#value) since Vega-Lite
+     * only allows at most one encoded field per encoding channel.
+     *
+     * A field definition or one or more value definition(s) with a selection predicate.
+     */
+    @JsonProperty("condition")
+    public ColorCondition getCondition() { return condition; }
+    @JsonProperty("condition")
+    public void setCondition(ColorCondition value) { this.condition = value; }
 
     /**
      * __Required.__ A string defining the name of the field from which to pull a data value or
@@ -123,16 +139,18 @@ public class YClass implements IEncodingProperty {
     public void setField(Field value) { this.field = value; }
 
     /**
-     * An object defining the properties of the Impute Operation to be applied. The field value
-     * of the other positional channel is taken as `key` of the `Impute` Operation. The field of
-     * the `color` channel if specified is used as `groupby` of the `Impute` Operation.
+     * An object defining properties of the legend. If `null`, the legend for the encoding
+     * channel will be removed.
      *
-     * __See also:__ [`impute`](https://vega.github.io/vega-lite/docs/impute.html) documentation.
+     * __Default value:__ If undefined, default [legend
+     * properties](https://vega.github.io/vega-lite/docs/legend.html) are applied.
+     *
+     * __See also:__ [`legend`](https://vega.github.io/vega-lite/docs/legend.html) documentation.
      */
-    @JsonProperty("impute")
-    public ImputeParams getImpute() { return impute; }
-    @JsonProperty("impute")
-    public void setImpute(ImputeParams value) { this.impute = value; }
+    @JsonProperty("legend")
+    public Legend getLegend() { return legend; }
+    @JsonProperty("legend")
+    public void setLegend(Legend value) { this.legend = value; }
 
     /**
      * An object defining properties of the channel's scale, which is the function that
@@ -186,35 +204,6 @@ public class YClass implements IEncodingProperty {
     public SortUnion getSort() { return sort; }
     @JsonProperty("sort")
     public void setSort(SortUnion value) { this.sort = value; }
-
-    /**
-     * Type of stacking offset if the field should be stacked. `stack` is only applicable for
-     * `x`, `y`, `theta`, and `radius` channels with continuous domains. For example, `stack` of
-     * `y` can be used to customize stacking for a vertical bar chart.
-     *
-     * `stack` can be one of the following values: - `"zero"` or `true`: stacking with baseline
-     * offset at zero value of the scale (for creating typical stacked
-     * [bar](https://vega.github.io/vega-lite/docs/stack.html#bar) and
-     * [area](https://vega.github.io/vega-lite/docs/stack.html#area) chart). - `"normalize"` -
-     * stacking with normalized domain (for creating [normalized stacked bar and area
-     * charts](https://vega.github.io/vega-lite/docs/stack.html#normalized). <br/> -`"center"` -
-     * stacking with center baseline (for
-     * [streamgraph](https://vega.github.io/vega-lite/docs/stack.html#streamgraph)). - `null` or
-     * `false` - No-stacking. This will produce layered
-     * [bar](https://vega.github.io/vega-lite/docs/stack.html#layered-bar-chart) and area
-     * chart.
-     *
-     * __Default value:__ `zero` for plots with all of the following conditions are true: (1)
-     * the mark is `bar`, `area`, or `arc`; (2) the stacked measure channel (x or y) has a
-     * linear scale; (3) At least one of non-position channels mapped to an unaggregated field
-     * that is different from x and y. Otherwise, `null` by default.
-     *
-     * __See also:__ [`stack`](https://vega.github.io/vega-lite/docs/stack.html) documentation.
-     */
-    @JsonProperty("stack")
-    public Stack getStack() { return stack; }
-    @JsonProperty("stack")
-    public void setStack(Stack value) { this.stack = value; }
 
     /**
      * Time unit (e.g., `year`, `yearmonth`, `month`, `hours`) for a temporal field. or [a
@@ -327,29 +316,50 @@ public class YClass implements IEncodingProperty {
      * between `0` to `1` for opacity).
      */
     @JsonProperty("value")
-    public Coordinate getValue() { return value; }
+    public Gradient getValue() { return value; }
     @JsonProperty("value")
-    public void setValue(Coordinate value) { this.value = value; }
+    public void setValue(Gradient value) { this.value = value; }
 
-    public YClass quantitative() {
+    public Color quantitative() {
         this.setType(Type.QUANTITATIVE);
         return this;
     }
 
-    public YClass nominal() {
+    public Color nominal() {
         this.setType(Type.NOMINAL);
         return this;
     }
 
-    public YClass ordinal() {
+    public Color ordinal() {
         this.setType(Type.ORDINAL);
         return this;
     }
 
-    public YClass count() {
-        Aggregate aggregate = new Aggregate();
-        aggregate.enumValue=NonArgAggregateOp.COUNT;
-        this.setAggregate(aggregate);
-        return this;
+    public void setField(String field) {
+        Field field_ = new Field();
+        field_.stringValue=field;
+        this.setField(field_);
+    }
+
+    /**
+     * Deep copy
+     * @return
+     */
+    public Color copy(){
+        Color color_ = new Color();
+        color_.aggregate =  this.aggregate;
+        color_.band=this.band;
+        color_.bin=this.bin;
+        color_.condition=this.condition;
+        color_.field=this.field;
+        color_.legend=this.legend;
+        color_.scale=this.scale;
+        color_.sort=this.sort;
+        color_.timeUnit=this.timeUnit;
+        color_.title=this.title;
+        color_.type=this.type;
+        color_.datum=this.datum;
+        color_.value=this.value;
+        return color_;
     }
 }

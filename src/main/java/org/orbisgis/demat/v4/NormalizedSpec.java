@@ -42,7 +42,7 @@ public class NormalizedSpec {
     private ViewBackground view;
     private Height width;
     private List<LayerElement> layer;
-    private Double columns;
+    private Number columns;
     private Repeat repeat;
     private NormalizedSpecSpec spec;
     private Facet facet;
@@ -299,9 +299,9 @@ public class NormalizedSpec {
      * the `row` channel (for `facet` and `repeat`).
      */
     @JsonProperty("columns")
-    public Double getColumns() { return columns; }
+    public Number getColumns() { return columns; }
     @JsonProperty("columns")
-    public void setColumns(Double value) { this.columns = value; }
+    public void setColumns(Number value) { this.columns = value; }
 
     /**
      * Definition for fields to be repeated. One of: 1) An array of fields to be repeated. If

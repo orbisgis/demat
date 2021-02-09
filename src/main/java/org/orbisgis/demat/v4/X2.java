@@ -1,54 +1,45 @@
 package org.orbisgis.demat.v4;
 
 import com.fasterxml.jackson.annotation.*;
-import org.orbisgis.demat.api.IEncodingProperty;
 
 /**
- * Color of the marks – either fill or stroke color based on  the `filled` property of mark
- * definition. By default, `color` represents fill color for `"area"`, `"bar"`, `"tick"`,
- * `"text"`, `"trail"`, `"circle"`, and `"square"` / stroke color for `"line"` and
- * `"point"`.
+ * Latitude-2 position for geographically projected ranged `"area"`, `"bar"`, `"rect"`, and
+ * `"rule"`.
  *
- * __Default value:__ If undefined, the default color depends on [mark
- * config](https://vega.github.io/vega-lite/docs/config.html#mark-config)'s `color`
- * property.
+ * Longitude-2 position for geographically projected ranged `"area"`, `"bar"`, `"rect"`,
+ * and  `"rule"`.
  *
- * _Note:_ 1) For fine-grained control over both fill and stroke colors of the marks, please
- * use the `fill` and `stroke` channels. The `fill` or `stroke` encodings have higher
- * precedence than `color`, thus may override the `color` encoding if conflicting encodings
- * are specified. 2) See the scale documentation for more information about customizing
- * [color scheme](https://vega.github.io/vega-lite/docs/scale.html#scheme).
+ * The inner radius in pixels of arc marks.
  *
- * Fill color of the marks. __Default value:__ If undefined, the default color depends on
- * [mark config](https://vega.github.io/vega-lite/docs/config.html#mark-config)'s `color`
- * property.
+ * The end angle of arc marks in radians. A value of 0 indicates up or “north”, increasing
+ * values proceed clockwise.
  *
- * _Note:_ The `fill` encoding has higher precedence than `color`, thus may override the
- * `color` encoding if conflicting encodings are specified.
+ * X2 coordinates for ranged `"area"`, `"bar"`, `"rect"`, and  `"rule"`.
  *
- * Stroke color of the marks. __Default value:__ If undefined, the default color depends on
- * [mark config](https://vega.github.io/vega-lite/docs/config.html#mark-config)'s `color`
- * property.
+ * The `value` of this channel can be a number or a string `"width"` for the width of the
+ * plot.
  *
- * _Note:_ The `stroke` encoding has higher precedence than `color`, thus may override the
- * `color` encoding if conflicting encodings are specified.
+ * Y2 coordinates for ranged `"area"`, `"bar"`, `"rect"`, and  `"rule"`.
  *
- * A FieldDef with Condition<ValueDef> {    condition: {value: ...},    field: ...,    ... }
+ * The `value` of this channel can be a number or a string `"height"` for the height of the
+ * plot.
+ *
+ * A field definition of a secondary channel that shares a scale with another primary
+ * channel. For example, `x2`, `xError` and `xError2` share the same scale with `x`.
+ *
+ * Definition object for a constant value (primitive value or gradient definition) of an
+ * encoding channel.
  */
-public class ColorClass implements IEncodingProperty {
+public class X2 {
     private Aggregate aggregate;
     private Double band;
-    private AngleBin bin;
-    private ColorCondition condition;
+    private Object bin;
     private Field field;
-    private Legend legend;
-    private Scale scale;
-    private SortUnion sort;
     private TimeUnitUnion timeUnit;
     private LegendText title;
-    private Type type;
     private PrimitiveValue datum;
-    private Gradient value;
+    private Type type;
+    private Coordinate value;
 
     /**
      * Aggregation function for the field (e.g., `"mean"`, `"sum"`, `"median"`, `"min"`,
@@ -100,24 +91,9 @@ public class ColorClass implements IEncodingProperty {
      * __See also:__ [`bin`](https://vega.github.io/vega-lite/docs/bin.html) documentation.
      */
     @JsonProperty("bin")
-    public AngleBin getBin() { return bin; }
+    public Object getBin() { return bin; }
     @JsonProperty("bin")
-    public void setBin(AngleBin value) { this.bin = value; }
-
-    /**
-     * One or more value definition(s) with [a selection or a test
-     * predicate](https://vega.github.io/vega-lite/docs/condition.html).
-     *
-     * __Note:__ A field definition's `condition` property can only contain [conditional value
-     * definitions](https://vega.github.io/vega-lite/docs/condition.html#value) since Vega-Lite
-     * only allows at most one encoded field per encoding channel.
-     *
-     * A field definition or one or more value definition(s) with a selection predicate.
-     */
-    @JsonProperty("condition")
-    public ColorCondition getCondition() { return condition; }
-    @JsonProperty("condition")
-    public void setCondition(ColorCondition value) { this.condition = value; }
+    public void setBin(Object value) { this.bin = value; }
 
     /**
      * __Required.__ A string defining the name of the field from which to pull a data value or
@@ -137,73 +113,6 @@ public class ColorClass implements IEncodingProperty {
     public Field getField() { return field; }
     @JsonProperty("field")
     public void setField(Field value) { this.field = value; }
-
-    /**
-     * An object defining properties of the legend. If `null`, the legend for the encoding
-     * channel will be removed.
-     *
-     * __Default value:__ If undefined, default [legend
-     * properties](https://vega.github.io/vega-lite/docs/legend.html) are applied.
-     *
-     * __See also:__ [`legend`](https://vega.github.io/vega-lite/docs/legend.html) documentation.
-     */
-    @JsonProperty("legend")
-    public Legend getLegend() { return legend; }
-    @JsonProperty("legend")
-    public void setLegend(Legend value) { this.legend = value; }
-
-    /**
-     * An object defining properties of the channel's scale, which is the function that
-     * transforms values in the data domain (numbers, dates, strings, etc) to visual values
-     * (pixels, colors, sizes) of the encoding channels.
-     *
-     * If `null`, the scale will be [disabled and the data value will be directly
-     * encoded](https://vega.github.io/vega-lite/docs/scale.html#disable).
-     *
-     * __Default value:__ If undefined, default [scale
-     * properties](https://vega.github.io/vega-lite/docs/scale.html) are applied.
-     *
-     * __See also:__ [`scale`](https://vega.github.io/vega-lite/docs/scale.html) documentation.
-     */
-    @JsonProperty("scale")
-    public Scale getScale() { return scale; }
-    @JsonProperty("scale")
-    public void setScale(Scale value) { this.scale = value; }
-
-    /**
-     * Sort order for the encoded field.
-     *
-     * For continuous fields (quantitative or temporal), `sort` can be either `"ascending"` or
-     * `"descending"`.
-     *
-     * For discrete fields, `sort` can be one of the following: - `"ascending"` or
-     * `"descending"` -- for sorting by the values' natural order in JavaScript. - [A string
-     * indicating an encoding channel name to sort
-     * by](https://vega.github.io/vega-lite/docs/sort.html#sort-by-encoding) (e.g., `"x"` or
-     * `"y"`) with an optional minus prefix for descending sort (e.g., `"-x"` to sort by
-     * x-field, descending). This channel string is short-form of [a sort-by-encoding
-     * definition](https://vega.github.io/vega-lite/docs/sort.html#sort-by-encoding). For
-     * example, `"sort": "-x"` is equivalent to `"sort": {"encoding": "x", "order":
-     * "descending"}`. - [A sort field
-     * definition](https://vega.github.io/vega-lite/docs/sort.html#sort-field) for sorting by
-     * another field. - [An array specifying the field values in preferred
-     * order](https://vega.github.io/vega-lite/docs/sort.html#sort-array). In this case, the
-     * sort order will obey the values in the array, followed by any unspecified values in their
-     * original order. For discrete time field, values in the sort array can be [date-time
-     * definition objects](types#datetime). In addition, for time units `"month"` and `"day"`,
-     * the values can be the month or day names (case insensitive) or their 3-letter initials
-     * (e.g., `"Mon"`, `"Tue"`). - `null` indicating no sort.
-     *
-     * __Default value:__ `"ascending"`
-     *
-     * __Note:__ `null` and sorting by another channel is not supported for `row` and `column`.
-     *
-     * __See also:__ [`sort`](https://vega.github.io/vega-lite/docs/sort.html) documentation.
-     */
-    @JsonProperty("sort")
-    public SortUnion getSort() { return sort; }
-    @JsonProperty("sort")
-    public void setSort(SortUnion value) { this.sort = value; }
 
     /**
      * Time unit (e.g., `year`, `yearmonth`, `month`, `hours`) for a temporal field. or [a
@@ -245,6 +154,14 @@ public class ColorClass implements IEncodingProperty {
     public LegendText getTitle() { return title; }
     @JsonProperty("title")
     public void setTitle(LegendText value) { this.title = value; }
+
+    /**
+     * A constant value in data domain.
+     */
+    @JsonProperty("datum")
+    public PrimitiveValue getDatum() { return datum; }
+    @JsonProperty("datum")
+    public void setDatum(PrimitiveValue value) { this.datum = value; }
 
     /**
      * The type of measurement (`"quantitative"`, `"temporal"`, `"ordinal"`, or `"nominal"`) for
@@ -303,35 +220,12 @@ public class ColorClass implements IEncodingProperty {
     public void setType(Type value) { this.type = value; }
 
     /**
-     * A constant value in data domain.
-     */
-    @JsonProperty("datum")
-    public PrimitiveValue getDatum() { return datum; }
-    @JsonProperty("datum")
-    public void setDatum(PrimitiveValue value) { this.datum = value; }
-
-    /**
      * A constant value in visual domain (e.g., `"red"` / `"#0099ff"` / [gradient
      * definition](https://vega.github.io/vega-lite/docs/types.html#gradient) for color, values
      * between `0` to `1` for opacity).
      */
     @JsonProperty("value")
-    public Gradient getValue() { return value; }
+    public Coordinate getValue() { return value; }
     @JsonProperty("value")
-    public void setValue(Gradient value) { this.value = value; }
-
-    public ColorClass quantitative() {
-        this.setType(Type.QUANTITATIVE);
-        return this;
-    }
-
-    public ColorClass nominal() {
-        this.setType(Type.NOMINAL);
-        return this;
-    }
-
-    public ColorClass ordinal() {
-        this.setType(Type.ORDINAL);
-        return this;
-    }
+    public void setValue(Coordinate value) { this.value = value; }
 }

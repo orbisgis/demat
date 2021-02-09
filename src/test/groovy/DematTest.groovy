@@ -63,7 +63,7 @@ class DematTest {
         ScaleRange scaleRange = new ScaleRange();
         scaleRange.unionArrayValue=["orange", "green", "blue"];
         scale.setRange(scaleRange)
-        ColorClass color = Demat.color("properties.BUILDING_FRACTION").quantitative();
+        Color color = Demat.color("properties.BUILDING_FRACTION").quantitative();
         color.setScale(scale);
         View view = Demat.view().data(geojson).description("A Map with unique values").height(500).width(700).mark_geoshape().
                 encoding(color).projection(ProjectionType.IDENTITY);
@@ -97,9 +97,8 @@ class DematTest {
     @Test
     void testDisplayCorpenicus(TestInfo testInfo){
         def geojson = Demat.fromJson(new File("/home/ebocher/Autres/codes/demat/src/test/resources/org/orbisgis/demat/rsu_geoindicators.geojson"))
-
-        XClass x = Demat.X("a").nominal();
-        YClass y = Demat.Y("b").quantitive();
+        X x = Demat.X("a").nominal();
+        Y y = Demat.Y("b").quantitive();
         View view = Demat.view().description("A concatenation of horizontal maps")
                 .data(geojson);
         View bar_one = Demat.view().mark_bar().encoding(x, y);

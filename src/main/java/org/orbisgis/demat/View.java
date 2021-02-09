@@ -9,10 +9,7 @@ import org.orbisgis.demat.v4.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static j2html.TagCreator.*;
 import static j2html.TagCreator.rawHtml;
@@ -47,7 +44,7 @@ public class View {
     private Map<String, Object> usermeta;
     private ViewBackground view;
     private Height width;
-    private Double columns;
+    private Number columns;
     private Facet facet;
     private ViewSpec spec;
     private List<LayerElement> layer;
@@ -374,9 +371,9 @@ public class View {
      * the `row` channel (for `facet` and `repeat`).
      */
     @JsonProperty("columns")
-    public Double getColumns() { return columns; }
+    public Number getColumns() { return columns; }
     @JsonProperty("columns")
-    public void setColumns(Double value) { this.columns = value; }
+    public void setColumns(Number value) { this.columns = value; }
 
     /**
      * Definition for how to facet the data. One of: 1) [a field definition for faceting the
@@ -506,14 +503,14 @@ public class View {
     public View encoding(IEncodingProperty... properties) {
         Encoding encoding = new Encoding();
         for (IEncodingProperty property:properties){
-            if(property  instanceof XClass){
-                encoding.setX((XClass) property);
+            if(property  instanceof X){
+                encoding.setX((X) property);
             }
-            else if(property  instanceof YClass){
-                encoding.setY((YClass) property);
+            else if(property  instanceof Y){
+                encoding.setY((Y) property);
             }
-            else if(property  instanceof ColorClass){
-                encoding.setColor((ColorClass) property);
+            else if(property  instanceof Color){
+                encoding.setColor((Color) property);
             }
         }
         this.setEncoding(encoding);
@@ -580,26 +577,59 @@ public class View {
         return this;
     }
 
+    public View concat( View... views) {
+        ArrayList<NormalizedSpec> concat_ = new ArrayList<>();;
+        for(View view :views){
+            concat_.add(copy(view));
+        }
+        this.concat=concat_;
+        this.projection=null;
+        return this;
+    }
+
+    public View concat(int numColumns, View... views) {
+        ArrayList<NormalizedSpec> concat_ = new ArrayList<>();;
+        for(View view :views){
+            concat_.add(copy(view));
+        }
+        this.concat=concat_;
+        this.columns=numColumns;
+        this.projection=null;
+        return this;
+    }
+
+    /**
+     * Copy from view to NormalizedSpec
+     * @param view
+     * @return
+     */
+    public NormalizedSpec copy(View view){
+        NormalizedSpec normalizedSpec = new NormalizedSpec();
+        normalizedSpec.setAlign(view.getAlign());
+        normalizedSpec.setBounds(view.getBounds());
+        normalizedSpec.setCenter(view.getCenter());
+        normalizedSpec.setColumns(view.getColumns());
+        normalizedSpec.setConcat(view.getConcat());
+        normalizedSpec.setData(view.getData());
+        normalizedSpec.setDescription(view.getDescription());
+        normalizedSpec.setEncoding(view.getEncoding());
+        normalizedSpec.setFacet(view.getFacet());
+        normalizedSpec.setRepeat(view.getRepeat());
+        normalizedSpec.setMark(view.getMark());
+        normalizedSpec.setHeight(view.getHeight());
+        normalizedSpec.setWidth(view.getWidth());
+        normalizedSpec.setName(view.getName());
+        normalizedSpec.setTitle(view.getTitle());
+        normalizedSpec.setProjection(view.getProjection());
+        normalizedSpec.setSelection(view.getSelection());
+        normalizedSpec.setTransform(view.getTransform());
+        return normalizedSpec;
+    }
+
     public View hconcat(View... views) {
         ArrayList<NormalizedSpec> hconcat_ = new ArrayList<>();;
         for(View view :views){
-            NormalizedSpec normalizedSpec = new NormalizedSpec();
-            normalizedSpec.setAlign(view.getAlign());
-            normalizedSpec.setBounds(view.getBounds());
-            normalizedSpec.setCenter(view.getCenter());
-            normalizedSpec.setColumns(view.getColumns());
-            normalizedSpec.setData(view.getData());
-            normalizedSpec.setDescription(view.getDescription());
-            normalizedSpec.setEncoding(view.getEncoding());
-            normalizedSpec.setConcat(view.getConcat());
-            normalizedSpec.setFacet(view.getFacet());
-            normalizedSpec.setMark(view.getMark());
-            normalizedSpec.setHeight(view.getHeight());
-            normalizedSpec.setWidth(view.getWidth());
-            normalizedSpec.setName(view.getName());
-            normalizedSpec.setRepeat(view.getRepeat());
-            normalizedSpec.setTitle(view.getTitle());
-            hconcat_.add(normalizedSpec);
+            hconcat_.add(copy(view));
         }
         this.hconcat=hconcat_;
         return this;
@@ -622,5 +652,9 @@ public class View {
         title_.title=title;
         this.title=title_;
         return this;
+    }
+
+    public void setTransform(Transform... transforms) {
+        this.transform= Arrays.asList(transforms);
     }
 }

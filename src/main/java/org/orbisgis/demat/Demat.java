@@ -64,10 +64,10 @@ public class Demat {
      * Return a X encoding class
      * @return
      */
-    public static XClass X(String fieldValue) {
-        XClass xClass = new XClass();
-        xClass.setField(new Field(fieldValue));
-        return xClass;
+    public static X X(String fieldValue) {
+        X x = new X();
+        x.setField(new Field(fieldValue));
+        return x;
     }
 
     public static Encoding encoding() {
@@ -76,24 +76,24 @@ public class Demat {
     }
 
 
-    public static ColorClass color(String fieldValue) {
-        ColorClass colorClass = new ColorClass();
-        colorClass.setField(new Field(fieldValue));
-        return colorClass;
+    public static Color color(String fieldValue) {
+        Color color = new Color();
+        color.setField(new Field(fieldValue));
+        return color;
     }
 
-    public static ColorClass color() {
-        return new ColorClass();
+    public static Color color() {
+        return new Color();
     }
 
-    public static YClass Y() {
-        return new YClass();
+    public static Y Y() {
+        return new Y();
     }
 
-    public static YClass Y(String fieldValue) {
-        YClass yClass = new YClass();
-        yClass.setField(new Field(fieldValue));
-        return yClass;
+    public static Y Y(String fieldValue) {
+        Y y = new Y();
+        y.setField(new Field(fieldValue));
+        return y;
     }
 
     public static void hconcat(View... views) {

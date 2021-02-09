@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.*;
  */
 public class Encoding {
     private AngleClass angle;
-    private ColorClass color;
+    private Color color;
     private RowColumnEncodingFieldDef column;
     private DescriptionClass description;
     private Detail detail;
@@ -39,14 +39,14 @@ public class Encoding {
     private Theta2Class theta2;
     private EncodingTooltip tooltip;
     private URLClass url;
-    private XClass x;
-    private X2Class x2;
-    private XErrorClass xError;
-    private XError2Class xError2;
-    private YClass y;
-    private Y2Class y2;
-    private YErrorClass yError;
-    private YError2Class yError2;
+    private X x;
+    private X2 x2;
+    private XError xError;
+    private XError2 xError2;
+    private Y y;
+    private Y2 y2;
+    private YError yError;
+    private YError2 yError2;
 
     /**
      * Rotation angle of point and text marks.
@@ -73,9 +73,9 @@ public class Encoding {
      * [color scheme](https://vega.github.io/vega-lite/docs/scale.html#scheme).
      */
     @JsonProperty("color")
-    public ColorClass getColor() { return color; }
+    public Color getColor() { return color; }
     @JsonProperty("color")
-    public void setColor(ColorClass value) { this.color = value; }
+    public void setColor(Color value) { this.color = value; }
 
     /**
      * A field definition for the horizontal facet of trellis plots.
@@ -381,9 +381,9 @@ public class Encoding {
      * plot.
      */
     @JsonProperty("x")
-    public XClass getX() { return x; }
+    public X getX() { return x; }
     @JsonProperty("x")
-    public void setX(XClass value) { this.x = value; }
+    public void setX(X value) { this.x = value; }
 
     /**
      * X2 coordinates for ranged `"area"`, `"bar"`, `"rect"`, and  `"rule"`.
@@ -392,25 +392,25 @@ public class Encoding {
      * plot.
      */
     @JsonProperty("x2")
-    public X2Class getX2() { return x2; }
+    public X2 getX2() { return x2; }
     @JsonProperty("x2")
-    public void setX2(X2Class value) { this.x2 = value; }
+    public void setX2(X2 value) { this.x2 = value; }
 
     /**
      * Error value of x coordinates for error specified `"errorbar"` and `"errorband"`.
      */
     @JsonProperty("xError")
-    public XErrorClass getXError() { return xError; }
+    public XError getXError() { return xError; }
     @JsonProperty("xError")
-    public void setXError(XErrorClass value) { this.xError = value; }
+    public void setXError(XError value) { this.xError = value; }
 
     /**
      * Secondary error value of x coordinates for error specified `"errorbar"` and `"errorband"`.
      */
     @JsonProperty("xError2")
-    public XError2Class getXError2() { return xError2; }
+    public XError2 getXError2() { return xError2; }
     @JsonProperty("xError2")
-    public void setXError2(XError2Class value) { this.xError2 = value; }
+    public void setXError2(XError2 value) { this.xError2 = value; }
 
     /**
      * Y coordinates of the marks, or height of vertical `"bar"` and `"area"` without specified
@@ -420,9 +420,9 @@ public class Encoding {
      * plot.
      */
     @JsonProperty("y")
-    public YClass getY() { return y; }
+    public Y getY() { return y; }
     @JsonProperty("y")
-    public void setY(YClass value) { this.y = value; }
+    public void setY(Y value) { this.y = value; }
 
     /**
      * Y2 coordinates for ranged `"area"`, `"bar"`, `"rect"`, and  `"rule"`.
@@ -431,23 +431,23 @@ public class Encoding {
      * plot.
      */
     @JsonProperty("y2")
-    public Y2Class getY2() { return y2; }
+    public Y2 getY2() { return y2; }
     @JsonProperty("y2")
-    public void setY2(Y2Class value) { this.y2 = value; }
+    public void setY2(Y2 value) { this.y2 = value; }
 
     /**
      * Error value of y coordinates for error specified `"errorbar"` and `"errorband"`.
      */
     @JsonProperty("yError")
-    public YErrorClass getYError() { return yError; }
+    public YError getYError() { return yError; }
     @JsonProperty("yError")
-    public void setYError(YErrorClass value) { this.yError = value; }
+    public void setYError(YError value) { this.yError = value; }
 
     /**
      * Secondary error value of y coordinates for error specified `"errorbar"` and `"errorband"`.
      */
     @JsonProperty("yError2")
-    public YError2Class getYError2() { return yError2; }
+    public YError2 getYError2() { return yError2; }
     @JsonProperty("yError2")
-    public void setYError2(YError2Class value) { this.yError2 = value; }
+    public void setYError2(YError2 value) { this.yError2 = value; }
 }

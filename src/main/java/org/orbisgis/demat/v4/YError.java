@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.*;
  * Definition object for a constant value (primitive value or gradient definition) of an
  * encoding channel.
  */
-public class YErrorClass {
+public class YError {
     private Aggregate aggregate;
     private Double band;
     private Object bin;

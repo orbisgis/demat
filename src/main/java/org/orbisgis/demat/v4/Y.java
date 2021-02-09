@@ -19,7 +19,7 @@ import org.orbisgis.demat.api.IEncodingProperty;
  * Definition object for a constant value (primitive value or gradient definition) of an
  * encoding channel.
  */
-public class XClass implements IEncodingProperty {
+public class Y implements IEncodingProperty {
     private Aggregate aggregate;
     private Axis axis;
     private Double band;
@@ -331,20 +331,25 @@ public class XClass implements IEncodingProperty {
     @JsonProperty("value")
     public void setValue(Coordinate value) { this.value = value; }
 
-
-
-    public XClass quantitative() {
+    public Y quantitative() {
         this.setType(Type.QUANTITATIVE);
         return this;
     }
 
-    public XClass nominal() {
+    public Y nominal() {
         this.setType(Type.NOMINAL);
         return this;
     }
 
-    public XClass ordinal() {
+    public Y ordinal() {
         this.setType(Type.ORDINAL);
+        return this;
+    }
+
+    public Y count() {
+        Aggregate aggregate = new Aggregate();
+        aggregate.enumValue=NonArgAggregateOp.COUNT;
+        this.setAggregate(aggregate);
         return this;
     }
 }
