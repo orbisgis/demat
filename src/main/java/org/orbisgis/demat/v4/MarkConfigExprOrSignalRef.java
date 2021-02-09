@@ -68,10 +68,10 @@ public class MarkConfigExprOrSignalRef {
     private MarkConfigExprOrSignalRefTooltip tooltip;
     private Background url;
     private CornerRadius width;
-    private X x;
-    private X x2;
-    private X y;
-    private X y2;
+    private Coordinate coordinate;
+    private Coordinate coordinate2;
+    private Coordinate y;
+    private Coordinate y2;
 
     /**
      * The horizontal alignment of the text or ranged marks (area, bar, image, rect, rule). One
@@ -541,9 +541,9 @@ public class MarkConfigExprOrSignalRef {
      * plot.
      */
     @JsonProperty("x")
-    public X getX() { return x; }
+    public Coordinate getCoordinate() { return coordinate; }
     @JsonProperty("x")
-    public void setX(X value) { this.x = value; }
+    public void setCoordinate(Coordinate value) { this.coordinate = value; }
 
     /**
      * X2 coordinates for ranged `"area"`, `"bar"`, `"rect"`, and  `"rule"`.
@@ -552,9 +552,9 @@ public class MarkConfigExprOrSignalRef {
      * plot.
      */
     @JsonProperty("x2")
-    public X getX2() { return x2; }
+    public Coordinate getCoordinate2() { return coordinate2; }
     @JsonProperty("x2")
-    public void setX2(X value) { this.x2 = value; }
+    public void setCoordinate2(Coordinate value) { this.coordinate2 = value; }
 
     /**
      * Y coordinates of the marks, or height of vertical `"bar"` and `"area"` without specified
@@ -564,9 +564,9 @@ public class MarkConfigExprOrSignalRef {
      * plot.
      */
     @JsonProperty("y")
-    public X getY() { return y; }
+    public Coordinate getY() { return y; }
     @JsonProperty("y")
-    public void setY(X value) { this.y = value; }
+    public void setY(Coordinate value) { this.y = value; }
 
     /**
      * Y2 coordinates for ranged `"area"`, `"bar"`, `"rect"`, and  `"rule"`.
@@ -575,7 +575,7 @@ public class MarkConfigExprOrSignalRef {
      * plot.
      */
     @JsonProperty("y2")
-    public X getY2() { return y2; }
+    public Coordinate getY2() { return y2; }
     @JsonProperty("y2")
-    public void setY2(X value) { this.y2 = value; }
+    public void setY2(Coordinate value) { this.y2 = value; }
 }

@@ -6,17 +6,17 @@ import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.*;
 
-@JsonDeserialize(using = X.Deserializer.class)
-@JsonSerialize(using = X.Serializer.class)
-public class X {
+@JsonDeserialize(using = Coordinate.Deserializer.class)
+@JsonSerialize(using = Coordinate.Serializer.class)
+public class Coordinate {
     public Double doubleValue;
     public BackgroundExprRef backgroundExprRefValue;
     public String stringValue;
 
-    static class Deserializer extends JsonDeserializer<X> {
+    static class Deserializer extends JsonDeserializer<Coordinate> {
         @Override
-        public X deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            X value = new X();
+        public Coordinate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            Coordinate value = new Coordinate();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
                     break;
@@ -37,9 +37,9 @@ public class X {
         }
     }
 
-    static class Serializer extends JsonSerializer<X> {
+    static class Serializer extends JsonSerializer<Coordinate> {
         @Override
-        public void serialize(X obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(Coordinate obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.doubleValue != null) {
                 jsonGenerator.writeObject(obj.doubleValue);
                 return;

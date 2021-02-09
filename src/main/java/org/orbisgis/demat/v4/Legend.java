@@ -495,4 +495,24 @@ public class Legend {
     public Double getZindex() { return zindex; }
     @JsonProperty("zindex")
     public void setZindex(Double value) { this.zindex = value; }
+
+    /**
+     * Add a legend title
+     * @param title
+     */
+    public void setTitle(String title) {
+        LegendText legendText = new LegendText();
+        legendText.stringValue=title;
+        this.setTitle(legendText);
+    }
+
+    /**
+     * Add a formating rule character
+     * @param format
+     */
+    public void setFormat(String format) {
+        Format format_ = new Format();
+        format_.stringValue=format;
+        this.format =format_;
+    }
 }

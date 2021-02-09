@@ -26,7 +26,7 @@ public class RadiusClass {
     private LegendText title;
     private Type type;
     private PrimitiveValue datum;
-    private X value;
+    private Coordinate value;
 
     /**
      * Aggregation function for the field (e.g., `"mean"`, `"sum"`, `"median"`, `"min"`,
@@ -294,7 +294,7 @@ public class RadiusClass {
      * between `0` to `1` for opacity).
      */
     @JsonProperty("value")
-    public X getValue() { return value; }
+    public Coordinate getValue() { return value; }
     @JsonProperty("value")
-    public void setValue(X value) { this.value = value; }
+    public void setValue(Coordinate value) { this.value = value; }
 }

@@ -598,8 +598,8 @@ public class View {
             normalizedSpec.setWidth(view.getWidth());
             normalizedSpec.setName(view.getName());
             normalizedSpec.setRepeat(view.getRepeat());
+            normalizedSpec.setTitle(view.getTitle());
             hconcat_.add(normalizedSpec);
-
         }
         this.hconcat=hconcat_;
         return this;
@@ -614,6 +614,13 @@ public class View {
 
     public View projection(Projection projection) {
         this.projection=projection;
+        return this;
+    }
+
+    public View title(String title) {
+        Title title_ = new Title();
+        title_.title=title;
+        this.title=title_;
         return this;
     }
 }

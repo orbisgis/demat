@@ -25,7 +25,7 @@ class DematTest {
     @Test
     void testResponsiveBarChart(TestInfo testInfo){
         def plot =  Demat.chart().data(Demat.fromJson(getClass().getResourceAsStream("cars.json"))).mark_bar()
-                .encoding(X.field("Origin"),Y.field().count() )
+                .encoding(Coordinate.field("Origin"),Y.field().count() )
         plot.save("target/${testInfo.displayName}.html",true)
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
 public class Title {
     public List<String> stringArrayValue;
     public TitleParams titleParamsValue;
-    public String stringValue;
+    public String title;
 
     static class Deserializer extends JsonDeserializer<Title> {
         @Override
@@ -27,7 +27,7 @@ public class Title {
                     break;
                 case VALUE_STRING:
                     String string = jsonParser.readValueAs(String.class);
-                    value.stringValue = string;
+                    value.title = string;
                     break;
                 case START_ARRAY:
                     value.stringArrayValue = jsonParser.readValueAs(new TypeReference<List<String>>() {});
@@ -52,8 +52,8 @@ public class Title {
                 jsonGenerator.writeObject(obj.titleParamsValue);
                 return;
             }
-            if (obj.stringValue != null) {
-                jsonGenerator.writeObject(obj.stringValue);
+            if (obj.title != null) {
+                jsonGenerator.writeObject(obj.title);
                 return;
             }
             jsonGenerator.writeNull();

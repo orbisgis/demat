@@ -19,8 +19,8 @@ public class Scale {
     private CornerRadius paddingInner;
     private CornerRadius paddingOuter;
     private ScaleRange range;
-    private X rangeMax;
-    private X rangeMin;
+    private Coordinate rangeMax;
+    private Coordinate rangeMin;
     private Aria reverse;
     private Aria round;
     private Scheme scheme;
@@ -296,18 +296,18 @@ public class Scale {
      * range. This property is only intended for use with scales having continuous ranges.
      */
     @JsonProperty("rangeMax")
-    public X getRangeMax() { return rangeMax; }
+    public Coordinate getRangeMax() { return rangeMax; }
     @JsonProperty("rangeMax")
-    public void setRangeMax(X value) { this.rangeMax = value; }
+    public void setRangeMax(Coordinate value) { this.rangeMax = value; }
 
     /**
      * Sets the minimum value in the scale range, overriding the `range` property or the default
      * range. This property is only intended for use with scales having continuous ranges.
      */
     @JsonProperty("rangeMin")
-    public X getRangeMin() { return rangeMin; }
+    public Coordinate getRangeMin() { return rangeMin; }
     @JsonProperty("rangeMin")
-    public void setRangeMin(X value) { this.rangeMin = value; }
+    public void setRangeMin(Coordinate value) { this.rangeMin = value; }
 
     /**
      * If true, reverses the order of the scale range. __Default value:__ `false`.

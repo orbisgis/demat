@@ -57,6 +57,35 @@ public class DematTests {
     }
 
     @Test
+    void testDisplayMapWithIntervalConcat(TestInfo testInfo) throws IOException {
+        LinkedHashMap<Object, Object> geojson = Demat.fromJson(new File("/home/ebocher/Autres/codes/demat/src/test/resources/org/orbisgis/demat/rsu_geoindicators.geojson"));
+        List features = (List) geojson.get("features");
+        Scale scale = new Scale();
+        Domain domain = new Domain();
+        domain.values = new Double[]{0d, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6};
+        scale.setDomain(domain);
+
+        Projection projection = new Projection();
+        projection.setType(ProjectionType.IDENTITY);
+        projection.setReflectY(true);
+        ColorClass color = Demat.color("properties.BUILDING_FRACTION").quantitative();
+        color.setScale(scale);
+        View view = Demat.view().data(features).description("A Map with unique values").projection(projection);
+        View map1  = Demat.view().height(400).width(400).mark_geoshape().
+                encoding(color).title("Building");;
+        ColorClass color2 = Demat.color("properties.WATER_FRACTION").quantitative();
+        color.setScale(scale);
+        Legend legend = new Legend();
+        legend.setFormat("%");
+        legend.setTitle("Fraction of area in percentage");
+        color.setLegend(legend);
+        View map2  = Demat.view().height(400).width(400).mark_geoshape().
+                encoding(color2).title("Water");
+        view.hconcat(map1,map2);
+        view.save( "target/"+testInfo.getDisplayName()+".html",true);
+    }
+
+    @Test
     void testDisplayMapWithInterval (TestInfo testInfo) throws IOException {
         LinkedHashMap<Object, Object> geojson = Demat.fromJson(new File("/tmp/geoclimate_chain_estimated/osm_Lorient/grid_indicators.geojson"));
         List features = (List) geojson.get("features");
