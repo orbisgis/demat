@@ -145,7 +145,8 @@ public class DematTest {
         View map6  = Demat.view().height(400).width(400).mark_geoshape().
                 encoding(color6).title("High vegetation").projection(projection);
         view.concat(2, map1,map2, map3, map4,map5,map6);
-        view.save( "target/"+testInfo.getDisplayName()+".html",true);
+        //view.save( "target/"+testInfo.getDisplayName()+".html",true);
+        view.show();
     }
 
     @Test
