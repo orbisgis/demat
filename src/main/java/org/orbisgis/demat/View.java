@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.orbisgis.demat.api.IEncodingProperty;
-import org.orbisgis.demat.v4.*;
+import org.orbisgis.demat.vega.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -26,7 +26,7 @@ public class View {
     private Bounds bounds;
     private Center center;
     private Config config;
-    private URLData data;
+    private Data data;
     private Map<String, InlineDatasetValue> datasets;
     private String description;
     private Encoding encoding;
@@ -52,6 +52,7 @@ public class View {
     private List<NormalizedSpec> concat;
     private List<NormalizedSpec> vconcat;
     private List<NormalizedSpec> hconcat;
+
 
     /**
      * URL to [JSON schema](http://json-schema.org/) for a Vega-Lite specification. Unless you
@@ -155,9 +156,9 @@ public class View {
      * If no data is set, it is derived from the parent.
      */
     @JsonProperty("data")
-    public URLData getData() { return data; }
+    public Data getData() { return data; }
     @JsonProperty("data")
-    public void setData(URLData value) { this.data = value; }
+    public void setData(Data value) { this.data = value; }
 
     /**
      * A global data store for named datasets. This is a mapping from names to inline datasets.
@@ -457,6 +458,11 @@ public class View {
         return this;
     }
 
+    public View data(Data data) {
+        this.setData(data);
+        return this;
+    }
+
     public View data(Object[][] values) {
         this.setData(ViewUtils.urlData(values));
         return this;
@@ -532,17 +538,17 @@ public class View {
         return save(path, false);
     }
 
+
     /**
      * Save into an html file
-     * @param path
+     * @param outputFile
      * @param delete
      * @return
      */
-    public String save(String path, boolean delete) throws IOException {
-        if(path==null || path.isEmpty()){
+    public String save(File outputFile, boolean delete) throws IOException {
+        if(outputFile==null){
             return null;
         }
-        File outputFile = new File(path);
         if(outputFile.exists() ){
             if(delete){
                 outputFile.delete();
@@ -552,15 +558,15 @@ public class View {
             }
         }
         StringBuilder json =  new StringBuilder("var spec =\n");
-        json.append(toJson()).append(";\n var opt = {\"renderer\": \"canvas\", \"actions\": true};\n" +
+        json.append(toJson()).append(";\n var opt = {\"renderer\": \"canvas\", \"actions\": true,\"scaleFactor\":2};\n" +
                 " vegaEmbed(\"#vis\", spec, opt);");
         FileWriter fileWriter = new FileWriter(outputFile);
         html(
                 head(
                         meta().withCharset("UTF-8"),
-                        script().withSrc("https://cdn.jsdelivr.net/npm/vega@5.17.0"),
-                        script().withSrc("https://cdn.jsdelivr.net/npm/vega-lite@4.17.0"),
-                        script().withSrc("https://cdn.jsdelivr.net/npm/vega-embed@6.12.2")
+                        script().withSrc("https://cdn.jsdelivr.net/npm/vega@5.19.1"),
+                        script().withSrc("https://cdn.jsdelivr.net/npm/vega-lite@5.0.0"),
+                        script().withSrc("https://cdn.jsdelivr.net/npm/vega-embed@6.15.1")
                 ),
                 body (
                         div().withId("vis"),
@@ -570,6 +576,16 @@ public class View {
         ).render(fileWriter);
         fileWriter.close();
         return outputFile.getAbsolutePath();
+    }
+
+    /**
+     * Save into an html file
+     * @param path
+     * @param delete
+     * @return
+     */
+    public String save(String path, boolean delete) throws IOException {
+        return save(new File(path), delete);
     }
 
     public View mark(Mark mark){
@@ -657,4 +673,20 @@ public class View {
     public void setTransform(Transform... transforms) {
         this.transform= Arrays.asList(transforms);
     }
+
+
+    /**
+     * Show the vega-lite chart in the default browser of the OS
+     * Save the html file in a tmp file
+     */
+    public void show() {
+        try {
+            File outputFile = File.createTempFile("demat", ".html");
+            this.save(outputFile, true);
+            ViewUtils.openBrowser(outputFile.getAbsolutePath());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

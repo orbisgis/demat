@@ -10,8 +10,8 @@
     <groupId>org.orbisgis</groupId>
     <artifactId>demat</artifactId>
     <version>0.0.1</version>
-    <packaging>pom</packaging>
-    <description>Dematis breton word to said "Hello". Demat is wrapper arround the Vega-lite library</description>
+    <packaging>jar</packaging>
+    <description>Demat is breton word to said "Hello". Demat is wrapper arround the Vega-lite library</description>
     <!-- Properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,7 +19,6 @@
         <buildNumber>${maven.build.timestamp}</buildNumber>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <site.basedir>${project.basedir}</site.basedir>
     </properties>
 
     <dependencies>
@@ -55,11 +54,6 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-        </dependency>
-        <!-- Test dependencies -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
         </dependency>
     </dependencies>
 
@@ -99,19 +93,11 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>../src/main/groovy/org/orbisgis/demat</directory>
-                <includes>
-                    <include>simplelogger.properties</include>
-                </includes>
-            </resource>
-        </resources>
     </build>
 
     <!-- More Project Information -->
     <name>demat</name>
-    <url>https://github.com/orbisgis/demat</url>
+    <url>https://github.com/ebocher/demat</url>
     <licenses>
         <license>
             <name>The GNU General Public License, Version 3.0</name>
@@ -136,14 +122,14 @@
     <!-- Environment Settings -->
     <issueManagement>
         <system>Github</system>
-        <url>https://github.com/orbisgis/demat/issues</url>
+        <url>https://github.com/orbisgis/ebocher/issues</url>
     </issueManagement>
     <ciManagement>
         <system>Travis CI</system>
-        <url>https://travis-ci.com/orbisgis/demat</url>
+        <url>https://travis-ci.com/ebocher/demat</url>
     </ciManagement>
     <scm>
-        <connection>scm:git:git://github.com/orbisgis/demat</connection>
+        <connection>scm:git:git://github.com/ebocher/demat</connection>
     </scm>
     <repositories>
         <repository>

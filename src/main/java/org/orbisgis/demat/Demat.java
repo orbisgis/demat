@@ -1,7 +1,7 @@
 package org.orbisgis.demat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.orbisgis.demat.v4.*;
+import org.orbisgis.demat.vega.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class Demat {
     public static View view() {
         Demat demat = new Demat();
         View view = new View();
-        view.setSchema("https://vega.github.io/schema/vega-lite/v4.json");
+        view.setSchema("https://vega.github.io/schema/vega-lite/v5.json");
         demat.setView(view);
         return view;
     }
@@ -76,20 +76,37 @@ public class Demat {
     }
 
 
-    public static Color color(String fieldValue) {
+    /**
+     * Create a Color encoding from a property name
+     * @param propertyName
+     * @return
+     */
+    public static Color color(String propertyName) {
         Color color = new Color();
-        color.setField(new Field(fieldValue));
+        color.setField(new Field(propertyName));
         return color;
     }
 
+    /**
+     * Create a Color encoding
+     * @return
+     */
     public static Color color() {
         return new Color();
     }
 
+    /**
+     * Create a Y encoding
+     * @return
+     */
     public static Y Y() {
         return new Y();
     }
 
+    /**
+     * Create a Y encoding
+     * @return
+     */
     public static Y Y(String fieldValue) {
         Y y = new Y();
         y.setField(new Field(fieldValue));
@@ -101,13 +118,37 @@ public class Demat {
     }
 
 
-    public static LinkedHashMap<Object,Object> fromJson(File jsonFile) throws IOException {
+    /**
+     *
+     * @param jsonFile
+     * @return
+     * @throws IOException
+     */
+    public static Object fromJson(File jsonFile) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return (LinkedHashMap<Object,Object>) mapper.readValue(jsonFile, Object.class);
+        return  mapper.readValue(jsonFile, Object.class);
     }
 
-    public static LinkedHashMap<Object,Object>  fromJson(InputStream reader) throws IOException {
+    /**
+     *
+     * @param reader
+     * @return
+     * @throws IOException
+     */
+    public static Object fromJson(InputStream reader) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return (LinkedHashMap<Object,Object>) mapper.readValue(reader, Object.class);
+        return mapper.readValue(reader, Object.class);
     }
+
+    /**
+     *
+     * @param reader
+     * @return
+     * @throws IOException
+     */
+    public static Data toData(InputStream reader) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(reader, Data.class);
+    }
+
 }
