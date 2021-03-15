@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-       <!-- The Basics -->
-    <parent>
-        <groupId>org.orbisgis</groupId>
-        <artifactId>orbisparent</artifactId>
-        <version>1.0.3-SNAPSHOT</version>
-    </parent>
     <groupId>org.orbisgis</groupId>
     <artifactId>demat</artifactId>
     <version>0.0.1</version>
@@ -19,6 +13,34 @@
         <buildNumber>${maven.build.timestamp}</buildNumber>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
+
+        <maven-version>3.5.0</maven-version>
+        <java-version>1.8</java-version>
+
+        <!-- Dependencies versions -->
+        <groovy-version>3.0.7</groovy-version>
+        <jackson-core-version>2.12.1</jackson-core-version>
+        <junit-version>5.7.0-M1</junit-version>
+
+        <!-- Plugins versions -->
+        <exec-maven-version>3.0.0</exec-maven-version>
+        <gmaven-version>1.9.0</gmaven-version>
+        <maven-archetype-plugin-version>3.1.2</maven-archetype-plugin-version>
+        <maven-assembly-version>3.3.0</maven-assembly-version>
+        <maven-bundle-version>4.2.1</maven-bundle-version>
+        <maven-clean-version>3.1.0</maven-clean-version>
+        <maven-compiler-version>3.8.1</maven-compiler-version>
+        <maven-deploy-version>3.0.0-M1</maven-deploy-version>
+        <maven-enforcer-version>3.0.0-M3</maven-enforcer-version>
+        <maven-install-version>3.0.0-M1</maven-install-version>
+        <maven-jar-version>3.2.0</maven-jar-version>
+        <maven-javadoc-version>3.2.0</maven-javadoc-version>
+        <maven-project-info-reports-version>3.1.0</maven-project-info-reports-version>
+        <maven-resources-version>3.1.0</maven-resources-version>
+        <maven-site-version>3.9.0</maven-site-version>
+        <maven-surefire-report-plugin-version>3.0.0-M4</maven-surefire-report-plugin-version>
+        <maven-surefire-version>3.0.0-M4</maven-surefire-version>
+        <version-maven>2.7</version-maven>
     </properties>
 
     <dependencies>
@@ -30,30 +52,33 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.12.1</version>
+            <version>${jackson-core-version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.12.1</version>
+            <version>${jackson-core-version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>2.12.1</version>
+            <version>${jackson-core-version}</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy</artifactId>
             <scope>test</scope>
+            <version>${groovy-version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit-version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-version}</version>
         </dependency>
     </dependencies>
 
@@ -63,34 +88,32 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
+                <version>${maven-surefire-version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-version}</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
+                <version>${gmaven-version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${maven-resources-version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-version}</version>
             </plugin>
         </plugins>
     </build>
@@ -131,27 +154,4 @@
     <scm>
         <connection>scm:git:git://github.com/ebocher/demat</connection>
     </scm>
-    <repositories>
-        <repository>
-            <id>orbisgis-release</id>
-            <url>http://nexus-ng.orbisgis.org/repository/orbisgis-release</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>orbisgis-snapshot</id>
-            <url>http://nexus-ng.orbisgis.org/repository/orbisgis-snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
 </project>
