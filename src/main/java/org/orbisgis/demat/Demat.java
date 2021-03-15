@@ -1,19 +1,14 @@
 package org.orbisgis.demat;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.orbisgis.demat.vega.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
 public class Demat {
 
-
     View view ;
-
-
 
     public void setView(View view) {
         this.view = view;
@@ -61,10 +56,28 @@ public class Demat {
     }
 
     /**
+     * Create data values data from a LinkedHashMap
+     *
+     * @param values
+     * @return
+     */
+    public static Data data (LinkedHashMap values) {
+        return ViewUtils.urlData(values);
+    }
+
+    /**
+     * Create a X encoding
+     * @return
+     */
+    public static X x() {
+        return new X();
+    }
+
+    /**
      * Return a X encoding class
      * @return
      */
-    public static X X(String fieldValue) {
+    public static X x(String fieldValue) {
         X x = new X();
         x.setField(new Field(fieldValue));
         return x;
@@ -78,12 +91,12 @@ public class Demat {
 
     /**
      * Create a Color encoding from a property name
-     * @param propertyName
+     * @param fieldValue
      * @return
      */
-    public static Color color(String propertyName) {
+    public static Color color(String fieldValue) {
         Color color = new Color();
-        color.setField(new Field(propertyName));
+        color.setField(new Field(fieldValue));
         return color;
     }
 
@@ -99,7 +112,7 @@ public class Demat {
      * Create a Y encoding
      * @return
      */
-    public static Y Y() {
+    public static Y y() {
         return new Y();
     }
 
@@ -107,7 +120,7 @@ public class Demat {
      * Create a Y encoding
      * @return
      */
-    public static Y Y(String fieldValue) {
+    public static Y y(String fieldValue) {
         Y y = new Y();
         y.setField(new Field(fieldValue));
         return y;
@@ -117,38 +130,39 @@ public class Demat {
 
     }
 
-
-    /**
-     *
-     * @param jsonFile
-     * @return
-     * @throws IOException
-     */
-    public static Object fromJson(File jsonFile) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return  mapper.readValue(jsonFile, Object.class);
+    public static Data json(InputStream resourceAsStream) {
+        Object json = Read.json(resourceAsStream);
+        if(json instanceof LinkedHashMap){
+            return data(( LinkedHashMap<Object, Object>)json);
+        }
+        else if(json instanceof List){
+            return  data((List<Map>) json);
+        }
+        throw new RuntimeException("Unsuported input data");
     }
 
     /**
-     *
-     * @param reader
+     * Load the cars json file provided by vega-lite code source
      * @return
-     * @throws IOException
      */
-    public static Object fromJson(InputStream reader) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(reader, Object.class);
+    public static Data cars(){
+        try {
+            return Read.toData(Demat.class.getResourceAsStream("cars.json"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
-     *
-     * @param reader
+     * Load the seattle_weather json file provided by vega-lite code source
      * @return
-     * @throws IOException
      */
-    public static Data toData(InputStream reader) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(reader, Data.class);
+    public static Data seattle_weather(){
+        try {
+            return Read.csv(Demat.class.getResourceAsStream("seattle-weather.csv"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

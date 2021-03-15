@@ -332,6 +332,11 @@ public class X implements IEncodingProperty {
     public void setValue(Coordinate value) { this.value = value; }
 
 
+    /*
+    ---
+    Additional methods to simplify the use
+    ---
+    */
 
     public X quantitative() {
         this.setType(Type.QUANTITATIVE);
@@ -345,6 +350,18 @@ public class X implements IEncodingProperty {
 
     public X ordinal() {
         this.setType(Type.ORDINAL);
+        return this;
+    }
+
+    public X count() {
+        Aggregate aggregate = new Aggregate();
+        aggregate.enumValue=NonArgAggregateOp.COUNT;
+        this.setAggregate(aggregate);
+        return this;
+    }
+
+    public X timeUnit(TimeUnit timeUnit) {
+        this.setTimeUnit(new TimeUnitUnion(timeUnit));
         return this;
     }
 }

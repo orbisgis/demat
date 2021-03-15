@@ -11,7 +11,7 @@
     <artifactId>demat</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
-    <description>Demat is breton word to said "Hello". Demat is wrapper arround the Vega-lite library</description>
+    <description>Demat is breton word to said "Hello". Demat is wrapper on top of the Vega-lite library</description>
     <!-- Properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,64 +1,80 @@
 package org.orbisgis.demat;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.orbisgis.demat.vega.*;
 
 import java.io.IOException;
 import java.util.*;
+import  static org.orbisgis.demat.Demat.*;
 
 public class DematTest {
 
+    private  static Data GRID_INDICATORS = null ;
+    private  static  Data RSU_GEOINDICATORS =null ;
+
+    @BeforeAll
+    public static void loadData(){
+        LinkedHashMap geojson = (LinkedHashMap) Read.json(DematTest.class.getClassLoader().getResourceAsStream("rsu_geoindicators.geojson"));
+        RSU_GEOINDICATORS = data((List<Map>) geojson.get("features"));
+        geojson = (LinkedHashMap) Read.json(DematTest.class.getClassLoader().getResourceAsStream("grid_indicators.geojson"));
+        GRID_INDICATORS = data((List<Map>) geojson.get("features"));
+    }
 
     @Test
     void testSimpleBarChart(TestInfo testInfo) throws IOException {
-        X x = Demat.X("a").nominal();
-        Y y = Demat.Y("b").quantitative();
-        View view = Demat.view().description("A simple bar chart").name("A simple name")
+        View view = view().description("A simple bar chart").name("A simple name")
                 .data(new Object[][]{{"a", "b", "c"}, {1, 22, 12}, {200, 300, 400}})
                 .mark_bar()
-                .encoding(x, y);
+                .encoding(x("a").nominal(), y("b").quantitative());
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
     }
 
     @Test
     void testResponsiveBarChart(TestInfo testInfo) throws IOException {
-        X x = Demat.X("Origin");
-        Y y = Demat.Y().count();
-        Data data =  Demat.toData(getClass().getClassLoader().getResourceAsStream("cars.json"));
-        View chart = Demat.view().description("A grouping bar").name("Counting cars")
-                .data(data)
+        X x = x("Origin");
+        Y y = y().count();
+        View chart = view().description("A grouping bar").name("Counting cars")
+                .data(cars())
                 .mark_bar()
                 .encoding(x,y);
         chart.save( "target/"+testInfo.getDisplayName()+".html",true);
+        chart.show();
+    }
+
+    @Test
+    void testStackedBarChartWithRoundedCorners(TestInfo testInfo) throws IOException {
+        View chart = view().description("A Stacked bar to display weather data")
+                .data(seattle_weather())
+                .mark_bar()
+                .encoding(x("date").ordinal().timeUnit(TimeUnit.MONTH),y().count(), color("weather"));
+        chart.save( "target/"+testInfo.getDisplayName()+".html",true);
+        chart.show();
     }
 
     @Test
     void testHorizontalConcat(TestInfo testInfo) throws IOException {
-        X x = Demat.X("a").nominal();
-        Y y = Demat.Y("b").quantitative();
-        View view = Demat.view().description("A simple bar chart to concat").name("A simple name")
+        X x = x("a").nominal();
+        Y y = y("b").quantitative();
+        View view = view().description("A simple bar chart to concat").name("A simple name")
                 .data(new Object[][]{{"a", "b", "c"}, {1, 22, 12}, {200, 300, 400}});
-        View bar_one = Demat.view().mark_bar().encoding(x, y);
-        y = Demat.Y("c").quantitative();
-        View bar_two  = Demat.view().mark_bar().encoding(x, y);
+        View bar_one = view().mark_bar().encoding(x, y);
+        y = y("c").quantitative();
+        View bar_two  = view().mark_bar().encoding(x, y);
         view.hconcat(bar_one, bar_two);
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
     }
 
     @Test
     void testDisplayMapUniqueColorMark (TestInfo testInfo) throws IOException {
-        LinkedHashMap<Object, Object> geojson = (LinkedHashMap<Object, Object>) Demat.fromJson(getClass().getClassLoader().getResourceAsStream("rsu_geoindicators.geojson"));
-        Color color = Demat.color("properties.BUILDING_FRACTION").quantitative();
-        View view = Demat.view().data(geojson).description("A Map with unique values").height(500).width(700).mark_geoshape().
-                encoding(color).projection(ProjectionType.IDENTITY);
+        View view = view().data(RSU_GEOINDICATORS).description("A Map with unique values").height(500).width(700).mark_geoshape().
+                encoding(color("properties.BUILDING_FRACTION").quantitative()).projection(ProjectionType.IDENTITY);
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
         view.show();
     }
 
     @Test
     void testDisplayMapWithInterval (TestInfo testInfo) throws IOException {
-        LinkedHashMap<Object, Object> geojson = (LinkedHashMap<Object, Object>) Demat.fromJson(getClass().getClassLoader().getResourceAsStream("grid_indicators.geojson"));
-        List features = (List) geojson.get("features");
         Scale scale = new Scale();
         Domain domain = new Domain();
         domain.values = new Integer[]{0, 3, 5, 10, 20, 30, 50};//{0d, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1d};
@@ -66,12 +82,12 @@ public class DematTest {
         Projection projection = new Projection();
         projection.setType(ProjectionType.IDENTITY);
         projection.setReflectY(true);
-        Color color = Demat.color("properties.AVG_HEIGHT_ROOF").quantitative();
+        Color color = color("properties.AVG_HEIGHT_ROOF").quantitative();
         color.setScale(scale);
         Legend legend = new Legend();
         legend.setTitle("Height average in meters");
         color.setLegend(legend);
-            View view = Demat.view().data(features).description("A Map with color intervals").height(500).width(700).mark_geoshape().
+            View view = view().data(GRID_INDICATORS).description("A Map with color intervals").height(500).width(700).mark_geoshape().
                 encoding(color).projection(projection);
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
         view.show();
@@ -79,8 +95,6 @@ public class DematTest {
 
     @Test
     void testDisplayMapWithIntervalConcat(TestInfo testInfo) throws IOException {
-        LinkedHashMap<Object, Object> geojson = (LinkedHashMap<Object, Object>) Demat.fromJson(getClass().getClassLoader().getResourceAsStream("rsu_geoindicators.geojson"));
-        List features = (List) geojson.get("features");
         Scale scale = new Scale();
         Domain domain = new Domain();
         domain.values = new Double[]{0d, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1d};
@@ -88,26 +102,24 @@ public class DematTest {
         Projection projection = new Projection();
         projection.setType(ProjectionType.IDENTITY);
         projection.setReflectY(true);
-        Color color = Demat.color("properties.BUILDING_FRACTION").quantitative();
+        Color color = color("properties.BUILDING_FRACTION").quantitative();
         color.setScale(scale);
-        View view = Demat.view().data(features).description("A Map with unique values").projection(projection);
-        View map1  = Demat.view().height(400).width(400).mark_geoshape().
+        View view = view().data(RSU_GEOINDICATORS).description("A Map with unique values").projection(projection);
+        View map1  = view().height(400).width(400).mark_geoshape().
                 encoding(color).title("Building");;
-        Color color2 = Demat.color("properties.WATER_FRACTION").quantitative();
+        Color color2 = color("properties.WATER_FRACTION").quantitative();
         color.setScale(scale);
         Legend legend = new Legend();
         legend.setFormat("%");
         legend.setTitle("Fraction of area in percentage");
         color.setLegend(legend);
-        View map2  = Demat.view().height(400).width(400).mark_geoshape().
+        View map2  = view().height(400).width(400).mark_geoshape().
                 encoding(color2).title("Water");
         view.hconcat(map1,map2);
     }
 
     @Test
     void testDisplayMapWithIntervalWrappable(TestInfo testInfo) throws IOException {
-        LinkedHashMap<Object, Object> geojson = (LinkedHashMap<Object, Object>) Demat.fromJson(getClass().getClassLoader().getResourceAsStream("grid_indicators.geojson"));
-        List features = (List) geojson.get("features");
         Scale scale = new Scale();
         Domain domain = new Domain();
         domain.values = new Double[]{0d, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1d};
@@ -118,31 +130,31 @@ public class DematTest {
         Legend legend = new Legend();
         legend.setFormat("%");
         legend.setTitle("Fraction of area in percentage");
-        Color color = Demat.color("properties.BUILDING_FRACTION").quantitative();
+        Color color = color("properties.BUILDING_FRACTION").quantitative();
         color.setScale(scale);
         color.setLegend(legend);
-        View view = Demat.view().data(features).description("A Map with unique values");
-        View map1  = Demat.view().height(400).width(400).mark_geoshape().
+        View view = view().data(GRID_INDICATORS).description("A Map with unique values");
+        View map1  = view().height(400).width(400).mark_geoshape().
                 encoding(color).title("Building").projection(projection);
         Color color2 = color.copy();
         color2.setField("properties.ROAD_FRACTION");
-        View map2  = Demat.view().height(400).width(400).mark_geoshape().
+        View map2  = view().height(400).width(400).mark_geoshape().
                 encoding(color2).title("Road").projection(projection);
         Color color3 = color.copy();
         color3.setField("properties.IMPERVIOUS_FRACTION");
-        View map3  = Demat.view().height(400).width(400).mark_geoshape().
+        View map3  = view().height(400).width(400).mark_geoshape().
                 encoding(color3).title("Impervious").projection(projection);
         Color color4 = color.copy();
         color4.setField("properties.WATER_FRACTION");
-        View map4  = Demat.view().height(400).width(400).mark_geoshape().
+        View map4  = view().height(400).width(400).mark_geoshape().
                 encoding(color4).title("Water").projection(projection);
         Color color5 = color.copy();
         color5.setField("properties.LOW_VEGETATION_FRACTION");
-        View map5  = Demat.view().height(400).width(400).mark_geoshape().
+        View map5  = view().height(400).width(400).mark_geoshape().
                 encoding(color5).title("Low vegetation").projection(projection);
         Color color6 = color.copy();
         color6.setField("properties.HIGH_VEGETATION_FRACTION");
-        View map6  = Demat.view().height(400).width(400).mark_geoshape().
+        View map6  = view().height(400).width(400).mark_geoshape().
                 encoding(color6).title("High vegetation").projection(projection);
         view.concat(2, map1,map2, map3, map4,map5,map6);
         //view.save( "target/"+testInfo.getDisplayName()+".html",true);
@@ -151,8 +163,6 @@ public class DematTest {
 
     @Test
     void testDisplayMapWithColorSchemeWrappable(TestInfo testInfo) throws IOException {
-        LinkedHashMap<Object, Object> geojson = (LinkedHashMap<Object, Object>) Demat.fromJson(getClass().getClassLoader().getResourceAsStream("grid_indicators.geojson"));
-        List features = (List) geojson.get("features");
         Scale scale = new Scale();
         Domain domain = new Domain();
         domain.values = new Double[]{0d, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1d};
@@ -182,10 +192,10 @@ public class DematTest {
         fieldNames.put("LCZ 105: Bare rock or paved", "LCZ1_105");
         fieldNames.put("LCZ 107: Water", "LCZ1_107");
 
-        Color color = Demat.color("properties.LCZ1_1").quantitative();
+        Color color = color("properties.LCZ1_1").quantitative();
         color.setScale(scale);
         color.setLegend(legend);
-        View view = Demat.view().data(features).description("A wrappable map with color scheme and a datum transformation");
+        View view = view().data(GRID_INDICATORS).description("A wrappable map with color scheme and a datum transformation");
 
         View[]  views = new View[fieldNames.size()];
         int i=0;
@@ -199,7 +209,7 @@ public class DematTest {
             transform.setAs(legendText);
             Color color_tmp = color.copy();
             color_tmp.setField("res_"+field.getValue());
-            View map_  = Demat.view().height(400).width(400).mark_geoshape().
+            View map_  = view().height(400).width(400).mark_geoshape().
                     encoding(color_tmp).title(field.getKey()).projection(projection);
             transforms.add(transform);
             views[i] = map_;

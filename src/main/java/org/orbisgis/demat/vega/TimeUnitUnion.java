@@ -23,8 +23,15 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = TimeUnitUnion.Deserializer.class)
 @JsonSerialize(using = TimeUnitUnion.Serializer.class)
 public class TimeUnitUnion {
-    public TimeUnitParams timeUnitParamsValue;
+    public TimeUnitParams timeUnitParams;
     public TimeUnit enumValue;
+
+    public TimeUnitUnion() {
+    }
+
+    public TimeUnitUnion(TimeUnit timeUnit) {
+        this.enumValue=timeUnit;
+    }
 
     static class Deserializer extends JsonDeserializer<TimeUnitUnion> {
         @Override
@@ -42,7 +49,7 @@ public class TimeUnitUnion {
                     }
                     break;
                 case START_OBJECT:
-                    value.timeUnitParamsValue = jsonParser.readValueAs(TimeUnitParams.class);
+                    value.timeUnitParams = jsonParser.readValueAs(TimeUnitParams.class);
                     break;
                 default: throw new IOException("Cannot deserialize TimeUnitUnion");
             }
@@ -53,8 +60,8 @@ public class TimeUnitUnion {
     static class Serializer extends JsonSerializer<TimeUnitUnion> {
         @Override
         public void serialize(TimeUnitUnion obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            if (obj.timeUnitParamsValue != null) {
-                jsonGenerator.writeObject(obj.timeUnitParamsValue);
+            if (obj.timeUnitParams != null) {
+                jsonGenerator.writeObject(obj.timeUnitParams);
                 return;
             }
             if (obj.enumValue != null) {

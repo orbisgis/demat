@@ -331,6 +331,7 @@ public class Y implements IEncodingProperty {
     @JsonProperty("value")
     public void setValue(Coordinate value) { this.value = value; }
 
+
     public Y quantitative() {
         this.setType(Type.QUANTITATIVE);
         return this;
@@ -350,6 +351,11 @@ public class Y implements IEncodingProperty {
         Aggregate aggregate = new Aggregate();
         aggregate.enumValue=NonArgAggregateOp.COUNT;
         this.setAggregate(aggregate);
+        return this;
+    }
+
+    public Y timeUnit(TimeUnit timeUnit) {
+        this.setTimeUnit(new TimeUnitUnion(timeUnit));
         return this;
     }
 }
