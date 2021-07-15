@@ -181,12 +181,12 @@
             <id>demat-deploy</id>
             <distributionManagement>
                 <snapshotRepository>
-                    <id>orbisgis-demat-snapshots</id>
+                    <id>orbisgis-deploy-snapshots</id>
                     <name>Internal Snaphots</name>
                     <url>http://nexus.orbisgis.org/repository/orbisgis-snapshot/</url>
                 </snapshotRepository>
                 <repository>
-                    <id>orbisgis-demat-release</id>
+                    <id>orbisgis-deploy-release</id>
                     <name>Internal Releases</name>
                     <url>http://nexus.orbisgis.org/repository/orbisgis-release/</url>
                 </repository>
