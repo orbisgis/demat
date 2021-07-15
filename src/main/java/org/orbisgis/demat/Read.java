@@ -56,10 +56,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Utilities to read data, json and csv
+ *
  * @author Erwan Bocher, CNRS 2021
  */
 public class Read {
-
 
     /**
      * Read a CSV file and convert it to a Data object
@@ -139,7 +140,7 @@ public class Read {
      * @throws IOException
      */
     public static Object json(File jsonFile) throws IOException {
-        if(Read.isExtensionWellFormated(jsonFile, "json")) {
+        if(Read.isExtensionWellFormated(jsonFile, "json", "geojson")) {
             ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(jsonFile, Object.class);
         }
@@ -150,17 +151,17 @@ public class Read {
     /**
      * Check if the file has the good extension
      * @param file
-     * @param prefix
+     * @param prefixes
      * @return
      */
-    public static boolean isExtensionWellFormated(File file, String prefix) {
+    public static boolean isExtensionWellFormated(File file, String... prefixes) {
         if(file==null){
             throw new RuntimeException("The file is null.");
         }
-        if(file.isFile()){
+        if(file.isDirectory()){
             throw new RuntimeException("The file is a directory.");
         }
-        if(file.exists()){
+        if(!file.exists()){
             throw new RuntimeException("The file doesn't exist.");
         }
         String path = file.getAbsolutePath();
@@ -169,11 +170,19 @@ public class Read {
         if (i >= 0) {
             extension = path.substring(i + 1);
         }
-        return extension.equalsIgnoreCase(prefix);
+
+        for (String prefix:prefixes) {
+            if(prefix!=null && !prefix.isEmpty()) {
+                if(extension.equalsIgnoreCase(prefix)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
-     * Read a CSV inputstream and convert it to a Data object
+     * Read a CSV {@link InputStream} and convert it to a Data object
      * @param inputStream
      * @return
      * @throws IOException

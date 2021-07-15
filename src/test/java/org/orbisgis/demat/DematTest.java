@@ -48,6 +48,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.orbisgis.demat.vega.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import  static org.orbisgis.demat.Demat.*;
@@ -61,7 +62,7 @@ public class DematTest {
     private  static  Data RSU_GEOINDICATORS =null ;
 
     @BeforeAll
-    public static void loadData(){
+    public static void loadData() throws IOException {
         LinkedHashMap geojson = (LinkedHashMap) Read.json(DematTest.class.getClassLoader().getResourceAsStream("rsu_geoindicators.geojson"));
         RSU_GEOINDICATORS = data((List<Map>) geojson.get("features"));
         geojson = (LinkedHashMap) Read.json(DematTest.class.getClassLoader().getResourceAsStream("grid_indicators.geojson"));
@@ -86,7 +87,7 @@ public class DematTest {
                 .mark_bar()
                 .encoding(x,y);
         chart.save( "target/"+testInfo.getDisplayName()+".html",true);
-        chart.show();
+        //chart.show();
     }
 
     @Test
@@ -96,7 +97,7 @@ public class DematTest {
                 .mark_bar()
                 .encoding(x("date").ordinal().timeUnit(TimeUnit.MONTH),y().count(), color("weather"));
         chart.save( "target/"+testInfo.getDisplayName()+".html",true);
-        chart.show();
+        //chart.show();
     }
 
     @Test
@@ -117,7 +118,7 @@ public class DematTest {
         View view = view().data(RSU_GEOINDICATORS).description("A Map with unique values").height(500).width(700).mark_geoshape().
                 encoding(color("properties.BUILDING_FRACTION").quantitative()).projection(ProjectionType.IDENTITY);
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
-        view.show();
+        //view.show();
     }
 
     @Test
@@ -137,7 +138,7 @@ public class DematTest {
             View view = view().data(GRID_INDICATORS).description("A Map with color intervals").height(500).width(700).mark_geoshape().
                 encoding(color).projection(projection);
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
-        view.show();
+        //view.show();
     }
 
     @Test
@@ -205,7 +206,7 @@ public class DematTest {
                 encoding(color6).title("High vegetation").projection(projection);
         view.concat(2, map1,map2, map3, map4,map5,map6);
         //view.save( "target/"+testInfo.getDisplayName()+".html",true);
-        view.show();
+        //view.show();
     }
 
     @Test
@@ -215,7 +216,7 @@ public class DematTest {
         domain.values = new Double[]{0d, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1d};
         scale.setDomain(domain);
         Scheme scheme = new Scheme();
-        scheme.stringValue="Oranges";
+        scheme.stringValue="greys";
         scale.setScheme(scheme);
         Projection projection = new Projection();
         projection.setType(ProjectionType.IDENTITY);
@@ -224,22 +225,22 @@ public class DematTest {
         legend.setFormat("%");
         legend.setTitle("Fraction of area in percentage");
         HashMap<String, String> fieldNames = new HashMap<String, String>();
-        fieldNames.put("LCZ 1: Compact high-rise", "LCZ1_1");
-        fieldNames.put("LCZ 2: Compact mid-rise", "LCZ1_2");
-        fieldNames.put("LCZ 3: Compact low-rise", "LCZ1_3");
-        fieldNames.put("LCZ 4: Open high-rise", "LCZ1_4");
-        fieldNames.put("LCZ 5: Open mid-rise", "LCZ1_5");
-        fieldNames.put("LCZ 6: Open low-rise", "LCZ1_6");
-        fieldNames.put("LCZ 7: Lightweight low-rise", "LCZ1_7");
-        fieldNames.put("LCZ 8: Large low-rise", "LCZ1_8");
-        fieldNames.put("LCZ 9: Sparsely built", "LCZ1_9");
-        fieldNames.put("LCZ 101: Dense trees", "LCZ1_101");
-        fieldNames.put("LCZ 102: Scattered trees", "LCZ1_102");
-        fieldNames.put("LCZ 104: Low plants", "LCZ1_104");
-        fieldNames.put("LCZ 105: Bare rock or paved", "LCZ1_105");
-        fieldNames.put("LCZ 107: Water", "LCZ1_107");
+        fieldNames.put("LCZ 1: Compact high-rise", "LCZ_PRIMARY_1");
+        fieldNames.put("LCZ 2: Compact mid-rise", "LCZ_PRIMARY_2");
+        fieldNames.put("LCZ 3: Compact low-rise", "LCZ_PRIMARY_3");
+        fieldNames.put("LCZ 4: Open high-rise", "LCZ_PRIMARY_4");
+        fieldNames.put("LCZ 5: Open mid-rise", "LCZ_PRIMARY_5");
+        fieldNames.put("LCZ 6: Open low-rise", "LCZ_PRIMARY_6");
+        fieldNames.put("LCZ 7: Lightweight low-rise", "LCZ_PRIMARY_7");
+        fieldNames.put("LCZ 8: Large low-rise", "LCZ_PRIMARY_8");
+        fieldNames.put("LCZ 9: Sparsely built", "LCZ_PRIMARY_9");
+        fieldNames.put("LCZ 101: Dense trees", "LCZ_PRIMARY_101");
+        fieldNames.put("LCZ 102: Scattered trees", "LCZ_PRIMARY_102");
+        fieldNames.put("LCZ 104: Low plants", "LCZ_PRIMARY_104");
+        fieldNames.put("LCZ 105: Bare rock or paved", "LCZ_PRIMARY_105");
+        fieldNames.put("LCZ 107: Water", "LCZ_PRIMARY_107");
 
-        Color color = color("properties.LCZ1_1").quantitative();
+        Color color = color("properties.LCZ_PRIMARY").quantitative();
         color.setScale(scale);
         color.setLegend(legend);
         View view = view().data(GRID_INDICATORS).description("A wrappable map with color scheme and a datum transformation");
@@ -250,7 +251,7 @@ public class DematTest {
         for (Map.Entry<String, String> field :
                 fieldNames.entrySet()) {
             Transform transform = new Transform();
-            transform.setCalculate("datum.properties."+field.getValue()+"/812756");
+            transform.setCalculate("datum.properties."+field.getValue()+"/1");
             LegendText legendText = new LegendText();
             legendText.stringValue="res_"+field.getValue();
             transform.setAs(legendText);
@@ -265,7 +266,7 @@ public class DematTest {
         view.setTransform(transforms);
         view.concat(2, views);
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
-        view.show();
+        //view.show();
     }
 
 }

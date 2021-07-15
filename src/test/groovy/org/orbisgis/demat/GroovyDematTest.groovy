@@ -96,9 +96,9 @@ class GroovyDematTest {
         Mark mark= new Mark();
         Def definition = new Def();
         definition.type="geoshape"
-        MarkFill markFillDef = new MarkFill()
-        markFillDef.stringValue="#eee"
-        definition.fill=markFillDef
+        MarkFill markFill = new MarkFill()
+        markFill.stringValue="#eee"
+        definition.fill=markFill
         MarkStroke markStrokeDef= new MarkStroke();
         markStrokeDef.stringValue="#757575"
         definition.stroke=markStrokeDef
@@ -122,4 +122,5 @@ class GroovyDematTest {
                 encoding(color).projection(ProjectionType.IDENTITY);
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
     }
+
 }

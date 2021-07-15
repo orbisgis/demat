@@ -720,7 +720,6 @@ public class View {
         this.transform= Arrays.asList(transforms);
     }
 
-
     /**
      * Show the vega-lite chart in the default browser of the OS
      * Save the html file in a tmp file
