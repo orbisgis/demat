@@ -53,7 +53,6 @@ import org.orbisgis.demat.vega.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.util.*;
 
 import static j2html.TagCreator.*;
@@ -529,15 +528,6 @@ public class View {
         ObjectMapper mapper = new ObjectMapper();
         DataValues dataValues = mapper.readValue(json, DataValues.class);
         Data data = new Data();
-        data.setValues(dataValues);
-        this.setData(data);
-        return this;
-    }
-
-    public View data(ResultSet resultSet) throws JsonProcessingException {
-        Data data = new Data();
-        DataValues dataValues = new DataValues();
-        //dataValues.
         data.setValues(dataValues);
         this.setData(data);
         return this;
