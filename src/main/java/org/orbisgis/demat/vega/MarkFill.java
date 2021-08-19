@@ -53,8 +53,8 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = MarkFill.Deserializer.class)
 @JsonSerialize(using = MarkFill.Serializer.class)
 public class MarkFill {
-    public FluffyLinearGradient fluffyLinearGradientValue;
-    public String stringValue;
+    public FluffyLinearGradient gradient;
+    public String color;
 
     static class Deserializer extends JsonDeserializer<MarkFill> {
         @Override
@@ -65,10 +65,10 @@ public class MarkFill {
                     break;
                 case VALUE_STRING:
                     String string = jsonParser.readValueAs(String.class);
-                    value.stringValue = string;
+                    value.color = string;
                     break;
                 case START_OBJECT:
-                    value.fluffyLinearGradientValue = jsonParser.readValueAs(FluffyLinearGradient.class);
+                    value.gradient = jsonParser.readValueAs(FluffyLinearGradient.class);
                     break;
                 default: throw new IOException("Cannot deserialize MarkConfigExprOrSignalRefFill");
             }
@@ -79,12 +79,12 @@ public class MarkFill {
     static class Serializer extends JsonSerializer<MarkFill> {
         @Override
         public void serialize(MarkFill obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            if (obj.fluffyLinearGradientValue != null) {
-                jsonGenerator.writeObject(obj.fluffyLinearGradientValue);
+            if (obj.gradient != null) {
+                jsonGenerator.writeObject(obj.gradient);
                 return;
             }
-            if (obj.stringValue != null) {
-                jsonGenerator.writeObject(obj.stringValue);
+            if (obj.color != null) {
+                jsonGenerator.writeObject(obj.color);
                 return;
             }
             jsonGenerator.writeNull();

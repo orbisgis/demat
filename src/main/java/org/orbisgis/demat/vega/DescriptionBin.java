@@ -53,7 +53,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = DescriptionBin.Deserializer.class)
 @JsonSerialize(using = DescriptionBin.Serializer.class)
 public class DescriptionBin {
-    public Boolean boolValue;
+    public Boolean isBin;
     public BinParams binParamsValue;
     public String stringValue;
 
@@ -66,7 +66,7 @@ public class DescriptionBin {
                     break;
                 case VALUE_TRUE:
                 case VALUE_FALSE:
-                    value.boolValue = jsonParser.readValueAs(Boolean.class);
+                    value.isBin = jsonParser.readValueAs(Boolean.class);
                     break;
                 case VALUE_STRING:
                     String string = jsonParser.readValueAs(String.class);
@@ -84,8 +84,8 @@ public class DescriptionBin {
     static class Serializer extends JsonSerializer<DescriptionBin> {
         @Override
         public void serialize(DescriptionBin obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            if (obj.boolValue != null) {
-                jsonGenerator.writeObject(obj.boolValue);
+            if (obj.isBin != null) {
+                jsonGenerator.writeObject(obj.isBin);
                 return;
             }
             if (obj.binParamsValue != null) {

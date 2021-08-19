@@ -382,21 +382,46 @@ public class X implements IEncodingProperty {
     ---
     */
 
+    /**
+     * Declare as quantitative value
+     * @return
+     */
     public X quantitative() {
         this.setType(Type.QUANTITATIVE);
         return this;
     }
 
+    /**
+     * Declare as nominal value
+     * @return
+     */
     public X nominal() {
         this.setType(Type.NOMINAL);
         return this;
     }
 
+    /**
+     * Declare as ordinal value
+     * @return
+     */
     public X ordinal() {
         this.setType(Type.ORDINAL);
         return this;
     }
 
+    /**
+     * Declare as temporal value
+     * @return
+     */
+    public X temporal() {
+        this.setType(Type.TEMPORAL);
+        return this;
+    }
+
+    /**
+     * Count X values
+     * @return
+     */
     public X count() {
         Aggregate aggregate = new Aggregate();
         aggregate.enumValue=NonArgAggregateOp.COUNT;
@@ -406,6 +431,18 @@ public class X implements IEncodingProperty {
 
     public X timeUnit(TimeUnit timeUnit) {
         this.setTimeUnit(new TimeUnitUnion(timeUnit));
+        return this;
+    }
+
+    /**
+     * Discretizes numeric values into a set of bins
+     * @param isBin
+     * @return
+     */
+    public X bin(boolean isBin){
+        DescriptionBin descriptionBin = new DescriptionBin();
+        descriptionBin.isBin=true;
+        this.setBin(descriptionBin);
         return this;
     }
 }

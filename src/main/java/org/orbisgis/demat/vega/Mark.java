@@ -59,7 +59,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonSerialize(using = Mark.Serializer.class)
 public class Mark {
     public Def defValue;
-    public String stringValue;
+    public String type;
 
     static class Deserializer extends JsonDeserializer<Mark> {
         @Override
@@ -70,7 +70,7 @@ public class Mark {
                     break;
                 case VALUE_STRING:
                     String string = jsonParser.readValueAs(String.class);
-                    value.stringValue = string;
+                    value.type = string;
                     break;
                 case START_OBJECT:
                     value.defValue = jsonParser.readValueAs(Def.class);
@@ -88,8 +88,8 @@ public class Mark {
                 jsonGenerator.writeObject(obj.defValue);
                 return;
             }
-            if (obj.stringValue != null) {
-                jsonGenerator.writeObject(obj.stringValue);
+            if (obj.type != null) {
+                jsonGenerator.writeObject(obj.type);
                 return;
             }
             jsonGenerator.writeNull();

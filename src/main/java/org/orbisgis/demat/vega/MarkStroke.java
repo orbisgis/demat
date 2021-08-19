@@ -59,8 +59,8 @@ import java.io.IOException;
 @JsonDeserialize(using = MarkStroke.Deserializer.class)
 @JsonSerialize(using = MarkStroke.Serializer.class)
 public class MarkStroke {
-    public FluffyLinearGradient fluffyLinearGradientValue;
-    public String stringValue;
+    public FluffyLinearGradient gradient;
+    public String color;
 
     static class Deserializer extends JsonDeserializer<MarkStroke> {
         @Override
@@ -71,10 +71,10 @@ public class MarkStroke {
                     break;
                 case VALUE_STRING:
                     String string = jsonParser.readValueAs(String.class);
-                    value.stringValue = string;
+                    value.color = string;
                     break;
                 case START_OBJECT:
-                    value.fluffyLinearGradientValue = jsonParser.readValueAs(FluffyLinearGradient.class);
+                    value.gradient = jsonParser.readValueAs(FluffyLinearGradient.class);
                     break;
                 default: throw new IOException("Cannot deserialize MarkConfigExprOrSignalRefFill");
             }
@@ -85,12 +85,12 @@ public class MarkStroke {
     static class Serializer extends JsonSerializer<MarkStroke> {
         @Override
         public void serialize(MarkStroke obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            if (obj.fluffyLinearGradientValue != null) {
-                jsonGenerator.writeObject(obj.fluffyLinearGradientValue);
+            if (obj.gradient != null) {
+                jsonGenerator.writeObject(obj.gradient);
                 return;
             }
-            if (obj.stringValue != null) {
-                jsonGenerator.writeObject(obj.stringValue);
+            if (obj.color != null) {
+                jsonGenerator.writeObject(obj.color);
                 return;
             }
             jsonGenerator.writeNull();

@@ -67,21 +67,41 @@ class GroovyDematTest {
         GRID_INDICATORS = data((List<Map>) geojson.get("features"));
     }
 
-
     @Test
     void testSimpleBarChart(TestInfo testInfo){
         View plot = view().data([
                 ["a": "A", "b": 28], ["a": "B", "b": 55], ["a": "C", "b": 43],
                 ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
                 ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52] ]).mark_bar().
-                encoding(x("a").nominal(),y("b").quantitative() )
+                encode(x("a").nominal(),y("b").quantitative() )
         plot.save("target/${testInfo.displayName}.html",true)
     }
 
     @Test
     void testResponsiveBarChart(TestInfo testInfo){
         def plot =  view().data(cars()).mark_bar()
-                .encoding(x("Origin"), y().count())
+                .encode(x("Origin"), y().count())
+        plot.save("target/${testInfo.displayName}.html",true)
+    }
+
+    @Test
+    void testSimpleHistogram(TestInfo testInfo){
+        def plot =  view().data(cars()).mark_bar()
+                .encode(x("Cylinders").quantitative().bin(true), y().count())
+        plot.save("target/${testInfo.displayName}.html",true)
+    }
+
+    @Test
+    void testSimpleStackedAreaChart(TestInfo testInfo){
+        def plot =  view().data(seattle_weather()).mark_area()
+                .encode(x("date").temporal(), y("precipitation").quantitative(), color("weather").nominal())
+        plot.save("target/${testInfo.displayName}.html",true)
+    }
+
+    @Test
+    void testSimpleStripPlot(TestInfo testInfo){
+        def plot =  view().data(cars()).mark_tick()
+                .encode(x("Horsepower").quantitative(), y("Cylinders").ordinal())
         plot.save("target/${testInfo.displayName}.html",true)
     }
 
@@ -92,19 +112,27 @@ class GroovyDematTest {
     }
 
     @Test
+    void testDisplayMapJSON (TestInfo testInfo){
+        View plot = view().data("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[4.866735,46.263463],[4.866611,46.263508],[4.866568,46.263558],[4.866583,46.263596],[4.866645,46.263637],[4.866866,46.26371],[4.866915,46.263688],[4.866799,46.263561],[4.8667,46.26356],[4.866738,46.2635],[4.866735,46.263463]]]}}").height(500).width(500).mark_geoshape();
+        plot.save("target/${testInfo.displayName}.html",true)
+        //plot.show()
+    }
+
+    @Test
     void testDisplayMapWithCustomMark (TestInfo testInfo){
         Mark mark= new Mark();
         Def definition = new Def();
         definition.type="geoshape"
         MarkFill markFill = new MarkFill()
-        markFill.stringValue="#eee"
+        markFill.color="#eee"
         definition.fill=markFill
-        MarkStroke markStrokeDef= new MarkStroke();
-        markStrokeDef.stringValue="#757575"
+        MarkStroke markStrokeDef= new MarkStroke()
+        markStrokeDef.color="#757575"
         definition.stroke=markStrokeDef
         mark.defValue=definition
         View plot = view().data(RSU_GEOINDICATORS).height(500).width(500).mark(mark)
         plot.save("target/${testInfo.displayName}.html",true)
+        //plot.show()
     }
 
     @Test
@@ -119,7 +147,7 @@ class GroovyDematTest {
         def color = color("properties.BUILDING_FRACTION").quantitative();
         color.setScale(scale);
         View view = view().data(RSU_GEOINDICATORS).description("A Map with unique values").height(500).width(700).mark_geoshape().
-                encoding(color).projection(ProjectionType.IDENTITY);
+                encode(color).projection(ProjectionType.IDENTITY);
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
     }
 

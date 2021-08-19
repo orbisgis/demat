@@ -376,21 +376,46 @@ public class Y implements IEncodingProperty {
     public void setValue(Coordinate value) { this.value = value; }
 
 
+    /**
+     * Declare as quantitative value
+     * @return
+     */
     public Y quantitative() {
         this.setType(Type.QUANTITATIVE);
         return this;
     }
 
+    /**
+     * Declare as nominal value
+     * @return
+     */
     public Y nominal() {
         this.setType(Type.NOMINAL);
         return this;
     }
 
+    /**
+     * Declare as ordinal value
+     * @return
+     */
     public Y ordinal() {
         this.setType(Type.ORDINAL);
         return this;
     }
 
+    /**
+     * Declare as temporal value
+     * @return
+     */
+    public Y temporal() {
+        this.setType(Type.TEMPORAL);
+        return this;
+    }
+
+    /**
+     * Count Y values
+     * @return
+     */
     public Y count() {
         Aggregate aggregate = new Aggregate();
         aggregate.enumValue=NonArgAggregateOp.COUNT;
@@ -400,6 +425,18 @@ public class Y implements IEncodingProperty {
 
     public Y timeUnit(TimeUnit timeUnit) {
         this.setTimeUnit(new TimeUnitUnion(timeUnit));
+        return this;
+    }
+
+    /**
+     * Discretizes numeric values into a set of bins
+     * @param isBin
+     * @return
+     */
+    public Y bin(boolean isBin){
+        DescriptionBin descriptionBin = new DescriptionBin();
+        descriptionBin.isBin=true;
+        this.setBin(descriptionBin);
         return this;
     }
 }

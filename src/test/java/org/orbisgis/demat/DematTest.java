@@ -48,7 +48,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.orbisgis.demat.vega.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import  static org.orbisgis.demat.Demat.*;
@@ -74,7 +73,7 @@ public class DematTest {
         View view = view().description("A simple bar chart").name("A simple name")
                 .data(new Object[][]{{"a", "b", "c"}, {1, 22, 12}, {200, 300, 400}})
                 .mark_bar()
-                .encoding(x("a").nominal(), y("b").quantitative());
+                .encode(x("a").nominal(), y("b").quantitative());
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
     }
 
@@ -85,7 +84,7 @@ public class DematTest {
         View chart = view().description("A grouping bar").name("Counting cars")
                 .data(cars())
                 .mark_bar()
-                .encoding(x,y);
+                .encode(x,y);
         chart.save( "target/"+testInfo.getDisplayName()+".html",true);
         //chart.show();
     }
@@ -95,7 +94,7 @@ public class DematTest {
         View chart = view().description("A Stacked bar to display weather data")
                 .data(seattle_weather())
                 .mark_bar()
-                .encoding(x("date").ordinal().timeUnit(TimeUnit.MONTH),y().count(), color("weather"));
+                .encode(x("date").ordinal().timeUnit(TimeUnit.MONTH),y().count(), color("weather"));
         chart.save( "target/"+testInfo.getDisplayName()+".html",true);
         //chart.show();
     }
@@ -106,9 +105,9 @@ public class DematTest {
         Y y = y("b").quantitative();
         View view = view().description("A simple bar chart to concat").name("A simple name")
                 .data(new Object[][]{{"a", "b", "c"}, {1, 22, 12}, {200, 300, 400}});
-        View bar_one = view().mark_bar().encoding(x, y);
+        View bar_one = view().mark_bar().encode(x, y);
         y = y("c").quantitative();
-        View bar_two  = view().mark_bar().encoding(x, y);
+        View bar_two  = view().mark_bar().encode(x, y);
         view.hconcat(bar_one, bar_two);
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
     }
@@ -116,7 +115,7 @@ public class DematTest {
     @Test
     void testDisplayMapUniqueColorMark (TestInfo testInfo) throws IOException {
         View view = view().data(RSU_GEOINDICATORS).description("A Map with unique values").height(500).width(700).mark_geoshape().
-                encoding(color("properties.BUILDING_FRACTION").quantitative()).projection(ProjectionType.IDENTITY);
+                encode(color("properties.BUILDING_FRACTION").quantitative()).projection(ProjectionType.IDENTITY);
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
         //view.show();
     }
@@ -136,7 +135,7 @@ public class DematTest {
         legend.setTitle("Height average in meters");
         color.setLegend(legend);
             View view = view().data(GRID_INDICATORS).description("A Map with color intervals").height(500).width(700).mark_geoshape().
-                encoding(color).projection(projection);
+                    encode(color).projection(projection);
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
         //view.show();
     }
@@ -154,7 +153,7 @@ public class DematTest {
         color.setScale(scale);
         View view = view().data(RSU_GEOINDICATORS).description("A Map with unique values").projection(projection);
         View map1  = view().height(400).width(400).mark_geoshape().
-                encoding(color).title("Building");;
+                encode(color).title("Building");;
         Color color2 = color("properties.WATER_FRACTION").quantitative();
         color.setScale(scale);
         Legend legend = new Legend();
@@ -162,7 +161,7 @@ public class DematTest {
         legend.setTitle("Fraction of area in percentage");
         color.setLegend(legend);
         View map2  = view().height(400).width(400).mark_geoshape().
-                encoding(color2).title("Water");
+                encode(color2).title("Water");
         view.hconcat(map1,map2);
     }
 
@@ -183,27 +182,27 @@ public class DematTest {
         color.setLegend(legend);
         View view = view().data(GRID_INDICATORS).description("A Map with unique values");
         View map1  = view().height(400).width(400).mark_geoshape().
-                encoding(color).title("Building").projection(projection);
+                encode(color).title("Building").projection(projection);
         Color color2 = color.copy();
         color2.setField("properties.ROAD_FRACTION");
         View map2  = view().height(400).width(400).mark_geoshape().
-                encoding(color2).title("Road").projection(projection);
+                encode(color2).title("Road").projection(projection);
         Color color3 = color.copy();
         color3.setField("properties.IMPERVIOUS_FRACTION");
         View map3  = view().height(400).width(400).mark_geoshape().
-                encoding(color3).title("Impervious").projection(projection);
+                encode(color3).title("Impervious").projection(projection);
         Color color4 = color.copy();
         color4.setField("properties.WATER_FRACTION");
         View map4  = view().height(400).width(400).mark_geoshape().
-                encoding(color4).title("Water").projection(projection);
+                encode(color4).title("Water").projection(projection);
         Color color5 = color.copy();
         color5.setField("properties.LOW_VEGETATION_FRACTION");
         View map5  = view().height(400).width(400).mark_geoshape().
-                encoding(color5).title("Low vegetation").projection(projection);
+                encode(color5).title("Low vegetation").projection(projection);
         Color color6 = color.copy();
         color6.setField("properties.HIGH_VEGETATION_FRACTION");
         View map6  = view().height(400).width(400).mark_geoshape().
-                encoding(color6).title("High vegetation").projection(projection);
+                encode(color6).title("High vegetation").projection(projection);
         view.concat(2, map1,map2, map3, map4,map5,map6);
         //view.save( "target/"+testInfo.getDisplayName()+".html",true);
         //view.show();
@@ -258,7 +257,7 @@ public class DematTest {
             Color color_tmp = color.copy();
             color_tmp.setField("res_"+field.getValue());
             View map_  = view().height(400).width(400).mark_geoshape().
-                    encoding(color_tmp).title(field.getKey()).projection(projection);
+                    encode(color_tmp).title(field.getKey()).projection(projection);
             transforms.add(transform);
             views[i] = map_;
             i++;

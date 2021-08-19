@@ -53,6 +53,7 @@ import org.orbisgis.demat.vega.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.util.*;
 
 import static j2html.TagCreator.*;
@@ -98,7 +99,7 @@ public class View {
     private List<NormalizedSpec> concat;
     private List<NormalizedSpec> vconcat;
     private List<NormalizedSpec> hconcat;
-
+    private String showDir = System.getProperty("java.io.tmpdir")+File.separator+"demat";
 
     /**
      * URL to [JSON schema](http://json-schema.org/) for a Vega-Lite specification. Unless you
@@ -524,20 +525,73 @@ public class View {
         return this;
     }
 
+    public View data(String json) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        DataValues dataValues = mapper.readValue(json, DataValues.class);
+        Data data = new Data();
+        data.setValues(dataValues);
+        this.setData(data);
+        return this;
+    }
+
+    public View data(ResultSet resultSet) throws JsonProcessingException {
+        Data data = new Data();
+        DataValues dataValues = new DataValues();
+        //dataValues.
+        data.setValues(dataValues);
+        this.setData(data);
+        return this;
+    }
+
+    /**
+     * Create a mark_geoshape
+     * @return
+     */
     public View mark_geoshape() {
         Mark mark = new Mark();
-        mark.stringValue = "geoshape";
+        mark.type = "geoshape";
         this.mark= mark;
         return this;
     }
 
+    /**
+     * Create a mark_bar
+     * @return
+     */
     public View mark_bar() {
         Mark mark = new Mark();
-        mark.stringValue = "bar";
+        mark.type = "bar";
         this.mark= mark;
         return this;
     }
 
+    /**
+     * Create a mark_bar
+     * @return
+     */
+    public View mark_area() {
+        Mark mark = new Mark();
+        mark.type = "area";
+        this.mark= mark;
+        return this;
+    }
+
+    /**
+     * Create a mark_tick
+     * @return
+     */
+    public View mark_tick() {
+        Mark mark = new Mark();
+        mark.type = "tick";
+        this.mark= mark;
+        return this;
+    }
+
+    /**
+     * Set height to the view
+     * @param height
+     * @return
+     */
     public View height(double height){
         Height height_ = new Height();
         height_.doubleValue=height;
@@ -545,6 +599,11 @@ public class View {
         return this;
     }
 
+    /**
+     * Set width to the view
+     * @param width
+     * @return
+     */
     public View width(double width){
         Height height_ = new Height();
         height_.doubleValue=width;
@@ -552,7 +611,12 @@ public class View {
         return this;
     }
 
-    public View encoding(IEncodingProperty... properties) {
+    /**
+     * Construct the encoding element
+     * @param properties any encoding elements , X, Y, Color...
+     * @return
+     */
+    public View encode(IEncodingProperty... properties) {
         Encoding encoding = new Encoding();
         for (IEncodingProperty property:properties){
             if(property  instanceof X){
@@ -573,6 +637,15 @@ public class View {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         return objectMapper.writeValueAsString(this);
+    }
+
+    /**
+     * Save into the show directory
+     * @return
+     */
+    public String save() throws IOException {
+        File outputFile = File.createTempFile("vegalite", ".html", checkShowDir());
+        return save(outputFile.getAbsolutePath());
     }
 
     /**
@@ -721,12 +794,36 @@ public class View {
     }
 
     /**
+     * Set a new directory path to store the HTML file generated
+     * for rendering vegalite view
+     * @return
+     */
+    public void setShowDir(String showDirPath) {
+        this.showDir=showDirPath;
+    }
+
+    /**
+     * Check the show directory file
+     * @return
+     */
+    public File checkShowDir(){
+        File showDirFile = new File(showDir);
+        if(!showDirFile.isDirectory()){
+            throw new RuntimeException("Invalid directory path");
+        }
+        if(!showDirFile.exists()){
+            showDirFile.mkdir();
+        }
+        return showDirFile;
+    }
+
+    /**
      * Show the vega-lite chart in the default browser of the OS
      * Save the html file in a tmp file
      */
     public void show() {
         try {
-            File outputFile = File.createTempFile("demat", ".html");
+            File outputFile = File.createTempFile("vegalite", ".html", checkShowDir());
             this.save(outputFile, true);
             ViewUtils.openBrowser(outputFile.getAbsolutePath());
         } catch (Exception e) {

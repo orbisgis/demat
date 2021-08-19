@@ -44,6 +44,7 @@
  */
 package org.orbisgis.demat;
 
+import com.fasterxml.jackson.core.JsonParser;
 import org.orbisgis.demat.vega.DataValues;
 import org.orbisgis.demat.vega.InlineDataset;
 import org.orbisgis.demat.vega.Data;
