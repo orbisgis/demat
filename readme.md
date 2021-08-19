@@ -12,14 +12,18 @@ Demat is under active development, nothing is stable ;-)
 
 # Use it
 
-The following code : 
-```java
+Let's run this script with Groovy
+
+```groovy
+@GrabResolver(name='orbisgis', root='https://nexus.orbisgis.org/repository/orbisgis/')
+@Grab(group='org.orbisgis', module='demat', version='0.0.2')
+
 import  static org.orbisgis.demat.Demat.*;
 
-View view = view().description("A simple bar chart").name("A simple name")
-                .data(new Object[][]{{"a", "b", "c"}, {1, 22, 12}, {200, 300, 400}})
-                .mark_bar()
-                .encoding(x("a").nominal(), y("b").quantitative());
+def view = view().description("A simple bar chart").name("A simple name")
+        .data(new Object[][]{{"a", "b", "c"}, {1, 22, 12}, {200, 300, 400}})
+        .mark_bar()
+        .encode(x("a").nominal(), y("b").quantitative());
 view.show();
 
 ```
