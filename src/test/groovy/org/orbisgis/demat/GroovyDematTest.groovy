@@ -74,7 +74,7 @@ class GroovyDematTest {
                 ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
                 ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52] ]).mark_bar().
                 encode(x("a").nominal(),y("b").quantitative() )
-        plot.save("target/${testInfo.displayName}.html",true)
+       plot.save("target/${testInfo.displayName}.html",true)
     }
 
     @Test
@@ -102,6 +102,27 @@ class GroovyDematTest {
     void testSimpleStripPlot(TestInfo testInfo){
         def plot =  view().data(cars()).mark_tick()
                 .encode(x("Horsepower").quantitative(), y("Cylinders").ordinal())
+        plot.save("target/${testInfo.displayName}.html",true)
+    }
+
+    @Test
+    void testHorizontalStackedBarChart(TestInfo testInfo){
+        def plot =  view().data(seattle_weather()).mark_bar()
+                .encode(x("precipitation").sum(), y('weather'))
+        plot.save("target/${testInfo.displayName}.html",true)
+    }
+
+    @Test
+    void testLineChart(TestInfo testInfo){
+        def plot =  view().data(seattle_weather()).mark_line()
+                .encode(x("date").temporal(), y('precipitation').quantitative())
+        plot.save("target/${testInfo.displayName}.html",true)
+    }
+
+    @Test
+    void testPointChart(TestInfo testInfo){
+        def plot =  view().data(seattle_weather()).mark_point()
+                .encode(x("date").temporal(), y('precipitation').quantitative(), color('weather'))
         plot.save("target/${testInfo.displayName}.html",true)
     }
 

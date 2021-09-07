@@ -445,4 +445,15 @@ public class X implements IEncodingProperty {
         this.setBin(descriptionBin);
         return this;
     }
+
+    /**
+     * Set a sum operator on the X value
+     * @return
+     */
+    public X sum(){
+        Aggregate aggregate = new Aggregate();
+        aggregate.enumValue = NonArgAggregateOp.SUM;
+        this.setAggregate(aggregate);
+        return this;
+    }
 }

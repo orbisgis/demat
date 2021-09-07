@@ -578,6 +578,28 @@ public class View {
     }
 
     /**
+     * Create a mark_line
+     * @return
+     */
+    public View mark_line() {
+        Mark mark = new Mark();
+        mark.type = "line";
+        this.mark= mark;
+        return this;
+    }
+
+    /**
+     * Create a mark_line
+     * @return
+     */
+    public View mark_point() {
+        Mark mark = new Mark();
+        mark.type = "point";
+        this.mark= mark;
+        return this;
+    }
+
+    /**
      * Set height to the view
      * @param height
      * @return
@@ -798,11 +820,11 @@ public class View {
      */
     public File checkShowDir(){
         File showDirFile = new File(showDir);
-        if(!showDirFile.isDirectory()){
-            throw new RuntimeException("Invalid directory path");
-        }
-        if(!showDirFile.exists()){
+        if(!showDirFile.isDirectory()&&!showDirFile.exists()){
             showDirFile.mkdir();
+        }
+        else if(!showDirFile.isDirectory()) {
+            throw new RuntimeException("Invalid directory path");
         }
         return showDirFile;
     }
