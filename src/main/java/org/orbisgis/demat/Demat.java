@@ -48,27 +48,23 @@ import org.orbisgis.demat.vega.*;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Main class to manage vega-lite element and build the vega-lite views
+ *
  * @author Erwan Bocher, CNRS 2021
  */
 public class Demat {
 
-    View view ;
-
-    public void setView(View view) {
-        this.view = view;
-    }
-
-    public View getView() {
-        return view;
-    }
+    View view;
 
     /**
      * Create a chart object
      * it refers to a single view configuration for vega-lite
+     *
      * @return
      */
     public static View view() {
@@ -109,21 +105,22 @@ public class Demat {
      * @param values
      * @return
      */
-    public static Data data (LinkedHashMap values) {
+    public static Data data(LinkedHashMap values) {
         return ViewUtils.urlData(values);
     }
 
     /**
      * Create a X encoding
+     *
      * @return
      */
     public static X x() {
         return new X();
     }
 
-
     /**
      * Return a X encoding class
+     *
      * @return
      */
     public static X x(String fieldValue) {
@@ -137,9 +134,9 @@ public class Demat {
         return encoding;
     }
 
-
     /**
      * Create a Color encoding from a property name
+     *
      * @param fieldValue
      * @return
      */
@@ -150,7 +147,21 @@ public class Demat {
     }
 
     /**
+     * Create a Color encoding from a property name
+     *
+     * @param fieldValue
+     * @return
+     */
+    public static Color color(String fieldValue, Scale scale) {
+        Color color = new Color();
+        color.setField(new Field(fieldValue));
+        color.setScale(scale);
+        return color;
+    }
+
+    /**
      * Create a Color encoding
+     *
      * @return
      */
     public static Color color() {
@@ -158,7 +169,90 @@ public class Demat {
     }
 
     /**
+     * Create a Scale element
+     *
+     * @return
+     */
+    public static Scale scale(Object... elements) {
+        Scale scale = new Scale();
+        for (Object element : elements) {
+            if (element instanceof Domain) {
+                scale.setDomain((Domain) element);
+            } else if (element instanceof ScaleRange) {
+                scale.setRange((ScaleRange) element);
+            } else {
+                throw new RuntimeException("Unkown vega-lite element");
+            }
+        }
+        return scale;
+    }
+
+    /**
+     * Create a domainMid element
+     *
+     * @param value
+     * @return
+     */
+    public static CornerRadius domainMid(double value) {
+        CornerRadius cornerRadius = new CornerRadius();
+        cornerRadius.doubleValue = value;
+        return cornerRadius;
+    }
+
+    /**
+     * Create a domain according a set of values
+     *
+     * @param values
+     * @return
+     */
+    public static Domain domain(List values) {
+        Domain domain_ = new Domain();
+        domain_.values = values.toArray(new Object[0]);
+        return domain_;
+    }
+
+    /**
+     * Create a domain according a value
+     *
+     * @param value
+     * @return
+     */
+    public static Domain domain(String value) {
+        Domain domain_ = new Domain();
+        domain_.value = value;
+        return domain_;
+    }
+
+    /**
+     * Create a scale range according a set of values
+     *
+     * @param values
+     * @return
+     */
+    public static ScaleRange range(List values) {
+        ScaleRange scaleRange = new ScaleRange();
+        scaleRange.values = values.toArray(new Object[0]);
+        ;
+        return scaleRange;
+    }
+
+    /**
+     * Create a scale range from a field
+     *
+     * @param field name of the field
+     * @return
+     */
+    public static ScaleRange range(String field) {
+        ScaleRange scaleRange = new ScaleRange();
+        RangeField rangeField = new RangeField();
+        rangeField.setField(field);
+        scaleRange.rangeField = rangeField;
+        return scaleRange;
+    }
+
+    /**
      * Create a Y encoding
+     *
      * @return
      */
     public static Y y() {
@@ -167,6 +261,7 @@ public class Demat {
 
     /**
      * Create a Y encoding
+     *
      * @return
      */
     public static Y y(String fieldValue) {
@@ -181,20 +276,20 @@ public class Demat {
 
     public static Data json(InputStream resourceAsStream) {
         Object json = Read.json(resourceAsStream);
-        if(json instanceof LinkedHashMap){
-            return data(( LinkedHashMap<Object, Object>)json);
-        }
-        else if(json instanceof List){
-            return  data((List<Map>) json);
+        if (json instanceof LinkedHashMap) {
+            return data((LinkedHashMap<Object, Object>) json);
+        } else if (json instanceof List) {
+            return data((List<Map>) json);
         }
         throw new RuntimeException("Unsuported input data");
     }
 
     /**
      * Load the cars json file provided by vega-lite code source
+     *
      * @return
      */
-    public static Data cars(){
+    public static Data cars() {
         try {
             return Read.toData(Demat.class.getResourceAsStream("cars.json"));
         } catch (IOException e) {
@@ -204,14 +299,23 @@ public class Demat {
 
     /**
      * Load the seattle_weather json file provided by vega-lite code source
+     *
      * @return
      */
-    public static Data seattle_weather(){
+    public static Data seattle_weather() {
         try {
             return Read.csv(Demat.class.getResourceAsStream("seattle-weather.csv"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 
 }

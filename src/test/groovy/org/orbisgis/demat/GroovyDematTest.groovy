@@ -47,8 +47,9 @@ package org.orbisgis.demat
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo
-import org.orbisgis.demat.vega.*;
-import  static org.orbisgis.demat.Demat.*;
+import org.orbisgis.demat.vega.*
+
+import static org.orbisgis.demat.Demat.*
 
 /**
  * @author Erwan Bocher, CNRS 2021
@@ -56,8 +57,8 @@ import  static org.orbisgis.demat.Demat.*;
 class GroovyDematTest {
 
 
-    private  static Data GRID_INDICATORS = null ;
-    private  static  Data RSU_GEOINDICATORS =null ;
+    private static Data GRID_INDICATORS = null;
+    private static Data RSU_GEOINDICATORS = null;
 
     @BeforeAll
     public static void loadData(){
@@ -158,18 +159,16 @@ class GroovyDematTest {
 
     @Test
     void testDisplayMapWithInterval (TestInfo testInfo) throws IOException {
-        Scale scale = new Scale();
-        Domain domain = new Domain();
-        domain.values = [0, 10, 20, 30]
-        scale.setDomain(domain);
-        ScaleRange scaleRange = new ScaleRange();
-        scaleRange.unionArrayValue=["orange", "green", "blue"];
-        scale.setRange(scaleRange)
-        def color = color("properties.BUILDING_FRACTION").quantitative();
-        color.setScale(scale);
-        View view = view().data(RSU_GEOINDICATORS).description("A Map with unique values").height(500).width(700).mark_geoshape().
-                encode(color).projection(ProjectionType.IDENTITY);
-        view.save( "target/"+testInfo.getDisplayName()+".html",true);
+        View view = view().data(RSU_GEOINDICATORS)
+                .description("A Map with interval")
+                .height(500).width(700)
+                .mark_geoshape()
+                .encode(color("properties.HIGH_VEGETATION_FRACTION",
+                        scale(domain([0, 0.1, 0.2, 0.5]), range(["orange", "green", "blue"])))
+                        .quantitative())
+                .projection(ProjectionType.IDENTITY);
+        //view.save( "target/"+testInfo.getDisplayName()+".html",true);
+        //view.show()
     }
 
 }

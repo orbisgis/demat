@@ -44,11 +44,17 @@
  */
 package org.orbisgis.demat.vega;
 
-import java.io.IOException;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.annotation.*;
+import java.io.IOException;
 
 /**
  * Customized domain values in the form of constant values or dynamic values driven by a
@@ -86,7 +92,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 public class Domain {
     public Object[] values;
     public DomainUnionWith domainUnionWithValue;
-    public String stringValue;
+    public String value;
 
     static class Deserializer extends JsonDeserializer<Domain> {
         @Override
@@ -97,7 +103,7 @@ public class Domain {
                     break;
                 case VALUE_STRING:
                     String string = jsonParser.readValueAs(String.class);
-                    value.stringValue = string;
+                    value.value = string;
                     break;
                 case START_ARRAY:
                     value.values = jsonParser.readValueAs(Object[].class);
@@ -122,8 +128,8 @@ public class Domain {
                 jsonGenerator.writeObject(obj.domainUnionWithValue);
                 return;
             }
-            if (obj.stringValue != null) {
-                jsonGenerator.writeObject(obj.stringValue);
+            if (obj.value != null) {
+                jsonGenerator.writeObject(obj.value);
                 return;
             }
             jsonGenerator.writeNull();

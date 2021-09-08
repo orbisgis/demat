@@ -44,7 +44,7 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Scale {
     private CornerRadius align;
@@ -435,7 +435,23 @@ public class Scale {
      * __Note:__ Log, time, and utc scales do not support `zero`.
      */
     @JsonProperty("zero")
-    public Aria getZero() { return zero; }
+    public Aria getZero() {
+        return zero;
+    }
+
     @JsonProperty("zero")
-    public void setZero(Aria value) { this.zero = value; }
+    public void setZero(Aria value) {
+        this.zero = value;
+    }
+
+
+    /**
+     * Set a the scale type to quantile
+     *
+     * @return
+     */
+    public Scale quantile() {
+        this.setType(ScaleType.QUANTILE);
+        return this;
+    }
 }

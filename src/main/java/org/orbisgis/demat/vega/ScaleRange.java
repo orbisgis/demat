@@ -44,11 +44,17 @@
  */
 package org.orbisgis.demat.vega;
 
-import java.io.IOException;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.annotation.*;
+import java.io.IOException;
 
 /**
  * The range of the scale. One of:
@@ -80,9 +86,9 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = ScaleRange.Deserializer.class)
 @JsonSerialize(using = ScaleRange.Serializer.class)
 public class ScaleRange {
-    public Object[] unionArrayValue;
-    public RangeClass rangeClassValue;
-    public RangeEnum enumValue;
+    public Object[] values;
+    public RangeField rangeField;
+    public RangeEnum rangeEnum;
 
     static class Deserializer extends JsonDeserializer<ScaleRange> {
         @Override
@@ -94,16 +100,16 @@ public class ScaleRange {
                 case VALUE_STRING:
                     String string = jsonParser.readValueAs(String.class);
                     try {
-                        value.enumValue = RangeEnum.forValue(string);
+                        value.rangeEnum = RangeEnum.forValue(string);
                     } catch (Exception ex) {
                         // Ignored
                     }
                     break;
                 case START_ARRAY:
-                    value.unionArrayValue = jsonParser.readValueAs(Object[].class);
+                    value.values = jsonParser.readValueAs(Object[].class);
                     break;
                 case START_OBJECT:
-                    value.rangeClassValue = jsonParser.readValueAs(RangeClass.class);
+                    value.rangeField = jsonParser.readValueAs(RangeField.class);
                     break;
                 default: throw new IOException("Cannot deserialize ScaleRange");
             }
@@ -114,16 +120,16 @@ public class ScaleRange {
     static class Serializer extends JsonSerializer<ScaleRange> {
         @Override
         public void serialize(ScaleRange obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            if (obj.unionArrayValue != null) {
-                jsonGenerator.writeObject(obj.unionArrayValue);
+            if (obj.values != null) {
+                jsonGenerator.writeObject(obj.values);
                 return;
             }
-            if (obj.rangeClassValue != null) {
-                jsonGenerator.writeObject(obj.rangeClassValue);
+            if (obj.rangeField != null) {
+                jsonGenerator.writeObject(obj.rangeField);
                 return;
             }
-            if (obj.enumValue != null) {
-                jsonGenerator.writeObject(obj.enumValue);
+            if (obj.rangeEnum != null) {
+                jsonGenerator.writeObject(obj.rangeEnum);
                 return;
             }
             jsonGenerator.writeNull();

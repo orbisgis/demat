@@ -43,6 +43,7 @@
  * info_at_ orbisgis.org
  */
 package org.orbisgis.demat;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
@@ -50,7 +51,8 @@ import org.orbisgis.demat.vega.*;
 
 import java.io.IOException;
 import java.util.*;
-import  static org.orbisgis.demat.Demat.*;
+
+import static org.orbisgis.demat.Demat.*;
 
 /**
  * @author Erwan Bocher, CNRS 2021
@@ -264,8 +266,23 @@ public class DematTest {
         }
         view.setTransform(transforms);
         view.concat(2, views);
-        view.save( "target/"+testInfo.getDisplayName()+".html",true);
+        view.save("target/" + testInfo.getDisplayName() + ".html", true);
         //view.show();
     }
+
+    @Test
+    void testDisplayMapWithInterval2(TestInfo testInfo) throws IOException {
+        View view = view().data(RSU_GEOINDICATORS)
+                .description("A Map with interval")
+                .height(500).width(700)
+                .mark_geoshape()
+                .encode(color("properties.HIGH_VEGETATION_FRACTION",
+                        scale(domain(Arrays.asList(0d, 0.1, 0.2, 0.5)), range(Arrays.asList("orange", "green", "blue"))))
+                        .quantitative())
+                .projection(ProjectionType.IDENTITY);
+        //view.save( "target/"+testInfo.getDisplayName()+".html",true);
+        //view.show();
+    }
+
 
 }

@@ -44,13 +44,18 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class RangeClass {
+public class RangeField {
     private String field;
 
     @JsonProperty("field")
-    public String getField() { return field; }
+    public String getField() {
+        return field;
+    }
+
     @JsonProperty("field")
-    public void setField(String value) { this.field = value; }
+    public void setField(String value) {
+        this.field = value;
+    }
 }
