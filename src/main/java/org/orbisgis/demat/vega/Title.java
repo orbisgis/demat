@@ -44,12 +44,18 @@
  */
 package org.orbisgis.demat.vega;
 
-import java.io.IOException;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.annotation.*;
-import com.fasterxml.jackson.core.type.*;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -59,7 +65,7 @@ import java.util.List;
 @JsonSerialize(using = Title.Serializer.class)
 public class Title {
     public List<String> stringArrayValue;
-    public TitleParams titleParamsValue;
+    public TitleParams titleParams;
     public String title;
 
     static class Deserializer extends JsonDeserializer<Title> {
@@ -77,7 +83,7 @@ public class Title {
                     value.stringArrayValue = jsonParser.readValueAs(new TypeReference<List<String>>() {});
                     break;
                 case START_OBJECT:
-                    value.titleParamsValue = jsonParser.readValueAs(TitleParams.class);
+                    value.titleParams = jsonParser.readValueAs(TitleParams.class);
                     break;
                 default: throw new IOException("Cannot deserialize TitleUnion");
             }
@@ -92,8 +98,8 @@ public class Title {
                 jsonGenerator.writeObject(obj.stringArrayValue);
                 return;
             }
-            if (obj.titleParamsValue != null) {
-                jsonGenerator.writeObject(obj.titleParamsValue);
+            if (obj.titleParams != null) {
+                jsonGenerator.writeObject(obj.titleParams);
                 return;
             }
             if (obj.title != null) {

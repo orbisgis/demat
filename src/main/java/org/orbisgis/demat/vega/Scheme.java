@@ -44,11 +44,17 @@
  */
 package org.orbisgis.demat.vega;
 
-import java.io.IOException;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.annotation.*;
+import java.io.IOException;
 
 /**
  * A string indicating a color
@@ -68,7 +74,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonSerialize(using = Scheme.Serializer.class)
 public class Scheme {
     public SchemeParams schemeParamsValue;
-    public String stringValue;
+    public String value;
 
     static class Deserializer extends JsonDeserializer<Scheme> {
         @Override
@@ -79,7 +85,7 @@ public class Scheme {
                     break;
                 case VALUE_STRING:
                     String string = jsonParser.readValueAs(String.class);
-                    value.stringValue = string;
+                    value.value = string;
                     break;
                 case START_OBJECT:
                     value.schemeParamsValue = jsonParser.readValueAs(SchemeParams.class);
@@ -97,11 +103,19 @@ public class Scheme {
                 jsonGenerator.writeObject(obj.schemeParamsValue);
                 return;
             }
-            if (obj.stringValue != null) {
-                jsonGenerator.writeObject(obj.stringValue);
+            if (obj.value != null) {
+                jsonGenerator.writeObject(obj.value);
                 return;
             }
             jsonGenerator.writeNull();
         }
     }
+
+    //TODO https://vega.github.io/vega/docs/schemes/
+    static Scheme redpurple() {
+        Scheme scheme = new Scheme();
+        scheme.value = "redpurple";
+        return scheme;
+    }
+
 }

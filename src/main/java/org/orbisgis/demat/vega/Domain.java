@@ -55,6 +55,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Customized domain values in the form of constant values or dynamic values driven by a
@@ -90,7 +91,7 @@ import java.io.IOException;
 @JsonDeserialize(using = Domain.Deserializer.class)
 @JsonSerialize(using = Domain.Serializer.class)
 public class Domain {
-    public Object[] values;
+    public List<Object> values;
     public DomainUnionWith domainUnionWithValue;
     public String value;
 
@@ -106,7 +107,7 @@ public class Domain {
                     value.value = string;
                     break;
                 case START_ARRAY:
-                    value.values = jsonParser.readValueAs(Object[].class);
+                    value.values = jsonParser.readValueAs(List.class);
                     break;
                 case START_OBJECT:
                     value.domainUnionWithValue = jsonParser.readValueAs(DomainUnionWith.class);

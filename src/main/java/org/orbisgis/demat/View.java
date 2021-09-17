@@ -44,19 +44,16 @@
  */
 package org.orbisgis.demat;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.orbisgis.demat.api.IEncodingProperty;
 import org.orbisgis.demat.vega.*;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.*;
-
-import static j2html.TagCreator.*;
-import static j2html.TagCreator.rawHtml;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A Vega-Lite top-level specification. This is the root class for all Vega-Lite
@@ -95,9 +92,10 @@ public class View {
     private ViewSpec spec;
     private List<LayerElement> layer;
     private Repeat repeat;
+    private List<NormalizedSpec> hconcat;
     private List<NormalizedSpec> concat;
     private List<NormalizedSpec> vconcat;
-    private List<NormalizedSpec> hconcat;
+
     private String showDir = System.getProperty("java.io.tmpdir")+File.separator+"demat";
 
     /**
@@ -510,17 +508,17 @@ public class View {
     }
 
     public View data(Object[][] values) {
-        this.setData(ViewUtils.urlData(values));
+        this.setData(PlotUtils.urlData(values));
         return this;
     }
 
     public View data(List<Map> values) {
-        this.setData(ViewUtils.urlData(values));
+        this.setData(PlotUtils.urlData(values));
         return this;
     }
 
     public View data(LinkedHashMap values) {
-        this.setData(ViewUtils.urlData(values));
+        this.setData(PlotUtils.urlData(values));
         return this;
     }
 
@@ -533,252 +531,8 @@ public class View {
         return this;
     }
 
-    /**
-     * Create a mark_geoshape
-     * @return
-     */
-    public View mark_geoshape() {
-        Mark mark = new Mark();
-        mark.type = "geoshape";
-        this.mark= mark;
-        return this;
-    }
-
-    /**
-     * Create a mark_bar
-     * @return
-     */
-    public View mark_bar() {
-        Mark mark = new Mark();
-        mark.type = "bar";
-        this.mark= mark;
-        return this;
-    }
-
-    /**
-     * Create a mark_bar
-     * @return
-     */
-    public View mark_area() {
-        Mark mark = new Mark();
-        mark.type = "area";
-        this.mark= mark;
-        return this;
-    }
-
-    /**
-     * Create a mark_tick
-     * @return
-     */
-    public View mark_tick() {
-        Mark mark = new Mark();
-        mark.type = "tick";
-        this.mark= mark;
-        return this;
-    }
-
-    /**
-     * Create a mark_line
-     * @return
-     */
-    public View mark_line() {
-        Mark mark = new Mark();
-        mark.type = "line";
-        this.mark= mark;
-        return this;
-    }
-
-    /**
-     * Create a mark_line
-     * @return
-     */
-    public View mark_point() {
-        Mark mark = new Mark();
-        mark.type = "point";
-        this.mark= mark;
-        return this;
-    }
-
-    /**
-     * Set height to the view
-     * @param height
-     * @return
-     */
-    public View height(double height){
-        Height height_ = new Height();
-        height_.doubleValue=height;
-        this.height= height_;
-        return this;
-    }
-
-    /**
-     * Set width to the view
-     * @param width
-     * @return
-     */
-    public View width(double width){
-        Height height_ = new Height();
-        height_.doubleValue=width;
-        this.width= height_;
-        return this;
-    }
-
-    /**
-     * Construct the encoding element
-     * @param properties any encoding elements , X, Y, Color...
-     * @return
-     */
-    public View encode(IEncodingProperty... properties) {
-        Encoding encoding = new Encoding();
-        for (IEncodingProperty property:properties){
-            if(property  instanceof X){
-                encoding.setX((X) property);
-            }
-            else if(property  instanceof Y){
-                encoding.setY((Y) property);
-            }
-            else if(property  instanceof Color){
-                encoding.setColor((Color) property);
-            }
-        }
-        this.setEncoding(encoding);
-         return this;
-    }
-
-    public String toJson() throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        return objectMapper.writeValueAsString(this);
-    }
-
-    /**
-     * Save into the show directory
-     * @return
-     */
-    public String save() throws IOException {
-        File outputFile = File.createTempFile("vegalite", ".html", checkShowDir());
-        return save(outputFile.getAbsolutePath());
-    }
-
-    /**
-     * Save into an html file
-     * @param path
-     * @return
-     */
-    public String save(String path) throws IOException {
-        return save(path, false);
-    }
-
-
-    /**
-     * Save into an html file
-     * @param outputFile
-     * @param delete
-     * @return
-     */
-    public String save(File outputFile, boolean delete) throws IOException {
-        if(outputFile==null){
-            return null;
-        }
-        if(outputFile.exists() ){
-            if(delete){
-                outputFile.delete();
-            }
-            else{
-                return null;
-            }
-        }
-        StringBuilder json =  new StringBuilder("var spec =\n");
-        json.append(toJson()).append(";\n var opt = {\"renderer\": \"canvas\", \"actions\": true,\"scaleFactor\":2};\n" +
-                " vegaEmbed(\"#vis\", spec, opt);");
-        FileWriter fileWriter = new FileWriter(outputFile);
-        html(
-                head(
-                        meta().withCharset("UTF-8"),
-                        script().withSrc("https://cdn.jsdelivr.net/npm/vega@5.19.1"),
-                        script().withSrc("https://cdn.jsdelivr.net/npm/vega-lite@5.0.0"),
-                        script().withSrc("https://cdn.jsdelivr.net/npm/vega-embed@6.15.1")
-                ),
-                body (
-                        div().withId("vis"),
-                        script(rawHtml(json.toString()))
-
-                )
-        ).render(fileWriter);
-        fileWriter.close();
-        return outputFile.getAbsolutePath();
-    }
-
-    /**
-     * Save into an html file
-     * @param path
-     * @param delete
-     * @return
-     */
-    public String save(String path, boolean delete) throws IOException {
-        return save(new File(path), delete);
-    }
-
     public View mark(Mark mark){
         this.mark= mark;
-        return this;
-    }
-
-    public View concat( View... views) {
-        ArrayList<NormalizedSpec> concat_ = new ArrayList<>();;
-        for(View view :views){
-            concat_.add(copy(view));
-        }
-        this.concat=concat_;
-        this.projection=null;
-        return this;
-    }
-
-    public View concat(int numColumns, View... views) {
-        ArrayList<NormalizedSpec> concat_ = new ArrayList<>();;
-        for(View view :views){
-            concat_.add(copy(view));
-        }
-        this.concat=concat_;
-        this.columns=numColumns;
-        this.projection=null;
-        return this;
-    }
-
-    /**
-     * Copy from view to NormalizedSpec
-     * @param view
-     * @return
-     */
-    public NormalizedSpec copy(View view){
-        NormalizedSpec normalizedSpec = new NormalizedSpec();
-        normalizedSpec.setAlign(view.getAlign());
-        normalizedSpec.setBounds(view.getBounds());
-        normalizedSpec.setCenter(view.getCenter());
-        normalizedSpec.setColumns(view.getColumns());
-        normalizedSpec.setConcat(view.getConcat());
-        normalizedSpec.setData(view.getData());
-        normalizedSpec.setDescription(view.getDescription());
-        normalizedSpec.setEncoding(view.getEncoding());
-        normalizedSpec.setFacet(view.getFacet());
-        normalizedSpec.setRepeat(view.getRepeat());
-        normalizedSpec.setMark(view.getMark());
-        normalizedSpec.setHeight(view.getHeight());
-        normalizedSpec.setWidth(view.getWidth());
-        normalizedSpec.setName(view.getName());
-        normalizedSpec.setTitle(view.getTitle());
-        normalizedSpec.setProjection(view.getProjection());
-        normalizedSpec.setSelection(view.getSelection());
-        normalizedSpec.setTransform(view.getTransform());
-        return normalizedSpec;
-    }
-
-    public View hconcat(View... views) {
-        ArrayList<NormalizedSpec> hconcat_ = new ArrayList<>();;
-        for(View view :views){
-            hconcat_.add(copy(view));
-        }
-        this.hconcat=hconcat_;
         return this;
     }
 
@@ -800,47 +554,7 @@ public class View {
         this.title=title_;
         return this;
     }
-
     public void setTransform(Transform... transforms) {
         this.transform= Arrays.asList(transforms);
     }
-
-    /**
-     * Set a new directory path to store the HTML file generated
-     * for rendering vegalite view
-     * @return
-     */
-    public void setShowDir(String showDirPath) {
-        this.showDir=showDirPath;
-    }
-
-    /**
-     * Check the show directory file
-     * @return
-     */
-    public File checkShowDir(){
-        File showDirFile = new File(showDir);
-        if(!showDirFile.isDirectory()&&!showDirFile.exists()){
-            showDirFile.mkdir();
-        }
-        else if(!showDirFile.isDirectory()) {
-            throw new RuntimeException("Invalid directory path");
-        }
-        return showDirFile;
-    }
-
-    /**
-     * Show the vega-lite chart in the default browser of the OS
-     * Save the html file in a tmp file
-     */
-    public void show() {
-        try {
-            File outputFile = File.createTempFile("vegalite", ".html", checkShowDir());
-            this.save(outputFile, true);
-            ViewUtils.openBrowser(outputFile.getAbsolutePath());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }

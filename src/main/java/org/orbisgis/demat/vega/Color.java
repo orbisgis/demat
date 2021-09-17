@@ -45,7 +45,6 @@
 package org.orbisgis.demat.vega;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.orbisgis.demat.api.IEncodingProperty;
 
 /**
  * Color of the marks – either fill or stroke color based on  the `filled` property of mark
@@ -79,7 +78,7 @@ import org.orbisgis.demat.api.IEncodingProperty;
  *
  * A FieldDef with Condition<ValueDef> {    condition: {value: ...},    field: ...,    ... }
  */
-public class Color implements IEncodingProperty {
+public class Color {
     private Aggregate aggregate;
     private Double band;
     private AngleBin bin;
@@ -89,7 +88,7 @@ public class Color implements IEncodingProperty {
     private Scale scale;
     private SortUnion sort;
     private TimeUnitUnion timeUnit;
-    private LegendText title;
+    public LegendText title;
     private Type type;
     private PrimitiveValue datum;
     private Gradient value;

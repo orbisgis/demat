@@ -44,11 +44,16 @@
  */
 package org.orbisgis.demat.vega;
 
-import java.io.IOException;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.annotation.*;
+import java.io.IOException;
 
 /**
  * A string describing the mark type (one of `"bar"`, `"circle"`, `"square"`, `"tick"`,
@@ -63,7 +68,7 @@ public class Mark {
 
     static class Deserializer extends JsonDeserializer<Mark> {
         @Override
-        public Mark deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Mark deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Mark value = new Mark();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -45,22 +45,22 @@
 package org.orbisgis.demat;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
-import org.orbisgis.demat.vega.*;
+import org.orbisgis.demat.vega.Data;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-import static org.orbisgis.demat.Demat.*;
+import static org.orbisgis.demat.Demat.data;
 
 /**
  * @author Erwan Bocher, CNRS 2021
  */
 public class DematTest {
 
-    private  static Data GRID_INDICATORS = null ;
-    private  static  Data RSU_GEOINDICATORS =null ;
+    private static Data GRID_INDICATORS = null;
+    private static Data RSU_GEOINDICATORS = null;
 
     @BeforeAll
     public static void loadData() throws IOException {
@@ -70,56 +70,34 @@ public class DematTest {
         GRID_INDICATORS = data((List<Map>) geojson.get("features"));
     }
 
+
+/*
+
+
     @Test
-    void testSimpleBarChart(TestInfo testInfo) throws IOException {
-        View view = view().description("A simple bar chart").name("A simple name")
-                .data(new Object[][]{{"a", "b", "c"}, {1, 22, 12}, {200, 300, 400}})
-                .mark_bar()
-                .encode(x("a").nominal(), y("b").quantitative());
+    void testDisplayMapWithTitle(TestInfo testInfo) throws IOException {
+        View view = view().data(RSU_GEOINDICATORS)
+                .description("A Map with interval")
+                .height(500).width(700)
+                .mark_geoshape()
+                .encode(color("properties.HIGH_VEGETATION_FRACTION",
+                        scale(domain(Arrays.asList(0d, 0.1, 0.2, 0.5)), range(Arrays.asList("orange", "green", "blue"))))
+                        .quantitative()).title("This is title for the map")
+                .projection(ProjectionType.IDENTITY);
         view.save( "target/"+testInfo.getDisplayName()+".html",true);
+        view.show();
     }
-
     @Test
-    void testResponsiveBarChart(TestInfo testInfo) throws IOException {
-        X x = x("Origin");
-        Y y = y().count();
-        View chart = view().description("A grouping bar").name("Counting cars")
-                .data(cars())
-                .mark_bar()
-                .encode(x,y);
-        chart.save( "target/"+testInfo.getDisplayName()+".html",true);
-        //chart.show();
-    }
-
-    @Test
-    void testStackedBarChartWithRoundedCorners(TestInfo testInfo) throws IOException {
-        View chart = view().description("A Stacked bar to display weather data")
-                .data(seattle_weather())
-                .mark_bar()
-                .encode(x("date").ordinal().timeUnit(TimeUnit.MONTH),y().count(), color("weather"));
-        chart.save( "target/"+testInfo.getDisplayName()+".html",true);
-        //chart.show();
-    }
-
-    @Test
-    void testHorizontalConcat(TestInfo testInfo) throws IOException {
-        X x = x("a").nominal();
-        Y y = y("b").quantitative();
-        View view = view().description("A simple bar chart to concat").name("A simple name")
-                .data(new Object[][]{{"a", "b", "c"}, {1, 22, 12}, {200, 300, 400}});
-        View bar_one = view().mark_bar().encode(x, y);
-        y = y("c").quantitative();
-        View bar_two  = view().mark_bar().encode(x, y);
-        view.hconcat(bar_one, bar_two);
-        view.save( "target/"+testInfo.getDisplayName()+".html",true);
-    }
-
-    @Test
-    void testDisplayMapUniqueColorMark (TestInfo testInfo) throws IOException {
-        View view = view().data(RSU_GEOINDICATORS).description("A Map with unique values").height(500).width(700).mark_geoshape().
-                encode(color("properties.BUILDING_FRACTION").quantitative()).projection(ProjectionType.IDENTITY);
-        view.save( "target/"+testInfo.getDisplayName()+".html",true);
-        //view.show();
+    void testDisplayMapUniqueValuesCustomColor(TestInfo testInfo) throws IOException {
+        View view = view(projection().identity()).data(RSU_GEOINDICATORS)
+                .description("A Map with interval")
+                .height(500).width(700)
+                .mark_geoshape()
+                .encode(color("properties.ID_RSU",
+                        scale(domain(Arrays.asList(1, 14, 20, 35)), range(Arrays.asList("orange", "green", "blue"))))
+                                .nominal()).title("This is a unique values map with custom colors");
+        //view.save( "target/"+testInfo.getDisplayName()+".html",true);
+        view.show();
     }
 
     @Test
@@ -278,11 +256,11 @@ public class DematTest {
                 .mark_geoshape()
                 .encode(color("properties.HIGH_VEGETATION_FRACTION",
                         scale(domain(Arrays.asList(0d, 0.1, 0.2, 0.5)), range(Arrays.asList("orange", "green", "blue"))))
-                        .quantitative())
+                        .quantitative()).title("Un titre")
                 .projection(ProjectionType.IDENTITY);
-        //view.save( "target/"+testInfo.getDisplayName()+".html",true);
+        view.save( "target/"+testInfo.getDisplayName()+".html",true);
         //view.show();
     }
-
+*/
 
 }

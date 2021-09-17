@@ -44,7 +44,8 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 import java.util.Map;
 
@@ -80,7 +81,7 @@ public class NormalizedSpecSpec {
     private Center center;
     private Data data;
     private String description;
-    private SpecEncoding encoding;
+    private Encoding encoding;
     private Height height;
     private Mark mark;
     private String name;
@@ -175,14 +176,19 @@ public class NormalizedSpecSpec {
 
     /**
      * A key-value mapping between encoding channels and definition of fields.
-     *
+     * <p>
      * A shared key-value mapping between encoding channels and definition of fields in the
      * underlying layers.
      */
     @JsonProperty("encoding")
-    public SpecEncoding getEncoding() { return encoding; }
+    public Encoding getEncoding() {
+        return encoding;
+    }
+
     @JsonProperty("encoding")
-    public void setEncoding(SpecEncoding value) { this.encoding = value; }
+    public void setEncoding(Encoding value) {
+        this.encoding = value;
+    }
 
     /**
      * The height of a visualization.

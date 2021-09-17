@@ -108,12 +108,11 @@ public class Read {
 
 
     /**
-     *
      * @param reader
      * @return
      * @throws IOException
      */
-    public static Data toData(InputStream reader) throws IOException {
+    public static Data fromJSON(InputStream reader) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(reader, Data.class);
     }

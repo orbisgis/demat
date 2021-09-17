@@ -46,7 +46,6 @@ package org.orbisgis.demat;
 
 import org.orbisgis.demat.vega.*;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -76,6 +75,32 @@ public class Demat {
     }
 
     /**
+     * Create a chart object
+     * it refers to a single view configuration for vega-lite
+     *
+     * @return
+     */
+    public static View view(Object... elements) {
+        Demat demat = new Demat();
+        View view = new View();
+        view.setSchema("https://vega.github.io/schema/vega-lite/v5.json");
+        demat.setView(view);
+        for (Object element : elements) {
+            if (element instanceof Projection) {
+                view.setProjection((Projection) element);
+            } else {
+                throw new RuntimeException("Unknown vega-lite element");
+            }
+        }
+        return view;
+    }
+
+
+    public static Read read() {
+        return new Read();
+    }
+
+    /**
      * Create inline values data from a two dimensional array
      *
      * @param values
@@ -83,7 +108,7 @@ public class Demat {
      */
     public static Data data(Object[][] values) {
         Data data = new Data();
-        data.setValues(ViewUtils.urlDataInlineDataset(values));
+        data.setValues(PlotUtils.urlDataInlineDataset(values));
         return data;
     }
 
@@ -95,7 +120,7 @@ public class Demat {
      */
     public static Data data(List<Map> values) {
         Data data = new Data();
-        data.setValues(ViewUtils.urlDataInlineDataset(values));
+        data.setValues(PlotUtils.urlDataInlineDataset(values));
         return data;
     }
 
@@ -106,7 +131,7 @@ public class Demat {
      * @return
      */
     public static Data data(LinkedHashMap values) {
-        return ViewUtils.urlData(values);
+        return PlotUtils.urlData(values);
     }
 
     /**
@@ -181,7 +206,7 @@ public class Demat {
             } else if (element instanceof ScaleRange) {
                 scale.setRange((ScaleRange) element);
             } else {
-                throw new RuntimeException("Unkown vega-lite element");
+                throw new RuntimeException("Unknown vega-lite element");
             }
         }
         return scale;
@@ -207,7 +232,7 @@ public class Demat {
      */
     public static Domain domain(List values) {
         Domain domain_ = new Domain();
-        domain_.values = values.toArray(new Object[0]);
+        domain_.values = values;
         return domain_;
     }
 
@@ -231,8 +256,7 @@ public class Demat {
      */
     public static ScaleRange range(List values) {
         ScaleRange scaleRange = new ScaleRange();
-        scaleRange.values = values.toArray(new Object[0]);
-        ;
+        scaleRange.values = values;
         return scaleRange;
     }
 
@@ -270,6 +294,10 @@ public class Demat {
         return y;
     }
 
+    public static Projection projection() {
+        return new Projection();
+    }
+
     public static void hconcat(View... views) {
 
     }
@@ -282,32 +310,6 @@ public class Demat {
             return data((List<Map>) json);
         }
         throw new RuntimeException("Unsuported input data");
-    }
-
-    /**
-     * Load the cars json file provided by vega-lite code source
-     *
-     * @return
-     */
-    public static Data cars() {
-        try {
-            return Read.toData(Demat.class.getResourceAsStream("cars.json"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Load the seattle_weather json file provided by vega-lite code source
-     *
-     * @return
-     */
-    public static Data seattle_weather() {
-        try {
-            return Read.csv(Demat.class.getResourceAsStream("seattle-weather.csv"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public View getView() {

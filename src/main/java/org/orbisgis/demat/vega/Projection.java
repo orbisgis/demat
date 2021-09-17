@@ -44,7 +44,8 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 /**
@@ -263,7 +264,17 @@ public class Projection {
      * __Default value:__ `mercator`
      */
     @JsonProperty("type")
-    public ProjectionType getType() { return type; }
+    public ProjectionType getType() {
+        return type;
+    }
+
     @JsonProperty("type")
-    public void setType(ProjectionType value) { this.type = value; }
+    public void setType(ProjectionType value) {
+        this.type = value;
+    }
+
+    public Projection identity() {
+        this.setType(ProjectionType.IDENTITY);
+        return this;
+    }
 }

@@ -44,7 +44,8 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 import java.util.Map;
 
@@ -77,7 +78,7 @@ import java.util.Map;
 public class ViewSpec {
     private Data data;
     private String description;
-    private SpecEncoding encoding;
+    private Encoding encoding;
     private Height height;
     private List<LayerElement> layer;
     private String name;
@@ -121,13 +122,18 @@ public class ViewSpec {
     /**
      * A shared key-value mapping between encoding channels and definition of fields in the
      * underlying layers.
-     *
+     * <p>
      * A key-value mapping between encoding channels and definition of fields.
      */
     @JsonProperty("encoding")
-    public SpecEncoding getEncoding() { return encoding; }
+    public Encoding getEncoding() {
+        return encoding;
+    }
+
     @JsonProperty("encoding")
-    public void setEncoding(SpecEncoding value) { this.encoding = value; }
+    public void setEncoding(Encoding value) {
+        this.encoding = value;
+    }
 
     /**
      * The height of a visualization.

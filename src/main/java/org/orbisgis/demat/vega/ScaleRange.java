@@ -55,6 +55,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * The range of the scale. One of:
@@ -86,9 +87,25 @@ import java.io.IOException;
 @JsonDeserialize(using = ScaleRange.Deserializer.class)
 @JsonSerialize(using = ScaleRange.Serializer.class)
 public class ScaleRange {
-    public Object[] values;
+    public List<Object> values;
     public RangeField rangeField;
     public RangeEnum rangeEnum;
+
+
+    public static ScaleRange build(Object[] elements) {
+        ScaleRange scaleRange = new ScaleRange();
+        for (Object element : elements) {
+            if (element instanceof List) {
+                scaleRange.values = (List<Object>) element;
+            } else if (element instanceof RangeField) {
+                scaleRange.rangeField = (RangeField) element;
+            } else if (element instanceof RangeEnum) {
+                scaleRange.rangeEnum = (RangeEnum) element;
+            }
+        }
+        return scaleRange;
+    }
+
 
     static class Deserializer extends JsonDeserializer<ScaleRange> {
         @Override
@@ -106,7 +123,7 @@ public class ScaleRange {
                     }
                     break;
                 case START_ARRAY:
-                    value.values = jsonParser.readValueAs(Object[].class);
+                    value.values = jsonParser.readValueAs(List.class);
                     break;
                 case START_OBJECT:
                     value.rangeField = jsonParser.readValueAs(RangeField.class);

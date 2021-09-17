@@ -44,6 +44,7 @@
  */
 package org.orbisgis.demat
 
+
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo
@@ -154,21 +155,20 @@ class GroovyDematTest {
         mark.defValue=definition
         View plot = view().data(RSU_GEOINDICATORS).height(500).width(500).mark(mark)
         plot.save("target/${testInfo.displayName}.html",true)
-        //plot.show()
+        plot.show()
     }
 
     @Test
     void testDisplayMapWithInterval (TestInfo testInfo) throws IOException {
         View view = view().data(RSU_GEOINDICATORS)
-                .description("A Map with interval")
+                .title("A Map with interval")
                 .height(500).width(700)
                 .mark_geoshape()
                 .encode(color("properties.HIGH_VEGETATION_FRACTION",
-                        scale(domain([0, 0.1, 0.2, 0.5]), range(["orange", "green", "blue"])))
+                        scale(domain([0, 0.1, 0.2, 0.5]), range(["orange", "green", "blue", "black"])))
                         .quantitative())
-                .projection(ProjectionType.IDENTITY);
+                .projection(ProjectionType.IDENTITY)
         //view.save( "target/"+testInfo.getDisplayName()+".html",true);
-        //view.show()
+        view.show()
     }
-
 }

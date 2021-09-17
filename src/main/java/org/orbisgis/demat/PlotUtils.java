@@ -44,10 +44,9 @@
  */
 package org.orbisgis.demat;
 
-import com.fasterxml.jackson.core.JsonParser;
+import org.orbisgis.demat.vega.Data;
 import org.orbisgis.demat.vega.DataValues;
 import org.orbisgis.demat.vega.InlineDataset;
-import org.orbisgis.demat.vega.Data;
 
 import java.io.IOException;
 import java.util.*;
@@ -57,13 +56,13 @@ import java.util.*;
  *
  * @author Erwan Bocher, CNRS 2021
  */
-public class ViewUtils {
+public class PlotUtils {
 
 
-    public static Data urlData(LinkedHashMap values){
+    public static Data urlData(LinkedHashMap values) {
         Data urlData = new Data();
         DataValues urlDataInlineDataset = new DataValues();
-        urlDataInlineDataset.anythingMapValue=values;
+        urlDataInlineDataset.anythingMapValue = values;
         urlData.setValues(urlDataInlineDataset);
         return urlData;
     }
