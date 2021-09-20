@@ -44,11 +44,12 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class Predicate {
-    private ConditionalValueDefNumberExprRefPredicateComposition not;
+    private Filter not;
     private List<PredicateCompositionElement> and;
     private List<PredicateCompositionElement> or;
     private Equal equal;
@@ -64,9 +65,14 @@ public class Predicate {
     private ConditionalValueDefNumberExprRefSelectionComposition selection;
 
     @JsonProperty("not")
-    public ConditionalValueDefNumberExprRefPredicateComposition getNot() { return not; }
+    public Filter getNot() {
+        return not;
+    }
+
     @JsonProperty("not")
-    public void setNot(ConditionalValueDefNumberExprRefPredicateComposition value) { this.not = value; }
+    public void setNot(Filter value) {
+        this.not = value;
+    }
 
     @JsonProperty("and")
     public List<PredicateCompositionElement> getAnd() { return and; }

@@ -7,7 +7,7 @@ import org.orbisgis.demat.vega.Scheme;
 
 import java.util.List;
 
-public class AbstractGeoChart<T> extends Chart {
+public class AbstractGeoChart<T extends Chart> extends Chart {
 
 
     public T field(String field) {
@@ -36,5 +36,18 @@ public class AbstractGeoChart<T> extends Chart {
         return (T) this;
     }
 
+    @Override
+    public T filter(String expression) {
+        return (T) super.filter(expression);
+    }
 
+    public T reflectY() {
+        this.getProjection().setReflectY(true);
+        return (T) this;
+    }
+
+    public T reflectX() {
+        this.getProjection().setReflectX(true);
+        return (T) this;
+    }
 }

@@ -4,7 +4,7 @@ import org.orbisgis.demat.vega.*;
 
 public class Maps {
 
-    double DEFAULT_MAP_SIZE = 300;
+    double DEFAULT_MAP_SIZE = 500;
 
     /**
      * Create a unique values map

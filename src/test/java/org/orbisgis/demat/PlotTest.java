@@ -24,9 +24,9 @@ public class PlotTest {
 
     @BeforeAll
     public static void loadData() throws IOException {
-        LinkedHashMap geojson = (LinkedHashMap) Read.json(DematTest.class.getClassLoader().getResourceAsStream("rsu_geoindicators.geojson"));
+        LinkedHashMap geojson = (LinkedHashMap) Read.json(PlotTest.class.getClassLoader().getResourceAsStream("rsu_geoindicators.geojson"));
         RSU_GEOINDICATORS = Data((List<Map>) geojson.get("features"));
-        geojson = (LinkedHashMap) Read.json(DematTest.class.getClassLoader().getResourceAsStream("grid_indicators.geojson"));
+        geojson = (LinkedHashMap) Read.json(PlotTest.class.getClassLoader().getResourceAsStream("grid_indicators.geojson"));
         GRID_INDICATORS = Data((List<Map>) geojson.get("features"));
     }
 
@@ -104,24 +104,38 @@ public class PlotTest {
     }
 
     @Test
-    void testLCZ(TestInfo testInfo) throws IOException {
-        LinkedHashMap geojson = (LinkedHashMap) Read.json(new File("/home/ebocher/Téléchargements/1629214262874_BuildingEstimation_WithoutToulouse/GRATENTOUR_RsuIndic.geojson"));
+    void testLCZAVGInterval(TestInfo testInfo) throws IOException {
+        LinkedHashMap geojson = (LinkedHashMap) Read.json(new File("/home/ebocher/Téléchargements/1629214262874_BuildingEstimation_WithoutToulouse/NANTES_RsuIndic.geojson"));
+        Plot plot = Plot(Data((List<Map>) geojson.get("features")));
+        Chart chart = Maps().manualIntervalMap().field("properties.AVG_HEIGHT_ROOF_TRUE")
+                .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
+                .domain(Arrays.asList(0, 5, 7.5, 10, 12.5, 15, 20)).scheme("turbo").reflectY().title("AVG_HEIGHT_ROOF_TRUE");
+        Chart chart2 = Maps().manualIntervalMap().field("properties.AVG_HEIGHT_ROOF")
+                .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
+                .domain(Arrays.asList(0, 5, 7.5, 10, 12.5, 15, 20)).scheme("turbo").reflectY().legend("Height value (in meters)").title("AVG_HEIGHT_ROOF");
+        plot.concat(chart, chart2).show();
+    }
 
-        Chart chart = Maps().choroplethMap(Data((List<Map>) geojson.get("features"))).field("properties.AVG_ESTIMATED").legend("AVG Estimated");
-        chart.show();
+    @Test
+    void testLCZAVG(TestInfo testInfo) throws IOException {
+        LinkedHashMap geojson = (LinkedHashMap) Read.json(new File("/home/ebocher/Téléchargements/1629214262874_BuildingEstimation_WithoutToulouse/NANTES_RsuIndic.geojson"));
+        Plot plot = Plot(Data((List<Map>) geojson.get("features")));
+        Chart chart = Maps().choroplethMap().
+                field("properties.AVG_HEIGHT_ROOF_TRUE")
+                .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
+                .domain(Arrays.asList(0, 5, 7.5, 10, 12.5, 15, 20, 50)).scheme("turbo").reflectY().title("AVG_HEIGHT_ROOF_TRUE");
+        Chart chart2 = Maps().choroplethMap().
+                field("properties.AVG_HEIGHT_ROOF")
+                .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
+                .domain(Arrays.asList(0, 5, 7.5, 10, 12.5, 15, 20, 50)).legend("Height value (in meters)").reflectY().title("AVG_HEIGHT_ROOF");
+        plot.concat(chart, chart2).show();
     }
 
     @Test
     void testCont(TestInfo testInfo) throws IOException {
         Plot plot = Plot(RSU_GEOINDICATORS);
-        Chart chart = Maps().uniqueValuesMap().field("properties.BUILDING_FRACTION");
-        Chart chart2 = Maps().uniqueValuesMap().field("properties.WATER_FRACTION");
+        Chart chart = Maps().uniqueValuesMap().field("properties.ID_RSU");
+        Chart chart2 = Maps().choroplethMap().field("properties.WATER_FRACTION");
         plot.concat(chart, chart2).show();
     }
-
-    /**@Test build map
-    void testUniqueValuesMap(TestInfo testInfo) throws IOException {
-    Chart chart = UniqueValuesMap(RSU_GEOINDICATORS, field, scale).show();
-    chart.show();
-    }**/
 }

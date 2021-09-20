@@ -44,7 +44,8 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class Transform {
@@ -62,7 +63,7 @@ public class Transform {
     private Double maxsteps;
     private Double minsteps;
     private Double steps;
-    private ConditionalValueDefNumberExprRefPredicateComposition filter;
+    private Filter filter;
     private List<String> flatten;
     private List<String> fold;
     private List<Double> frame;
@@ -321,9 +322,14 @@ public class Transform {
      * (2), or (3).
      */
     @JsonProperty("filter")
-    public ConditionalValueDefNumberExprRefPredicateComposition getFilter() { return filter; }
+    public Filter getFilter() {
+        return filter;
+    }
+
     @JsonProperty("filter")
-    public void setFilter(ConditionalValueDefNumberExprRefPredicateComposition value) { this.filter = value; }
+    public void setFilter(Filter value) {
+        this.filter = value;
+    }
 
     /**
      * An array of one or more data fields containing arrays to flatten. If multiple fields are

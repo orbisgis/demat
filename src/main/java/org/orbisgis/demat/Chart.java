@@ -3,6 +3,7 @@ package org.orbisgis.demat;
 import org.orbisgis.demat.vega.*;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Parameters to build a chart
@@ -12,6 +13,13 @@ public class Chart extends NormalizedSpec implements IRenderer {
     private View view;
     private Renderer renderer;
 
+
+    public Chart title(String value) {
+        Title title = new Title();
+        title.title = value;
+        this.setTitle(title);
+        return this;
+    }
 
     public Chart description(String description) {
         this.setDescription(description);
@@ -118,6 +126,16 @@ public class Chart extends NormalizedSpec implements IRenderer {
 
     public Projection projection() {
         return new Projection();
+    }
+
+
+    public Chart filter(String expression) {
+        Transform transform = new Transform();
+        Filter filter = new Filter();
+        filter.stringValue = expression;
+        transform.setFilter(filter);
+        this.setTransform(Arrays.asList(transform));
+        return this;
     }
 
     /**

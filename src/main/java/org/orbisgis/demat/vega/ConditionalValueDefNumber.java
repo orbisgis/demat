@@ -44,10 +44,10 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ConditionalValueDefNumber {
-    private ConditionalValueDefNumberExprRefPredicateComposition test;
+    private Filter test;
     private double value;
     private ConditionalValueDefNumberExprRefSelectionComposition selection;
 
@@ -55,9 +55,14 @@ public class ConditionalValueDefNumber {
      * Predicate for triggering the condition
      */
     @JsonProperty("test")
-    public ConditionalValueDefNumberExprRefPredicateComposition getTest() { return test; }
+    public Filter getTest() {
+        return test;
+    }
+
     @JsonProperty("test")
-    public void setTest(ConditionalValueDefNumberExprRefPredicateComposition value) { this.test = value; }
+    public void setTest(Filter value) {
+        this.test = value;
+    }
 
     /**
      * A constant value in visual domain (e.g., `"red"` / `"#0099ff"` / [gradient

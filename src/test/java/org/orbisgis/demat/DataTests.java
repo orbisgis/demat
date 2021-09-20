@@ -6,6 +6,7 @@ import java.io.IOException;
 
 public class DataTests {
 
+
     /**
      * Load the cars json file provided by vega-lite code source
      *

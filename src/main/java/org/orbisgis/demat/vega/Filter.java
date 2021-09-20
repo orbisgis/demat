@@ -44,11 +44,17 @@
  */
 package org.orbisgis.demat.vega;
 
-import java.io.IOException;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.annotation.*;
+import java.io.IOException;
 
 /**
  * Predicate for triggering the condition
@@ -81,16 +87,16 @@ import com.fasterxml.jackson.databind.annotation.*;
  * composition](https://vega.github.io/vega-lite/docs/predicate.html#composition) of (1),
  * (2), or (3).
  */
-@JsonDeserialize(using = ConditionalValueDefNumberExprRefPredicateComposition.Deserializer.class)
-@JsonSerialize(using = ConditionalValueDefNumberExprRefPredicateComposition.Serializer.class)
-public class ConditionalValueDefNumberExprRefPredicateComposition {
+@JsonDeserialize(using = Filter.Deserializer.class)
+@JsonSerialize(using = Filter.Serializer.class)
+public class Filter {
     public Predicate predicateValue;
     public String stringValue;
 
-    static class Deserializer extends JsonDeserializer<ConditionalValueDefNumberExprRefPredicateComposition> {
+    static class Deserializer extends JsonDeserializer<Filter> {
         @Override
-        public ConditionalValueDefNumberExprRefPredicateComposition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            ConditionalValueDefNumberExprRefPredicateComposition value = new ConditionalValueDefNumberExprRefPredicateComposition();
+        public Filter deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            Filter value = new Filter();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
                     break;
@@ -107,9 +113,9 @@ public class ConditionalValueDefNumberExprRefPredicateComposition {
         }
     }
 
-    static class Serializer extends JsonSerializer<ConditionalValueDefNumberExprRefPredicateComposition> {
+    static class Serializer extends JsonSerializer<Filter> {
         @Override
-        public void serialize(ConditionalValueDefNumberExprRefPredicateComposition obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(Filter obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.predicateValue != null) {
                 jsonGenerator.writeObject(obj.predicateValue);
                 return;
