@@ -35,7 +35,7 @@ public class PlotTest {
     void testSimpleBarChart(TestInfo testInfo) throws IOException {
         Chart chart = Chart(Data(new Object[][]{{"a", "b", "c"}, {1, 22, 12}, {200, 300, 400}})).mark_bar()
                 .encode(Y("a").nominal(), Y("b"));
-        //chart.save( "target/"+testInfo.getDisplayName()+".html");
+        chart.save("target/" + testInfo.getDisplayName() + ".html");
         //chart.show();
     }
 
@@ -63,7 +63,7 @@ public class PlotTest {
                 .encode(X("a").nominal(), Y("b").quantitative());
         Chart chart2 = Chart().mark_line()
                 .encode(X("a").nominal(), Y("b").quantitative());
-        plot.hconcat(chart, chart2).show();
+        plot.hconcat(chart, chart2).save("target/" + testInfo.getDisplayName() + ".html");
     }
 
     @Test
@@ -134,6 +134,7 @@ public class PlotTest {
         plot.concat(chart, chart2).resolve(ScaleResolve(ColorResolve().independent())).show();
     }
 
+    @Disabled
     @Test
     void testCont(TestInfo testInfo) throws IOException {
         Plot plot = Plot(RSU_GEOINDICATORS);
