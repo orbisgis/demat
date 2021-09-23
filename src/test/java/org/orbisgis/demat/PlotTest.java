@@ -36,14 +36,14 @@ public class PlotTest {
         Chart chart = Chart(Data(new Object[][]{{"a", "b", "c"}, {1, 22, 12}, {200, 300, 400}})).mark_bar()
                 .encode(Y("a").nominal(), Y("b"));
         //chart.save( "target/"+testInfo.getDisplayName()+".html");
-        chart.show();
+        //chart.show();
     }
 
     @Test
     void testResponsiveBarChart(TestInfo testInfo) throws IOException {
         Chart chart = Chart(DataTests.cars()).mark_bar()
                 .encode(X("Origin"), Y().count()).description("A grouping bar").name("Counting cars");
-        chart.show();
+        //chart.show();
         chart.save("target/" + testInfo.getDisplayName() + ".html");
     }
 
@@ -53,7 +53,7 @@ public class PlotTest {
                 .mark_bar()
                 .encode(X("date").ordinal().timeUnit(TimeUnit.MONTH), Y().count(), Color("weather"));
         chart.save("target/" + testInfo.getDisplayName() + ".html");
-        chart.show();
+        //chart.show();
     }
 
     @Test
@@ -69,39 +69,39 @@ public class PlotTest {
     @Test
     void testUniqueValuesMap(TestInfo testInfo) throws IOException {
         Chart chart = Maps().uniqueValuesMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION");
-        chart.show();
+        //chart.show();
     }
 
     @Test
     void testUniqueValuesMapCustomColor(TestInfo testInfo) throws IOException {
         Chart chart = Maps().uniqueValuesMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").
                 range(Arrays.asList("green", "blue", "black")).legend("Building fractions");
-        chart.show();
+        //chart.show();
     }
 
     @Test
     void testChoropleth(TestInfo testInfo) throws IOException {
         Chart chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions");
-        chart.show();
+        //chart.show();
     }
 
     @Test
     void testChoroplethDiscretizingScales(TestInfo testInfo) throws IOException {
         Chart chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION", Quantile()).legend("Building fractions");
-        chart.show();
+        //chart.show();
     }
 
     @Test
     void testChoroplethDiscretizingScales2(TestInfo testInfo) throws IOException {
         Chart chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions").domain(Arrays.asList(0, 0.1, 0.2, 0.3));
-        chart.show();
+        //chart.show();
     }
 
     @Test
     void testManualIntervalMap(TestInfo testInfo) throws IOException {
         Chart chart = Maps().manualIntervalMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions").
                 domain(Arrays.asList(0.1, 0.2, 0.3)).scheme("accent");
-        chart.show();
+        //chart.show();
     }
 
     @Disabled
