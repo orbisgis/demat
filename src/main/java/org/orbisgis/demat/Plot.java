@@ -287,6 +287,106 @@ public class Plot implements IRenderer {
         return legend;
     }
 
+    public static ScaleResolveMap ScaleResolve(Object... elements) {
+        ScaleResolveMap scaleResolveMap = new ScaleResolveMap();
+        for (Object element : elements) {
+            if (element instanceof ColorResolve) {
+                scaleResolveMap.setColor((ColorResolve) element);
+            } else if (element instanceof AngleResolve) {
+                scaleResolveMap.setAngle((AngleResolve) element);
+            } else if (element instanceof FillResolve) {
+                scaleResolveMap.setFill((FillResolve) element);
+            } else if (element instanceof FillOpacityResolve) {
+                scaleResolveMap.setFillOpacity((FillOpacityResolve) element);
+            } else if (element instanceof OpacityResolve) {
+                scaleResolveMap.setOpacity((OpacityResolve) element);
+            } else if (element instanceof RadiusResolve) {
+                scaleResolveMap.setRadius((RadiusResolve) element);
+            } else if (element instanceof ShapeResolve) {
+                scaleResolveMap.setShape((ShapeResolve) element);
+            } else if (element instanceof SizeResolve) {
+                scaleResolveMap.setSize((SizeResolve) element);
+            } else if (element instanceof StrokeResolve) {
+                scaleResolveMap.setStroke((StrokeResolve) element);
+            } else if (element instanceof StrokeDashResolve) {
+                scaleResolveMap.setStrokeDash((StrokeDashResolve) element);
+            } else if (element instanceof StrokeOpacityResolve) {
+                scaleResolveMap.setStrokeOpacity((StrokeOpacityResolve) element);
+            } else if (element instanceof StrokeWidthResolve) {
+                scaleResolveMap.setStrokeWidth((StrokeWidthResolve) element);
+            } else if (element instanceof ThetaResolve) {
+                scaleResolveMap.setTheta((ThetaResolve) element);
+            } else if (element instanceof XResolve) {
+                scaleResolveMap.setX((XResolve) element);
+            } else if (element instanceof YResolve) {
+                scaleResolveMap.setY((YResolve) element);
+            } else {
+                throw new RuntimeException("Unknown vega-lite element");
+            }
+        }
+        return scaleResolveMap;
+    }
+
+    public static ColorResolve ColorResolve() {
+        return new ColorResolve();
+    }
+
+    public static AngleResolve AngleResolve() {
+        return new AngleResolve();
+    }
+
+    public static FillResolve FillResolve() {
+        return new FillResolve();
+    }
+
+    private FillOpacityResolve FillOpacityResolve() {
+        return new FillOpacityResolve();
+    }
+
+    public static OpacityResolve OpacityResolve() {
+        return new OpacityResolve();
+    }
+
+    public static RadiusResolve RadiusResolve() {
+        return new RadiusResolve();
+    }
+
+    public static ShapeResolve ShapeResolve() {
+        return new ShapeResolve();
+    }
+
+    public static SizeResolve SizeResolve() {
+        return new SizeResolve();
+    }
+
+    public static StrokeResolve StrokeResolve() {
+        return new StrokeResolve();
+    }
+
+    public static StrokeDashResolve StrokeDashResolve() {
+        return new StrokeDashResolve();
+    }
+
+    public static StrokeOpacityResolve StrokeOpacityResolve() {
+        return new StrokeOpacityResolve();
+    }
+
+    public static StrokeWidthResolve StrokeWidthResolve() {
+        return new StrokeWidthResolve();
+    }
+
+    public static ThetaResolve ThetaResolve() {
+        return new ThetaResolve();
+    }
+
+    public static XResolve XResolve() {
+        return new XResolve();
+    }
+
+    public static YResolve YResolve() {
+        return new YResolve();
+    }
+
     private void setView(View view) {
         this.view = view;
     }
@@ -362,6 +462,32 @@ public class Plot implements IRenderer {
 
     public Plot concat(Chart... charts) {
         this.view.setConcat(Arrays.asList(charts));
+        return this;
+    }
+
+    public Plot concat(int columns, Chart... charts) {
+        this.view.setColumns(columns);
+        this.view.setConcat(Arrays.asList(charts));
+        return this;
+    }
+
+    public Plot resolve(Object... elements) {
+        Resolve resolve = null;
+        if (this.view.getResolve() == null) {
+            resolve = new Resolve();
+        }
+        for (Object element : elements) {
+            if (element instanceof ScaleResolveMap) {
+                resolve.setScale((ScaleResolveMap) element);
+            } else if (element instanceof LegendResolveMap) {
+                resolve.setLegend((LegendResolveMap) element);
+            } else if (element instanceof AxisResolveMap) {
+                resolve.setAxis((AxisResolveMap) element);
+            } else {
+                throw new RuntimeException("Unknown vega-lite element");
+            }
+        }
+        this.view.setResolve(resolve);
         return this;
     }
 

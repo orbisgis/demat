@@ -1,6 +1,7 @@
 package org.orbisgis.demat;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.orbisgis.demat.vega.Data;
@@ -128,7 +129,7 @@ public class PlotTest {
                 field("properties.AVG_HEIGHT_ROOF")
                 .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
                 .domain(Arrays.asList(0, 5, 7.5, 10, 12.5, 15, 20, 50)).legend("Height value (in meters)").reflectY().title("AVG_HEIGHT_ROOF");
-        plot.concat(chart, chart2).show();
+        plot.concat(chart, chart2).resolve(ScaleResolve(ColorResolve().independent())).show();
     }
 
     @Test
@@ -137,5 +138,11 @@ public class PlotTest {
         Chart chart = Maps().uniqueValuesMap().field("properties.ID_RSU");
         Chart chart2 = Maps().choroplethMap().field("properties.WATER_FRACTION");
         plot.concat(chart, chart2).show();
+    }
+
+    @Disabled
+    @Test
+    void testDebug(TestInfo testInfo) throws IOException {
+        Plot().resolve(ScaleResolve(ColorResolve().independent())).show();
     }
 }

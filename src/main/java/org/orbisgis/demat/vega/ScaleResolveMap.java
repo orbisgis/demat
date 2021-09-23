@@ -44,97 +44,172 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ScaleResolveMap {
-    private ResolveMode angle;
-    private ResolveMode color;
-    private ResolveMode fill;
-    private ResolveMode fillOpacity;
-    private ResolveMode opacity;
-    private ResolveMode radius;
-    private ResolveMode shape;
-    private ResolveMode size;
-    private ResolveMode stroke;
-    private ResolveMode strokeDash;
-    private ResolveMode strokeOpacity;
-    private ResolveMode strokeWidth;
-    private ResolveMode theta;
-    private ResolveMode x;
-    private ResolveMode y;
+    private AngleResolve angle;
+    private ColorResolve color;
+    private FillResolve fill;
+    private FillOpacityResolve fillOpacity;
+    private OpacityResolve opacity;
+    private RadiusResolve radius;
+    private ShapeResolve shape;
+    private SizeResolve size;
+    private StrokeResolve stroke;
+    private StrokeDashResolve strokeDash;
+    private StrokeOpacityResolve strokeOpacity;
+    private StrokeWidthResolve strokeWidth;
+    private ThetaResolve theta;
+    private XResolve x;
+    private YResolve y;
 
     @JsonProperty("angle")
-    public ResolveMode getAngle() { return angle; }
+    public AngleResolve getAngle() {
+        return angle;
+    }
+
     @JsonProperty("angle")
-    public void setAngle(ResolveMode value) { this.angle = value; }
+    public void setAngle(AngleResolve value) {
+        this.angle = value;
+    }
 
     @JsonProperty("color")
-    public ResolveMode getColor() { return color; }
+    public ColorResolve getColor() {
+        return color;
+    }
+
     @JsonProperty("color")
-    public void setColor(ResolveMode value) { this.color = value; }
+    public void setColor(ColorResolve value) {
+        this.color = value;
+    }
 
     @JsonProperty("fill")
-    public ResolveMode getFill() { return fill; }
+    public FillResolve getFill() {
+        return fill;
+    }
+
     @JsonProperty("fill")
-    public void setFill(ResolveMode value) { this.fill = value; }
+    public void setFill(FillResolve value) {
+        this.fill = value;
+    }
 
     @JsonProperty("fillOpacity")
-    public ResolveMode getFillOpacity() { return fillOpacity; }
+    public FillOpacityResolve getFillOpacity() {
+        return fillOpacity;
+    }
+
     @JsonProperty("fillOpacity")
-    public void setFillOpacity(ResolveMode value) { this.fillOpacity = value; }
+    public void setFillOpacity(FillOpacityResolve value) {
+        this.fillOpacity = value;
+    }
 
     @JsonProperty("opacity")
-    public ResolveMode getOpacity() { return opacity; }
+    public OpacityResolve getOpacity() {
+        return opacity;
+    }
+
     @JsonProperty("opacity")
-    public void setOpacity(ResolveMode value) { this.opacity = value; }
+    public void setOpacity(OpacityResolve value) {
+        this.opacity = value;
+    }
 
     @JsonProperty("radius")
-    public ResolveMode getRadius() { return radius; }
+    public RadiusResolve getRadius() {
+        return radius;
+    }
+
     @JsonProperty("radius")
-    public void setRadius(ResolveMode value) { this.radius = value; }
+    public void setRadius(RadiusResolve value) {
+        this.radius = value;
+    }
 
     @JsonProperty("shape")
-    public ResolveMode getShape() { return shape; }
+    public ShapeResolve getShape() {
+        return shape;
+    }
+
     @JsonProperty("shape")
-    public void setShape(ResolveMode value) { this.shape = value; }
+    public void setShape(ShapeResolve value) {
+        this.shape = value;
+    }
 
     @JsonProperty("size")
-    public ResolveMode getSize() { return size; }
+    public SizeResolve getSize() {
+        return size;
+    }
+
     @JsonProperty("size")
-    public void setSize(ResolveMode value) { this.size = value; }
+    public void setSize(SizeResolve value) {
+        this.size = value;
+    }
 
     @JsonProperty("stroke")
-    public ResolveMode getStroke() { return stroke; }
+    public StrokeResolve getStroke() {
+        return stroke;
+    }
+
     @JsonProperty("stroke")
-    public void setStroke(ResolveMode value) { this.stroke = value; }
+    public void setStroke(StrokeResolve value) {
+        this.stroke = value;
+    }
 
     @JsonProperty("strokeDash")
-    public ResolveMode getStrokeDash() { return strokeDash; }
+    public StrokeDashResolve getStrokeDash() {
+        return strokeDash;
+    }
+
     @JsonProperty("strokeDash")
-    public void setStrokeDash(ResolveMode value) { this.strokeDash = value; }
+    public void setStrokeDash(StrokeDashResolve value) {
+        this.strokeDash = value;
+    }
 
     @JsonProperty("strokeOpacity")
-    public ResolveMode getStrokeOpacity() { return strokeOpacity; }
+    public StrokeOpacityResolve getStrokeOpacity() {
+        return strokeOpacity;
+    }
+
     @JsonProperty("strokeOpacity")
-    public void setStrokeOpacity(ResolveMode value) { this.strokeOpacity = value; }
+    public void setStrokeOpacity(StrokeOpacityResolve value) {
+        this.strokeOpacity = value;
+    }
 
     @JsonProperty("strokeWidth")
-    public ResolveMode getStrokeWidth() { return strokeWidth; }
+    public StrokeWidthResolve getStrokeWidth() {
+        return strokeWidth;
+    }
+
     @JsonProperty("strokeWidth")
-    public void setStrokeWidth(ResolveMode value) { this.strokeWidth = value; }
+    public void setStrokeWidth(StrokeWidthResolve value) {
+        this.strokeWidth = value;
+    }
 
     @JsonProperty("theta")
-    public ResolveMode getTheta() { return theta; }
+    public ThetaResolve getTheta() {
+        return theta;
+    }
+
     @JsonProperty("theta")
-    public void setTheta(ResolveMode value) { this.theta = value; }
+    public void setTheta(ThetaResolve value) {
+        this.theta = value;
+    }
 
     @JsonProperty("x")
-    public ResolveMode getX() { return x; }
+    public XResolve getX() {
+        return x;
+    }
+
     @JsonProperty("x")
-    public void setX(ResolveMode value) { this.x = value; }
+    public void setX(XResolve value) {
+        this.x = value;
+    }
 
     @JsonProperty("y")
-    public ResolveMode getY() { return y; }
+    public YResolve getY() {
+        return y;
+    }
+
     @JsonProperty("y")
-    public void setY(ResolveMode value) { this.y = value; }
+    public void setY(YResolve value) {
+        this.y = value;
+    }
 }

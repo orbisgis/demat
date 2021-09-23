@@ -44,8 +44,10 @@
  */
 package org.orbisgis.demat.vega;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.io.IOException;
-import com.fasterxml.jackson.annotation.*;
 
 public enum ResolveMode {
     INDEPENDENT, SHARED;
@@ -65,4 +67,5 @@ public enum ResolveMode {
         if (value.equals("shared")) return SHARED;
         throw new IOException("Cannot deserialize ResolveMode");
     }
+
 }

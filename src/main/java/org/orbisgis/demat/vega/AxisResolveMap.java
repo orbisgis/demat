@@ -44,19 +44,29 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AxisResolveMap {
-    private ResolveMode x;
-    private ResolveMode y;
+    private XResolve x;
+    private YResolve y;
 
     @JsonProperty("x")
-    public ResolveMode getX() { return x; }
+    public XResolve getX() {
+        return x;
+    }
+
     @JsonProperty("x")
-    public void setX(ResolveMode value) { this.x = value; }
+    public void setX(XResolve value) {
+        this.x = value;
+    }
 
     @JsonProperty("y")
-    public ResolveMode getY() { return y; }
+    public YResolve getY() {
+        return y;
+    }
+
     @JsonProperty("y")
-    public void setY(ResolveMode value) { this.y = value; }
+    public void setY(YResolve value) {
+        this.y = value;
+    }
 }
