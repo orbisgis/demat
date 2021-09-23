@@ -104,6 +104,7 @@ public class PlotTest {
         chart.show();
     }
 
+    @Disabled
     @Test
     void testLCZAVGInterval(TestInfo testInfo) throws IOException {
         LinkedHashMap geojson = (LinkedHashMap) Read.json(new File("/home/ebocher/Téléchargements/1629214262874_BuildingEstimation_WithoutToulouse/NANTES_RsuIndic.geojson"));
@@ -117,6 +118,7 @@ public class PlotTest {
         plot.concat(chart, chart2).show();
     }
 
+    @Disabled
     @Test
     void testLCZAVG(TestInfo testInfo) throws IOException {
         LinkedHashMap geojson = (LinkedHashMap) Read.json(new File("/home/ebocher/Téléchargements/1629214262874_BuildingEstimation_WithoutToulouse/NANTES_RsuIndic.geojson"));
