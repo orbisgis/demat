@@ -36,7 +36,7 @@ public class PlotTest {
         Chart chart = Chart(Data(new Object[][]{{"a", "b", "c"}, {1, 202, 12}, {200, 300, 400}})).mark_bar()
                 .encode(X("a").nominal(), Y("b"));
         chart.save("target/" + testInfo.getDisplayName() + ".html");
-        chart.show();
+        //chart.show();
     }
 
     @Test
