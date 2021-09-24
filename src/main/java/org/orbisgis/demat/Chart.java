@@ -1,35 +1,22 @@
 package org.orbisgis.demat;
 
-import org.orbisgis.demat.vega.*;
+import org.orbisgis.demat.vega.Mark;
+import org.orbisgis.demat.vega.NormalizedSpec;
+import org.orbisgis.demat.vega.Projection;
+import org.orbisgis.demat.vega.encoding.Color;
+import org.orbisgis.demat.vega.encoding.Encoding;
+import org.orbisgis.demat.vega.encoding.X;
+import org.orbisgis.demat.vega.encoding.Y;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * Parameters to build a chart
  */
-public class Chart extends NormalizedSpec implements IRenderer {
+public class Chart extends NormalizedSpec implements IRenderer, ViewCommonMethods<Chart> {
 
     private View view;
     private Renderer renderer;
-
-
-    public Chart title(String value) {
-        Title title = new Title();
-        title.title = value;
-        this.setTitle(title);
-        return this;
-    }
-
-    public Chart description(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public Chart name(String name) {
-        this.setName(name);
-        return this;
-    }
 
     /**
      * Create a mark_geoshape
@@ -126,16 +113,6 @@ public class Chart extends NormalizedSpec implements IRenderer {
 
     public Projection projection() {
         return new Projection();
-    }
-
-
-    public Chart filter(String expression) {
-        Transform transform = new Transform();
-        Filter filter = new Filter();
-        filter.stringValue = expression;
-        transform.setFilter(filter);
-        this.setTransform(Arrays.asList(transform));
-        return this;
     }
 
     /**

@@ -1,6 +1,9 @@
 package org.orbisgis.demat.maps;
 
 import org.orbisgis.demat.vega.*;
+import org.orbisgis.demat.vega.data.Data;
+import org.orbisgis.demat.vega.encoding.Color;
+import org.orbisgis.demat.vega.encoding.Encoding;
 
 public class Maps {
 

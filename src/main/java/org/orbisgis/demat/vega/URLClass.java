@@ -44,7 +44,8 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.legend.LegendText;
 
 /**
  * A text description of this mark for ARIA accessibility (SVG output only). For SVG output

@@ -44,7 +44,9 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.legend.Legend;
+import org.orbisgis.demat.vega.legend.LegendText;
 
 /**
  * Color of the marks – either fill or stroke color based on  the `filled` property of mark

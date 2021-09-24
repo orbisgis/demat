@@ -47,7 +47,10 @@ package org.orbisgis.demat
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo
-import org.orbisgis.demat.vega.*
+import org.orbisgis.demat.vega.Def
+import org.orbisgis.demat.vega.Mark
+import org.orbisgis.demat.vega.MarkFill
+import org.orbisgis.demat.vega.MarkStroke
 
 import static org.orbisgis.demat.Plot.*
 
@@ -57,86 +60,87 @@ import static org.orbisgis.demat.Plot.*
 class GroovyPlotTest {
 
 
-    private static Data GRID_INDICATORS = null;
-    private static Data RSU_GEOINDICATORS = null;
+    private static def GRID_INDICATORS = null;
+    private static def RSU_GEOINDICATORS = null;
 
     @BeforeAll
     static void loadData() {
         LinkedHashMap geojson = (LinkedHashMap) Read.json(GroovyPlotTest.class.getClassLoader().getResourceAsStream("rsu_geoindicators.geojson"));
-        RSU_GEOINDICATORS = data((List<Map>) geojson.get("features"));
+        RSU_GEOINDICATORS = Data((List<Map>) geojson.get("features"));
         geojson = (LinkedHashMap) Read.json(GroovyPlotTest.class.getClassLoader().getResourceAsStream("grid_indicators.geojson"));
-        GRID_INDICATORS = data((List<Map>) geojson.get("features"));
+        GRID_INDICATORS = Data((List<Map>) geojson.get("features"));
     }
 
     @Test
     void testSimpleBarChart(TestInfo testInfo) {
-        def chart = Chart(Data(
+        def chart = Chart(Data([
                 ["a": "A", "b": 28], ["a": "B", "b": 55], ["a": "C", "b": 43],
                 ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
-                ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52])).mark_bar().
+                ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52]])).mark_bar().
                 encode(X("a").nominal(), Y("b").quantitative())
-        chart.save("target/${testInfo.displayName}.html", true)
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
     }
 
     @Test
     void testResponsiveBarChart(TestInfo testInfo) {
         def chart = Chart(cars()).mark_bar()
                 .encode(X("Origin"), Y().count())
-        chart.save("target/${testInfo.displayName}.html", true)
+        chart.save("target/${testInfo.displayName}.html")
     }
 
     @Test
     void testSimpleHistogram(TestInfo testInfo) {
         def chart = Chart(cars()).mark_bar()
                 .encode(X("Cylinders").quantitative().bin(true), Y().count())
-        chart.save("target/${testInfo.displayName}.html", true)
+        chart.save("target/${testInfo.displayName}.html")
     }
 
     @Test
     void testSimpleStackedAreaChart(TestInfo testInfo) {
         def chart = Chart(seattle_weather()).mark_area()
                 .encode(X("date").temporal(), Y("precipitation").quantitative(), Color("weather").nominal())
-        chart.save("target/${testInfo.displayName}.html", true)
+        chart.save("target/${testInfo.displayName}.html")
     }
 
     @Test
     void testSimpleStripPlot(TestInfo testInfo) {
         def chart = Chart(cars()).mark_tick()
                 .encode(X("Horsepower").quantitative(), Y("Cylinders").ordinal())
-        chart.save("target/${testInfo.displayName}.html", true)
+        chart.save("target/${testInfo.displayName}.html")
     }
 
     @Test
     void testHorizontalStackedBarChart(TestInfo testInfo) {
         def chart = Chart(seattle_weather()).mark_bar()
                 .encode(X("precipitation").sum(), Y('weather'))
-        chart.save("target/${testInfo.displayName}.html", true)
+        chart.save("target/${testInfo.displayName}.html")
     }
 
     @Test
     void testLineChart(TestInfo testInfo) {
         def chart = Chart(seattle_weather()).mark_line()
                 .encode(X("date").temporal(), Y('precipitation').quantitative())
-        chart.save("target/${testInfo.displayName}.html", true)
+        chart.save("target/${testInfo.displayName}.html")
     }
 
     @Test
     void testPointChart(TestInfo testInfo) {
         def chart = Chart(seattle_weather()).mark_point()
                 .encode(X("date").temporal(), Y('precipitation').quantitative(), color('weather'))
-        chart.save("target/${testInfo.displayName}.html", true)
+        chart.save("target/${testInfo.displayName}.html")
     }
 
     @Test
     void testDisplayMap (TestInfo testInfo) {
         def chart = Chart(RSU_GEOINDICATORS).height(500).width(500).mark_geoshape();
-        chart.save("target/${testInfo.displayName}.html", true)
+        chart.save("target/${testInfo.displayName}.html")
     }
 
     @Test
     void testDisplayMapJSON (TestInfo testInfo) {
         def chart = Chart("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[4.866735,46.263463],[4.866611,46.263508],[4.866568,46.263558],[4.866583,46.263596],[4.866645,46.263637],[4.866866,46.26371],[4.866915,46.263688],[4.866799,46.263561],[4.8667,46.26356],[4.866738,46.2635],[4.866735,46.263463]]]}}").height(500).width(500).mark_geoshape();
-        chart.save("target/${testInfo.displayName}.html", true)
+        chart.save("target/${testInfo.displayName}.html")
         //chart.show()
     }
 
@@ -153,21 +157,17 @@ class GroovyPlotTest {
         definition.stroke = markStrokeDef
         mark.defValue = definition
         def chart = Chart(RSU_GEOINDICATORS).height(500).width(500).mark(mark)
-        chart.save("target/${testInfo.displayName}.html", true)
-        chart.show()
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
     }
 
     @Test
     void testDisplayMapWithInterval (TestInfo testInfo) throws IOException {
-        def chart = Chart(RSU_GEOINDICATORS)
+        def chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5]).range(["orange", "green", "blue", "black"])
                 .title("A Map with interval")
                 .height(500).width(700)
-                .mark_geoshape()
-                .encode(color("properties.HIGH_VEGETATION_FRACTION",
-                        scale(domain([0, 0.1, 0.2, 0.5]), range(["orange", "green", "blue", "black"])))
-                        .quantitative())
-                .projection(ProjectionType.IDENTITY)
-        //view.save( "target/"+testInfo.getDisplayName()+".html",true);
-        view.show()
+                .projection_identity()
+        chart.save("target/" + testInfo.getDisplayName() + ".html");
+        //chart.show()
     }
 }

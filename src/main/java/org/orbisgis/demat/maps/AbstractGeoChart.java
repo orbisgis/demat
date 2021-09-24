@@ -2,13 +2,20 @@ package org.orbisgis.demat.maps;
 
 import org.orbisgis.demat.Chart;
 import org.orbisgis.demat.vega.Domain;
-import org.orbisgis.demat.vega.LegendText;
+import org.orbisgis.demat.vega.ProjectionType;
+import org.orbisgis.demat.vega.ScaleRange;
 import org.orbisgis.demat.vega.Scheme;
+import org.orbisgis.demat.vega.legend.LegendText;
 
 import java.util.List;
 
 public class AbstractGeoChart<T extends Chart> extends Chart {
 
+
+    public T range(Object... elements) {
+        this.getEncoding().getColor().getScale().setRange(ScaleRange.build(elements));
+        return (T) this;
+    }
 
     public T field(String field) {
         this.getEncoding().getColor().setField(field);
@@ -17,7 +24,7 @@ public class AbstractGeoChart<T extends Chart> extends Chart {
 
     public T legend(String title) {
         LegendText legendText = new LegendText();
-        legendText.stringValue = title;
+        legendText.title = title;
         this.getEncoding().getColor().setTitle(legendText);
         return (T) this;
     }
@@ -41,6 +48,11 @@ public class AbstractGeoChart<T extends Chart> extends Chart {
         return (T) super.filter(expression);
     }
 
+    @Override
+    public T calculate(String expression, String alias) {
+        return (T) super.calculate(expression, alias);
+    }
+
     public T reflectY() {
         this.getProjection().setReflectY(true);
         return (T) this;
@@ -48,6 +60,11 @@ public class AbstractGeoChart<T extends Chart> extends Chart {
 
     public T reflectX() {
         this.getProjection().setReflectX(true);
+        return (T) this;
+    }
+
+    public T projection_identity() {
+        this.getProjection().setType(ProjectionType.IDENTITY);
         return (T) this;
     }
 }

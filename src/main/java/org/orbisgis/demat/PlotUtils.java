@@ -44,9 +44,10 @@
  */
 package org.orbisgis.demat;
 
-import org.orbisgis.demat.vega.Data;
-import org.orbisgis.demat.vega.DataValues;
-import org.orbisgis.demat.vega.InlineDataset;
+
+import org.orbisgis.demat.vega.data.Data;
+import org.orbisgis.demat.vega.data.DataValues;
+import org.orbisgis.demat.vega.data.InlineDataset;
 
 import java.io.IOException;
 import java.util.*;

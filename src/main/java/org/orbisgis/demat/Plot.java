@@ -46,6 +46,14 @@ package org.orbisgis.demat;
 
 import org.orbisgis.demat.maps.Maps;
 import org.orbisgis.demat.vega.*;
+import org.orbisgis.demat.vega.data.Data;
+import org.orbisgis.demat.vega.encoding.Color;
+import org.orbisgis.demat.vega.encoding.Encoding;
+import org.orbisgis.demat.vega.encoding.X;
+import org.orbisgis.demat.vega.encoding.Y;
+import org.orbisgis.demat.vega.legend.Legend;
+import org.orbisgis.demat.vega.legend.LegendText;
+import org.orbisgis.demat.vega.resolve.*;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -59,9 +67,9 @@ import java.util.Map;
  *
  * @author Erwan Bocher, CNRS 2021
  */
-public class Plot implements IRenderer {
+public class Plot implements IRenderer, ViewCommonMethods<Plot> {
 
-    private View view;
+    public View view;
     private Renderer renderer;
 
     public Plot(View view) {
@@ -114,7 +122,6 @@ public class Plot implements IRenderer {
     public static Maps Maps() {
         return new Maps();
     }
-
 
     /**
      * Create a Color encoding
@@ -282,7 +289,7 @@ public class Plot implements IRenderer {
     public static Legend Legend(String title) {
         Legend legend = new Legend();
         LegendText legendText = new LegendText();
-        legendText.stringValue = title;
+        legendText.title = title;
         legend.setTitle(legendText);
         return legend;
     }
@@ -414,41 +421,6 @@ public class Plot implements IRenderer {
         return this;
     }
 
-    public Plot description(String description) {
-        this.view.setDescription(description);
-        return this;
-    }
-
-    public Plot name(String name) {
-        this.view.setName(name);
-        return this;
-    }
-
-    /**
-     * Set height to the plot
-     *
-     * @param height
-     * @return
-     */
-    public Plot height(double height) {
-        Height height_ = new Height();
-        height_.doubleValue = height;
-        this.view.setHeight(height_);
-        return this;
-    }
-
-    /**
-     * Set width to the plot
-     *
-     * @param width
-     * @return
-     */
-    public Plot width(double width) {
-        Height height_ = new Height();
-        height_.doubleValue = width;
-        this.view.setWidth(height_);
-        return this;
-    }
 
     public Plot hconcat(Chart... charts) {
         this.view.setHconcat(Arrays.asList(charts));

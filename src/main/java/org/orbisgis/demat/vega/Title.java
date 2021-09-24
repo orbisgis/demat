@@ -64,7 +64,7 @@ import java.util.List;
 @JsonDeserialize(using = Title.Deserializer.class)
 @JsonSerialize(using = Title.Serializer.class)
 public class Title {
-    public List<String> stringArrayValue;
+    public List<String> titles;
     public TitleParams titleParams;
     public String title;
 
@@ -80,7 +80,8 @@ public class Title {
                     value.title = string;
                     break;
                 case START_ARRAY:
-                    value.stringArrayValue = jsonParser.readValueAs(new TypeReference<List<String>>() {});
+                    value.titles = jsonParser.readValueAs(new TypeReference<List<String>>() {
+                    });
                     break;
                 case START_OBJECT:
                     value.titleParams = jsonParser.readValueAs(TitleParams.class);
@@ -94,8 +95,8 @@ public class Title {
     static class Serializer extends JsonSerializer<Title> {
         @Override
         public void serialize(Title obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            if (obj.stringArrayValue != null) {
-                jsonGenerator.writeObject(obj.stringArrayValue);
+            if (obj.titles != null) {
+                jsonGenerator.writeObject(obj.titles);
                 return;
             }
             if (obj.titleParams != null) {

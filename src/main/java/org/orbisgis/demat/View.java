@@ -48,6 +48,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.orbisgis.demat.vega.*;
+import org.orbisgis.demat.vega.data.Data;
+import org.orbisgis.demat.vega.data.DataValues;
+import org.orbisgis.demat.vega.data.InlineDatasetValue;
+import org.orbisgis.demat.vega.encoding.Encoding;
+import org.orbisgis.demat.vega.resolve.Resolve;
 
 import java.io.File;
 import java.util.Arrays;

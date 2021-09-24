@@ -45,6 +45,9 @@
 package org.orbisgis.demat.vega;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.data.Data;
+import org.orbisgis.demat.vega.encoding.Encoding;
+import org.orbisgis.demat.vega.resolve.Resolve;
 
 import java.util.List;
 import java.util.Map;

@@ -45,6 +45,8 @@
 package org.orbisgis.demat.vega;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.legend.Legend;
+import org.orbisgis.demat.vega.legend.LegendText;
 
 public class ConditionalPredicateValueDefNumberExprRefClass {
     private Filter test;

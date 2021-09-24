@@ -91,6 +91,7 @@ public class Renderer implements IRenderer {
      * @return
      */
     public String save(File outputFile, boolean delete) throws IOException {
+        FileUtils.deployJSFiles(new File(showDir));
         if (outputFile == null) {
             return null;
         }
@@ -101,16 +102,15 @@ public class Renderer implements IRenderer {
                 return null;
             }
         }
-        StringBuilder json = new StringBuilder("var spec =\n");
-        json.append(toJson()).append(";\n var opt = {\"renderer\": \"canvas\", \"actions\": true,\"scaleFactor\":2};\n" +
-                " vegaEmbed(\"#vis\", spec, opt);");
+        StringBuilder json = new StringBuilder("vegaEmbed('#vis',");
+        json.append(toJson()).append(").catch(console.error);");
         FileWriter fileWriter = new FileWriter(outputFile);
         html(
                 head(
                         meta().withCharset("UTF-8"),
-                        script().withSrc("https://cdn.jsdelivr.net/npm/vega@5.19.1"),
-                        script().withSrc("https://cdn.jsdelivr.net/npm/vega-lite@5.0.0"),
-                        script().withSrc("https://cdn.jsdelivr.net/npm/vega-embed@6.15.1")
+                        script().withSrc(FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[0]),
+                        script().withSrc(FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[1]),
+                        script().withSrc(FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[2])
                 ),
                 body(
                         div().withId("vis"),

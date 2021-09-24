@@ -44,7 +44,8 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.legend.LegendText;
 
 /**
  * An object defining the view background's fill and stroke.

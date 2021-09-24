@@ -44,7 +44,8 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.legend.LegendText;
 
 /**
  * Axis configuration, which determines default properties for all `x` and `y`

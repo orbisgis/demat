@@ -91,7 +91,7 @@ import java.io.IOException;
 @JsonSerialize(using = Filter.Serializer.class)
 public class Filter {
     public Predicate predicateValue;
-    public String stringValue;
+    public String expression;
 
     static class Deserializer extends JsonDeserializer<Filter> {
         @Override
@@ -102,7 +102,7 @@ public class Filter {
                     break;
                 case VALUE_STRING:
                     String string = jsonParser.readValueAs(String.class);
-                    value.stringValue = string;
+                    value.expression = string;
                     break;
                 case START_OBJECT:
                     value.predicateValue = jsonParser.readValueAs(Predicate.class);
@@ -120,8 +120,8 @@ public class Filter {
                 jsonGenerator.writeObject(obj.predicateValue);
                 return;
             }
-            if (obj.stringValue != null) {
-                jsonGenerator.writeObject(obj.stringValue);
+            if (obj.expression != null) {
+                jsonGenerator.writeObject(obj.expression);
                 return;
             }
             jsonGenerator.writeNull();

@@ -44,7 +44,8 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.legend.LegendText;
 
 /**
  * The outer radius in pixels of arc marks.

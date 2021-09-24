@@ -4,8 +4,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
-import org.orbisgis.demat.vega.Data;
 import org.orbisgis.demat.vega.TimeUnit;
+import org.orbisgis.demat.vega.data.Data;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,8 +33,16 @@ public class PlotTest {
 
     @Test
     void testSimpleBarChart(TestInfo testInfo) throws IOException {
-        Chart chart = Chart(Data(new Object[][]{{"a", "b", "c"}, {1, 22, 12}, {200, 300, 400}})).mark_bar()
-                .encode(Y("a").nominal(), Y("b"));
+        Chart chart = Chart(Data(new Object[][]{{"a", "b", "c"}, {1, 202, 12}, {200, 300, 400}})).mark_bar()
+                .encode(X("a").nominal(), Y("b"));
+        chart.save("target/" + testInfo.getDisplayName() + ".html");
+        chart.show();
+    }
+
+    @Test
+    void testSimpleBarChartCalculateFilter(TestInfo testInfo) throws IOException {
+        Chart chart = Chart(Data(new Object[][]{{"a", "b", "c"}, {1, -202, 12}, {200, -300, 400}})).mark_bar()
+                .encode(X("a").nominal(), Y("b_abs")).calculate("abs(datum.b)", "b_abs").filter("datum.b> -300");
         chart.save("target/" + testInfo.getDisplayName() + ".html");
         //chart.show();
     }
@@ -131,7 +139,10 @@ public class PlotTest {
                 field("properties.AVG_HEIGHT_ROOF")
                 .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
                 .domain(Arrays.asList(0, 5, 7.5, 10, 12.5, 15, 20, 50)).legend("Height value (in meters)").reflectY().title("AVG_HEIGHT_ROOF");
-        plot.concat(chart, chart2).resolve(ScaleResolve(ColorResolve().independent())).show();
+        Chart chart3 = Maps().manualIntervalMap().field("ABS_DIFF_AVG_HEIGHT_ROOF")
+                .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9").calculate("abs(datum.properties.DIFF_AVG_HEIGHT_ROOF)", "ABS_DIFF_AVG_HEIGHT_ROOF")
+                .domain(Arrays.asList(2.5, 5)).range(Arrays.asList("green", "orange", "red")).reflectY().legend("Height value (in meters)").title("DIFF_AVG_HEIGHT_ROOF");
+        plot.concat(2, chart, chart2, chart3).resolve(ScaleResolve(ColorResolve().independent())).show();
     }
 
     @Disabled

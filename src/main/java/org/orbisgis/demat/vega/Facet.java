@@ -44,7 +44,8 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.legend.LegendText;
 
 /**
  * Definition for how to facet the data. One of: 1) [a field definition for faceting the
