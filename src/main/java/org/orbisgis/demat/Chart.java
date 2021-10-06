@@ -1,22 +1,34 @@
 package org.orbisgis.demat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import j2html.tags.DomContent;
 import org.orbisgis.demat.vega.Mark;
 import org.orbisgis.demat.vega.NormalizedSpec;
 import org.orbisgis.demat.vega.Projection;
-import org.orbisgis.demat.vega.encoding.Color;
-import org.orbisgis.demat.vega.encoding.Encoding;
-import org.orbisgis.demat.vega.encoding.X;
-import org.orbisgis.demat.vega.encoding.Y;
+import org.orbisgis.demat.vega.Title;
+import org.orbisgis.demat.vega.encoding.*;
 
-import java.io.IOException;
+import java.io.File;
+import java.util.UUID;
+
+import static j2html.TagCreator.*;
 
 /**
  * Parameters to build a chart
  */
-public class Chart extends NormalizedSpec implements IRenderer, ViewCommonMethods<Chart> {
+public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, IRenderer {
 
-    private View view;
-    private Renderer renderer;
+    private String id;
+    private String htmlDirectory = System.getProperty("java.io.tmpdir") + File.separator + "demat";
+
+    private View parentView = null;
+
+    public Chart() {
+        this.id = "vis" + UUID.randomUUID();
+    }
 
     /**
      * Create a mark_geoshape
@@ -105,6 +117,8 @@ public class Chart extends NormalizedSpec implements IRenderer, ViewCommonMethod
                 encoding.setY((Y) element);
             } else if (element instanceof Color) {
                 encoding.setColor((Color) element);
+            } else if (element instanceof Tooltip) {
+                encoding.setTooltip((Tooltip) element);
             }
         }
         this.setEncoding(encoding);
@@ -115,66 +129,52 @@ public class Chart extends NormalizedSpec implements IRenderer, ViewCommonMethod
         return new Projection();
     }
 
-    /**
-     * Save into an html file
-     * Delete it if exists
-     *
-     * @param path
-     * @return
-     */
-    public String save(String path) throws IOException {
-        build();
-        return this.renderer.save(path, true);
+
+    public void setParentView(View view) {
+        this.parentView = view;
     }
 
-    void build() {
-        this.view = new View();
-        view.setSchema("https://vega.github.io/schema/vega-lite/v5.json");
-        this.view.setTitle(this.getTitle());
-        this.view.setEncoding(this.getEncoding());
-        this.view.setData(this.getData());
-        this.view.setAlign(this.getAlign());
-        this.view.setBounds(this.getBounds());
-        this.view.setCenter(this.getCenter());
-        this.view.setDescription(this.getDescription());
-        this.view.setHeight(this.getHeight());
-        this.view.setMark(this.getMark());
-        this.view.setName(this.getName());
-        this.view.setProjection(this.getProjection());
-        this.view.setResolve(this.getResolve());
-        this.view.setSelection(this.getSelection());
-        this.view.setSpacing(this.getSpacing());
-        this.view.setTransform(this.getTransform());
-        this.view.setView(this.getView());
-        this.view.setWidth(this.getWidth());
-        this.view.setLayer(this.getLayer());
-        this.view.setColumns(this.getColumns());
-        this.view.setRepeat(this.getRepeat());
-        this.view.setFacet(this.getFacet());
-        this.view.setConcat(this.getConcat());
-        this.view.setHconcat(this.getHconcat());
-        this.setVconcat(this.getVconcat());
-        this.renderer = new Renderer(view);
-    }
-
-    /**
-     *
-     */
-    public void show() {
-        build();
-        this.renderer.show();
+    @JsonIgnore
+    @Override
+    public String getHTMLDirectory() {
+        return htmlDirectory;
     }
 
     @Override
-    public String save() throws IOException {
-        return this.renderer.save();
+    public void setHTMLDirectory(String htmlDirectory) {
+        this.htmlDirectory = htmlDirectory;
     }
 
-    public void setView(View view) {
-        this.view = view;
+    /**
+     * Build a json representation of the chart
+     *
+     * @return
+     * @throws JsonProcessingException
+     */
+    String toJson() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        return objectMapper.writeValueAsString(this);
     }
 
-    public void setRenderer(Renderer renderer) {
-        this.renderer = renderer;
+    @JsonIgnore
+    @Override
+    public DomContent getDomElements() {
+        try {
+            Title title = this.getTitle();
+            String exportImageTitle = "demat_chart";
+            if (title != null) {
+                exportImageTitle = title.title;
+            }
+            StringBuilder json = new StringBuilder("vegaEmbed('#").append(this.getId()).append("',");
+            json.append(toJson()).append(",{renderer: 'svg',downloadFileName :'").append(exportImageTitle).append("'}).catch(console.error);");
+            return join(div().withId(getId()), script(rawHtml(json.toString())));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getId() {
+        return id;
     }
 }

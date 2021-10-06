@@ -34,9 +34,9 @@ public class PlotTest {
     @Test
     void testSimpleBarChart(TestInfo testInfo) throws IOException {
         Chart chart = Chart(Data(new Object[][]{{"a", "b", "c"}, {1, 202, 12}, {200, 300, 400}})).mark_bar()
-                .encode(X("a").nominal(), Y("b"));
+                .encode(X("a").nominal(), Y("b"), Tooltip("b"));
         chart.save("target/" + testInfo.getDisplayName() + ".html");
-        //chart.show();
+        chart.show();
     }
 
     @Test
@@ -71,7 +71,7 @@ public class PlotTest {
                 .encode(X("a").nominal(), Y("b").quantitative());
         Chart chart2 = Chart().mark_line()
                 .encode(X("a").nominal(), Y("b").quantitative());
-        plot.hconcat(chart, chart2).save("target/" + testInfo.getDisplayName() + ".html");
+        plot.hconcat(chart, chart2).show();//save("target/" + testInfo.getDisplayName() + ".html");
     }
 
     @Test
@@ -90,7 +90,7 @@ public class PlotTest {
     @Test
     void testChoropleth(TestInfo testInfo) throws IOException {
         Chart chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions");
-        //chart.show();
+        chart.show();
     }
 
     @Test
@@ -102,7 +102,7 @@ public class PlotTest {
     @Test
     void testChoroplethDiscretizingScales2(TestInfo testInfo) throws IOException {
         Chart chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions").domain(Arrays.asList(0, 0.1, 0.2, 0.3));
-        //chart.show();
+        chart.show();
     }
 
     @Test
@@ -129,21 +129,26 @@ public class PlotTest {
     @Disabled
     @Test
     void testLCZAVG(TestInfo testInfo) throws IOException {
+        List mapIntervals = Arrays.asList(5, 7.5, 10, 12.5, 15, 20);
+        List<String> colorSchem = Arrays.asList("#00c0ff", "blue", "green", "orange", "red", "purple", "black");
         LinkedHashMap geojson = (LinkedHashMap) Read.json(new File("/home/ebocher/Téléchargements/1629214262874_BuildingEstimation_WithoutToulouse/NANTES_RsuIndic.geojson"));
         Plot plot = Plot(Data((List<Map>) geojson.get("features")));
-        Chart chart = Maps().choroplethMap().
-                field("properties.AVG_HEIGHT_ROOF_TRUE")
+        Chart chart = Maps().manualIntervalMap().field("properties.AVG_HEIGHT_ROOF_TRUE")
                 .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
-                .domain(Arrays.asList(0, 5, 7.5, 10, 12.5, 15, 20, 50)).scheme("turbo").reflectY().title("AVG_HEIGHT_ROOF_TRUE");
-        Chart chart2 = Maps().choroplethMap().
-                field("properties.AVG_HEIGHT_ROOF")
+                .domain(mapIntervals).range(colorSchem).reflectY().legend("Reference building", "height value (m)");
+        Chart chart2 = Maps().manualIntervalMap().field("properties.AVG_HEIGHT_ROOF")
                 .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
-                .domain(Arrays.asList(0, 5, 7.5, 10, 12.5, 15, 20, 50)).legend("Height value (in meters)").reflectY().title("AVG_HEIGHT_ROOF");
-        Chart chart3 = Maps().manualIntervalMap().field("ABS_DIFF_AVG_HEIGHT_ROOF")
-                .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9").calculate("abs(datum.properties.DIFF_AVG_HEIGHT_ROOF)", "ABS_DIFF_AVG_HEIGHT_ROOF")
-                .domain(Arrays.asList(2.5, 5)).range(Arrays.asList("green", "orange", "red")).reflectY().legend("Height value (in meters)").title("DIFF_AVG_HEIGHT_ROOF");
-        plot.concat(2, chart, chart2, chart3).resolve(ScaleResolve(ColorResolve().independent())).show();
+                .domain(mapIntervals).range(colorSchem).reflectY().legend("Estimated building", "height value (m)");
+        Chart chart3 = Maps().manualIntervalMap().field("abs")
+                .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9").calculate("abs(datum.properties.DIFF_AVG_HEIGHT_ROOF)", "abs")
+                .domain(Arrays.asList(2.5, 5)).range(Arrays.asList("green", "orange", "red")).reflectY().legend("Absolute building", "height error value (m)");
+        Chart chart4 = Maps().manualIntervalMap().field("properties.AVG_ESTIMATED")
+                .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED<0.9")
+                .domain(Arrays.asList(0.3, 0.6)).range(Arrays.asList("green", "orange", "red")).reflectY().legend("Fraction of OSM buildings", "having height information");
+
+        plot.concat(2, chart, chart2, chart3, chart4).resolve(ScaleResolve(ColorResolve().independent())).show();
     }
+
 
     @Disabled
     @Test

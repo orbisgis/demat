@@ -42,11 +42,12 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.orbisgis.demat.vega;
+package org.orbisgis.demat.vega.encoding;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -55,42 +56,52 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.IOException;
+import java.util.List;
 
-@JsonDeserialize(using = Height.Deserializer.class)
-@JsonSerialize(using = Height.Serializer.class)
-public class Height {
-    public Double size = 200d;
-    public Step stepSize;
+@JsonDeserialize(using = Tooltip.Deserializer.class)
+@JsonSerialize(using = Tooltip.Serializer.class)
+public class Tooltip {
+    public ToolTipField toolTipField;
+    public List<ToolTipField> toolTipFields;
 
-    static class Deserializer extends JsonDeserializer<Height> {
+    public void setToolTipField(ToolTipField toolTipField) {
+        this.toolTipField = toolTipField;
+    }
+
+    public void setToolTipFields(List<ToolTipField> toolTipFields) {
+        this.toolTipFields = toolTipFields;
+    }
+
+    static class Deserializer extends JsonDeserializer<Tooltip> {
         @Override
-        public Height deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            Height value = new Height();
+        public Tooltip deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            Tooltip value = new Tooltip();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
                     break;
-                case VALUE_NUMBER_INT:
-                case VALUE_NUMBER_FLOAT:
-                    value.size = jsonParser.readValueAs(Double.class);
+                case START_ARRAY:
+                    value.toolTipFields = jsonParser.readValueAs(new TypeReference<List<ToolTipField>>() {
+                    });
                     break;
                 case START_OBJECT:
-                    value.stepSize = jsonParser.readValueAs(Step.class);
+                    value.toolTipField = jsonParser.readValueAs(ToolTipField.class);
                     break;
-                default: throw new IOException("Cannot deserialize Height");
+                default:
+                    throw new IOException("Cannot deserialize EncodingTooltip");
             }
             return value;
         }
     }
 
-    static class Serializer extends JsonSerializer<Height> {
+    static class Serializer extends JsonSerializer<Tooltip> {
         @Override
-        public void serialize(Height obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            if (obj.size != null) {
-                jsonGenerator.writeObject(obj.size);
+        public void serialize(Tooltip obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+            if (obj.toolTipField != null) {
+                jsonGenerator.writeObject(obj.toolTipField);
                 return;
             }
-            if (obj.stepSize != null) {
-                jsonGenerator.writeObject(obj.stepSize);
+            if (obj.toolTipFields != null) {
+                jsonGenerator.writeObject(obj.toolTipFields);
                 return;
             }
             jsonGenerator.writeNull();

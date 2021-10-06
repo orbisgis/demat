@@ -82,7 +82,7 @@ public class Encoding {
     private TextDef text;
     private ThetaClass theta;
     private Theta2Class theta2;
-    private EncodingTooltip tooltip;
+    private Tooltip tooltip;
     private URLClass url;
     private X x;
     private X2 x2;
@@ -401,14 +401,19 @@ public class Encoding {
      * The tooltip text to show upon mouse hover. Specifying `tooltip` encoding overrides [the
      * `tooltip` property in the mark
      * definition](https://vega.github.io/vega-lite/docs/mark.html#mark-def).
-     *
+     * <p>
      * See the [`tooltip`](https://vega.github.io/vega-lite/docs/tooltip.html) documentation for
      * a detailed discussion about tooltip in Vega-Lite.
      */
     @JsonProperty("tooltip")
-    public EncodingTooltip getTooltip() { return tooltip; }
+    public Tooltip getTooltip() {
+        return tooltip;
+    }
+
     @JsonProperty("tooltip")
-    public void setTooltip(EncodingTooltip value) { this.tooltip = value; }
+    public void setTooltip(Tooltip value) {
+        this.tooltip = value;
+    }
 
     /**
      * The URL of an image mark.

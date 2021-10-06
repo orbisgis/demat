@@ -44,22 +44,24 @@
  */
 package org.orbisgis.demat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import j2html.tags.ContainerTag;
+import j2html.tags.DomContent;
 import org.orbisgis.demat.maps.Maps;
 import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.data.Data;
-import org.orbisgis.demat.vega.encoding.Color;
-import org.orbisgis.demat.vega.encoding.Encoding;
-import org.orbisgis.demat.vega.encoding.X;
-import org.orbisgis.demat.vega.encoding.Y;
+import org.orbisgis.demat.vega.encoding.*;
 import org.orbisgis.demat.vega.legend.Legend;
 import org.orbisgis.demat.vega.legend.LegendText;
 import org.orbisgis.demat.vega.resolve.*;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
+
+import static j2html.TagCreator.*;
 
 /**
  * A Vega-Lite top-level specification. This is the root class for all Vega-Lite
@@ -67,13 +69,15 @@ import java.util.Map;
  *
  * @author Erwan Bocher, CNRS 2021
  */
-public class Plot implements IRenderer, ViewCommonMethods<Plot> {
+public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>, IRenderer {
 
     public View view;
-    private Renderer renderer;
+
+    private String htmlDirectory = System.getProperty("java.io.tmpdir") + File.separator + "demat";
 
     public Plot(View view) {
-        this.renderer = new Renderer(view);
+        super("div");
+        this.view = view;
     }
 
     public static Plot Plot(Object... elements) {
@@ -191,6 +195,52 @@ public class Plot implements IRenderer, ViewCommonMethods<Plot> {
 
     public static ScaleType Quantile() {
         return ScaleType.QUANTILE;
+    }
+
+
+    public static ToolTipField ToolTipField() {
+        return new ToolTipField();
+    }
+
+    public static ToolTipField ToolTipField(String fieldValue) {
+        ToolTipField toolTipField = new ToolTipField();
+        toolTipField.setField(new Field(fieldValue));
+        return toolTipField;
+    }
+
+    /**
+     * Create a Tooltip channel
+     *
+     * @return
+     */
+    public static Tooltip Tooltip(String fieldValue) {
+        Tooltip tooltip = new Tooltip();
+        ToolTipField toolTipField = new ToolTipField();
+        toolTipField.setField(new Field(fieldValue));
+        tooltip.setToolTipField(toolTipField);
+        return tooltip;
+    }
+
+    /**
+     * Create a Tooltip channel
+     *
+     * @return
+     */
+    public static Tooltip Tooltip(ToolTipField toolTipField) {
+        Tooltip tooltip = new Tooltip();
+        tooltip.setToolTipField(toolTipField);
+        return tooltip;
+    }
+
+    /**
+     * Create a Tooltip channel
+     *
+     * @return
+     */
+    public static Tooltip Tooltip(List<ToolTipField> toolTipFields) {
+        Tooltip tooltip = new Tooltip();
+        tooltip.setToolTipFields(toolTipFields);
+        return tooltip;
     }
 
 
@@ -394,6 +444,7 @@ public class Plot implements IRenderer, ViewCommonMethods<Plot> {
         return new YResolve();
     }
 
+
     private void setView(View view) {
         this.view = view;
     }
@@ -411,8 +462,7 @@ public class Plot implements IRenderer, ViewCommonMethods<Plot> {
                 throw new RuntimeException("Unknown vega-lite element");
             }
         }
-        chart.setView(this.view);
-        chart.setRenderer(this.renderer);
+        chart.setParentView(this.view);
         return chart;
     }
 
@@ -463,18 +513,44 @@ public class Plot implements IRenderer, ViewCommonMethods<Plot> {
         return this;
     }
 
+    @JsonIgnore
     @Override
-    public void show() {
-        this.renderer.show();
+    public String getHTMLDirectory() {
+        return htmlDirectory;
     }
 
     @Override
-    public String save() throws IOException {
-        return this.renderer.save();
+    public void setHTMLDirectory(String htmlDirectory) {
+        this.htmlDirectory = htmlDirectory;
     }
 
+    /**
+     * Build a json representation of the chart
+     *
+     * @return
+     * @throws JsonProcessingException
+     */
+    String toJson() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        return objectMapper.writeValueAsString(this.view);
+    }
+
+    @JsonIgnore
     @Override
-    public String save(String path) throws IOException {
-        return this.renderer.save(path);
+    public DomContent getDomElements() {
+        try {
+            String div_identifier = UUID.randomUUID().toString();
+            Title title = this.view.getTitle();
+            String exportImageTitle = "demat_plot";
+            if (title != null) {
+                exportImageTitle = title.title;
+            }
+            StringBuilder json = new StringBuilder("vegaEmbed('#vis").append(div_identifier).append("',");
+            json.append(toJson()).append(",{renderer: 'svg',downloadFileName :'").append(exportImageTitle).append("'}).catch(console.error);");
+            return join(this.withId("vis" + div_identifier), script(rawHtml(json.toString())));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

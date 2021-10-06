@@ -38,7 +38,7 @@ public interface ViewCommonMethods<T> {
      */
     default T height(double height) {
         Height height_ = new Height();
-        height_.doubleValue = height;
+        height_.size = height;
         if (this instanceof Plot) {
             ((Plot) this).view.setHeight(height_);
         } else if (this instanceof Chart) {
@@ -55,7 +55,7 @@ public interface ViewCommonMethods<T> {
      */
     default T width(double width) {
         Height height_ = new Height();
-        height_.doubleValue = width;
+        height_.size = width;
         if (this instanceof Plot) {
             ((Plot) this).view.setWidth(height_);
         } else if (this instanceof Chart) {

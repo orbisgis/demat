@@ -64,7 +64,7 @@ public class RowColumnEncodingFieldDef {
     private Double spacing;
     private TimeUnitUnion timeUnit;
     private LegendText title;
-    private StandardType type;
+    private Type type;
 
     /**
      * Aggregation function for the field (e.g., `"mean"`, `"sum"`, `"median"`, `"min"`,
@@ -306,7 +306,12 @@ public class RowColumnEncodingFieldDef {
      * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
      */
     @JsonProperty("type")
-    public StandardType getType() { return type; }
+    public Type getType() {
+        return type;
+    }
+
     @JsonProperty("type")
-    public void setType(StandardType value) { this.type = value; }
+    public void setType(Type value) {
+        this.type = value;
+    }
 }

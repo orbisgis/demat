@@ -7,6 +7,7 @@ import org.orbisgis.demat.vega.ScaleRange;
 import org.orbisgis.demat.vega.Scheme;
 import org.orbisgis.demat.vega.legend.LegendText;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class AbstractGeoChart<T extends Chart> extends Chart {
@@ -22,9 +23,16 @@ public class AbstractGeoChart<T extends Chart> extends Chart {
         return (T) this;
     }
 
-    public T legend(String title) {
+    public T legend(List titles) {
         LegendText legendText = new LegendText();
-        legendText.title = title;
+        legendText.titles = titles;
+        this.getEncoding().getColor().setTitle(legendText);
+        return (T) this;
+    }
+
+    public T legend(String... title) {
+        LegendText legendText = new LegendText();
+        legendText.titles = Arrays.asList(title);
         this.getEncoding().getColor().setTitle(legendText);
         return (T) this;
     }
@@ -67,4 +75,5 @@ public class AbstractGeoChart<T extends Chart> extends Chart {
         this.getProjection().setType(ProjectionType.IDENTITY);
         return (T) this;
     }
+
 }

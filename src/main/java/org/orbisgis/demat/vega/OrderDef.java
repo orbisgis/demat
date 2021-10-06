@@ -55,7 +55,7 @@ public class OrderDef {
     private SortOrder sort;
     private TimeUnitUnion timeUnit;
     private LegendText title;
-    private StandardType type;
+    private Type type;
     private OrderFieldDefCondition condition;
     private CornerRadius value;
 
@@ -233,9 +233,14 @@ public class OrderDef {
      * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
      */
     @JsonProperty("type")
-    public StandardType getType() { return type; }
+    public Type getType() {
+        return type;
+    }
+
     @JsonProperty("type")
-    public void setType(StandardType value) { this.type = value; }
+    public void setType(Type value) {
+        this.type = value;
+    }
 
     /**
      * One or more value definition(s) with [a selection or a test

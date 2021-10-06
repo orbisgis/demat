@@ -45,10 +45,14 @@
 package org.orbisgis.demat;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.orbisgis.demat.vega.data.Data;
 import org.orbisgis.demat.vega.data.DataValues;
 import org.orbisgis.demat.vega.data.InlineDataset;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -153,14 +157,42 @@ public class PlotUtils {
                     if (Runtime.getRuntime().exec(c).waitFor()==0)
                         browserName = browsers[count];
                 }
-                if (browserName==null) {
+                if (browserName == null) {
                     throw new RuntimeException("Could not find a browser");
-                }else {
+                } else {
                     Runtime.getRuntime().exec(new String[]{browserName, url});
                 }
             } catch (Exception e) {
                 throw new IOException("Exception while launching browser: " + e.getMessage());
             }
         }
+    }
+
+    /**
+     * Build a json representation of the view
+     *
+     * @param view
+     * @return
+     * @throws JsonProcessingException
+     */
+    public static String toJson(View view) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        return objectMapper.writeValueAsString(view);
+    }
+
+    /**
+     * Check the show directory file
+     *
+     * @return
+     */
+    public static File checkShowDir(String showDir) {
+        File showDirFile = new File(showDir);
+        if (!showDirFile.isDirectory() && !showDirFile.exists()) {
+            showDirFile.mkdir();
+        } else if (!showDirFile.isDirectory()) {
+            throw new RuntimeException("Invalid directory path");
+        }
+        return showDirFile;
     }
 }

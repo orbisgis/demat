@@ -45,6 +45,7 @@
 package org.orbisgis.demat
 
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo
 import org.orbisgis.demat.vega.Def
@@ -162,12 +163,63 @@ class GroovyPlotTest {
     }
 
     @Test
-    void testDisplayMapWithInterval (TestInfo testInfo) throws IOException {
+    void testDisplayMapWithInterval(TestInfo testInfo) throws IOException {
         def chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5]).range(["orange", "green", "blue", "black"])
                 .title("A Map with interval")
                 .height(500).width(700)
                 .projection_identity()
         chart.save("target/" + testInfo.getDisplayName() + ".html");
         //chart.show()
+    }
+
+    @Disabled
+    @Test
+    void testLCZProduction(TestInfo testInfo) throws IOException {
+        def dir_files = "/home/ebocher/Téléchargements/1629214262874_BuildingEstimation_WithoutToulouse"
+        def indexFiles = 2..5
+
+        if (dir_files) {
+            def folder = new File(dir_files)
+            if (folder.isDirectory()) {
+                def geoFiles = []
+                folder.eachFileRecurse groovy.io.FileType.FILES, { file ->
+                    if (file.name.toLowerCase().endsWith(".geojson")) {
+                        def filePath = file.getAbsolutePath()
+                        if (filePath.contains("RsuIndic")) {
+                            geoFiles << file.getAbsolutePath()
+                        }
+                    }
+                }
+                geoFiles.sort()
+
+                def filesForCharts = geoFiles.subList(indexFiles.first(), indexFiles.last())
+                List mapIntervals = Arrays.asList(5, 7.5, 10, 12.5, 15, 20);
+                List<String> colorSchem = Arrays.asList("#00c0ff", "blue", "green", "orange", "red", "purple", "black")
+                filesForCharts.each { it ->
+                    def file = new File(it)
+                    LinkedHashMap geojson = (LinkedHashMap) Read.json(file)
+                    Plot plot = Plot(Data((List<Map>) geojson.get("features")));
+                    plot.title(file.name.split("_")[0])
+                    Chart chart = Maps().manualIntervalMap().field("properties.AVG_HEIGHT_ROOF_TRUE")
+                            .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
+                            .domain(mapIntervals).range(colorSchem).reflectY().legend("Reference building", "height value (m)");
+                    Chart chart2 = Maps().manualIntervalMap().field("properties.AVG_HEIGHT_ROOF")
+                            .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
+                            .domain(mapIntervals).range(colorSchem).reflectY().legend("Estimated building", "height value (m)");
+                    Chart chart3 = Maps().manualIntervalMap().field("abs")
+                            .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9").calculate("abs(datum.properties.DIFF_AVG_HEIGHT_ROOF)", "abs")
+                            .domain(Arrays.asList(2.5, 5)).range(Arrays.asList("green", "orange", "red")).reflectY().legend("Absolute building", "height error value (m)");
+                    Chart chart4 = Maps().manualIntervalMap().field("properties.AVG_ESTIMATED")
+                            .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED<0.9")
+                            .domain(Arrays.asList(0.3, 0.6)).range(Arrays.asList("green", "orange", "red")).reflectY().legend("Fraction of OSM buildings", "having height information");
+
+                    plot.concat(2, chart, chart2, chart3, chart4).resolve(ScaleResolve(ColorResolve().independent())).show()
+                }
+            } else {
+                println("Please set a valid file directory")
+            }
+        } else {
+            println("Please set a valid file directory")
+        }
     }
 }

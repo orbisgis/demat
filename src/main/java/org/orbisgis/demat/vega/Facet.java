@@ -66,7 +66,7 @@ public class Facet {
     private PurpleSortArray sort;
     private TimeUnitUnion timeUnit;
     private LegendText title;
-    private StandardType type;
+    private Type type;
     private FacetFieldDef column;
     private FacetFieldDef row;
 
@@ -270,9 +270,14 @@ public class Facet {
      * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
      */
     @JsonProperty("type")
-    public StandardType getType() { return type; }
+    public Type getType() {
+        return type;
+    }
+
     @JsonProperty("type")
-    public void setType(StandardType value) { this.type = value; }
+    public void setType(Type value) {
+        this.type = value;
+    }
 
     /**
      * A field definition for the horizontal facet of trellis plots.

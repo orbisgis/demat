@@ -60,7 +60,7 @@ public class Conditional {
     private String labelExpr;
     private TimeUnitUnion timeUnit;
     private LegendText title;
-    private StandardType type;
+    private Type type;
 
     /**
      * Predicate for triggering the condition
@@ -312,7 +312,12 @@ public class Conditional {
      * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
      */
     @JsonProperty("type")
-    public StandardType getType() { return type; }
+    public Type getType() {
+        return type;
+    }
+
     @JsonProperty("type")
-    public void setType(StandardType value) { this.type = value; }
+    public void setType(Type value) {
+        this.type = value;
+    }
 }

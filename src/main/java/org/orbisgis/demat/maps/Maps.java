@@ -20,7 +20,7 @@ public class Maps {
         projection.setType(ProjectionType.IDENTITY);
         chart.setProjection(projection);
         Height height = new Height();
-        height.doubleValue = DEFAULT_MAP_SIZE;
+        height.size = DEFAULT_MAP_SIZE;
         chart.setHeight(height);
         chart.setWidth(height);
         chart.setData(data);
@@ -43,7 +43,7 @@ public class Maps {
         projection.setType(ProjectionType.IDENTITY);
         chart.setProjection(projection);
         Height height = new Height();
-        height.doubleValue = DEFAULT_MAP_SIZE;
+        height.size = DEFAULT_MAP_SIZE;
         chart.setHeight(height);
         chart.setWidth(height);
         Color color = new Color();
@@ -64,7 +64,7 @@ public class Maps {
         projection.setType(ProjectionType.IDENTITY);
         chart.setProjection(projection);
         Height height = new Height();
-        height.doubleValue = DEFAULT_MAP_SIZE;
+        height.size = DEFAULT_MAP_SIZE;
         chart.setHeight(height);
         chart.setWidth(height);
         chart.setData(data);
@@ -87,7 +87,7 @@ public class Maps {
         projection.setType(ProjectionType.IDENTITY);
         chart.setProjection(projection);
         Height height = new Height();
-        height.doubleValue = DEFAULT_MAP_SIZE;
+        height.size = DEFAULT_MAP_SIZE;
         chart.setHeight(height);
         chart.setWidth(height);
         Color color = new Color();
@@ -110,7 +110,7 @@ public class Maps {
         projection.setType(ProjectionType.IDENTITY);
         chart.setProjection(projection);
         Height height = new Height();
-        height.doubleValue = DEFAULT_MAP_SIZE;
+        height.size = DEFAULT_MAP_SIZE;
         chart.setHeight(height);
         chart.setWidth(height);
         chart.setData(data);
@@ -134,7 +134,7 @@ public class Maps {
         projection.setType(ProjectionType.IDENTITY);
         chart.setProjection(projection);
         Height height = new Height();
-        height.doubleValue = DEFAULT_MAP_SIZE;
+        height.size = DEFAULT_MAP_SIZE;
         chart.setHeight(height);
         chart.setWidth(height);
         Color color = new Color();

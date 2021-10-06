@@ -81,7 +81,7 @@ import org.orbisgis.demat.vega.legend.LegendText;
  *
  * A FieldDef with Condition<ValueDef> {    condition: {value: ...},    field: ...,    ... }
  */
-public class Color {
+public class Color extends ChannelCommonMethods<Color> {
     private Aggregate aggregate;
     private Double band;
     private AngleBin bin;
@@ -92,7 +92,6 @@ public class Color {
     private SortUnion sort;
     private TimeUnitUnion timeUnit;
     public LegendText title;
-    private Type type;
     private PrimitiveValue datum;
     private Gradient value;
 
@@ -366,20 +365,6 @@ public class Color {
     @JsonProperty("value")
     public void setValue(Gradient value) { this.value = value; }
 
-    public Color quantitative() {
-        this.setType(Type.QUANTITATIVE);
-        return this;
-    }
-
-    public Color nominal() {
-        this.setType(Type.NOMINAL);
-        return this;
-    }
-
-    public Color ordinal() {
-        this.setType(Type.ORDINAL);
-        return this;
-    }
 
     public void setField(String field) {
         Field field_ = new Field();

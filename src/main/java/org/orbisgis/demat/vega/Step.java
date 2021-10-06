@@ -44,10 +44,10 @@
  */
 package org.orbisgis.demat.vega;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Step {
-    private double step;
+    private double step = 20;
 
     /**
      * The size (width/height) per discrete step.
