@@ -79,7 +79,7 @@ public class PlotTest {
                 .encode(X("a").nominal(), Y("b").quantitative());
         Chart chart2 = Chart().mark_line()
                 .encode(X("a").nominal(), Y("b").quantitative());
-        plot.hconcat(chart, chart2).show();//save("target/" + testInfo.getDisplayName() + ".html");
+        plot.hconcat(chart, chart2).save("target/" + testInfo.getDisplayName() + ".html");
     }
 
     @Test
