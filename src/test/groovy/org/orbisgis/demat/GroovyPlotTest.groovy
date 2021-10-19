@@ -84,6 +84,17 @@ class GroovyPlotTest {
     }
 
     @Test
+    void testSimpleBarChartReplaceLabels(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["a": "A", "b": 28], ["a": "B", "b": 55], ["a": "C", "b": 43],
+                ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
+                ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52]])).mark_bar().
+                encode(X("a").nominal().replaceLabels(["A": "Demat", "B": "is", "C": "good"]), Y("b").quantitative())
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
     void testResponsiveBarChart(TestInfo testInfo) {
         def chart = Chart(cars()).mark_bar()
                 .encode(X("Origin"), Y().count())
@@ -176,8 +187,7 @@ class GroovyPlotTest {
     @Test
     void testLCZProduction(TestInfo testInfo) throws IOException {
         def dir_files = "/home/ebocher/Téléchargements/1629214262874_BuildingEstimation_WithoutToulouse"
-        def indexFiles = 2..5
-
+        def indexFiles = 15..25
         if (dir_files) {
             def folder = new File(dir_files)
             if (folder.isDirectory()) {
@@ -192,7 +202,7 @@ class GroovyPlotTest {
                 }
                 geoFiles.sort()
 
-                def filesForCharts = geoFiles.subList(indexFiles.first(), indexFiles.last())
+                def filesForCharts = geoFiles.subList(indexFiles.first(), Math.min(indexFiles.last(), geoFiles.size()))
                 List mapIntervals = Arrays.asList(5, 7.5, 10, 12.5, 15, 20);
                 List<String> colorSchem = Arrays.asList("#00c0ff", "blue", "green", "orange", "red", "purple", "black")
                 filesForCharts.each { it ->

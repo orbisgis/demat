@@ -45,8 +45,12 @@
 package org.orbisgis.demat.vega.encoding;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.legend.LegendText;
+
+import java.util.Map;
 
 /**
  * X coordinates of the marks, or width of horizontal `"bar"` and `"area"` without specified
@@ -352,12 +356,31 @@ public class X extends ChannelCommonMethods<X> {
 
     /**
      * Set a sum operator on the X value
+     *
      * @return
      */
-    public X sum(){
+    public X sum() {
         Aggregate aggregate = new Aggregate();
         aggregate.enumValue = NonArgAggregateOp.SUM;
         this.setAggregate(aggregate);
         return this;
+    }
+
+    /**
+     * Change the label values
+     *
+     * @param labelValues
+     * @return
+     */
+    public X replaceLabels(Map labelValues) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            Axis axis = new Axis();
+            axis.setLabelExpr("pluck(" + objectMapper.writeValueAsString(labelValues) + ", datum.label)");
+            this.setAxis(axis);
+            return this;
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

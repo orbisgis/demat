@@ -9,10 +9,7 @@ import org.orbisgis.demat.vega.data.Data;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.orbisgis.demat.Plot.Chart;
 import static org.orbisgis.demat.Plot.Plot;
@@ -36,7 +33,18 @@ public class PlotTest {
         Chart chart = Chart(Data(new Object[][]{{"a", "b", "c"}, {1, 202, 12}, {200, 300, 400}})).mark_bar()
                 .encode(X("a").nominal(), Y("b"), Tooltip("b"));
         chart.save("target/" + testInfo.getDisplayName() + ".html");
-        chart.show();
+        //chart.show();
+    }
+
+    @Test
+    void testSimpleBarChartRenameLegendX(TestInfo testInfo) throws IOException {
+        HashMap newLabels = new HashMap();
+        newLabels.put(1, "super");
+        newLabels.put(2, "demat");
+        Chart chart = Chart(Data(new Object[][]{{"a", "b", "c"}, {1, 202, 12}, {200, 300, 400}})).mark_bar()
+                .encode(X("a").nominal().replaceLabels(newLabels), Y("b"), Tooltip("b"));
+        chart.save("target/" + testInfo.getDisplayName() + ".html");
+        //chart.show();
     }
 
     @Test
@@ -90,7 +98,7 @@ public class PlotTest {
     @Test
     void testChoropleth(TestInfo testInfo) throws IOException {
         Chart chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions");
-        chart.show();
+        //chart.show();
     }
 
     @Test
@@ -102,7 +110,7 @@ public class PlotTest {
     @Test
     void testChoroplethDiscretizingScales2(TestInfo testInfo) throws IOException {
         Chart chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions").domain(Arrays.asList(0, 0.1, 0.2, 0.3));
-        chart.show();
+        //chart.show();
     }
 
     @Test
