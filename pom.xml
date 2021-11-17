@@ -7,7 +7,7 @@
         <version>1.0.4-SNAPSHOT</version>
     </parent>
     <artifactId>demat</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.7-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>Demat is breton word to said "Hello". Demat is wrapper on top of the Vega-lite library</description>
     <!-- Properties -->
