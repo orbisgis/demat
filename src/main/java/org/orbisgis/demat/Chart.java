@@ -103,6 +103,16 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
     }
 
     /**
+     * Add a new Mark to the Chart
+     *
+     * @return
+     */
+    public Chart mark(Mark mark) {
+        this.setMark(mark);
+        return this;
+    }
+
+    /**
      * Construct the encoding element
      *
      * @param encodings any encoding elements , X, Y, Color...
