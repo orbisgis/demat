@@ -52,6 +52,7 @@ import org.orbisgis.demat.vega.Def
 import org.orbisgis.demat.vega.Mark
 import org.orbisgis.demat.vega.MarkFill
 import org.orbisgis.demat.vega.MarkStroke
+import static org.orbisgis.demat.DataTests.*
 
 import static org.orbisgis.demat.Plot.*
 
@@ -139,8 +140,9 @@ class GroovyPlotTest {
     @Test
     void testPointChart(TestInfo testInfo) {
         def chart = Chart(seattle_weather()).mark_point()
-                .encode(X("date").temporal(), Y('precipitation').quantitative(), color('weather'))
+                .encode(X("date").temporal(), Y('precipitation').quantitative(), Color('weather'))
         chart.save("target/${testInfo.displayName}.html")
+        chart.show()
     }
 
     @Test
@@ -151,9 +153,9 @@ class GroovyPlotTest {
 
     @Test
     void testDisplayMapJSON (TestInfo testInfo) {
-        def chart = Chart("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[4.866735,46.263463],[4.866611,46.263508],[4.866568,46.263558],[4.866583,46.263596],[4.866645,46.263637],[4.866866,46.26371],[4.866915,46.263688],[4.866799,46.263561],[4.8667,46.26356],[4.866738,46.2635],[4.866735,46.263463]]]}}").height(500).width(500).mark_geoshape();
+        def chart = Chart(Data("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[4.866735,46.263463],[4.866611,46.263508],[4.866568,46.263558],[4.866583,46.263596],[4.866645,46.263637],[4.866866,46.26371],[4.866915,46.263688],[4.866799,46.263561],[4.8667,46.26356],[4.866738,46.2635],[4.866735,46.263463]]]}}")).height(500).width(500).mark_geoshape();
         chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+       // chart.show()
     }
 
     @Test
@@ -168,7 +170,7 @@ class GroovyPlotTest {
         markStrokeDef.color = "#757575"
         definition.stroke = markStrokeDef
         mark.defValue = definition
-        def chart = Chart(RSU_GEOINDICATORS).height(500).width(500).mark(mark)
+        def chart = Chart(RSU_GEOINDICATORS, mark).height(500).width(500)
         chart.save("target/${testInfo.displayName}.html")
         //chart.show()
     }

@@ -53,6 +53,7 @@ import j2html.tags.DomContent;
 import org.orbisgis.demat.maps.Maps;
 import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.data.Data;
+import org.orbisgis.demat.vega.data.DataValues;
 import org.orbisgis.demat.vega.encoding.*;
 import org.orbisgis.demat.vega.legend.Legend;
 import org.orbisgis.demat.vega.legend.LegendText;
@@ -104,11 +105,31 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         for (Object element : elements) {
             if (element instanceof Data) {
                 chart.setData((Data) element);
-            } else {
+            }
+            else if(element instanceof Mark){
+                chart.setMark((Mark) element);
+            }
+            else {
                 throw new RuntimeException("Unknown vega-lite element");
             }
         }
         return chart;
+    }
+
+    /**
+     * Build a data object from json values
+     * @param jsonValues
+     * @return
+     */
+    public  static Data Data(String jsonValues){
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            Data  data = new Data();
+             data.setValues(  objectMapper.readValue(jsonValues, DataValues.class));
+             return data;
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Cannot parse the json value");
+        }
     }
 
     public static Data Data(Object[][] values) {
