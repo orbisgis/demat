@@ -180,7 +180,6 @@ class GroovyPlotTest {
         def chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5]).range(["orange", "green", "blue", "black"])
                 .title("A Map with interval")
                 .height(500).width(700)
-                .projection_identity()
         chart.save("target/" + testInfo.getDisplayName() + ".html");
         //chart.show()
     }
