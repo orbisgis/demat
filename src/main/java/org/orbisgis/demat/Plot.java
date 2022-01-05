@@ -105,11 +105,9 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         for (Object element : elements) {
             if (element instanceof Data) {
                 chart.setData((Data) element);
-            }
-            else if(element instanceof Mark){
+            } else if (element instanceof Mark) {
                 chart.setMark((Mark) element);
-            }
-            else {
+            } else {
                 throw new RuntimeException("Unknown vega-lite element");
             }
         }
@@ -118,15 +116,16 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
 
     /**
      * Build a data object from json values
+     *
      * @param jsonValues
      * @return
      */
-    public  static Data Data(String jsonValues){
+    public static Data Data(String jsonValues) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            Data  data = new Data();
-             data.setValues(  objectMapper.readValue(jsonValues, DataValues.class));
-             return data;
+            Data data = new Data();
+            data.setValues(objectMapper.readValue(jsonValues, DataValues.class));
+            return data;
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Cannot parse the json value");
         }
