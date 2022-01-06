@@ -53,6 +53,7 @@ import org.orbisgis.demat.vega.data.DataValues;
 import org.orbisgis.demat.vega.data.InlineDatasetValue;
 import org.orbisgis.demat.vega.encoding.Encoding;
 import org.orbisgis.demat.vega.resolve.Resolve;
+import org.orbisgis.demat.vega.transform.Transform;
 
 import java.io.File;
 import java.util.Arrays;

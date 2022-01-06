@@ -42,7 +42,7 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.orbisgis.demat.vega;
+package org.orbisgis.demat.vega.transform;
 
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;

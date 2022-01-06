@@ -45,6 +45,8 @@
 package org.orbisgis.demat.vega;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.encoding.ColorCondition;
+import org.orbisgis.demat.vega.encoding.Gradient;
 import org.orbisgis.demat.vega.legend.Legend;
 import org.orbisgis.demat.vega.legend.LegendText;
 

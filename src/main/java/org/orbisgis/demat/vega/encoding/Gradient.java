@@ -42,19 +42,20 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.orbisgis.demat.vega;
+package org.orbisgis.demat.vega.encoding;
 
 import java.io.IOException;
 
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.*;
+import org.orbisgis.demat.vega.ValueLinearGradient;
 
 @JsonDeserialize(using = Gradient.Deserializer.class)
 @JsonSerialize(using = Gradient.Serializer.class)
 public class Gradient {
     public ValueLinearGradient valueLinearGradientValue;
-    public String stringValue;
+    public String value;
 
     static class Deserializer extends JsonDeserializer<Gradient> {
         @Override
@@ -65,7 +66,7 @@ public class Gradient {
                     break;
                 case VALUE_STRING:
                     String string = jsonParser.readValueAs(String.class);
-                    value.stringValue = string;
+                    value.value = string;
                     break;
                 case START_OBJECT:
                     value.valueLinearGradientValue = jsonParser.readValueAs(ValueLinearGradient.class);
@@ -83,8 +84,8 @@ public class Gradient {
                 jsonGenerator.writeObject(obj.valueLinearGradientValue);
                 return;
             }
-            if (obj.stringValue != null) {
-                jsonGenerator.writeObject(obj.stringValue);
+            if (obj.value != null) {
+                jsonGenerator.writeObject(obj.value);
                 return;
             }
             jsonGenerator.writeNull();

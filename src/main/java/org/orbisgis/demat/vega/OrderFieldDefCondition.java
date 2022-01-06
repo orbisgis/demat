@@ -50,6 +50,8 @@ import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.*;
 import com.fasterxml.jackson.core.type.*;
+import org.orbisgis.demat.vega.condition.ConditionalValueNumber;
+
 import java.util.List;
 
 /**
@@ -64,7 +66,7 @@ import java.util.List;
 @JsonSerialize(using = OrderFieldDefCondition.Serializer.class)
 public class OrderFieldDefCondition {
     public ConditionalPredicateValueDefNumberClass conditionalPredicateValueDefNumberClassValue;
-    public List<ConditionalValueDefNumber> conditionalValueDefNumberArrayValue;
+    public List<ConditionalValueNumber> conditionalValueDefNumberArrayValue;
 
     static class Deserializer extends JsonDeserializer<OrderFieldDefCondition> {
         @Override
@@ -74,7 +76,7 @@ public class OrderFieldDefCondition {
                 case VALUE_NULL:
                     break;
                 case START_ARRAY:
-                    value.conditionalValueDefNumberArrayValue = jsonParser.readValueAs(new TypeReference<List<ConditionalValueDefNumber>>() {});
+                    value.conditionalValueDefNumberArrayValue = jsonParser.readValueAs(new TypeReference<List<ConditionalValueNumber>>() {});
                     break;
                 case START_OBJECT:
                     value.conditionalPredicateValueDefNumberClassValue = jsonParser.readValueAs(ConditionalPredicateValueDefNumberClass.class);

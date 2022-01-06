@@ -53,6 +53,7 @@ import org.orbisgis.demat.vega.Def
 import org.orbisgis.demat.vega.Mark
 import org.orbisgis.demat.vega.MarkFill
 import org.orbisgis.demat.vega.MarkStroke
+
 import static org.orbisgis.demat.DataTests.*
 import static org.orbisgis.demat.Plot.*
 
@@ -143,6 +144,27 @@ class GroovyPlotTest {
                 .encode(X("date").temporal(), Y('precipitation').quantitative(), Color('weather'))
         chart.save("target/${testInfo.displayName}.html")
         //chart.show()
+    }
+
+    @Test
+    void testSquareChart(TestInfo testInfo) {
+        def chart = Chart(seattle_weather()).mark_square()
+                .encode(X("date").temporal(), Y('precipitation').quantitative(), Color('weather'))
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testTextTableHeatmap(TestInfo testInfo) {
+        Chart rectChart = Chart().mark_rect().encode(Color("num_cars",
+                Legend().horizontal().gradientLength(120)).quantitative().title("Count of Records"))
+        Chart textChart = Chart().mark_text().encode(Text("num_cars").quantitative(),
+        Color(Condition("datum['num_cars'] < 40", "black"), Gradient("white")))
+
+        Plot(cars(),
+                Transform(Count("num_cars"), GroupBy("Origin", "Cylinders")),
+                Encoding(Y("Origin").ordinal(), X("Cylinders").ordinal())).layer(rectChart, textChart)
+                .save("target/${testInfo.displayName}.html")
     }
 
     @Test

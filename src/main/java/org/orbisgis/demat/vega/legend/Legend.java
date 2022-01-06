@@ -560,4 +560,21 @@ public class Legend {
         format_.stringValue=format;
         this.format =format_;
     }
+
+    public Legend horizontal(){
+        this.setDirection(Orientation.HORIZONTAL);
+        return this;
+    }
+
+    public Legend vertical(){
+        this.setDirection(Orientation.VERTICAL);
+        return this;
+    }
+
+    public Legend gradientLength(Double value){
+        FontSize  fs = new FontSize();
+        fs.doubleValue=value;
+        this.setGradientLength(fs);
+        return this;
+    }
 }
