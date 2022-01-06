@@ -42,43 +42,46 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.orbisgis.demat.vega;
+package org.orbisgis.demat.vega.condition;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.ConditionalValueDefNumberExprRefSelectionComposition;
+import org.orbisgis.demat.vega.Filter;
 
-/**
- * @author Erwan Bocher, CNRS 2021
- */
-public class AggregatedFieldDef {
-    private String as;
-    private String field;
-    private AggregateOp op;
-
-    /**
-     * The output field names to use for each aggregated field.
-     */
-    @JsonProperty("as")
-    public String getAs() { return as; }
-    @JsonProperty("as")
-    public void setAs(String value) { this.as = value; }
+public class ConditionalValueNumber {
+    private Filter test;
+    private Number value;
+    private ConditionalValueDefNumberExprRefSelectionComposition selection;
 
     /**
-     * The data field for which to compute aggregate function. This is required for all
-     * aggregation operations except `"count"`.
+     * Predicate for triggering the condition
      */
-    @JsonProperty("field")
-    public String getField() { return field; }
-    @JsonProperty("field")
-    public void setField(String value) { this.field = value; }
+    @JsonProperty("test")
+    public Filter getTest() {
+        return test;
+    }
+
+    @JsonProperty("test")
+    public void setTest(Filter value) {
+        this.test = value;
+    }
 
     /**
-     * The aggregation operation to apply to the fields (e.g., `"sum"`, `"average"`, or
-     * `"count"`). See the [full list of supported aggregation
-     * operations](https://vega.github.io/vega-lite/docs/aggregate.html#ops) for more
-     * information.
+     * A constant value in visual domain (e.g., `"red"` / `"#0099ff"` / [gradient
+     * definition](https://vega.github.io/vega-lite/docs/types.html#gradient) for color, values
+     * between `0` to `1` for opacity).
      */
-    @JsonProperty("op")
-    public AggregateOp getOp() { return op; }
-    @JsonProperty("op")
-    public void setOp(AggregateOp value) { this.op = value; }
+    @JsonProperty("value")
+    public Number getValue() { return value; }
+    @JsonProperty("value")
+    public void setValue(Number value) { this.value = value; }
+
+    /**
+     * A [selection name](https://vega.github.io/vega-lite/docs/selection.html), or a series of
+     * [composed selections](https://vega.github.io/vega-lite/docs/selection.html#compose).
+     */
+    @JsonProperty("selection")
+    public ConditionalValueDefNumberExprRefSelectionComposition getSelection() { return selection; }
+    @JsonProperty("selection")
+    public void setSelection(ConditionalValueDefNumberExprRefSelectionComposition value) { this.selection = value; }
 }

@@ -63,7 +63,8 @@ public interface IRenderer {
      * @return
      */
     default String save(File outputFile, boolean delete) throws IOException {
-        FileUtils.deployJSFiles(new File(getHTMLDirectory()));
+        String jsDirectory = getHTMLDirectory();
+        FileUtils.deployJSFiles(new File(jsDirectory));
         if (outputFile == null) {
             return null;
         }
@@ -78,9 +79,9 @@ public interface IRenderer {
         html(
                 head(
                         meta().withCharset("UTF-8"),
-                        script().withSrc(FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[0]),
-                        script().withSrc(FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[1]),
-                        script().withSrc(FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[2])
+                        script().withSrc(jsDirectory+  File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[0]),
+                        script().withSrc(jsDirectory+  File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[1]),
+                        script().withSrc(jsDirectory+  File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[2])
                 ),
                 body(getDomElements())
         ).render(fileWriter);

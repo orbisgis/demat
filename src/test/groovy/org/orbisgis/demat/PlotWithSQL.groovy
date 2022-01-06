@@ -1,32 +1,32 @@
 package org.orbisgis.demat
 
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo
-import org.orbisgis.orbisdata.datamanager.jdbc.postgis.POSTGIS
+import org.orbisgis.orbisdata.datamanager.jdbc.h2gis.H2GIS
 
 import static org.orbisgis.demat.Plot.*
 
 class PlotWithSQL {
 
-    @Disabled
+    public static H2GIS h2GIS
+
+    @BeforeAll
+    static void beforeAll() {
+        h2GIS = H2GIS.open("./target/${this.getClass().getName()};AUTO_SERVER=TRUE")
+    }
+
+
     @Test
     void testSimpleBarChart(TestInfo testInfo) {
-        def  postgis_dbProperties = [databaseName: 'orbisgis_db',
-                                     user        : 'orbisgis',
-                                     password    : 'orbisgis',
-                                     url         : 'jdbc:postgresql://localhost:5432/']
-
-        POSTGIS postgis = POSTGIS.open(postgis_dbProperties)
-        //Time graphic to display the number of vessels
-        def query = """select to_date(date_year::text, 'YYYYMMDD') as date,
-count as vessel
-from
-analyses.count_total_attested_presence_voyages_grouped_area where group_area=3
-"""
-        def rows =postgis.rows(query)
-        Chart chart_count_vessel_group3 = Chart(Data(rows)).encode(X("date").temporal(), Y("vessel").quantitative()).mark_bar()
-        //chart_count_vessel_group3.width(800).show()
+        h2GIS.load(GroovyPlotTest.class.getClassLoader().getResource("rsu_geoindicators.geojson"), true)
+        def rows = h2GIS.rows("""select sum(st_area(the_geom)) as area , classes  from (SELECT the_geom, case when WATER_FRACTION<0.1 then '< 0.1'
+        when WATER_FRACTION>=0.1 and WATER_FRACTION<0.3  then '0.1 - 0.3'
+         when WATER_FRACTION>=0.3 and WATER_FRACTION<0.5 then '0.3 - 0.5'
+          when WATER_FRACTION>=0.5 and WATER_FRACTION<0.7 then '0.5 - 0.7'
+          else  '> 0.7' end as classes, from rsu_geoindicators) as foo group by classes """)
+        Chart chart = Chart(Data(rows)).encode(X("CLASSES").nominal(), Y("AREA").quantitative()).mark_bar()
+        chart.save("/tmp/${testInfo.displayName}.html")
+        //chart.width(800).show()
     }
-    }
+}

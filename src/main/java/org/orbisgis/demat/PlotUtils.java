@@ -48,22 +48,29 @@ package org.orbisgis.demat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.data.Data;
 import org.orbisgis.demat.vega.data.DataValues;
 import org.orbisgis.demat.vega.data.InlineDataset;
+import org.orbisgis.demat.vega.encoding.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
 /**
- * Some view utilities
+ * Some Plot utilities
  *
  * @author Erwan Bocher, CNRS 2021
  */
 public class PlotUtils {
 
 
+    /**
+     * Create a data object from a map of values
+     * @param values
+     * @return
+     */
     public static Data urlData(LinkedHashMap values) {
         Data urlData = new Data();
         DataValues urlDataInlineDataset = new DataValues();
@@ -194,5 +201,69 @@ public class PlotUtils {
             throw new RuntimeException("Invalid directory path");
         }
         return showDirFile;
+    }
+
+
+    /**
+     * Convert a Chart to a LayerElement
+     * @param chart
+     * @return
+     */
+    public static LayerElement chartToLayerElement(Chart chart){
+        LayerElement layerElement = new LayerElement();
+        layerElement.setData(chart.getData());
+        layerElement.setLayer(chart.getLayer());
+        layerElement.setMark(chart.getMark());
+        layerElement.setDescription(chart.getDescription());
+        layerElement.setHeight(chart.getHeight());
+        layerElement.setWidth(chart.getWidth());
+        layerElement.setName(chart.getName());
+        layerElement.setProjection(chart.getProjection());
+        layerElement.setResolve(chart.getResolve());
+        layerElement.setSelection(chart.getSelection());
+        layerElement.setTitle(chart.getTitle());
+        layerElement.setTransform(chart.getTransform());
+        layerElement.setView(chart.getView());
+        Encoding chartEncoding = chart.getEncoding();
+        if(chartEncoding!=null) {
+            LayerEncoding layerEncoding = new LayerEncoding();
+            layerEncoding.setAngle(chartEncoding.getAngle());
+            layerEncoding.setColor(chartEncoding.getColor());
+            layerEncoding.setDescription(chartEncoding.getDescription());
+            layerEncoding.setDetail(chartEncoding.getDetail());
+            layerEncoding.setFill(chartEncoding.getFill());
+            layerEncoding.setFillOpacity(chartEncoding.getFillOpacity());
+            layerEncoding.setHref(chartEncoding.getHref());
+            layerEncoding.setKey(chartEncoding.getKey());
+            layerEncoding.setLatitude(chartEncoding.getLatitude());
+            layerEncoding.setLatitude2(chartEncoding.getLatitude2());
+            layerEncoding.setLongitude(chartEncoding.getLongitude());
+            layerEncoding.setLongitude2(chartEncoding.getLongitude2());
+            layerEncoding.setOpacity(chartEncoding.getOpacity());
+            layerEncoding.setOrder(chartEncoding.getOrder());
+            layerEncoding.setRadius(chartEncoding.getRadius());
+            layerEncoding.setRadius2(chartEncoding.getRadius2());
+            layerEncoding.setShape(chartEncoding.getShape());
+            layerEncoding.setSize(chartEncoding.getSize());
+            layerEncoding.setStroke(chartEncoding.getStroke());
+            layerEncoding.setStrokeDash(chartEncoding.getStrokeDash());
+            layerEncoding.setStrokeOpacity(chartEncoding.getStrokeOpacity());
+            layerEncoding.setStrokeWidth(chartEncoding.getStrokeWidth());
+            layerEncoding.setText(chartEncoding.getText());
+            layerEncoding.setTheta(chartEncoding.getTheta());
+            layerEncoding.setTheta2(chartEncoding.getTheta2());
+            layerEncoding.setTooltip(chartEncoding.getTooltip());
+            layerEncoding.setURL(chartEncoding.getURL());
+            layerEncoding.setX(chartEncoding.getX());
+            layerEncoding.setX2(chartEncoding.getX2());
+            layerEncoding.setXError(chartEncoding.getXError());
+            layerEncoding.setXError2(chartEncoding.getXError2());
+            layerEncoding.setY(chartEncoding.getY());
+            layerEncoding.setY2(chartEncoding.getY2());
+            layerEncoding.setYError(chartEncoding.getYError());
+            layerEncoding.setYError2(chartEncoding.getYError2());
+            layerElement.setEncoding(layerEncoding);
+        }
+        return layerElement;
     }
 }

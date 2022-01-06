@@ -42,16 +42,17 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.orbisgis.demat.vega;
+package org.orbisgis.demat.vega.transform;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.legend.LegendText;
 
 import java.util.List;
 
 public class Transform {
     private List<AggregatedFieldDef> aggregate;
-    private List<String> groupby;
+    private GroupBy groupby;
     private LegendText as;
     private AngleBin bin;
     private String field;
@@ -123,9 +124,9 @@ public class Transform {
      * data objects will be used.
      */
     @JsonProperty("groupby")
-    public List<String> getGroupby() { return groupby; }
+    public GroupBy getGroupby() { return groupby; }
     @JsonProperty("groupby")
-    public void setGroupby(List<String> value) { this.groupby = value; }
+    public void setGroupby(GroupBy value) { this.groupby = value; }
 
     /**
      * The output fields at which to write the start and end bin values. This can be either a

@@ -42,7 +42,7 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.orbisgis.demat.vega;
+package org.orbisgis.demat.vega.encoding;
 
 import java.io.IOException;
 
@@ -50,13 +50,15 @@ import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.*;
 import com.fasterxml.jackson.core.type.*;
+import org.orbisgis.demat.vega.ConditionalPredicateValueDefGradientStringNullExprRefClass;
+
 import java.util.List;
 
 @JsonDeserialize(using = ColorCondition.Deserializer.class)
 @JsonSerialize(using = ColorCondition.Serializer.class)
 public class ColorCondition {
     public ConditionalPredicateValueDefGradientStringNullExprRefClass conditionalPredicateValueDefGradientStringNullExprRefClassValue;
-    public List<ConditionalValueDefGradientStringNullExprRef> conditionalValueDefGradientStringNullExprRefArrayValue;
+    public List<ConditionalGradient> conditionalGradients;
 
     static class Deserializer extends JsonDeserializer<ColorCondition> {
         @Override
@@ -66,7 +68,7 @@ public class ColorCondition {
                 case VALUE_NULL:
                     break;
                 case START_ARRAY:
-                    value.conditionalValueDefGradientStringNullExprRefArrayValue = jsonParser.readValueAs(new TypeReference<List<ConditionalValueDefGradientStringNullExprRef>>() {});
+                    value.conditionalGradients = jsonParser.readValueAs(new TypeReference<List<ConditionalGradient>>() {});
                     break;
                 case START_OBJECT:
                     value.conditionalPredicateValueDefGradientStringNullExprRefClassValue = jsonParser.readValueAs(ConditionalPredicateValueDefGradientStringNullExprRefClass.class);
@@ -84,8 +86,8 @@ public class ColorCondition {
                 jsonGenerator.writeObject(obj.conditionalPredicateValueDefGradientStringNullExprRefClassValue);
                 return;
             }
-            if (obj.conditionalValueDefGradientStringNullExprRefArrayValue != null) {
-                jsonGenerator.writeObject(obj.conditionalValueDefGradientStringNullExprRefArrayValue);
+            if (obj.conditionalGradients != null) {
+                jsonGenerator.writeObject(obj.conditionalGradients);
                 return;
             }
             jsonGenerator.writeNull();

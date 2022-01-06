@@ -55,6 +55,18 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
     }
 
     /**
+     * Create a mark_rect
+     *
+     * @return
+     */
+    public Chart mark_rect() {
+        Mark mark = new Mark();
+        mark.type = "rect";
+        this.setMark(mark);
+        return this;
+    }
+
+    /**
      * Create a mark_bar
      *
      * @return
@@ -103,6 +115,30 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
     }
 
     /**
+     * Create a mark_square
+     *
+     * @return
+     */
+    public Chart mark_square() {
+        Mark mark = new Mark();
+        mark.type = "square";
+        this.setMark(mark);
+        return this;
+    }
+
+    /**
+     * Create a mark_text
+     *
+     * @return
+     */
+    public Chart mark_text() {
+        Mark mark = new Mark();
+        mark.type = "text";
+        this.setMark(mark);
+        return this;
+    }
+
+    /**
      * Add a new Mark to the Chart
      *
      * @return
@@ -129,6 +165,8 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
                 encoding.setColor((Color) element);
             } else if (element instanceof Tooltip) {
                 encoding.setTooltip((Tooltip) element);
+            }else if (element instanceof TextDef) {
+                encoding.setText((TextDef) element);
             }
         }
         this.setEncoding(encoding);

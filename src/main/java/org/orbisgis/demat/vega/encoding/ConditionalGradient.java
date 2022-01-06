@@ -42,40 +42,46 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.orbisgis.demat.vega;
+package org.orbisgis.demat.vega.encoding;
 
-import com.fasterxml.jackson.annotation.*;
-import org.orbisgis.demat.vega.transform.AggregateOp;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.ConditionalValueDefNumberExprRefSelectionComposition;
+import org.orbisgis.demat.vega.Filter;
 
-public class JoinAggregateFieldDef {
-    private String as;
-    private String field;
-    private AggregateOp op;
-
-    /**
-     * The output name for the join aggregate operation.
-     */
-    @JsonProperty("as")
-    public String getAs() { return as; }
-    @JsonProperty("as")
-    public void setAs(String value) { this.as = value; }
+public class ConditionalGradient {
+    private Filter test;
+    private Gradient value;
+    private ConditionalValueDefNumberExprRefSelectionComposition selection;
 
     /**
-     * The data field for which to compute the aggregate function. This can be omitted for
-     * functions that do not operate over a field such as `"count"`.
+     * Predicate for triggering the condition
      */
-    @JsonProperty("field")
-    public String getField() { return field; }
-    @JsonProperty("field")
-    public void setField(String value) { this.field = value; }
+    @JsonProperty("test")
+    public Filter getTest() {
+        return test;
+    }
+
+    @JsonProperty("test")
+    public void setTest(Filter value) {
+        this.test = value;
+    }
 
     /**
-     * The aggregation operation to apply (e.g., `"sum"`, `"average"` or `"count"`). See the
-     * list of all supported operations
-     * [here](https://vega.github.io/vega-lite/docs/aggregate.html#ops).
+     * A constant value in visual domain (e.g., `"red"` / `"#0099ff"` / [gradient
+     * definition](https://vega.github.io/vega-lite/docs/types.html#gradient) for color, values
+     * between `0` to `1` for opacity).
      */
-    @JsonProperty("op")
-    public AggregateOp getOp() { return op; }
-    @JsonProperty("op")
-    public void setOp(AggregateOp value) { this.op = value; }
+    @JsonProperty("value")
+    public Gradient getValue() { return value; }
+    @JsonProperty("value")
+    public void setValue(Gradient value) { this.value = value; }
+
+    /**
+     * A [selection name](https://vega.github.io/vega-lite/docs/selection.html), or a series of
+     * [composed selections](https://vega.github.io/vega-lite/docs/selection.html#compose).
+     */
+    @JsonProperty("selection")
+    public ConditionalValueDefNumberExprRefSelectionComposition getSelection() { return selection; }
+    @JsonProperty("selection")
+    public void setSelection(ConditionalValueDefNumberExprRefSelectionComposition value) { this.selection = value; }
 }

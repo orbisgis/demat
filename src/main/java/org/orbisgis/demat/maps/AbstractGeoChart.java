@@ -10,6 +10,10 @@ import org.orbisgis.demat.vega.legend.LegendText;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Abstract class to manage map chart
+ * @param <T>
+ */
 public class AbstractGeoChart<T extends Chart> extends Chart {
 
 

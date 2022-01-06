@@ -42,13 +42,15 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.orbisgis.demat.vega;
+package org.orbisgis.demat.vega.condition;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.ConditionalValueDefNumberExprRefSelectionComposition;
+import org.orbisgis.demat.vega.Filter;
 
-public class ConditionalValueDefGradientStringNullExprRef {
+public class ConditionalValueString {
     private Filter test;
-    private Gradient value;
+    private String value;
     private ConditionalValueDefNumberExprRefSelectionComposition selection;
 
     /**
@@ -70,9 +72,9 @@ public class ConditionalValueDefGradientStringNullExprRef {
      * between `0` to `1` for opacity).
      */
     @JsonProperty("value")
-    public Gradient getValue() { return value; }
+    public String getValue() { return value; }
     @JsonProperty("value")
-    public void setValue(Gradient value) { this.value = value; }
+    public void setValue(String value) { this.value = value; }
 
     /**
      * A [selection name](https://vega.github.io/vega-lite/docs/selection.html), or a series of

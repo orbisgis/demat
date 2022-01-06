@@ -44,6 +44,7 @@
  */
 package org.orbisgis.demat
 
+
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -52,8 +53,8 @@ import org.orbisgis.demat.vega.Def
 import org.orbisgis.demat.vega.Mark
 import org.orbisgis.demat.vega.MarkFill
 import org.orbisgis.demat.vega.MarkStroke
-import static org.orbisgis.demat.DataTests.*
 
+import static org.orbisgis.demat.DataTests.*
 import static org.orbisgis.demat.Plot.*
 
 /**
@@ -142,7 +143,28 @@ class GroovyPlotTest {
         def chart = Chart(seattle_weather()).mark_point()
                 .encode(X("date").temporal(), Y('precipitation').quantitative(), Color('weather'))
         chart.save("target/${testInfo.displayName}.html")
-        chart.show()
+        //chart.show()
+    }
+
+    @Test
+    void testSquareChart(TestInfo testInfo) {
+        def chart = Chart(seattle_weather()).mark_square()
+                .encode(X("date").temporal(), Y('precipitation').quantitative(), Color('weather'))
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testTextTableHeatmap(TestInfo testInfo) {
+        Chart rectChart = Chart().mark_rect().encode(Color("num_cars",
+                Legend().horizontal().gradientLength(120)).quantitative().title("Count of Records"))
+        Chart textChart = Chart().mark_text().encode(Text("num_cars").quantitative(),
+        Color(Condition("datum['num_cars'] < 40", "black"), Gradient("white")))
+
+        Plot(cars(),
+                Transform(Count("num_cars"), GroupBy("Origin", "Cylinders")),
+                Encoding(Y("Origin").ordinal(), X("Cylinders").ordinal())).layer(rectChart, textChart)
+                .save("target/${testInfo.displayName}.html")
     }
 
     @Test
@@ -155,7 +177,7 @@ class GroovyPlotTest {
     void testDisplayMapJSON (TestInfo testInfo) {
         def chart = Chart(Data("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[4.866735,46.263463],[4.866611,46.263508],[4.866568,46.263558],[4.866583,46.263596],[4.866645,46.263637],[4.866866,46.26371],[4.866915,46.263688],[4.866799,46.263561],[4.8667,46.26356],[4.866738,46.2635],[4.866735,46.263463]]]}}")).height(500).width(500).mark_geoshape();
         chart.save("target/${testInfo.displayName}.html")
-       // chart.show()
+       //chart.show()
     }
 
     @Test
@@ -180,7 +202,6 @@ class GroovyPlotTest {
         def chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5]).range(["orange", "green", "blue", "black"])
                 .title("A Map with interval")
                 .height(500).width(700)
-                .projection_identity()
         chart.save("target/" + testInfo.getDisplayName() + ".html");
         //chart.show()
     }

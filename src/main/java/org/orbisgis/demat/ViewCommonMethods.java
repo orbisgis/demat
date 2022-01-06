@@ -3,7 +3,7 @@ package org.orbisgis.demat;
 import org.orbisgis.demat.vega.Filter;
 import org.orbisgis.demat.vega.Height;
 import org.orbisgis.demat.vega.Title;
-import org.orbisgis.demat.vega.Transform;
+import org.orbisgis.demat.vega.transform.Transform;
 import org.orbisgis.demat.vega.legend.LegendText;
 
 import java.util.ArrayList;
