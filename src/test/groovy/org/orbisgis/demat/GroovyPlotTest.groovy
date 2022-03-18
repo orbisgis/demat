@@ -97,6 +97,182 @@ class GroovyPlotTest {
     }
 
     @Test
+    void testMinusXSortedOnYAxisAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
+                ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
+                ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
+                .encode(X("people").sum().title("population"), Y("age").ordinal().sort_minusX())
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testXSortedOnYAxisAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
+                ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
+                ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
+                .encode(X("people").sum().title("population"), Y("age").ordinal().sort_x())
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testMinusYSortedOnYAxisAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
+                ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
+                ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
+                .encode(X("people").sum().title("population"), Y("age").ordinal().sort_minusY())
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testYSortedOnYAxisAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
+                ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
+                ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
+                .encode(X("people").sum().title("population"), Y("age").ordinal().sort_y())
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testMinusXSortedOnXAxisAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
+                ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
+                ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
+                .encode(X("age").ordinal().sort_minusX(), Y("people").sum().title("population"))
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testXSortedOnXAxisAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
+                ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
+                ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
+                .encode(X("age").ordinal().sort_x(), Y("people").sum().title("population"))
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testMinusYSortedOnXAxisAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
+                ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
+                ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
+                .encode(X("age").ordinal().sort_minusY(), Y("people").sum().title("population"))
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testYSortedOnXAxisAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
+                ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
+                ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
+                .encode(X("age").ordinal().sort_y(), Y("people").sum().title("population"))
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testXAscendingSortedAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
+                ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
+                ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
+                .encode(X("people").sum().sort_ascending().title("population"), Y("age").ordinal());
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testYAscendingSortedAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
+                ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
+                ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
+                .encode(X("people").sum().title("population"), Y("age").ordinal().sort_ascending());
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testXDescendingSortedAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
+                ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
+                ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
+                .encode(X("people").sum().sort_descending().title("population"), Y("age").ordinal());
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testYDescendingSortedAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
+                ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
+                ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
+                .encode(X("people").sum().title("population"), Y("age").ordinal().sort_descending());
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testXColorSortedAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["category": "A","sex": 1,"people": 1483789], ["category": "B","sex": 2,"people": 1450376],
+                ["category": "C","sex": 1,"people": 2411067], ["category": "D","sex": 2,"people": 1359668],
+                ["category": "E","sex": 1,"people": 1260099], ["category": "F","sex": 2,"people": 1216114]])).mark_bar()
+                .encode(X("category").sort_color().title("population"), Y("people").quantitative(),Color("sex"));
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testYColorSortedAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["category": "A","sex": 1,"people": 1483789], ["category": "B","sex": 2,"people": 1450376],
+                ["category": "C","sex": 1,"people": 2411067], ["category": "D","sex": 2,"people": 1359668],
+                ["category": "E","sex": 1,"people": 1260099], ["category": "F","sex": 2,"people": 1216114]])).mark_bar()
+                .encode(X("people").quantitative(), Y("category").sort_color().title("population"),Color("sex"));
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testYMinusColorSortedAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["category": "A","sex": 1,"people": 1483789], ["category": "B","sex": 2,"people": 1450376],
+                ["category": "C","sex": 1,"people": 2411067], ["category": "D","sex": 2,"people": 1359668],
+                ["category": "E","sex": 1,"people": 1260099], ["category": "F","sex": 2,"people": 1216114]])).mark_bar()
+                .encode(X("people").quantitative(), Y("category").sort_minusColor().title("population"),Color("sex"));
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testXMinusColorSortedAggregateBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["category": "A","sex": 1,"people": 1483789], ["category": "B","sex": 2,"people": 1450376],
+                ["category": "C","sex": 1,"people": 2411067], ["category": "D","sex": 2,"people": 1359668],
+                ["category": "E","sex": 1,"people": 1260099], ["category": "F","sex": 2,"people": 1216114]])).mark_bar()
+                .encode(X("category").sort_minusColor().title("population"), Y("people").quantitative(),Color("sex"));
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
     void testResponsiveBarChart(TestInfo testInfo) {
         def chart = Chart(cars()).mark_bar()
                 .encode(X("Origin"), Y().count())

@@ -48,7 +48,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.orbisgis.demat.vega.*;
-import org.orbisgis.demat.vega.legend.LegendText;
 
 import java.util.Map;
 
@@ -301,12 +300,102 @@ public class X extends ChannelCommonMethods<X> {
 
     /**
      * Count X values
-     * @return
+     * @return X
      */
     public X count() {
         Aggregate aggregate = new Aggregate();
         aggregate.enumValue=NonArgAggregateOp.COUNT;
         this.setAggregate(aggregate);
+        return this;
+    }
+
+    /**
+     * Generates an X axis so that the origin is to the left. (Default)
+     * @return X
+     */
+    public X sort_ascending(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.ASCENDING;
+        this.setSort(sortUnion);
+        return this;
+    }
+
+    /**
+     * Sort the values on the X axis by colour
+     * IF the Color(String field) method had been used to set colors.
+     * @return X
+     */
+    public X sort_color(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.COLOR;
+        this.setSort(sortUnion);
+        return this;
+    }
+
+    /**
+     * Generates an inverted X axis so that the origin is to the right.
+     * @return X
+     */
+    public X sort_descending(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.DESCENDING;
+        this.setSort(sortUnion);
+        return this;
+    }
+
+    /**
+     * Sort the values on the X axis by colour by inverting the order of the colors (with the last color to the left and the first one to the right)
+     * IF the Color(String field) method had been used to set colors.
+     * @return X
+     */
+    public X sort_minusColor(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.SORT_COLOR;
+        this.setSort(sortUnion);
+        return this;
+    }
+
+    /**
+     * Sort the x values in the X axis from the higher to the lower x values from the left to the right.
+     * @return X
+     */
+    public X sort_minusX(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.SORT_X;
+        this.setSort(sortUnion);
+        return this;
+    }
+
+    /**
+     * Sort the y values in the X axis from the higher to the lower y values from the left to the right.
+     * @return X
+     */
+    public X sort_minusY(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.SORT_Y;
+        this.setSort(sortUnion);
+        return this;
+    }
+
+    /**
+     * Sort the x values in the X axis from the lower to the higher x values from the left to the right.
+     * @return X
+     */
+    public X sort_x(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.X;
+        this.setSort(sortUnion);
+        return this;
+    }
+
+    /**
+     * Sort the y values in the X axis from the lower to the higher y values from the left to the right.
+     * @return X
+     */
+    public X sort_y(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.Y;
+        this.setSort(sortUnion);
         return this;
     }
 
@@ -318,7 +407,7 @@ public class X extends ChannelCommonMethods<X> {
     /**
      * Discretizes numeric values into a set of bins
      * @param isBin
-     * @return
+     * @return X
      */
     public X bin(boolean isBin){
         DescriptionBin descriptionBin = new DescriptionBin();
@@ -330,7 +419,7 @@ public class X extends ChannelCommonMethods<X> {
     /**
      * Set a sum operator on the X value
      *
-     * @return
+     * @return X
      */
     public X sum() {
         Aggregate aggregate = new Aggregate();
@@ -343,7 +432,7 @@ public class X extends ChannelCommonMethods<X> {
      * Change the label values
      *
      * @param labelValues
-     * @return
+     * @return X
      */
     public X replaceLabels(Map labelValues) {
         try {
