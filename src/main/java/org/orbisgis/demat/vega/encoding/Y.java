@@ -48,7 +48,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.orbisgis.demat.vega.*;
-import org.orbisgis.demat.vega.legend.LegendText;
 
 import java.util.Map;
 
@@ -300,7 +299,7 @@ public class Y extends ChannelCommonMethods<Y> {
 
     /**
      * Count Y values
-     * @return
+     * @return Y
      */
     public Y count() {
         Aggregate aggregate = new Aggregate();
@@ -308,6 +307,97 @@ public class Y extends ChannelCommonMethods<Y> {
         this.setAggregate(aggregate);
         return this;
     }
+
+    /**
+     * Generates an Y axis so that the origin is to the bottom. (Default)
+     * @return Y
+     */
+    public Y sort_ascending(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.ASCENDING;
+        this.setSort(sortUnion);
+        return this;
+    }
+
+    /**
+     * Sort the values on the Y axis by colour
+     * IF the Color(String field) method had been used to set colors.
+     * @return Y
+     */
+    public Y sort_color(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.COLOR;
+        this.setSort(sortUnion);
+        return this;
+    }
+
+    /**
+     * Generates an inverted Y axis so that the origin is to the top.
+     * @return Y
+     */
+    public Y sort_descending(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.DESCENDING;
+        this.setSort(sortUnion);
+        return this;
+    }
+
+    /**
+     * Sort the values on the Y axis by colour by inverting the order of the colors (with the last color to the top and the first one to the bottom)
+     * IF the Color(String field) method had been used to set colors.
+     * @return Y
+     */
+    public Y sort_minusColor(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.SORT_COLOR;
+        this.setSort(sortUnion);
+        return this;
+    }
+
+    /**
+     * Sort the x values in the Y axis from the higher to the lower x values from the top to the bottom.
+     * @return Y
+     */
+    public Y sort_minusX(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.SORT_X;
+        this.setSort(sortUnion);
+        return this;
+    }
+
+    /**
+     * Sort the y values in the Y axis from the higher to the lower y values from the top to the bottom.
+     * @return Y
+     */
+    public Y sort_minusY(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.SORT_Y;
+        this.setSort(sortUnion);
+        return this;
+    }
+
+    /**
+     * Sort the x values in the Y axis from the lower to the higher x values from the top to the bottom.
+     * @return Y
+     */
+    public Y sort_x(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.X;
+        this.setSort(sortUnion);
+        return this;
+    }
+
+    /**
+     * Sort the y values in the Y axis from the lower to the higher y values from the top to the bottom.
+     * @return Y
+     */
+    public Y sort_y(){
+        SortUnion sortUnion = new SortUnion();
+        sortUnion.enumValue = Sort.Y;
+        this.setSort(sortUnion);
+        return this;
+    }
+
 
     public Y timeUnit(TimeUnit timeUnit) {
         this.setTimeUnit(new TimeUnitUnion(timeUnit));
@@ -317,7 +407,7 @@ public class Y extends ChannelCommonMethods<Y> {
     /**
      * Discretizes numeric values into a set of bins
      * @param isBin
-     * @return
+     * @return Y
      */
     public Y bin(boolean isBin){
         DescriptionBin descriptionBin = new DescriptionBin();
@@ -329,7 +419,7 @@ public class Y extends ChannelCommonMethods<Y> {
     /**
      * Set a sum operator on the Y value
      *
-     * @return
+     * @return Y
      */
     public Y sum() {
         Aggregate aggregate = new Aggregate();
@@ -342,7 +432,7 @@ public class Y extends ChannelCommonMethods<Y> {
      * Change the label values
      *
      * @param labelValues
-     * @return
+     * @return Y
      */
     public Y replaceLabels(Map labelValues) {
         try {
