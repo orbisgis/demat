@@ -43,12 +43,14 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.orbisgis.demat;
+package org.orbisgis.demat.swt;
+
+import org.orbisgis.demat.*;
 
 import java.io.File;
 import java.io.IOException;
 
-public class SWTFrame implements IRenderer{
+public class SWTFrame implements IRenderer {
 
     private String htmlDirectory = System.getProperty("java.io.tmpdir") + File.separator + "demat";
 

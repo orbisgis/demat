@@ -44,7 +44,7 @@
  * info_at_ orbisgis.org
  */
 
-package org.orbisgis.demat;
+package org.orbisgis.demat.swt;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTError;

@@ -1,8 +1,12 @@
-package org.orbisgis.demat;
+package org.orbisgis.demat.swt;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
+import org.orbisgis.demat.Chart;
+import org.orbisgis.demat.Plot;
+import org.orbisgis.demat.Read;
+import org.orbisgis.demat.RendererNotFoundException;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;

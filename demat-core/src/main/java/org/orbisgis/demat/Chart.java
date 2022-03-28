@@ -93,7 +93,7 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart> {
      * @param delete
      * @return
      */
-    String save(File outputFile, boolean delete) throws IOException {
+    public String save(File outputFile, boolean delete) throws IOException {
         String jsDirectory = getHTMLDirectory();
         FileUtils.deployJSFiles(new File(jsDirectory));
         if (outputFile == null) {

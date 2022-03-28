@@ -43,7 +43,7 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.orbisgis.demat;
+package org.orbisgis.demat.swt;
 
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;

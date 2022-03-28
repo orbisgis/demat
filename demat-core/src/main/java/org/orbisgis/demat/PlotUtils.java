@@ -75,7 +75,7 @@ public class PlotUtils {
      *
      * @return
      */
-    static File checkShowDir(String htmlDirectory) {
+    public static File checkShowDir(String htmlDirectory) {
         File showDirFile = new File(htmlDirectory);
         if (!showDirFile.isDirectory() && !showDirFile.exists()) {
             showDirFile.mkdir();
