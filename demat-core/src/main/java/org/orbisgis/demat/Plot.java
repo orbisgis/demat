@@ -68,6 +68,7 @@ import org.orbisgis.demat.vega.transform.aggregate.Count;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static j2html.TagCreator.*;
@@ -154,6 +155,18 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot> 
 
     public static Data Data(LinkedHashMap values) {
         return PlotUtils.urlData(values);
+    }
+
+    public static Data Data(File jsonFile) throws Exception {
+        if(Read.isExtensionWellFormated(jsonFile, "json")) {
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(jsonFile,Data.class);
+        }else if(Read.isExtensionWellFormated(jsonFile, "geojson")){
+            ObjectMapper mapper = new ObjectMapper();
+            LinkedHashMap result = mapper.readValue(jsonFile, LinkedHashMap.class);
+            return mapper.convertValue(result.get("features"), Data.class);
+        }
+        throw new RuntimeException("Cannot read as json file.");
     }
 
     public static Maps Maps() {
@@ -757,17 +770,45 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot> 
     @JsonIgnore
     public DomContent getDomElements() {
         try {
-            String div_identifier = UUID.randomUUID().toString();
-            Title title = this.view.getTitle();
-            String exportImageTitle = "demat_plot";
-            if (title != null) {
-                exportImageTitle = title.title;
-            }
-            StringBuilder json = new StringBuilder("vegaEmbed('#vis").append(div_identifier).append("',");
-            json.append(toJson()).append(",{renderer: 'svg',downloadFileName :'")
-                    .append(exportImageTitle).append("',tooltip:")
-                    .append(true).append("}).catch(console.error);");
-            return join(this.withId("vis" + div_identifier), script(rawHtml(json.toString())));
+            StringBuilder json = new StringBuilder("let vegaspec = vegaLite.compile(")
+                    .append(toJson()).
+                    append(
+                            " ).spec\n").append(
+                            " var view = new vega.View(vega.parse(vegaspec))\n"+
+                                    "  .logLevel(vega.Warn) // set view logging level\n" +
+                                    "  .initialize(document.querySelector('#vis')) // set parent DOM element\n" +
+                                    "  .renderer('svg') // set render type (defaults to 'canvas')\n" +
+                                    "  .hover() // enable hover event processing\n" +
+                                    "  .run(); // update and render the view ").
+                    append("\nfunction svg(){" +
+                            "\n view.toSVG()\n" +
+                            "  .then(svgString => {\n" +
+                            "      const filename = 'chart.svg';\n" +
+                            "      const url = 'data:image/svg+xml,' + encodeURIComponent(svgString);\n" +
+                            "      const link = document.createElement('a');\n" +
+                            "      link.setAttribute('href', url);\n" +
+                            "      link.setAttribute('target', '_blank');\n" +
+                            "      link.setAttribute('download', filename);\n" +
+                            "      link.dispatchEvent(new MouseEvent('click'));\n" +
+                            "    })" +
+                            "};").append("// generate a static PNG image\n" +
+                            "function png(){\n"+
+                            "  view\n" +
+                            "    .toCanvas()\n" +
+                            "    .then(canvas => {\n" +
+                            "      const filename = 'chart.png';\n" +
+                            "      const url = canvas.toDataURL();\n" +
+                            "      const link = document.createElement('a');\n" +
+                            "      link.setAttribute('href', url);\n" +
+                            "      link.setAttribute('target', '_blank');\n" +
+                            "      link.setAttribute('download', filename);\n" +
+                            "      link.dispatchEvent(new MouseEvent('click'));\n" +
+                            "    })\n" +
+                            "    .catch((err) => {\n" +
+                            "      console.error(err);\n" +
+                            "    });"+
+                            "};");
+            return join(this.withId("vis"), script(rawHtml(json.toString())));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -806,8 +847,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot> 
                 head(
                         meta().withCharset("UTF-8"),
                         script().withSrc(jsDirectory+  File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[0]),
-                        script().withSrc(jsDirectory+  File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[1]),
-                        script().withSrc(jsDirectory+  File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[2])
+                        script().withSrc(jsDirectory+  File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[1])
                 ),
                 body(getDomElements())
         ).render(fileWriter);

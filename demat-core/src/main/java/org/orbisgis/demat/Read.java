@@ -50,10 +50,7 @@ import org.orbisgis.demat.vega.data.DataValues;
 import org.orbisgis.demat.vega.data.InlineDataset;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Utilities to read data, json and csv
@@ -138,10 +135,14 @@ public class Read {
      * @return
      * @throws IOException
      */
-    public static Object json(File jsonFile) throws IOException {
-        if(Read.isExtensionWellFormated(jsonFile, "json", "geojson")) {
+    public static <T> T json(File jsonFile) throws IOException {
+        if(Read.isExtensionWellFormated(jsonFile, "json")) {
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(jsonFile, Object.class);
+            return (T) mapper.readValue(jsonFile, Object.class);
+        }else if(Read.isExtensionWellFormated(jsonFile, "geojson")){
+            ObjectMapper mapper = new ObjectMapper();
+            LinkedHashMap result = mapper.readValue(jsonFile, LinkedHashMap.class);
+            return (T) result.get("features");
         }
         throw new RuntimeException("Cannot read as json file.");
     }

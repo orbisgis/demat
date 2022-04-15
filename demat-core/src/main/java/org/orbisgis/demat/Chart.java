@@ -111,8 +111,7 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart> {
                 head(
                         meta().withCharset("UTF-8"),
                         script().withSrc(jsDirectory+  File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[0]),
-                        script().withSrc(jsDirectory+  File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[1]),
-                        script().withSrc(jsDirectory+  File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[2])
+                        script().withSrc(jsDirectory+  File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[1])
                 ),
                 body(getDomElements())
         ).render(fileWriter);
@@ -304,11 +303,46 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart> {
             if (title != null) {
                 exportImageTitle = title.title;
             }
-            StringBuilder json = new StringBuilder("vegaEmbed('#").append(this.getId()).append("',");
-            json.append(toJson()).append(",{renderer: 'svg',downloadFileName :'").append(exportImageTitle).append("',tooltip:")
-                    .append(true)
-                    .append("}).catch(console.error);");
-            return join(div().withId(getId()), script(rawHtml(json.toString())));
+            StringBuilder json = new StringBuilder("let vegaspec = vegaLite.compile(")
+                    .append(toJson()).
+                    append(
+                    " ).spec\n").append(
+                    " var view = new vega.View(vega.parse(vegaspec))\n"+
+                            "  .logLevel(vega.Warn) // set view logging level\n" +
+                            "  .initialize(document.querySelector('#vis')) // set parent DOM element\n" +
+                            "  .renderer('canvas') // set render type (defaults to 'canvas')\n" +
+                            "  .hover() // enable hover event processing\n" +
+                            "  .run(); // update and render the view ").
+                    append("\nfunction svg(){" +
+                            "\n view.toSVG()\n" +
+                            "  .then(svgString => {\n" +
+                            "      const filename = 'chart.svg';\n" +
+                            "      const url = 'data:image/svg+xml,' + encodeURIComponent(svgString);\n" +
+                            "      const link = document.createElement('a');\n" +
+                            "      link.setAttribute('href', url);\n" +
+                            "      link.setAttribute('target', '_blank');\n" +
+                            "      link.setAttribute('download', filename);\n" +
+                            "      link.dispatchEvent(new MouseEvent('click'));\n" +
+                            "    })" +
+                            "};\n")
+                    .append("// generate a static PNG image\n" +
+                            "function png(){\n"+
+                            "  view\n" +
+                            "    .toCanvas()\n" +
+                            "    .then(canvas => {\n" +
+                            "      const filename = 'chart.png';\n" +
+                            "      const url = canvas.toDataURL();\n" +
+                            "      const link = document.createElement('a');\n" +
+                            "      link.setAttribute('href', url);\n" +
+                            "      link.setAttribute('target', '_blank');\n" +
+                            "      link.setAttribute('download', filename);\n" +
+                            "      link.dispatchEvent(new MouseEvent('click'));\n" +
+                            "    })\n" +
+                            "    .catch((err) => {\n" +
+                            "      console.error(err);\n" +
+                            "    });"+
+                            "};");
+            return join(div().withId("vis"), script(rawHtml(json.toString())));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

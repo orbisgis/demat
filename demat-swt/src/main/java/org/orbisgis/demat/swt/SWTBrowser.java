@@ -74,16 +74,21 @@ public class SWTBrowser {
         GridLayout gridLayout = new GridLayout();
         gridLayout.numColumns = 3;
         shell.setLayout(gridLayout);
-
         ToolBar bottomToolbar = new ToolBar(shell, SWT.FLAT | SWT.HORIZONTAL | SWT.RIGHT);
 
+
+        ToolItem saveAsPNG = new ToolItem(bottomToolbar, SWT.PUSH);
+        saveAsPNG.setText("Save as PNG");
+        saveAsPNG.setImage(SWTBrowserIcons.getIcon(display, SWTBrowserIcons.SAVE));
+
+        ToolItem saveAsSVG = new ToolItem(bottomToolbar, SWT.PUSH);
+        saveAsSVG.setText("Save as SVG");
+        saveAsSVG.setImage(SWTBrowserIcons.getIcon(display, SWTBrowserIcons.SAVE));
+
         ToolItem print = new ToolItem(bottomToolbar, SWT.PUSH);
-        print.setText("Copy screen");
+        print.setText("Print");
         print.setImage(SWTBrowserIcons.getIcon(display, SWTBrowserIcons.PRINT_SCREEN));
 
-        ToolItem saveAs = new ToolItem(bottomToolbar, SWT.PUSH);
-        saveAs.setText("Save");
-        saveAs.setImage(SWTBrowserIcons.getIcon(display, SWTBrowserIcons.SAVE));
 
         ToolItem refresh = new ToolItem(bottomToolbar, SWT.PUSH);
         refresh.setText("Refresh");
@@ -94,8 +99,6 @@ public class SWTBrowser {
         cancel.setImage(SWTBrowserIcons.getIcon(display, SWTBrowserIcons.CANCEL));
 
         bottomToolbar.setLayout(gridLayout);
-
-
 
         final Browser browser;
         try {
@@ -128,64 +131,19 @@ public class SWTBrowser {
                 String string = item.getText();
                 if (string.equals("Stop")) {
                     browser.stop();
-                } else if (string.equals("Save")) {
-                    String[] SUPPORTED_FORMATS = new String[] { "png", "svg", "pdf" };
-                    FileDialog saveDialog = new FileDialog(shell, SWT.SAVE);
-                    String[] extensions = new String[SUPPORTED_FORMATS.length];
-                    String[] filterNames = new String[SUPPORTED_FORMATS.length];
-                    for (int i = 0; i < SUPPORTED_FORMATS.length; i++) {
-                        extensions[i] = "*." + SUPPORTED_FORMATS[i];
-                        filterNames[i] = SUPPORTED_FORMATS[i].toUpperCase() + " (*." + SUPPORTED_FORMATS[i] + ")";
-                    }
-                    saveDialog.setFilterExtensions(extensions);
-                    saveDialog.setFilterNames(filterNames);
-                    String filePath = saveDialog.open();
-                    if (filePath == null) {
-                        return;
-                    }
-
-                    int imageType = SWT.IMAGE_BMP;
-                    {
-                        String filePathLower = filePath.toLowerCase();
-                        if (filePathLower.endsWith(".png")) {
-                            imageType = SWT.IMAGE_PNG;
-                        } else if (filePathLower.endsWith(".gif")) {
-                            imageType = SWT.IMAGE_GIF;
-                        }
-                    }
-
-                    Image image = new Image(Display.getDefault(), browser.getBounds());
-                    GC gc = new GC(image);
-                    try {
-                        browser.print(gc);
-                    } finally {
-                        gc.dispose();
-                    }
-                    ImageLoader imageLoader = new ImageLoader();
-                    imageLoader.data = new ImageData[1];
-                    imageLoader.data[0] = image.getImageData();
-                    File outFile = new File(filePath);
-                    try (OutputStream fos = new FileOutputStream(outFile)) {
-                        imageLoader.save(fos, imageType);
-                    } catch (IOException e) {
-                        int style = SWT.ICON_ERROR;
-                        MessageBox messageBox = new MessageBox(shell, style);
-                        messageBox.setMessage("Cannot save the page");
-                    }
-                    Program.launch(outFile.getAbsolutePath());
-
+                } else if (string.equals("Save as PNG")) {
+                    browser.evaluate("png()");
                 }
-                else if(string.equals("Copy screen")){
-                    Image image = new Image(Display.getDefault(), browser.getBounds());
-                    GC gc = new GC(image);
+                else if(string.equals("Save as SVG")){
+                    browser.evaluate("svg()");
+                }
+                else if(string.equals("Print")){
+                    GC gc = new GC(browser.getDisplay());
                     try {
-                        browser.print(gc);
+                        browser.execute("javascript:window.print();");
                     } finally {
                         gc.dispose();
                     }
-                    ImageTransfer imageTransfer = ImageTransfer.getInstance();
-                    Clipboard clipboard = new Clipboard(Display.getCurrent());
-                    clipboard.setContents(new Object[] {image.getImageData()}, new Transfer[]{imageTransfer});
                 }
                 else if (string.equals("Refresh")) {
                     browser.refresh();
@@ -193,7 +151,8 @@ public class SWTBrowser {
             }
         };
 
-        saveAs.addListener(SWT.Selection, listener);
+        saveAsPNG.addListener(SWT.Selection, listener);
+        saveAsSVG.addListener(SWT.Selection, listener);
         cancel.addListener(SWT.Selection, listener);
         print.addListener(SWT.Selection, listener);
         refresh.addListener(SWT.Selection, listener);

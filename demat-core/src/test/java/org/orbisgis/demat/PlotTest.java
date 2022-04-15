@@ -29,7 +29,7 @@ public class PlotTest {
     }
 
     @Test
-    void testSimpleBarChart(TestInfo testInfo) throws IOException {
+    void testSimpleBarChart(TestInfo testInfo) throws IOException, RendererNotFoundException {
         Chart chart = Chart(Data(new Object[][]{{"a", "b", "c"}, {1, 202, 12}, {200, 300, 400}})).mark_bar()
                 .encode(X("a").nominal(), Y("b"), Tooltip("b"));
         chart.save("target/" + testInfo.getDisplayName() + ".html");
@@ -160,16 +160,10 @@ public class PlotTest {
 
     @Disabled
     @Test
-    void testCont(TestInfo testInfo) throws IOException {
+    void testCont(TestInfo testInfo) throws IOException, RendererNotFoundException {
         Plot plot = Plot(RSU_GEOINDICATORS);
         Chart chart = Maps().uniqueValuesMap().field("properties.ID_RSU");
         Chart chart2 = Maps().choroplethMap().field("properties.WATER_FRACTION");
-        //plot.concat(chart, chart2).show();
-    }
-
-    @Disabled
-    @Test
-    void testDebug(TestInfo testInfo) throws IOException {
-        //Plot().resolve(ScaleResolve(ColorResolve().independent())).show();
+        plot.concat(chart, chart2).show();
     }
 }
