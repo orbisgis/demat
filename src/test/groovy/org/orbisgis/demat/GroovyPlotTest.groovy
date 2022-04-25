@@ -382,53 +382,35 @@ class GroovyPlotTest {
         //chart.show()
     }
 
-    @Disabled
     @Test
-    void testLCZProduction(TestInfo testInfo) throws IOException {
-        def dir_files = "/home/ebocher/Téléchargements/1629214262874_BuildingEstimation_WithoutToulouse"
-        def indexFiles = 15..25
-        if (dir_files) {
-            def folder = new File(dir_files)
-            if (folder.isDirectory()) {
-                def geoFiles = []
-                folder.eachFileRecurse groovy.io.FileType.FILES, { file ->
-                    if (file.name.toLowerCase().endsWith(".geojson")) {
-                        def filePath = file.getAbsolutePath()
-                        if (filePath.contains("RsuIndic")) {
-                            geoFiles << file.getAbsolutePath()
-                        }
-                    }
-                }
-                geoFiles.sort()
-
-                def filesForCharts = geoFiles.subList(indexFiles.first(), Math.min(indexFiles.last(), geoFiles.size()))
-                List mapIntervals = Arrays.asList(5, 7.5, 10, 12.5, 15, 20);
-                List<String> colorSchem = Arrays.asList("#00c0ff", "blue", "green", "orange", "red", "purple", "black")
-                filesForCharts.each { it ->
-                    def file = new File(it)
-                    LinkedHashMap geojson = (LinkedHashMap) Read.json(file)
-                    Plot plot = Plot(Data((List<Map>) geojson.get("features")));
-                    plot.title(file.name.split("_")[0])
-                    Chart chart = Maps().manualIntervalMap().field("properties.AVG_HEIGHT_ROOF_TRUE")
-                            .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
-                            .domain(mapIntervals).range(colorSchem).reflectY().legend("Reference building", "height value (m)");
-                    Chart chart2 = Maps().manualIntervalMap().field("properties.AVG_HEIGHT_ROOF")
-                            .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
-                            .domain(mapIntervals).range(colorSchem).reflectY().legend("Estimated building", "height value (m)");
-                    Chart chart3 = Maps().manualIntervalMap().field("abs")
-                            .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9").calculate("abs(datum.properties.DIFF_AVG_HEIGHT_ROOF)", "abs")
-                            .domain(Arrays.asList(2.5, 5)).range(Arrays.asList("green", "orange", "red")).reflectY().legend("Absolute building", "height error value (m)");
-                    Chart chart4 = Maps().manualIntervalMap().field("properties.AVG_ESTIMATED")
-                            .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED<0.9")
-                            .domain(Arrays.asList(0.3, 0.6)).range(Arrays.asList("green", "orange", "red")).reflectY().legend("Fraction of OSM buildings", "having height information");
-
-                    plot.concat(2, chart, chart2, chart3, chart4).resolve(ScaleResolve(ColorResolve().independent())).show()
-                }
-            } else {
-                println("Please set a valid file directory")
-            }
-        } else {
-            println("Please set a valid file directory")
-        }
+    void testWithDataSet(TestInfo testInfo){
+        def data_1 = Data([
+                ["a": "A", "b": 28], ["a": "B", "b": 55], ["a": "C", "b": 43],
+                ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
+                ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52]])
+        data_1.setName("data_1")
+        def data_2 = Data([
+                ["category": "A","sex": 1,"people": 1483789], ["category": "B","sex": 2,"people": 1450376],
+                ["category": "C","sex": 1,"people": 2411067], ["category": "D","sex": 2,"people": 1359668],
+                ["category": "E","sex": 1,"people": 1260099], ["category": "F","sex": 2,"people": 1216114]])
+        data_2.setName("data_2")
+        def plot = Plot(DataSet(data_1,data_2))
+        def chart_1 = Chart(Data().name("data_1")).mark_bar().
+                encode(X("a").nominal(), Y("b").quantitative())
+        def chart_2 = Chart(Data().name("data_2")).mark_bar()
+                .encode(X("category").sort_color().title("population"), Y("people").quantitative(),Color("sex"));
+        plot.concat(chart_1, chart_2).save("target/" + testInfo.getDisplayName() + ".html");
     }
+
+    @Test
+    void testDomainScaleRangeBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["a": "A", "b": 28], ["a": "B", "b": 55], ["a": "C", "b": 43],
+                ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
+                ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52]])).mark_bar().
+                encode(X("a").nominal(), Y("b").quantitative(), Color("b",Scale(Domain([28,55]), Range(['#8b0101', '#cc0200']))))
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
 }

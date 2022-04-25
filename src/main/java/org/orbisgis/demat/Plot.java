@@ -55,6 +55,7 @@ import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.condition.ConditionalValueNumber;
 import org.orbisgis.demat.vega.condition.ConditionalValueString;
 import org.orbisgis.demat.vega.data.Data;
+import org.orbisgis.demat.vega.data.DataSet;
 import org.orbisgis.demat.vega.data.DataValues;
 import org.orbisgis.demat.vega.encoding.*;
 import org.orbisgis.demat.vega.legend.Legend;
@@ -94,8 +95,9 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         for (Object element : elements) {
             if (element instanceof Data) {
                 view_.setData((Data) element);
-            }
-            else if(element instanceof  Encoding){
+            } else if (element instanceof DataSet) {
+                view_.setDatasets((DataSet) element);
+            } else if(element instanceof  Encoding){
                 view_.setEncoding((Encoding) element);
             }
             else if(element instanceof Transform){
@@ -128,6 +130,14 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
     }
 
     /**
+     * Create a new empty Data element
+     * @return
+     */
+    public static Data Data() {
+        return new Data();
+    }
+
+    /**
      * Build a data object from json values
      *
      * @param jsonValues
@@ -155,6 +165,23 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
     public static Data Data(LinkedHashMap values) {
         return PlotUtils.urlData(values);
     }
+
+
+    /**
+     * Create a DataSet from Data
+     * @param data
+     * @return
+     */
+    public static DataSet DataSet(Data... data ){
+        DataSet dataSet = new DataSet();
+        for (Data data_tmp : data) {
+            if(data_tmp.getName()!=null){
+                dataSet.addDataValues(data_tmp.getName(), data_tmp.getValues());
+            }
+        }
+        return dataSet;
+    }
+
 
     public static Maps Maps() {
         return new Maps();
@@ -419,16 +446,15 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
     }
 
     /**
-     * Create a scale range according a set of values
+     * Create a scale range according a set of objects
      *
      * @param values
      * @return
      */
-    public static ScaleRange Range(List values) {
-        ScaleRange scaleRange = new ScaleRange();
-        scaleRange.values = values;
-        return scaleRange;
+    public static ScaleRange Range(Object... elements) {
+        return ScaleRange.build(elements);
     }
+
 
     /**
      * Create a scale range from a field
