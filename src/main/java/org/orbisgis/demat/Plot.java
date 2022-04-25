@@ -446,16 +446,15 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
     }
 
     /**
-     * Create a scale range according a set of values
+     * Create a scale range according a set of objects
      *
      * @param values
      * @return
      */
-    public static ScaleRange Range(List values) {
-        ScaleRange scaleRange = new ScaleRange();
-        scaleRange.values = values;
-        return scaleRange;
+    public static ScaleRange Range(Object... elements) {
+        return ScaleRange.build(elements);
     }
+
 
     /**
      * Create a scale range from a field

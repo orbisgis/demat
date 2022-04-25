@@ -402,4 +402,15 @@ class GroovyPlotTest {
         plot.concat(chart_1, chart_2).save("target/" + testInfo.getDisplayName() + ".html");
     }
 
+    @Test
+    void testDomainScaleRangeBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["a": "A", "b": 28], ["a": "B", "b": 55], ["a": "C", "b": 43],
+                ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
+                ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52]])).mark_bar().
+                encode(X("a").nominal(), Y("b").quantitative(), Color("b",Scale(Domain([28,55]), Range(['#8b0101', '#cc0200']))))
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
 }
