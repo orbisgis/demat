@@ -564,7 +564,13 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         for (Object element : elements) {
             if (element instanceof Orientation) {
                 legend.setDirection((Orientation) element);
-            }  else {
+            }
+            else if(element instanceof  String){
+                LegendText legendText = new LegendText();
+                legendText.title= (String) element;
+                legend.setTitle(legendText);
+            }
+            else {
                 throw new RuntimeException("Unsupported element for Legend");
             }
         }

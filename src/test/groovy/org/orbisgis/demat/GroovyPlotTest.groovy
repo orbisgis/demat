@@ -375,7 +375,10 @@ class GroovyPlotTest {
 
     @Test
     void testDisplayMapWithInterval(TestInfo testInfo) throws IOException {
-        def chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5]).range(["orange", "green", "blue", "black"])
+        def chart = Maps().choroplethMap(RSU_GEOINDICATORS).
+                field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5])
+                .range(["orange", "green", "blue", "black"])
+                .labels("{'0': 'Low', '0.1': 'Moderate', '0.2': 'High', '0.5': 'Very high'}[datum.label]")
                 .title("A Map with interval")
                 .height(500).width(700)
         chart.save("target/" + testInfo.getDisplayName() + ".html");
@@ -409,6 +412,19 @@ class GroovyPlotTest {
                 ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
                 ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52]])).mark_bar().
                 encode(X("a").nominal(), Y("b").quantitative(), Color("b",Scale(Domain([28,55]), Range(['#8b0101', '#cc0200']))))
+        chart.save("target/${testInfo.displayName}.html")
+        //chart.show()
+    }
+
+    @Test
+    void testLabelsLegendBarChart(TestInfo testInfo) {
+        def chart = Chart(Data([
+                ["a": "A", "b": 28], ["a": "B", "b": 55], ["a": "C", "b": 43],
+                ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
+                ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52]])).mark_bar().
+                encode(X("a").nominal(), Y("b").quantitative(),
+                        Color("b",Scale(Domain([28,55]), Range(['#8b0101', '#cc0200'])),
+                                Legend("A title for the legend").labels("{'28': 'Slow', '55': 'Fast'}[datum.label]")))
         chart.save("target/${testInfo.displayName}.html")
         //chart.show()
     }

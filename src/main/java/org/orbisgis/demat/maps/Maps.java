@@ -4,6 +4,7 @@ import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.data.Data;
 import org.orbisgis.demat.vega.encoding.Color;
 import org.orbisgis.demat.vega.encoding.Encoding;
+import org.orbisgis.demat.vega.legend.Legend;
 
 public class Maps {
 
@@ -31,6 +32,8 @@ public class Maps {
         mark.type = "geoshape";
         chart.setMark(mark);
         Encoding encoding = new Encoding();
+        Legend legend = new Legend();
+        color.setLegend(legend);
         color.setScale(scale);
         encoding.setColor(color);
         chart.setEncoding(encoding);
@@ -52,6 +55,8 @@ public class Maps {
         mark.type = "geoshape";
         chart.setMark(mark);
         Encoding encoding = new Encoding();
+        Legend legend = new Legend();
+        color.setLegend(legend);
         color.setScale(scale);
         encoding.setColor(color);
         chart.setEncoding(encoding);
@@ -75,6 +80,8 @@ public class Maps {
         mark.type = "geoshape";
         chart.setMark(mark);
         Encoding encoding = new Encoding();
+        Legend legend = new Legend();
+        color.setLegend(legend);
         color.setScale(scale);
         encoding.setColor(color);
         chart.setEncoding(encoding);
@@ -98,6 +105,8 @@ public class Maps {
         mark.type = "geoshape";
         chart.setMark(mark);
         Encoding encoding = new Encoding();
+        Legend legend = new Legend();
+        color.setLegend(legend);
         color.setScale(scale);
         encoding.setColor(color);
         chart.setEncoding(encoding);
@@ -122,6 +131,8 @@ public class Maps {
         mark.type = "geoshape";
         chart.setMark(mark);
         Encoding encoding = new Encoding();
+        Legend legend = new Legend();
+        color.setLegend(legend);
         color.setScale(scale);
         encoding.setColor(color);
         chart.setEncoding(encoding);
@@ -144,6 +155,8 @@ public class Maps {
         mark.type = "geoshape";
         chart.setMark(mark);
         Encoding encoding = new Encoding();
+        Legend legend = new Legend();
+        color.setLegend(legend);
         color.setScale(scale);
         encoding.setColor(color);
         chart.setEncoding(encoding);
