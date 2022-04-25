@@ -577,4 +577,12 @@ public class Legend {
         this.setGradientLength(fs);
         return this;
     }
+    /**
+     * Change the labels of the legend
+     * @param labels
+     */
+    public Legend labels(String labels) {
+        this.setLabelExpr(labels);
+        return this;
+    }
 }

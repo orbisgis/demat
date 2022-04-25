@@ -79,5 +79,13 @@ public class AbstractGeoChart<T extends Chart> extends Chart {
         this.getProjection().setType(ProjectionType.IDENTITY);
         return (T) this;
     }
+    /**
+     * Change the labels of the legend
+     * @param labels
+     */
+    public T labels(String labels) {
+        this.getEncoding().getColor().getLegend().setLabelExpr(labels);
+        return (T) this;
+    }
 
 }
