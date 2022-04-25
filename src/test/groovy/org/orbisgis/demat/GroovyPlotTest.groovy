@@ -337,7 +337,7 @@ class GroovyPlotTest {
         Chart textChart = Chart().mark_text().encode(Text("num_cars").quantitative(),
         Color(Condition("datum['num_cars'] < 40", "black"), Gradient("white")))
 
-        Plot(cars(),
+        Plot(cars(),Title("This is a global title "),
                 Transform(Count("num_cars"), GroupBy("Origin", "Cylinders")),
                 Encoding(Y("Origin").ordinal(), X("Cylinders").ordinal())).layer(rectChart, textChart)
                 .save("target/${testInfo.displayName}.html")

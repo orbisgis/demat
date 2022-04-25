@@ -97,13 +97,13 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
                 view_.setData((Data) element);
             } else if (element instanceof DataSet) {
                 view_.setDatasets((DataSet) element);
-            } else if(element instanceof  Encoding){
+            } else if (element instanceof Encoding) {
                 view_.setEncoding((Encoding) element);
-            }
-            else if(element instanceof Transform){
+            } else if (element instanceof Title) {
+                view_.setTitle((Title) element);
+            } else if (element instanceof Transform) {
                 view_.setTransform((Transform) element);
-            }
-            else {
+            } else {
                 throw new RuntimeException("Unknown vega-lite element");
             }
         }
@@ -131,6 +131,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
 
     /**
      * Create a new empty Data element
+     *
      * @return
      */
     public static Data Data() {
@@ -169,13 +170,14 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
 
     /**
      * Create a DataSet from Data
+     *
      * @param data
      * @return
      */
-    public static DataSet DataSet(Data... data ){
+    public static DataSet DataSet(Data... data) {
         DataSet dataSet = new DataSet();
         for (Data data_tmp : data) {
-            if(data_tmp.getName()!=null){
+            if (data_tmp.getName() != null) {
                 dataSet.addDataValues(data_tmp.getName(), data_tmp.getValues());
             }
         }
@@ -225,18 +227,17 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
                 color.setField((String) element);
             } else if (element instanceof ConditionalValueString) {
                 ConditionalValueString condition = (ConditionalValueString) element;
-                ColorCondition colorCondition =  new ColorCondition();
+                ColorCondition colorCondition = new ColorCondition();
                 ConditionalGradient conditionalGradient = new ConditionalGradient();
                 conditionalGradient.setTest(condition.getTest());
                 Gradient gradient = new Gradient();
-                gradient.value=condition.getValue();
+                gradient.value = condition.getValue();
                 conditionalGradient.setValue(gradient);
-                ArrayList<ConditionalGradient> conditions =  new ArrayList();
+                ArrayList<ConditionalGradient> conditions = new ArrayList();
                 conditions.add(conditionalGradient);
-                colorCondition.conditionalGradients=conditions;
+                colorCondition.conditionalGradients = conditions;
                 color.setCondition(colorCondition);
-            }
-            else {
+            } else {
                 throw new RuntimeException("Unsupported element for color");
             }
         }
@@ -245,32 +246,32 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
 
     /**
      * Create a gradient color
+     *
      * @param value
      * @return
      */
-    public static Gradient Gradient(String value){
+    public static Gradient Gradient(String value) {
         Gradient gradient = new Gradient();
-        gradient.value =value;
+        gradient.value = value;
         return gradient;
     }
 
-    public static Object Condition(String expression, Object value){
-        if(value instanceof Number){
+    public static Object Condition(String expression, Object value) {
+        if (value instanceof Number) {
             ConditionalValueNumber condition = new ConditionalValueNumber();
             Filter filter = new Filter();
-            filter.expression=expression;
+            filter.expression = expression;
             condition.setTest(filter);
             condition.setValue((Number) value);
             return condition;
-        }else if(value instanceof String){
+        } else if (value instanceof String) {
             ConditionalValueString condition = new ConditionalValueString();
             Filter filter = new Filter();
-            filter.expression=expression;
+            filter.expression = expression;
             condition.setTest(filter);
             condition.setValue((String) value);
             return condition;
-        }
-        else {
+        } else {
             throw new RuntimeException("Unsupported condition");
         }
 
@@ -284,19 +285,19 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
     public static Encoding Encoding(Object... elements) {
         Encoding encoding = new Encoding();
         for (Object element : elements) {
-            if(element instanceof Color){
+            if (element instanceof Color) {
                 encoding.setColor((Color) element);
-            }else if(element instanceof  X){
+            } else if (element instanceof X) {
                 encoding.setX((X) element);
-            }else if(element instanceof  Y){
+            } else if (element instanceof Y) {
                 encoding.setY((Y) element);
-            }else if(element instanceof  Tooltip){
+            } else if (element instanceof Tooltip) {
                 encoding.setTooltip((Tooltip) element);
-            }else if(element instanceof  X2){
+            } else if (element instanceof X2) {
                 encoding.setX2((X2) element);
-            }else if(element instanceof  Y2){
+            } else if (element instanceof Y2) {
                 encoding.setY2((Y2) element);
-            }else{
+            } else {
                 throw new RuntimeException("Unsupported element for encoding");
             }
 
@@ -313,13 +314,13 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         Transform transform = new Transform();
         ArrayList<AggregatedFieldDef> aggregatedFields = null;
         for (Object element : elements) {
-            if(element instanceof AggregatedFieldDef){
-                if(aggregatedFields == null){
+            if (element instanceof AggregatedFieldDef) {
+                if (aggregatedFields == null) {
                     aggregatedFields = new ArrayList<AggregatedFieldDef>();
                 }
                 aggregatedFields.add((AggregatedFieldDef) element);
 
-            }else if(element instanceof GroupBy){
+            } else if (element instanceof GroupBy) {
                 transform.setGroupby((GroupBy) element);
             }
         }
@@ -330,28 +331,31 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
 
     /**
      * Create a Field element
+     *
      * @param name
      * @return
      */
-    public Field Field(String name){
+    public Field Field(String name) {
         return new Field(name);
     }
 
     /**
      * Create a count operator
+     *
      * @param asField
      * @return
      */
-    public static Count Count(String asField){
+    public static Count Count(String asField) {
         return new Count(asField);
     }
 
     /**
      * Create a groupBy with a field
+     *
      * @param fields
      * @return
      */
-    public static GroupBy GroupBy(String... fields){
+    public static GroupBy GroupBy(String... fields) {
         return new GroupBy(fields);
     }
 
@@ -512,10 +516,11 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
 
     /**
      * Create a Text encoding
+     *
      * @param fieldValue
      * @return
      */
-    public static TextDef Text(String fieldValue){
+    public static TextDef Text(String fieldValue) {
         TextDef textDef = new TextDef();
         textDef.setField(new Field(fieldValue));
         return textDef;
@@ -531,31 +536,33 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         return domain;
     }
 
-    public static LegendText LegendText(String title){
+    public static LegendText LegendText(String title) {
         LegendText legendText = new LegendText();
-        legendText.title=title;
+        legendText.title = title;
         return legendText;
     }
 
-    public static LegendText LegendText(String... titles){
+    public static LegendText LegendText(String... titles) {
         LegendText legendText = new LegendText();
-        legendText.titles= Arrays.asList(titles);
+        legendText.titles = Arrays.asList(titles);
         return legendText;
     }
 
     /**
      * Create Horizontal orientation
+     *
      * @return
      */
-    public static Orientation HorizontalDirection(){
+    public static Orientation HorizontalDirection() {
         return Orientation.HORIZONTAL;
     }
 
     /**
      * Create Vertical orientation
+     *
      * @return
      */
-    public static Orientation VerticalDirection(){
+    public static Orientation VerticalDirection() {
         return Orientation.VERTICAL;
     }
 
@@ -564,13 +571,11 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         for (Object element : elements) {
             if (element instanceof Orientation) {
                 legend.setDirection((Orientation) element);
-            }
-            else if(element instanceof  String){
+            } else if (element instanceof String) {
                 LegendText legendText = new LegendText();
-                legendText.title= (String) element;
+                legendText.title = (String) element;
                 legend.setTitle(legendText);
-            }
-            else {
+            } else {
                 throw new RuntimeException("Unsupported element for Legend");
             }
         }
@@ -677,6 +682,21 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         return new YResolve();
     }
 
+    public static Title Title(Object... elements) {
+        Title title = new Title();
+        for (Object element : elements) {
+            if(element instanceof String){
+                title.title= (String) element;
+            } else if (element instanceof List ) {
+                title.titles= (List<String>) element;
+            } else if (element instanceof TitleParams) {
+                title.titleParams= (TitleParams) element;
+            }
+        }
+        return title;
+    }
+
+
 
     private void setView(View view) {
         this.view = view;
@@ -726,7 +746,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         return this;
     }
 
-    public Plot layer(Chart... charts){
+    public Plot layer(Chart... charts) {
         List<LayerElement> layers = new ArrayList<>();
         for (Chart chart : charts) {
             layers.add(PlotUtils.chartToLayerElement(chart));
