@@ -216,7 +216,7 @@ public class View {
      * values are ingested as objects with a `data` property.
      */
     @JsonProperty("datasets")
-    public Map<String, DataValues> getDatasets() { return datasets.getDatasets(); }
+    public DataSet getDatasets() { return datasets; }
     @JsonProperty("datasets")
     public void setDatasets(DataSet value) { this.datasets = value; }
 
