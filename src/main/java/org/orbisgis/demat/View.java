@@ -49,8 +49,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.data.Data;
+import org.orbisgis.demat.vega.data.DataSet;
 import org.orbisgis.demat.vega.data.DataValues;
-import org.orbisgis.demat.vega.data.InlineDatasetValue;
 import org.orbisgis.demat.vega.encoding.Encoding;
 import org.orbisgis.demat.vega.resolve.Resolve;
 import org.orbisgis.demat.vega.transform.Transform;
@@ -76,7 +76,7 @@ public class View {
     private Center center;
     private Config config;
     private Data data;
-    private Map<String, InlineDatasetValue> datasets;
+    private DataSet datasets;
     private String description;
     private Encoding encoding;
     private Height height;
@@ -216,9 +216,9 @@ public class View {
      * values are ingested as objects with a `data` property.
      */
     @JsonProperty("datasets")
-    public Map<String, InlineDatasetValue> getDatasets() { return datasets; }
+    public Map<String, DataValues> getDatasets() { return datasets.getDatasets(); }
     @JsonProperty("datasets")
-    public void setDatasets(Map<String, InlineDatasetValue> value) { this.datasets = value; }
+    public void setDatasets(DataSet value) { this.datasets = value; }
 
     /**
      * Description of this mark for commenting purpose.

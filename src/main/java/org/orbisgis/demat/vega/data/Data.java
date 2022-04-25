@@ -142,4 +142,14 @@ public class Data {
             return data;
         }
     }
+
+    /**
+     * Set a name to the Data element
+     * @param name
+     */
+    public Data name(String name){
+        this.setName(name);
+        return this;
+    }
+
 }
