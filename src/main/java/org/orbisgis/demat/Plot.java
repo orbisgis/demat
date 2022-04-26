@@ -696,6 +696,12 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         return title;
     }
 
+    public static TitleParams TitleParams() {
+        TitleParams titleParams = new TitleParams();
+        return titleParams;
+    }
+
+
 
 
     private void setView(View view) {

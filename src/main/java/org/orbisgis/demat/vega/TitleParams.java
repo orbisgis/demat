@@ -258,4 +258,20 @@ public class TitleParams {
     public Double getZindex() { return zindex; }
     @JsonProperty("zindex")
     public void setZindex(Double value) { this.zindex = value; }
+
+
+    //Add title parameters
+
+    public TitleParams left(){
+        this.align=Align.LEFT;
+        return this;
+    }
+    public TitleParams center(){
+        this.align=Align.CENTER;
+        return this;
+    }
+    public TitleParams right(){
+        this.align=Align.RIGHT;
+        return this;
+    }
 }
