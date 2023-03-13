@@ -20,7 +20,8 @@ class PlotWithSQL {
     @Test
     void testSimpleBarChart(TestInfo testInfo) {
         h2GIS.load(GroovyPlotTest.class.getClassLoader().getResource("rsu_geoindicators.geojson"), true)
-        def rows = h2GIS.rows("""select sum(st_area(the_geom)) as area , classes  from (SELECT the_geom, case when WATER_FRACTION<0.1 then '< 0.1'
+        def rows = h2GIS.rows("""select sum(st_area(the_geom)) as area , classes  from 
+        (SELECT the_geom, case when WATER_FRACTION<0.1 then '< 0.1'
         when WATER_FRACTION>=0.1 and WATER_FRACTION<0.3  then '0.1 - 0.3'
          when WATER_FRACTION>=0.3 and WATER_FRACTION<0.5 then '0.3 - 0.5'
           when WATER_FRACTION>=0.5 and WATER_FRACTION<0.7 then '0.5 - 0.7'
