@@ -146,6 +146,20 @@ public class Read {
         throw new RuntimeException("Cannot read as json file.");
     }
 
+    /**
+     *
+     * @param jsonFile
+     * @return
+     * @throws IOException
+     */
+    public static Object geojson(File jsonFile) throws IOException {
+        if(Read.isExtensionWellFormated(jsonFile,  "json", "geojson")) {
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(jsonFile, Object.class);
+        }
+        throw new RuntimeException("Cannot read as json file.");
+    }
+
 
     /**
      * Check if the file has the good extension

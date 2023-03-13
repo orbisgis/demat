@@ -67,6 +67,7 @@ import org.orbisgis.demat.vega.transform.Transform;
 import org.orbisgis.demat.vega.transform.aggregate.Count;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import static j2html.TagCreator.*;
@@ -136,6 +137,21 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      */
     public static Data Data() {
         return new Data();
+    }
+
+
+    public static Data JSON(String jsonPath) throws IOException {
+        LinkedHashMap json = (LinkedHashMap) Read.json(new File(jsonPath));
+        return Data(json);
+    }
+
+    public static Data GeoJSON(String jsonPath) throws IOException {
+        LinkedHashMap json = (LinkedHashMap) Read.geojson(new File(jsonPath));
+        List<Map> data = (List<Map>) json.get("features");
+        if(data==null){
+            throw new RuntimeException("Malformed geojson file");
+        }
+        return Data(data);
     }
 
     /**
@@ -452,7 +468,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
     /**
      * Create a scale range according a set of objects
      *
-     * @param values
+     * @param elements
      * @return
      */
     public static ScaleRange Range(Object... elements) {
@@ -520,10 +536,10 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @param fieldValue
      * @return
      */
-    public static TextDef Text(String fieldValue) {
-        TextDef textDef = new TextDef();
-        textDef.setField(new Field(fieldValue));
-        return textDef;
+    public static Text Text(String fieldValue) {
+        Text text = new Text();
+        text.setField(new Field(fieldValue));
+        return text;
     }
 
     public static Projection Projection() {
@@ -742,18 +758,18 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
     }
 
     public Plot concat(Chart... charts) {
-        this.view.setConcat(Arrays.asList(charts));
+        this.view.setConcat(Arrays.<NormalizedSpec>asList(charts));
         return this;
     }
 
     public Plot concat(int columns, Chart... charts) {
         this.view.setColumns(columns);
-        this.view.setConcat(Arrays.asList(charts));
+        this.view.setConcat(Arrays.<NormalizedSpec>asList(charts));
         return this;
     }
 
     public Plot layer(Chart... charts) {
-        List<LayerElement> layers = new ArrayList<>();
+        List<LayerElement> layers = new ArrayList<LayerElement>();
         for (Chart chart : charts) {
             layers.add(PlotUtils.chartToLayerElement(chart));
         }
@@ -798,10 +814,26 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      * @throws JsonProcessingException
      */
-    String toJson() throws JsonProcessingException {
+    public String toJson() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         return objectMapper.writeValueAsString(this.view);
+    }
+
+    public void saveAsPNG(String path) {
+        try {
+            IOUtils.saveAsPNG(toJson(), getHTMLDirectory(), path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void saveAsSVG(String path) {
+        try {
+            IOUtils.saveAsSVG(toJson(), getHTMLDirectory(), path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @JsonIgnore

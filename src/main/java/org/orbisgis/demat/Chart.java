@@ -12,6 +12,7 @@ import org.orbisgis.demat.vega.Title;
 import org.orbisgis.demat.vega.encoding.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 import static j2html.TagCreator.*;
@@ -67,7 +68,7 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
     }
 
     /**
-     * Create a mark_bar
+     * Create a mark_area
      *
      * @return
      */
@@ -165,8 +166,8 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
                 encoding.setColor((Color) element);
             } else if (element instanceof Tooltip) {
                 encoding.setTooltip((Tooltip) element);
-            }else if (element instanceof TextDef) {
-                encoding.setText((TextDef) element);
+            }else if (element instanceof Text) {
+                encoding.setText((Text) element);
             }
         }
         this.setEncoding(encoding);
@@ -199,10 +200,26 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
      * @return
      * @throws JsonProcessingException
      */
-    String toJson() throws JsonProcessingException {
+    public String toJson() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         return objectMapper.writeValueAsString(this);
+    }
+
+    public void saveAsPNG(String path) {
+        try {
+            IOUtils.saveAsPNG(toJson(), getHTMLDirectory(), path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void saveAsSVG(String path) {
+        try {
+            IOUtils.saveAsSVG(toJson(), getHTMLDirectory(), path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @JsonIgnore

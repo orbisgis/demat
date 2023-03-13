@@ -46,14 +46,13 @@ package org.orbisgis.demat.vega.encoding;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.orbisgis.demat.vega.*;
-import org.orbisgis.demat.vega.legend.LegendText;
 
 /**
  * Text of the `text` mark.
  *
  * A FieldDef with Condition<ValueDef> {    condition: {value: ...},    field: ...,    ... }
  */
-public class TextDef extends ChannelCommonMethods<TextDef>{
+public class Text extends ChannelCommonMethods<Text>{
     private Aggregate aggregate;
     private Double band;
     private DescriptionBin bin;
