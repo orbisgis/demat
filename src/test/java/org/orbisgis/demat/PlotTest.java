@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
+import org.orbisgis.demat.maps.ManualIntervalMap;
 import org.orbisgis.demat.vega.TimeUnit;
 import org.orbisgis.demat.vega.data.Data;
 
@@ -59,6 +60,14 @@ public class PlotTest {
     void testResponsiveBarChart(TestInfo testInfo) throws IOException {
         Chart chart = Chart(DataTests.cars()).mark_bar()
                 .encode(X("Origin"), Y().count()).description("A grouping bar").name("Counting cars");
+        //chart.show();
+        chart.save("target/" + testInfo.getDisplayName() + ".html");
+    }
+
+    @Test
+    void testBarChartWithTextWindow(TestInfo testInfo) throws IOException {
+        Chart chart = Chart(DataTests.cars()).mark_bar()
+                .encode(X("Origin"), Y().count(), Text("The bar")).description("A grouping bar").name("Counting cars");
         //chart.show();
         chart.save("target/" + testInfo.getDisplayName() + ".html");
     }
@@ -155,6 +164,7 @@ public class PlotTest {
                 .domain(Arrays.asList(0.3, 0.6)).range(Arrays.asList("green", "orange", "red")).reflectY().legend("Fraction of OSM buildings", "having height information");
 
         plot.concat(2, chart, chart2, chart3, chart4).resolve(ScaleResolve(ColorResolve().independent())).show();
+
     }
 
 
@@ -171,5 +181,38 @@ public class PlotTest {
     @Test
     void testDebug(TestInfo testInfo) throws IOException {
         Plot().resolve(ScaleResolve(ColorResolve().independent())).show();
+    }
+
+    @Disabled
+    @Test
+    void testIntegration(TestInfo testInfo) throws IOException {
+        String jsonFile ="/home/ebocher/Autres/data/geoclimate/bdtopo_v2_Redon/rsu_lcz.geojson";
+        jsonFile = "/media/ebocher/Extreme SSD/data/geoclimate/osm/Toulouse/rsu_lcz.geojson";
+
+        long start = System.currentTimeMillis();
+        /*Plot plot = Plot(GeoJSON(jsonFile));
+        ManualIntervalMap map = Maps().manualIntervalMap().field("properties.LCZ_PRIMARY").domain(Arrays.asList( 1, 2, 3, 4, 5, 6,7,8,9,10)).scheme("turbo").reflectY();
+*/
+        //Chart chart = Chart().encode(X("properties.LCZ_PRIMARY"), Y("properties.LCZ_PRIMARY").count(),
+          //      Color("properties.LCZ_PRIMARY")).mark_bar();
+
+        long end = System.currentTimeMillis();
+        System.out.println("First " +(end-start));
+        //jsonFile ="/home/ebocher/Autres/data/geoclimate/bdtopo_v2_Redon/building.geojson";
+        jsonFile = "/media/ebocher/Extreme SSD/data/geoclimate/osm/Toulouse/building.geojson";
+        Data data = GeoJSON(jsonFile);
+        Plot plot = Plot();
+        long end2 = System.currentTimeMillis();
+        System.out.println("First " +(end2-end));
+        ManualIntervalMap map_buildings = Maps().manualIntervalMap(data).field("properties.NB_LEV").scheme("turbo").reflectY();
+
+        plot.layer( map_buildings);
+
+        //plot.layer(map);
+
+
+        plot.saveAsPNG("/tmp/map.png");
+
+
     }
 }

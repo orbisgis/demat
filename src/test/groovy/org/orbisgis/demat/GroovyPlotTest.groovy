@@ -403,6 +403,7 @@ class GroovyPlotTest {
         def chart_2 = Chart(Data().name("data_2")).mark_bar()
                 .encode(X("category").sort_color().title("population"), Y("people").quantitative(),Color("sex"));
         plot.concat(chart_1, chart_2).save("target/" + testInfo.getDisplayName() + ".html");
+        plot.show()
     }
 
     @Test
@@ -429,4 +430,25 @@ class GroovyPlotTest {
         //chart.show()
     }
 
+
+    @Disabled
+    @Test
+    void testDisplayDebug(TestInfo testInfo) throws IOException {
+        def chart = Maps().choroplethMap(RSU_GEOINDICATORS).
+                field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5])
+                .range(["orange", "green", "blue", "black"])
+                .labels("{'0': 'Low', '0.1': 'Moderate', '0.2': 'High', '0.5': 'Very high'}[datum.label]")
+                .title("A Map with interval")
+                .height(500).width(700)
+
+        def chart1 = Maps().choroplethMap(RSU_GEOINDICATORS).
+                field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5])
+                .range(["orange", "green", "blue", "black"])
+                .labels("{'0': 'Low', '0.1': 'Moderate', '0.2': 'High', '0.5': 'Very high'}[datum.label]")
+                .title("A Map with interval")
+                .height(500).width(700)
+        chart.save("target/" + testInfo.getDisplayName() + ".html");
+        //chart.show()
+        Plot().concat(chart, chart1).saveAsPNG("/tmp/saveplot.png")
+    }
 }

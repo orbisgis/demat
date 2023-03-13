@@ -76,7 +76,7 @@ public class LayerEncoding {
     private MarkPropDefNumber strokeDash;
     private StrokeOpacityClass strokeOpacity;
     private StrokeWidthClass strokeWidth;
-    private TextDef text;
+    private Text text;
     private ThetaClass theta;
     private Theta2Class theta2;
     private Tooltip tooltip;
@@ -343,9 +343,9 @@ public class LayerEncoding {
      * Text of the `text` mark.
      */
     @JsonProperty("text")
-    public TextDef getText() { return text; }
+    public Text getText() { return text; }
     @JsonProperty("text")
-    public void setText(TextDef value) { this.text = value; }
+    public void setText(Text value) { this.text = value; }
 
     /**
      * - For arc marks, the arc length in radians if theta2 is not specified, otherwise the
