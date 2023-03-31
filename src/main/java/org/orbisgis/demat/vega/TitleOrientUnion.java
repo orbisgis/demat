@@ -58,7 +58,7 @@ public class TitleOrientUnion {
 
     static class Deserializer extends JsonDeserializer<TitleOrientUnion> {
         @Override
-        public TitleOrientUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public TitleOrientUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             TitleOrientUnion value = new TitleOrientUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

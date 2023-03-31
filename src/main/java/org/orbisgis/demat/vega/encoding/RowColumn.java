@@ -42,9 +42,10 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.orbisgis.demat.vega;
+package org.orbisgis.demat.vega.encoding;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.legend.LegendText;
 
 /**
@@ -52,7 +53,7 @@ import org.orbisgis.demat.vega.legend.LegendText;
  *
  * A field definition for the vertical facet of trellis plots.
  */
-public class RowColumnEncodingFieldDef {
+public class RowColumn {
     private Aggregate aggregate;
     private LayoutAlign align;
     private Double band;

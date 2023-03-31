@@ -60,7 +60,7 @@ public class Format {
 
     static class Deserializer extends JsonDeserializer<Format> {
         @Override
-        public Format deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Format deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Format value = new Format();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -58,7 +58,7 @@ public class Box {
 
     static class Deserializer extends JsonDeserializer<Box> {
         @Override
-        public Box deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Box deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Box value = new Box();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -2,14 +2,8 @@ package org.orbisgis.demat;
 
 import com.kitfox.svg.SVGException;
 import org.graalvm.polyglot.*;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.function.Consumer;
 
 public class IOUtils {
@@ -18,7 +12,13 @@ public class IOUtils {
     private static Source vega_lite;
     private static Source svgFunctionCompiled;
 
-    static void saveAsPNG(String json, String jsDirectory, String outputImage) throws IOException {
+
+    static void saveAsPNG(String json, String jsDirectory, File outputImage, boolean delete) throws IOException {
+        if (outputImage.exists()) {
+            if (delete) {
+                outputImage.delete();
+            }
+        }
         FileUtils.deployJSFiles(new File(jsDirectory));
         if(engine==null) {
             engine = Engine.newBuilder()
@@ -28,8 +28,7 @@ public class IOUtils {
             vega_js = source.build();
             Source.Builder source2 = Source.newBuilder("js", new File(jsDirectory+  File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[1]));
             vega_lite = source2.build();
-            String svgFunction  = "" +
-                    "var jsonFile;" +
+            String svgFunction  = "var jsonFile;" +
                     "function svg() {\n" +
                     "var vegaspec = vegaLite.compile(JSON.parse(jsonFile)).spec;"+
                     "    var view = new vega.View(vega.parse(vegaspec))\n" +
@@ -44,13 +43,13 @@ public class IOUtils {
         }
         Context ctx = Context.newBuilder("js").allowHostClassLookup(s -> true)
                 .allowHostAccess(HostAccess.ALL).engine(engine).build();
-        ctx.eval( vega_js);
-        ctx.eval( vega_lite);
+        ctx.eval(vega_js);
+        ctx.eval(vega_lite);
         ctx.eval(svgFunctionCompiled);
 
         ctx.getBindings("js").putMember("jsonFile", json);
         Value jsPromise = ctx.eval("js", "svg();");
-        Consumer<Object> javaThen = (value) -> {      ;
+        Consumer<Object> javaThen = (value) -> {
             SvgRasterizer svgRasterizer =  new SvgRasterizer();
             try {
                 svgRasterizer.save(value.toString(), new Dimension(800, 800), outputImage);
@@ -63,7 +62,12 @@ public class IOUtils {
         jsPromise.invokeMember("then", javaThen);
     }
 
-    static void saveAsSVG(String json, String jsDirectory, String outputSVG) throws IOException {
+    static void saveAsSVG(String json, String jsDirectory, File outputSVG, boolean delete) throws IOException {
+        if (outputSVG.exists()) {
+            if (delete) {
+                outputSVG.delete();
+            }
+        }
         FileUtils.deployJSFiles(new File(jsDirectory));
         if(engine==null) {
             engine = Engine.newBuilder()
@@ -80,8 +84,7 @@ public class IOUtils {
         Source.Builder source3 = Source.newBuilder("js", new File(jsDirectory+  File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[2]));
         ctx.eval( source3.build());
 
-        String svgFunction  = "" +
-                "var jsonFile;" +
+        String svgFunction  = "var jsonFile;" +
                 "function svg() {\n" +
                 "var vegaspec = vegaLite.compile(JSON.parse(jsonFile)).spec;"+
                 "    var view = new vega.View(vega.parse(vegaspec))\n" +
@@ -97,7 +100,7 @@ public class IOUtils {
         ctx.getBindings("js").putMember("jsonFile", json);
         Value jsPromise = ctx.eval("js", "svg();");
 
-        Consumer<Object> javaThen = (value) -> {      ;
+        Consumer<Object> javaThen = (value) -> {
             try {
                 FileWriter fileWriter = new FileWriter(outputSVG);
                 fileWriter.write(value.toString());
@@ -107,5 +110,20 @@ public class IOUtils {
             }
         };
         jsPromise.invokeMember("then", javaThen);
+    }
+
+    static void saveAsJSON(String json, File outputJson, boolean delete){
+        if (outputJson.exists()) {
+            if (delete) {
+                outputJson.delete();
+            }
+        }
+        try {
+            FileWriter fileWriter = new FileWriter(outputJson);
+            fileWriter.write(json);
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

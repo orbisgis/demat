@@ -70,7 +70,7 @@ public class ScaleInterpolate {
 
     static class Deserializer extends JsonDeserializer<ScaleInterpolate> {
         @Override
-        public ScaleInterpolate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ScaleInterpolate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ScaleInterpolate value = new ScaleInterpolate();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

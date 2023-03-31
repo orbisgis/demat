@@ -58,7 +58,7 @@ public class BlendUnion {
 
     static class Deserializer extends JsonDeserializer<BlendUnion> {
         @Override
-        public BlendUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public BlendUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             BlendUnion value = new BlendUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

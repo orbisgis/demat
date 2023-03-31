@@ -63,7 +63,7 @@ public class BinExtent {
 
     static class Deserializer extends JsonDeserializer<BinExtent> {
         @Override
-        public BinExtent deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public BinExtent deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             BinExtent value = new BinExtent();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

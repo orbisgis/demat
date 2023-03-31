@@ -79,7 +79,7 @@ public class TimeUnitUnion {
 
     static class Deserializer extends JsonDeserializer<TimeUnitUnion> {
         @Override
-        public TimeUnitUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public TimeUnitUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             TimeUnitUnion value = new TimeUnitUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

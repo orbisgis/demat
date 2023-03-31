@@ -16,7 +16,6 @@ class PlotWithSQL {
         h2GIS = H2GIS.open("./target/${this.getClass().getName()};AUTO_SERVER=TRUE")
     }
 
-
     @Test
     void testSimpleBarChart(TestInfo testInfo) {
         h2GIS.load(GroovyPlotTest.class.getClassLoader().getResource("rsu_geoindicators.geojson"), true)

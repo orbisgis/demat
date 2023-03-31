@@ -58,7 +58,7 @@ public class GridWidthUnion {
 
     static class Deserializer extends JsonDeserializer<GridWidthUnion> {
         @Override
-        public GridWidthUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public GridWidthUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             GridWidthUnion value = new GridWidthUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

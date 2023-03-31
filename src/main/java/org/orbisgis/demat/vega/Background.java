@@ -85,22 +85,23 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = Background.Deserializer.class)
 @JsonSerialize(using = Background.Serializer.class)
 public class Background {
-    public BackgroundExprRef backgroundExprRefValue;
-    public String stringValue;
+
+    public BackgroundExprRef expressionValue;
+    public String value;
 
     static class Deserializer extends JsonDeserializer<Background> {
         @Override
-        public Background deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Background deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Background value = new Background();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
                     break;
                 case VALUE_STRING:
                     String string = jsonParser.readValueAs(String.class);
-                    value.stringValue = string;
+                    value.value = string;
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.expressionValue = jsonParser.readValueAs(BackgroundExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize BackgroundUnion");
             }
@@ -111,12 +112,12 @@ public class Background {
     static class Serializer extends JsonSerializer<Background> {
         @Override
         public void serialize(Background obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            if (obj.backgroundExprRefValue != null) {
-                jsonGenerator.writeObject(obj.backgroundExprRefValue);
+            if (obj.expressionValue != null) {
+                jsonGenerator.writeObject(obj.expressionValue);
                 return;
             }
-            if (obj.stringValue != null) {
-                jsonGenerator.writeObject(obj.stringValue);
+            if (obj.value != null) {
+                jsonGenerator.writeObject(obj.value);
                 return;
             }
             jsonGenerator.writeNull();

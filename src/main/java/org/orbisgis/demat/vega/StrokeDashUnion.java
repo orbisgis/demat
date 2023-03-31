@@ -65,7 +65,7 @@ public class StrokeDashUnion {
 
     static class Deserializer extends JsonDeserializer<StrokeDashUnion> {
         @Override
-        public StrokeDashUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public StrokeDashUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             StrokeDashUnion value = new StrokeDashUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

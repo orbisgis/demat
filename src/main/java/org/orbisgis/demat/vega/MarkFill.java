@@ -58,7 +58,7 @@ public class MarkFill {
 
     static class Deserializer extends JsonDeserializer<MarkFill> {
         @Override
-        public MarkFill deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public MarkFill deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             MarkFill value = new MarkFill();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -60,7 +60,7 @@ public class StrokeDashCondition {
 
     static class Deserializer extends JsonDeserializer<StrokeDashCondition> {
         @Override
-        public StrokeDashCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public StrokeDashCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             StrokeDashCondition value = new StrokeDashCondition();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

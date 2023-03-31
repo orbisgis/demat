@@ -58,7 +58,7 @@ public class MarkConfigExprOrSignalRefInterpolate {
 
     static class Deserializer extends JsonDeserializer<MarkConfigExprOrSignalRefInterpolate> {
         @Override
-        public MarkConfigExprOrSignalRefInterpolate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public MarkConfigExprOrSignalRefInterpolate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             MarkConfigExprOrSignalRefInterpolate value = new MarkConfigExprOrSignalRefInterpolate();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

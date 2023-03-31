@@ -58,7 +58,7 @@ import java.util.Map;
 /**
  * Utilities to read data, json and csv
  *
- * @author Erwan Bocher, CNRS 2021
+ * @author Erwan Bocher, CNRS 2021 - 2023
  */
 public class Read {
 
@@ -69,7 +69,7 @@ public class Read {
      * @throws IOException
      */
     public  static Data csv(File csvFile) throws IOException {
-        if(isExtensionWellFormated(csvFile, "csv")) {
+        if(FileUtils.isExtensionWellFormated(csvFile, "csv")) {
             List<InlineDataset> inlines = new ArrayList<InlineDataset>();
             String line = "";
             //use comma as separator
@@ -139,7 +139,7 @@ public class Read {
      * @throws IOException
      */
     public static Object json(File jsonFile) throws IOException {
-        if(Read.isExtensionWellFormated(jsonFile, "json", "geojson")) {
+        if(FileUtils.isExtensionWellFormated(jsonFile, "json", "geojson")) {
             ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(jsonFile, Object.class);
         }
@@ -153,7 +153,7 @@ public class Read {
      * @throws IOException
      */
     public static Object geojson(File jsonFile) throws IOException {
-        if(Read.isExtensionWellFormated(jsonFile,  "json", "geojson")) {
+        if(FileUtils.isExtensionWellFormated(jsonFile,  "json", "geojson")) {
             ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(jsonFile, Object.class);
         }
@@ -161,38 +161,7 @@ public class Read {
     }
 
 
-    /**
-     * Check if the file has the good extension
-     * @param file
-     * @param prefixes
-     * @return
-     */
-    public static boolean isExtensionWellFormated(File file, String... prefixes) {
-        if(file==null){
-            throw new RuntimeException("The file is null.");
-        }
-        if(file.isDirectory()){
-            throw new RuntimeException("The file is a directory.");
-        }
-        if(!file.exists()){
-            throw new RuntimeException("The file doesn't exist.");
-        }
-        String path = file.getAbsolutePath();
-        String extension = "";
-        int i = path.lastIndexOf('.');
-        if (i >= 0) {
-            extension = path.substring(i + 1);
-        }
 
-        for (String prefix:prefixes) {
-            if(prefix!=null && !prefix.isEmpty()) {
-                if(extension.equalsIgnoreCase(prefix)){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
     /**
      * Read a CSV {@link InputStream} and convert it to a Data object

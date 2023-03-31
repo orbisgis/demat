@@ -72,7 +72,7 @@ public class ScaleBins {
 
     static class Deserializer extends JsonDeserializer<ScaleBins> {
         @Override
-        public ScaleBins deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ScaleBins deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ScaleBins value = new ScaleBins();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

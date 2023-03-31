@@ -58,7 +58,7 @@ public class Angle {
 
     static class Deserializer extends JsonDeserializer<Angle> {
         @Override
-        public Angle deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Angle deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Angle value = new Angle();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

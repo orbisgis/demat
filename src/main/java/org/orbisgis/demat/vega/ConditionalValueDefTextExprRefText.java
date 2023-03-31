@@ -68,7 +68,7 @@ public class ConditionalValueDefTextExprRefText {
 
     static class Deserializer extends JsonDeserializer<ConditionalValueDefTextExprRefText> {
         @Override
-        public ConditionalValueDefTextExprRefText deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ConditionalValueDefTextExprRefText deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ConditionalValueDefTextExprRefText value = new ConditionalValueDefTextExprRefText();
             switch (jsonParser.currentToken()) {
                 case VALUE_STRING:

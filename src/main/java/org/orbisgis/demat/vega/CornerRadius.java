@@ -58,7 +58,7 @@ public class CornerRadius{
 
     static class Deserializer extends JsonDeserializer<CornerRadius> {
         @Override
-        public CornerRadius deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public CornerRadius deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             CornerRadius value = new CornerRadius();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

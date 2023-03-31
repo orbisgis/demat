@@ -56,6 +56,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Customized domain values in the form of constant values or dynamic values driven by a
@@ -97,7 +98,7 @@ public class Domain {
 
     static class Deserializer extends JsonDeserializer<Domain> {
         @Override
-        public Domain deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Domain deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Domain value = new Domain();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

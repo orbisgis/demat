@@ -58,7 +58,7 @@ public class Opacity {
 
     static class Deserializer extends JsonDeserializer<Opacity> {
         @Override
-        public Opacity deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Opacity deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Opacity value = new Opacity();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -76,7 +76,7 @@ public class SingleBind {
 
     static class Deserializer extends JsonDeserializer<SingleBind> {
         @Override
-        public SingleBind deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public SingleBind deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             SingleBind value = new SingleBind();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

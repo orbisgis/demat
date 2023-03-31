@@ -60,7 +60,7 @@ public class Repeat {
 
     static class Deserializer extends JsonDeserializer<Repeat> {
         @Override
-        public Repeat deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Repeat deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Repeat value = new Repeat();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

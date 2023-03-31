@@ -58,7 +58,7 @@ public class FontSize {
 
     static class Deserializer extends JsonDeserializer<FontSize> {
         @Override
-        public FontSize deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public FontSize deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             FontSize value = new FontSize();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -58,7 +58,7 @@ public class Center {
 
     static class Deserializer extends JsonDeserializer<Center> {
         @Override
-        public Center deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Center deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Center value = new Center();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

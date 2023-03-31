@@ -58,7 +58,7 @@ public class GridAlign {
 
     static class Deserializer extends JsonDeserializer<GridAlign> {
         @Override
-        public GridAlign deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public GridAlign deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             GridAlign value = new GridAlign();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

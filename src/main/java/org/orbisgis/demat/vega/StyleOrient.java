@@ -58,7 +58,7 @@ public class StyleOrient {
 
     static class Deserializer extends JsonDeserializer<StyleOrient> {
         @Override
-        public StyleOrient deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public StyleOrient deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             StyleOrient value = new StyleOrient();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

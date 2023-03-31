@@ -125,7 +125,7 @@ public class Data {
 
     static class Deserializer extends JsonDeserializer<Data> {
         @Override
-        public Data deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Data deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Data data = new Data();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

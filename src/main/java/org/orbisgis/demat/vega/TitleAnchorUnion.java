@@ -58,7 +58,7 @@ public class TitleAnchorUnion {
 
     static class Deserializer extends JsonDeserializer<TitleAnchorUnion> {
         @Override
-        public TitleAnchorUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public TitleAnchorUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             TitleAnchorUnion value = new TitleAnchorUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

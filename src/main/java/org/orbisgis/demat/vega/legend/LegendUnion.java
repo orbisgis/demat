@@ -65,7 +65,7 @@ public class LegendUnion {
 
     static class Deserializer extends JsonDeserializer<LegendUnion> {
         @Override
-        public LegendUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public LegendUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             LegendUnion value = new LegendUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_STRING:

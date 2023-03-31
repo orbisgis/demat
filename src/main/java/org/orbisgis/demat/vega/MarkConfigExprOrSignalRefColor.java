@@ -67,7 +67,7 @@ public class MarkConfigExprOrSignalRefColor {
 
     static class Deserializer extends JsonDeserializer<MarkConfigExprOrSignalRefColor> {
         @Override
-        public MarkConfigExprOrSignalRefColor deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public MarkConfigExprOrSignalRefColor deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             MarkConfigExprOrSignalRefColor value = new MarkConfigExprOrSignalRefColor();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

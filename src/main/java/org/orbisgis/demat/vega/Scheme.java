@@ -78,7 +78,7 @@ public class Scheme {
 
     static class Deserializer extends JsonDeserializer<Scheme> {
         @Override
-        public Scheme deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Scheme deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Scheme value = new Scheme();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

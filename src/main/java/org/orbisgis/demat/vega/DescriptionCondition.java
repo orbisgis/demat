@@ -60,7 +60,7 @@ public class DescriptionCondition {
 
     static class Deserializer extends JsonDeserializer<DescriptionCondition> {
         @Override
-        public DescriptionCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public DescriptionCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             DescriptionCondition value = new DescriptionCondition();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

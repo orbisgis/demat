@@ -65,7 +65,7 @@ public class ConditionalValueDefNumberExprRefValueUnion {
 
     static class Deserializer extends JsonDeserializer<ConditionalValueDefNumberExprRefValueUnion> {
         @Override
-        public ConditionalValueDefNumberExprRefValueUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ConditionalValueDefNumberExprRefValueUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ConditionalValueDefNumberExprRefValueUnion value = new ConditionalValueDefNumberExprRefValueUnion();
             switch (jsonParser.currentToken()) {
                 case START_ARRAY:

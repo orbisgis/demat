@@ -65,7 +65,7 @@ public class Values {
 
     static class Deserializer extends JsonDeserializer<Values> {
         @Override
-        public Values deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Values deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Values value = new Values();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

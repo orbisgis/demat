@@ -59,7 +59,7 @@ public class Lt {
 
     static class Deserializer extends JsonDeserializer<Lt> {
         @Override
-        public Lt deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Lt deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Lt value = new Lt();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -58,7 +58,7 @@ public class ValueUnion {
 
     static class Deserializer extends JsonDeserializer<ValueUnion> {
         @Override
-        public ValueUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ValueUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ValueUnion value = new ValueUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

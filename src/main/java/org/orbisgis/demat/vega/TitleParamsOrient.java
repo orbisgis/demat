@@ -58,7 +58,7 @@ public class TitleParamsOrient {
 
     static class Deserializer extends JsonDeserializer<TitleParamsOrient> {
         @Override
-        public TitleParamsOrient deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public TitleParamsOrient deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             TitleParamsOrient value = new TitleParamsOrient();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

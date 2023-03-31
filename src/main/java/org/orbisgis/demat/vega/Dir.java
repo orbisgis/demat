@@ -58,7 +58,7 @@ public class Dir {
 
     static class Deserializer extends JsonDeserializer<Dir> {
         @Override
-        public Dir deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Dir deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Dir value = new Dir();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

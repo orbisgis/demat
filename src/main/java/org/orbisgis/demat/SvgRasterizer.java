@@ -30,7 +30,7 @@ public class SvgRasterizer {
             KEY_FRACTIONALMETRICS,
             VALUE_FRACTIONALMETRICS_ON,
             KEY_INTERPOLATION,
-            VALUE_INTERPOLATION_BICUBIC,
+            VALUE_INTERPOLATION_NEAREST_NEIGHBOR,
             KEY_RENDERING,
             VALUE_RENDER_QUALITY,
             KEY_STROKE_CONTROL,
@@ -143,12 +143,12 @@ public class SvgRasterizer {
      * Save the SVG as image
      * @param svg
      * @param dstDim
-     * @param path
+     * @param outputFile
      * @throws SVGException
      * @throws IOException
      */
-    void save(String svg, final Dimension dstDim, String path) throws SVGException, IOException {
+    void save(String svg, final Dimension dstDim, File outputFile) throws SVGException, IOException {
         BufferedImage bufferedImage = rasterize(new ByteArrayInputStream(svg.getBytes()), dstDim);
-        ImageIO.write(bufferedImage, "png", new File(path));
+        ImageIO.write(bufferedImage, "png", outputFile);
     }
 }

@@ -58,7 +58,7 @@ public class Direction {
 
     static class Deserializer extends JsonDeserializer<Direction> {
         @Override
-        public Direction deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Direction deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Direction value = new Direction();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -65,7 +65,7 @@ public class DiscreteHeightUnion {
 
     static class Deserializer extends JsonDeserializer<DiscreteHeightUnion> {
         @Override
-        public DiscreteHeightUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public DiscreteHeightUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             DiscreteHeightUnion value = new DiscreteHeightUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

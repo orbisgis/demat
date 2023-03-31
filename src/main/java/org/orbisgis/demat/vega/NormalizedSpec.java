@@ -88,7 +88,7 @@ public class NormalizedSpec {
     private Spacing spacing;
     private Title title;
     private List<Transform> transform;
-    private ViewBackground view;
+    private ViewBackground viewBackground;
     private Height width;
     private List<LayerElement> layer;
     private Number columns;
@@ -291,9 +291,9 @@ public class NormalizedSpec {
      * __Default value:__ none (transparent)
      */
     @JsonProperty("view")
-    public ViewBackground getView() { return view; }
+    public ViewBackground getViewBackground() { return viewBackground; }
     @JsonProperty("view")
-    public void setView(ViewBackground value) { this.view = value; }
+    public void setViewBackground(ViewBackground value) { this.viewBackground = value; }
 
     /**
      * The width of a visualization.

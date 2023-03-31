@@ -58,7 +58,7 @@ public class TitleAlignUnion {
 
     static class Deserializer extends JsonDeserializer<TitleAlignUnion> {
         @Override
-        public TitleAlignUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public TitleAlignUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             TitleAlignUnion value = new TitleAlignUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

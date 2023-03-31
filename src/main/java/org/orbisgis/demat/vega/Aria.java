@@ -58,7 +58,7 @@ public class Aria {
 
     static class Deserializer extends JsonDeserializer<Aria> {
         @Override
-        public Aria deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Aria deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Aria value = new Aria();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

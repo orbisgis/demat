@@ -63,7 +63,7 @@ public class PrimitiveValue {
 
     static class Deserializer extends JsonDeserializer<PrimitiveValue> {
         @Override
-        public PrimitiveValue deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public PrimitiveValue deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             PrimitiveValue value = new PrimitiveValue();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

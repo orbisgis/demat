@@ -58,7 +58,7 @@ public class GridOpacityUnion {
 
     static class Deserializer extends JsonDeserializer<GridOpacityUnion> {
         @Override
-        public GridOpacityUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public GridOpacityUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             GridOpacityUnion value = new GridOpacityUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

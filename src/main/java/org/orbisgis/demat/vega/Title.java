@@ -70,7 +70,7 @@ public class Title {
 
     static class Deserializer extends JsonDeserializer<Title> {
         @Override
-        public Title deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Title deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Title value = new Title();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -67,7 +67,7 @@ public class InlineDataset {
 
     static class Deserializer extends JsonDeserializer<InlineDataset> {
         @Override
-        public InlineDataset deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public InlineDataset deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             InlineDataset value = new InlineDataset();
             switch (jsonParser.currentToken()) {
                 case VALUE_NUMBER_INT:

@@ -59,7 +59,7 @@ public class DescriptionBin {
 
     static class Deserializer extends JsonDeserializer<DescriptionBin> {
         @Override
-        public DescriptionBin deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public DescriptionBin deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             DescriptionBin value = new DescriptionBin();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

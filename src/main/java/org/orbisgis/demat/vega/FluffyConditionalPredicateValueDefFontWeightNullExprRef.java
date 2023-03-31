@@ -60,7 +60,7 @@ public class FluffyConditionalPredicateValueDefFontWeightNullExprRef {
 
     static class Deserializer extends JsonDeserializer<FluffyConditionalPredicateValueDefFontWeightNullExprRef> {
         @Override
-        public FluffyConditionalPredicateValueDefFontWeightNullExprRef deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public FluffyConditionalPredicateValueDefFontWeightNullExprRef deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             FluffyConditionalPredicateValueDefFontWeightNullExprRef value = new FluffyConditionalPredicateValueDefFontWeightNullExprRef();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -59,7 +59,7 @@ public class Label {
 
     static class Deserializer extends JsonDeserializer<Label> {
         @Override
-        public Label deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Label deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Label value = new Label();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

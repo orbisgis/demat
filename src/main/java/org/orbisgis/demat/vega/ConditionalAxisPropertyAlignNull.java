@@ -58,7 +58,7 @@ public class ConditionalAxisPropertyAlignNull {
 
     static class Deserializer extends JsonDeserializer<ConditionalAxisPropertyAlignNull> {
         @Override
-        public ConditionalAxisPropertyAlignNull deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ConditionalAxisPropertyAlignNull deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ConditionalAxisPropertyAlignNull value = new ConditionalAxisPropertyAlignNull();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

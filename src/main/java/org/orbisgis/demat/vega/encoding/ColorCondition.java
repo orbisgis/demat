@@ -62,7 +62,7 @@ public class ColorCondition {
 
     static class Deserializer extends JsonDeserializer<ColorCondition> {
         @Override
-        public ColorCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ColorCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ColorCondition value = new ColorCondition();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

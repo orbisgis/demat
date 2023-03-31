@@ -58,7 +58,7 @@ public class ConditionalValueDefNumberExprRefValue {
 
     static class Deserializer extends JsonDeserializer<ConditionalValueDefNumberExprRefValue> {
         @Override
-        public ConditionalValueDefNumberExprRefValue deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ConditionalValueDefNumberExprRefValue deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ConditionalValueDefNumberExprRefValue value = new ConditionalValueDefNumberExprRefValue();
             switch (jsonParser.currentToken()) {
                 case VALUE_NUMBER_INT:

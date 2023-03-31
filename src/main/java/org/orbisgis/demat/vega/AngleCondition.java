@@ -60,7 +60,7 @@ public class AngleCondition {
 
     static class Deserializer extends JsonDeserializer<AngleCondition> {
         @Override
-        public AngleCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public AngleCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             AngleCondition value = new AngleCondition();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

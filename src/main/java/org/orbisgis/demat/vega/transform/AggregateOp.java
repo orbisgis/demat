@@ -57,7 +57,7 @@ import com.fasterxml.jackson.annotation.*;
  * list of all supported operations
  * [here](https://vega.github.io/vega-lite/docs/aggregate.html#ops).
  *
- * @author Erwan Bocher, CNRS 2021
+ * @author Erwan Bocher, CNRS 2021 - 2023
  */
 public enum AggregateOp {
     ARGMAX, ARGMIN, AVERAGE, CI0, CI1, COUNT, DISTINCT, MAX, MEAN, MEDIAN, MIN, MISSING, PRODUCT, Q1, Q3, STDERR, STDEV, STDEVP, SUM, VALID, VALUES, VARIANCE, VARIANCEP;

@@ -65,7 +65,7 @@ public class DiscreteWidthUnion {
 
     static class Deserializer extends JsonDeserializer<DiscreteWidthUnion> {
         @Override
-        public DiscreteWidthUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public DiscreteWidthUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             DiscreteWidthUnion value = new DiscreteWidthUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

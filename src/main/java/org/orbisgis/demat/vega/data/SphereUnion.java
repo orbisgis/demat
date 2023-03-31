@@ -67,7 +67,7 @@ public class SphereUnion {
 
     static class Deserializer extends JsonDeserializer<SphereUnion> {
         @Override
-        public SphereUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public SphereUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             SphereUnion value = new SphereUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -103,7 +103,7 @@ public class RangeText {
 
     static class Deserializer extends JsonDeserializer<RangeText> {
         @Override
-        public RangeText deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public RangeText deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             RangeText value = new RangeText();
             switch (jsonParser.currentToken()) {
                 case VALUE_STRING:

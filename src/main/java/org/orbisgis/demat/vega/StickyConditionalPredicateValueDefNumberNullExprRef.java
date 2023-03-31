@@ -60,7 +60,7 @@ public class StickyConditionalPredicateValueDefNumberNullExprRef {
 
     static class Deserializer extends JsonDeserializer<StickyConditionalPredicateValueDefNumberNullExprRef> {
         @Override
-        public StickyConditionalPredicateValueDefNumberNullExprRef deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public StickyConditionalPredicateValueDefNumberNullExprRef deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             StickyConditionalPredicateValueDefNumberNullExprRef value = new StickyConditionalPredicateValueDefNumberNullExprRef();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

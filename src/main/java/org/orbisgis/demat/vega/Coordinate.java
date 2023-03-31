@@ -59,7 +59,7 @@ public class Coordinate {
 
     static class Deserializer extends JsonDeserializer<Coordinate> {
         @Override
-        public Coordinate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Coordinate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Coordinate value = new Coordinate();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -59,7 +59,7 @@ import com.fasterxml.jackson.databind.annotation.*;
  * __See also:__ [`aggregate`](https://vega.github.io/vega-lite/docs/aggregate.html)
  * documentation.
  *
- * @author Erwan Bocher, CNRS 2021
+ * @author Erwan Bocher, CNRS 2021 - 2023
  */
 @JsonDeserialize(using = Aggregate.Deserializer.class)
 @JsonSerialize(using = Aggregate.Serializer.class)
@@ -69,7 +69,7 @@ public class Aggregate {
 
     static class Deserializer extends JsonDeserializer<Aggregate> {
         @Override
-        public Aggregate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Aggregate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Aggregate value = new Aggregate();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

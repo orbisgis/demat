@@ -58,7 +58,7 @@ public class TickBandUnion {
 
     static class Deserializer extends JsonDeserializer<TickBandUnion> {
         @Override
-        public TickBandUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public TickBandUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             TickBandUnion value = new TickBandUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

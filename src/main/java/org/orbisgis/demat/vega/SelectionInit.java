@@ -60,7 +60,7 @@ public class SelectionInit {
 
     static class Deserializer extends JsonDeserializer<SelectionInit> {
         @Override
-        public SelectionInit deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public SelectionInit deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             SelectionInit value = new SelectionInit();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

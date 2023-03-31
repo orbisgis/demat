@@ -56,7 +56,7 @@ import org.orbisgis.demat.vega.*;
 public class Encoding {
     private AngleClass angle;
     private Color color;
-    private RowColumnEncodingFieldDef column;
+    private RowColumn column;
     private DescriptionClass description;
     private Detail detail;
     private FacetEncodingFieldDef facet;
@@ -72,7 +72,7 @@ public class Encoding {
     private Order order;
     private RadiusClass radius;
     private Radius2Class radius2;
-    private RowColumnEncodingFieldDef row;
+    private RowColumn row;
     private MarkPropDefStringNullTypeForShape shape;
     private SizeClass size;
     private StrokeClass stroke;
@@ -126,9 +126,9 @@ public class Encoding {
      * A field definition for the horizontal facet of trellis plots.
      */
     @JsonProperty("column")
-    public RowColumnEncodingFieldDef getColumn() { return column; }
+    public RowColumn getColumn() { return column; }
     @JsonProperty("column")
-    public void setColumn(RowColumnEncodingFieldDef value) { this.column = value; }
+    public void setColumn(RowColumn value) { this.column = value; }
 
     /**
      * A text description of this mark for ARIA accessibility (SVG output only). For SVG output
@@ -284,9 +284,9 @@ public class Encoding {
      * A field definition for the vertical facet of trellis plots.
      */
     @JsonProperty("row")
-    public RowColumnEncodingFieldDef getRow() { return row; }
+    public RowColumn getRow() { return row; }
     @JsonProperty("row")
-    public void setRow(RowColumnEncodingFieldDef value) { this.row = value; }
+    public void setRow(RowColumn value) { this.row = value; }
 
     /**
      * Shape of the mark.

@@ -58,7 +58,7 @@ public class GridColorUnion {
 
     static class Deserializer extends JsonDeserializer<GridColorUnion> {
         @Override
-        public GridColorUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public GridColorUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             GridColorUnion value = new GridColorUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

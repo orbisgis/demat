@@ -61,7 +61,7 @@ public class PurpleSortArray {
 
     static class Deserializer extends JsonDeserializer<PurpleSortArray> {
         @Override
-        public PurpleSortArray deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public PurpleSortArray deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             PurpleSortArray value = new PurpleSortArray();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

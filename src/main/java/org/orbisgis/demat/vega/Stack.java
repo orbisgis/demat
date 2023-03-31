@@ -58,7 +58,7 @@ public class Stack {
 
     static class Deserializer extends JsonDeserializer<Stack> {
         @Override
-        public Stack deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Stack deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Stack value = new Stack();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

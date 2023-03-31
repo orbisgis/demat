@@ -59,7 +59,7 @@ public class FontWeightUnion {
 
     static class Deserializer extends JsonDeserializer<FontWeightUnion> {
         @Override
-        public FontWeightUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public FontWeightUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             FontWeightUnion value = new FontWeightUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -97,7 +97,6 @@ public interface ViewCommonMethods<T> {
             Filter filter = new Filter();
             filter.expression = expression;
             transform.setFilter(filter);
-            ;
             trans_.add(transform);
             plot.view.setTransform(trans_);
         } else if (this instanceof Chart) {

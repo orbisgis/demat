@@ -64,7 +64,7 @@ public class LogicalNotPredicateRange {
 
     static class Deserializer extends JsonDeserializer<LogicalNotPredicateRange> {
         @Override
-        public LogicalNotPredicateRange deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public LogicalNotPredicateRange deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             LogicalNotPredicateRange value = new LogicalNotPredicateRange();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

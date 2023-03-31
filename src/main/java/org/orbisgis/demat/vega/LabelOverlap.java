@@ -77,7 +77,7 @@ public class LabelOverlap {
 
     static class Deserializer extends JsonDeserializer<LabelOverlap> {
         @Override
-        public LabelOverlap deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public LabelOverlap deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             LabelOverlap value = new LabelOverlap();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

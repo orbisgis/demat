@@ -33,8 +33,9 @@ public class PlotTest {
     void testSimpleBarChart(TestInfo testInfo) throws IOException {
         Chart chart = Chart(Data(new Object[][]{{"a", "b", "c"}, {1, 202, 12}, {200, 300, 400}})).mark_bar()
                 .encode(X("a").nominal(), Y("b"), Tooltip("b"));
-        chart.save("target/" + testInfo.getDisplayName() + ".html");
+        //chart.save("target/" + testInfo.getDisplayName() + ".html");
         //chart.show();
+        chart.save("/tmp/test.png");
     }
 
     @Test
@@ -88,7 +89,7 @@ public class PlotTest {
                 .encode(X("a").nominal(), Y("b").quantitative());
         Chart chart2 = Chart().mark_line()
                 .encode(X("a").nominal(), Y("b").quantitative());
-        plot.hconcat(chart, chart2).save("target/" + testInfo.getDisplayName() + ".html");
+        plot.hconcat(chart, chart2).show();
     }
 
     @Test
@@ -119,7 +120,7 @@ public class PlotTest {
     @Test
     void testChoroplethDiscretizingScales2(TestInfo testInfo) throws IOException {
         Chart chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions").domain(Arrays.asList(0, 0.1, 0.2, 0.3));
-        //chart.show();
+        chart.show();
     }
 
     @Test
@@ -210,8 +211,7 @@ public class PlotTest {
 
         //plot.layer(map);
 
-
-        plot.saveAsPNG("/tmp/map.png");
+        plot.save("/tmp/map.png");
 
 
     }

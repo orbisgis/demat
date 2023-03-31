@@ -95,7 +95,7 @@ public class Filter {
 
     static class Deserializer extends JsonDeserializer<Filter> {
         @Override
-        public Filter deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Filter deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Filter value = new Filter();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

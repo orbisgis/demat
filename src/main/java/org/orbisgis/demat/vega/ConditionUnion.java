@@ -60,7 +60,7 @@ public class ConditionUnion {
 
     static class Deserializer extends JsonDeserializer<ConditionUnion> {
         @Override
-        public ConditionUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ConditionUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ConditionUnion value = new ConditionUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

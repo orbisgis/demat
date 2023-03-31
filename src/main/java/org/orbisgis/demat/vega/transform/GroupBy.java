@@ -37,7 +37,7 @@ public class GroupBy {
 
     static class Deserializer extends JsonDeserializer<GroupBy> {
         @Override
-        public GroupBy deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+        public GroupBy deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             GroupBy groupBy = new GroupBy();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

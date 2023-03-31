@@ -58,7 +58,7 @@ public class GridDashOffsetUnion {
 
     static class Deserializer extends JsonDeserializer<GridDashOffsetUnion> {
         @Override
-        public GridDashOffsetUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public GridDashOffsetUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             GridDashOffsetUnion value = new GridDashOffsetUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -66,7 +66,7 @@ import com.fasterxml.jackson.annotation.*;
  *
  * Horizontal text alignment for title text. One of `"left"`, `"center"`, or `"right"`.
  *
- * @author Erwan Bocher, CNRS 2021
+ * @author Erwan Bocher, CNRS 2021 - 2023
  */
 public enum Align {
     CENTER, LEFT, RIGHT;

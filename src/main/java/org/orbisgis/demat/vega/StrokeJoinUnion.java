@@ -58,7 +58,7 @@ public class StrokeJoinUnion {
 
     static class Deserializer extends JsonDeserializer<StrokeJoinUnion> {
         @Override
-        public StrokeJoinUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public StrokeJoinUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             StrokeJoinUnion value = new StrokeJoinUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

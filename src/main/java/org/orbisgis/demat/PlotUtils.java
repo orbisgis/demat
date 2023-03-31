@@ -61,7 +61,7 @@ import java.util.*;
 /**
  * Some Plot utilities
  *
- * @author Erwan Bocher, CNRS 2021
+ * @author Erwan Bocher, CNRS 2021 - 2023
  */
 public class PlotUtils {
 
@@ -223,7 +223,7 @@ public class PlotUtils {
         layerElement.setSelection(chart.getSelection());
         layerElement.setTitle(chart.getTitle());
         layerElement.setTransform(chart.getTransform());
-        layerElement.setView(chart.getView());
+        layerElement.setView(chart.getViewBackground());
         Encoding chartEncoding = chart.getEncoding();
         if(chartEncoding!=null) {
             LayerEncoding layerEncoding = new LayerEncoding();

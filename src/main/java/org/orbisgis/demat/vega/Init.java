@@ -61,7 +61,7 @@ public class Init {
 
     static class Deserializer extends JsonDeserializer<Init> {
         @Override
-        public Init deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Init deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Init value = new Init();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

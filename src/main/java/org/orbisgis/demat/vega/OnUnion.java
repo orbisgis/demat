@@ -58,7 +58,7 @@ public class OnUnion {
 
     static class Deserializer extends JsonDeserializer<OnUnion> {
         @Override
-        public OnUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public OnUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             OnUnion value = new OnUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

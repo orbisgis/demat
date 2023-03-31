@@ -58,7 +58,7 @@ public class TextBaseline {
 
     static class Deserializer extends JsonDeserializer<TextBaseline> {
         @Override
-        public TextBaseline deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public TextBaseline deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             TextBaseline value = new TextBaseline();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

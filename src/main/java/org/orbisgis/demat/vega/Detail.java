@@ -60,7 +60,7 @@ public class Detail {
 
     static class Deserializer extends JsonDeserializer<Detail> {
         @Override
-        public Detail deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Detail deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Detail value = new Detail();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

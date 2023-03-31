@@ -58,7 +58,7 @@ public class Cap {
 
     static class Deserializer extends JsonDeserializer<Cap> {
         @Override
-        public Cap deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Cap deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Cap value = new Cap();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -62,7 +62,7 @@ public class FluffyStream {
 
     static class Deserializer extends JsonDeserializer<FluffyStream> {
         @Override
-        public FluffyStream deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public FluffyStream deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             FluffyStream value = new FluffyStream();
             switch (jsonParser.currentToken()) {
                 case VALUE_NUMBER_INT:
