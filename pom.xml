@@ -98,12 +98,6 @@
             <version>${orbisdata-version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.orbisgis.data</groupId>
-            <artifactId>postgis</artifactId>
-            <version>${orbisdata-version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <!-- Build Settings -->
