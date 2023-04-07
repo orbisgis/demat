@@ -60,7 +60,7 @@ import java.util.List;
 @JsonSerialize(using = LogicalNotPredicateRange.Serializer.class)
 public class LogicalNotPredicateRange {
     public List<PurpleRange> unionArrayValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
 
     static class Deserializer extends JsonDeserializer<LogicalNotPredicateRange> {
         @Override
@@ -73,7 +73,7 @@ public class LogicalNotPredicateRange {
                     value.unionArrayValue = jsonParser.readValueAs(new TypeReference<List<PurpleRange>>() {});
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize LogicalNotPredicateRange");
             }

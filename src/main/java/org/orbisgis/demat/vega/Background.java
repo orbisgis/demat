@@ -86,7 +86,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonSerialize(using = Background.Serializer.class)
 public class Background {
 
-    public BackgroundExprRef expressionValue;
+    public ExprRef expressionValue;
     public String value;
 
     static class Deserializer extends JsonDeserializer<Background> {
@@ -101,7 +101,7 @@ public class Background {
                     value.value = string;
                     break;
                 case START_OBJECT:
-                    value.expressionValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.expressionValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize BackgroundUnion");
             }

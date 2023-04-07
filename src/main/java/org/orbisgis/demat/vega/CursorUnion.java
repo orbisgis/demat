@@ -53,7 +53,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = CursorUnion.Deserializer.class)
 @JsonSerialize(using = CursorUnion.Serializer.class)
 public class CursorUnion {
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public Cursor enumValue;
 
     static class Deserializer extends JsonDeserializer<CursorUnion> {
@@ -72,7 +72,7 @@ public class CursorUnion {
                     }
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize CursorUnion");
             }

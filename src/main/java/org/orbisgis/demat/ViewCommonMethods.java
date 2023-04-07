@@ -124,9 +124,7 @@ public interface ViewCommonMethods<T> {
             }
             Transform transform = new Transform();
             transform.setCalculate(expression);
-            LegendText legendText = new LegendText();
-            legendText.title = alias;
-            transform.setAs(legendText);
+            transform.setAs(alias);
             trans_.add(transform);
             plot.view.setTransform(trans_);
         } else if (this instanceof Chart) {
@@ -137,9 +135,7 @@ public interface ViewCommonMethods<T> {
             }
             Transform transform = new Transform();
             transform.setCalculate(expression);
-            LegendText legendText = new LegendText();
-            legendText.title = alias;
-            transform.setAs(legendText);
+            transform.setAs(alias);
             trans_.add(transform);
             chart.setTransform(trans_);
         }

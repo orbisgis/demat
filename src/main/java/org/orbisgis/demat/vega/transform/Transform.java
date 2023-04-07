@@ -48,12 +48,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.legend.LegendText;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Transform {
     private List<AggregatedFieldDef> aggregate;
     private GroupBy groupby;
-    private LegendText as;
+    private String as;
     private AngleBin bin;
     private String field;
     private String calculate;
@@ -176,9 +177,10 @@ public class Transform {
      * string(e.g., `"val"`) is provided, the end field will be `"val_end"`.
      */
     @JsonProperty("as")
-    public LegendText getAs() { return as; }
+    public String getAs() { return as; }
     @JsonProperty("as")
-    public void setAs(LegendText value) { this.as = value; }
+    public void setAs(String value) { this.as = value; }
+
 
     /**
      * An object indicating bin properties, or simply `true` for using default bin parameters.
@@ -343,6 +345,9 @@ public class Transform {
     public List<String> getFlatten() { return flatten; }
     @JsonProperty("flatten")
     public void setFlatten(List<String> value) { this.flatten = value; }
+
+    @JsonProperty("flatten")
+    public void setFlatten(String... values) { this.flatten = Arrays.asList(values);  }
 
     /**
      * An array of data fields indicating the properties to fold.

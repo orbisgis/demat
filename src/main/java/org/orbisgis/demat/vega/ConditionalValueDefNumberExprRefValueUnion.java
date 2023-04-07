@@ -61,7 +61,7 @@ import java.util.List;
 @JsonSerialize(using = ConditionalValueDefNumberExprRefValueUnion.Serializer.class)
 public class ConditionalValueDefNumberExprRefValueUnion {
     public List<Double> doubleArrayValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
 
     static class Deserializer extends JsonDeserializer<ConditionalValueDefNumberExprRefValueUnion> {
         @Override
@@ -72,7 +72,7 @@ public class ConditionalValueDefNumberExprRefValueUnion {
                     value.doubleArrayValue = jsonParser.readValueAs(new TypeReference<List<Double>>() {});
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize ConditionalValueDefNumberExprRefValueUnion");
             }

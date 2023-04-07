@@ -54,7 +54,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonSerialize(using = FontWeightUnion.Serializer.class)
 public class FontWeightUnion {
     public Double doubleValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public FontWeightEnum enumValue;
 
     static class Deserializer extends JsonDeserializer<FontWeightUnion> {
@@ -77,7 +77,7 @@ public class FontWeightUnion {
                     }
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize FontWeightUnion");
             }

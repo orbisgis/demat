@@ -72,7 +72,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonSerialize(using = LabelOverlap.Serializer.class)
 public class LabelOverlap {
     public Boolean boolValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public String stringValue;
 
     static class Deserializer extends JsonDeserializer<LabelOverlap> {
@@ -91,7 +91,7 @@ public class LabelOverlap {
                     value.stringValue = string;
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize LabelOverlap");
             }

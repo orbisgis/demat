@@ -53,8 +53,8 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = CornerRadius.Deserializer.class)
 @JsonSerialize(using = CornerRadius.Serializer.class)
 public class CornerRadius{
-    public Double doubleValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public Double value;
+    public ExprRef exprRef;
 
     static class Deserializer extends JsonDeserializer<CornerRadius> {
         @Override
@@ -65,10 +65,10 @@ public class CornerRadius{
                     break;
                 case VALUE_NUMBER_INT:
                 case VALUE_NUMBER_FLOAT:
-                    value.doubleValue = jsonParser.readValueAs(Double.class);
+                    value.value = jsonParser.readValueAs(Double.class);
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.exprRef = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize CornerRadiusUnion");
             }
@@ -79,12 +79,12 @@ public class CornerRadius{
     static class Serializer extends JsonSerializer<CornerRadius> {
         @Override
         public void serialize(CornerRadius obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            if (obj.doubleValue != null) {
-                jsonGenerator.writeObject(obj.doubleValue);
+            if (obj.value != null) {
+                jsonGenerator.writeObject(obj.value);
                 return;
             }
-            if (obj.backgroundExprRefValue != null) {
-                jsonGenerator.writeObject(obj.backgroundExprRefValue);
+            if (obj.exprRef != null) {
+                jsonGenerator.writeObject(obj.exprRef);
                 return;
             }
             jsonGenerator.writeNull();

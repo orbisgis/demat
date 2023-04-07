@@ -53,7 +53,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = TitleAnchorUnion.Deserializer.class)
 @JsonSerialize(using = TitleAnchorUnion.Serializer.class)
 public class TitleAnchorUnion {
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public TitleAnchorEnum enumValue;
 
     static class Deserializer extends JsonDeserializer<TitleAnchorUnion> {
@@ -72,7 +72,7 @@ public class TitleAnchorUnion {
                     }
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize TitleAnchorUnion");
             }

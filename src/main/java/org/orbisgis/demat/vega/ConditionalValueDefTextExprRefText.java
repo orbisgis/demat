@@ -63,7 +63,7 @@ import java.util.List;
 @JsonSerialize(using = ConditionalValueDefTextExprRefText.Serializer.class)
 public class ConditionalValueDefTextExprRefText {
     public List<String> stringArrayValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public String stringValue;
 
     static class Deserializer extends JsonDeserializer<ConditionalValueDefTextExprRefText> {
@@ -79,7 +79,7 @@ public class ConditionalValueDefTextExprRefText {
                     value.stringArrayValue = jsonParser.readValueAs(new TypeReference<List<String>>() {});
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize ConditionalValueDefTextExprRefText");
             }

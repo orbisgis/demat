@@ -48,6 +48,8 @@ package org.orbisgis.demat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.orbisgis.data.api.dataset.ISpatialTable;
+import org.orbisgis.data.api.dataset.ITable;
 import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.data.Data;
 import org.orbisgis.demat.vega.data.DataValues;
@@ -64,6 +66,67 @@ import java.util.*;
  * @author Erwan Bocher, CNRS 2021 - 2023
  */
 public class PlotUtils {
+
+
+    /**
+     * Create a data object from a {@link ISpatialTable}
+     * @param spatialTable
+     * @return
+     */
+    public static Data urlData(ISpatialTable spatialTable) throws Exception {
+        Data urlData = new Data();
+        DataValues urlDataInlineDataset = new DataValues();
+        ArrayList<InlineDataset> geojson = new ArrayList<>();
+        Object geomCol = spatialTable.getGeometricColumns().stream().findFirst().get();
+        Collection<String> columns = spatialTable.getColumns();
+        columns.remove(geomCol);
+        int colummSize = columns.size();
+        while (spatialTable.next()){
+            InlineDataset row =  new InlineDataset();
+            LinkedHashMap<String, Object> feature =  new LinkedHashMap();
+            feature.put("type", "Feature");
+            feature.putAll(GeometryUtils.asMap(spatialTable.getGeometry()));
+            if(colummSize>0) {
+                feature.put("properties", getProperties(spatialTable, columns));
+            }
+            row.anythingMapValue=feature;
+            geojson.add(row);
+        }
+        urlDataInlineDataset.unionArrayValue = geojson;
+        urlData.setValues(urlDataInlineDataset);
+        return urlData;
+    }
+
+    /**
+     * Create a data object from a {@link ITable}
+     * @param table
+     * @return
+     */
+    public static Data urlData(ITable table) throws Exception {
+        Data urlData = new Data();
+        Collection<String> columns = table.getColumns();
+        int colummSize = columns.size();
+        if(colummSize>0) {
+            DataValues urlDataInlineDataset = new DataValues();
+            ArrayList<InlineDataset> geojson = new ArrayList<>();
+            while (table.next()) {
+                InlineDataset row = new InlineDataset();
+                row.anythingMapValue = getProperties(table, columns);
+                geojson.add(row);
+            }
+            urlDataInlineDataset.unionArrayValue = geojson;
+            urlData.setValues(urlDataInlineDataset);
+        }
+        return urlData;
+    }
+
+    private static LinkedHashMap getProperties(ITable table, Collection<String> columns) throws Exception {
+        LinkedHashMap properties = new LinkedHashMap();
+        for (String column:columns) {
+            properties.put(column, table.getObject(column));
+        }
+        return properties;
+    }
 
 
     /**

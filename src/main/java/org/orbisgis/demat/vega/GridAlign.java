@@ -53,7 +53,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = GridAlign.Deserializer.class)
 @JsonSerialize(using = GridAlign.Serializer.class)
 public class GridAlign {
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public LayoutAlign enumValue;
 
     static class Deserializer extends JsonDeserializer<GridAlign> {
@@ -72,7 +72,7 @@ public class GridAlign {
                     }
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize GridAlign");
             }

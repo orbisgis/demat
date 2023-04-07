@@ -40,6 +40,18 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
     }
 
     /**
+     * Create a mark_image
+     *
+     * @return
+     */
+    public Chart mark_image() {
+        Mark mark = new Mark();
+        mark.type = "image";
+        this.setMark(mark);
+        return this;
+    }
+
+    /**
      * Create a mark_bar
      *
      * @return

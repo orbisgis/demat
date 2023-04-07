@@ -54,7 +54,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonSerialize(using = Opacity.Serializer.class)
 public class Opacity {
     public Double doubleValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
 
     static class Deserializer extends JsonDeserializer<Opacity> {
         @Override
@@ -68,7 +68,7 @@ public class Opacity {
                     value.doubleValue = jsonParser.readValueAs(Double.class);
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize Opacity");
             }

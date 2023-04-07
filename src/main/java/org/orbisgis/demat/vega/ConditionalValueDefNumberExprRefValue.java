@@ -54,7 +54,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonSerialize(using = ConditionalValueDefNumberExprRefValue.Serializer.class)
 public class ConditionalValueDefNumberExprRefValue {
     public Double doubleValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
 
     static class Deserializer extends JsonDeserializer<ConditionalValueDefNumberExprRefValue> {
         @Override
@@ -66,7 +66,7 @@ public class ConditionalValueDefNumberExprRefValue {
                     value.doubleValue = jsonParser.readValueAs(Double.class);
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize ConditionalValueDefNumberExprRefValue");
             }

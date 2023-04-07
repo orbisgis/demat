@@ -54,7 +54,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonSerialize(using = Coordinate.Serializer.class)
 public class Coordinate {
     public Double doubleValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public String stringValue;
 
     static class Deserializer extends JsonDeserializer<Coordinate> {
@@ -73,7 +73,7 @@ public class Coordinate {
                     value.stringValue = string;
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize X");
             }

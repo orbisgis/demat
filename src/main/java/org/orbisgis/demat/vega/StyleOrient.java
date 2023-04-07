@@ -53,7 +53,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = StyleOrient.Deserializer.class)
 @JsonSerialize(using = StyleOrient.Serializer.class)
 public class StyleOrient {
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public AxisOrient enumValue;
 
     static class Deserializer extends JsonDeserializer<StyleOrient> {
@@ -72,7 +72,7 @@ public class StyleOrient {
                     }
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize StyleOrient");
             }

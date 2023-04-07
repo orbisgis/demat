@@ -89,7 +89,7 @@ public class LegendConfig {
     private LabelOverlap labelOverlap;
     private CornerRadius labelPadding;
     private CornerRadius labelSeparation;
-    private BackgroundExprRef layout;
+    private ExprRef layout;
     private CornerRadius legendX;
     private CornerRadius legendY;
     private CornerRadius offset;
@@ -349,9 +349,9 @@ public class LegendConfig {
     public void setLabelSeparation(CornerRadius value) { this.labelSeparation = value; }
 
     @JsonProperty("layout")
-    public BackgroundExprRef getLayout() { return layout; }
+    public ExprRef getLayout() { return layout; }
     @JsonProperty("layout")
-    public void setLayout(BackgroundExprRef value) { this.layout = value; }
+    public void setLayout(ExprRef value) { this.layout = value; }
 
     @JsonProperty("legendX")
     public CornerRadius getLegendX() { return legendX; }

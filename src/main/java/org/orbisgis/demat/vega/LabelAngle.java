@@ -54,7 +54,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonSerialize(using = LabelAngle.Serializer.class)
 public class LabelAngle {
     public Double doubleValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
 
     static class Deserializer extends JsonDeserializer<LabelAngle> {
         @Override
@@ -68,7 +68,7 @@ public class LabelAngle {
                     value.doubleValue = jsonParser.readValueAs(Double.class);
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize LabelAngle");
             }

@@ -60,6 +60,10 @@ public interface IRenderer {
         return save(new File(path), true);
     }
 
+    default String save(File file) throws IOException {
+        return save(file, true);
+    }
+
     /**
      * Save into an html file
      *

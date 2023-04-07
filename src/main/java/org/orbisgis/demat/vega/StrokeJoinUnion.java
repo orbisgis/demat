@@ -53,7 +53,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = StrokeJoinUnion.Deserializer.class)
 @JsonSerialize(using = StrokeJoinUnion.Serializer.class)
 public class StrokeJoinUnion {
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public StrokeJoin enumValue;
 
     static class Deserializer extends JsonDeserializer<StrokeJoinUnion> {
@@ -72,7 +72,7 @@ public class StrokeJoinUnion {
                     }
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize StrokeJoinUnion");
             }

@@ -53,7 +53,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = Direction.Deserializer.class)
 @JsonSerialize(using = Direction.Serializer.class)
 public class Direction {
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public Orientation enumValue;
 
     static class Deserializer extends JsonDeserializer<Direction> {
@@ -72,7 +72,7 @@ public class Direction {
                     }
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize Direction");
             }

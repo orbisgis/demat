@@ -1,9 +1,15 @@
 package org.orbisgis.demat;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
+import org.orbisgis.data.H2GIS;
+import org.orbisgis.data.api.dataset.IJdbcSpatialTable;
+import org.orbisgis.data.api.dataset.ISpatialTable;
+import org.orbisgis.data.jdbc.resultset.StreamSpatialResultSet;
 import org.orbisgis.demat.maps.ManualIntervalMap;
 import org.orbisgis.demat.vega.TimeUnit;
 import org.orbisgis.demat.vega.data.Data;
@@ -120,7 +126,8 @@ public class PlotTest {
     @Test
     void testChoroplethDiscretizingScales2(TestInfo testInfo) throws IOException {
         Chart chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions").domain(Arrays.asList(0, 0.1, 0.2, 0.3));
-        chart.show();
+        //chart.show();
+        chart.save("/tmp/test.png");
     }
 
     @Test
@@ -214,5 +221,35 @@ public class PlotTest {
         plot.save("/tmp/map.png");
 
 
+    }
+
+
+    @Test
+    void testSimpleMap() throws Exception {
+       H2GIS h2GIS= H2GIS.open("/tmp/ddb");
+
+       /*h2GIS.execute("DROP TABLE IF EXISTS rsu_indicators;" +
+               "CREATE TABLE rsu_indicators AS SELECT ST_MAKEPOINT(0, 0) AS the_geom;");*/
+        //h2GIS.load("/media/ebocher/Extreme SSD/data/geoclimate/osm/Paris/rsu_indicators.geojson", true);
+       //h2GIS.save("(select st_precisionreducer(the_geom, 1) as the_geom , BUILDING_FRACTION from rsu_indicators" +
+          //      " where st_area(the_geom)>100)", "/tmp/test.geojson", true);
+        //h2GIS.save("rsu_indicators", "/tmp/test.geojson", true);
+
+        //Data data = GeoJSON("/tmp/test.geojson");
+
+      /*h2GIS.getSpatialTable("rsu_indicators").columns("BUILDING_FRACTION", "st_transform(the_geom, 4326) as the_geom")
+                .filter("limit 1000").getSpatialTable().save("/tmp/test.geojson", true);*/
+        
+        h2GIS.load("/tmp/test.geojson", true);
+
+        ISpatialTable table = h2GIS.getSpatialTable("test");
+                
+                
+        Data data_geo = Data(table);
+
+        Chart chart = Maps().choroplethMap(data_geo).field("properties.BUILDING_FRACTION").legend("Building fractions").domain(Arrays.asList(0, 0.1, 0.2, 0.3))
+                .addOSMLayer(table.getExtent().getEnvelopeInternal());
+        chart.show();
+        chart.save("/tmp/test.svg");
     }
 }

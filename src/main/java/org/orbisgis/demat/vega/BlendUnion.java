@@ -53,7 +53,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = BlendUnion.Deserializer.class)
 @JsonSerialize(using = BlendUnion.Serializer.class)
 public class BlendUnion {
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public BlendEnum enumValue;
 
     static class Deserializer extends JsonDeserializer<BlendUnion> {
@@ -72,7 +72,7 @@ public class BlendUnion {
                     }
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize BlendUnion");
             }

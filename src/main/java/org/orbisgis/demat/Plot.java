@@ -50,6 +50,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import j2html.tags.ContainerTag;
 import j2html.tags.DomContent;
+import org.orbisgis.data.api.dataset.ISpatialTable;
+import org.orbisgis.data.api.dataset.ITable;
 import org.orbisgis.demat.maps.Maps;
 import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.condition.ConditionalValueNumber;
@@ -169,6 +171,14 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Cannot parse the json value");
         }
+    }
+
+    public static Data Data(ISpatialTable spatialTable) throws Exception {
+        return PlotUtils.urlData(spatialTable);
+    }
+
+    public static Data Data(ITable table) throws Exception {
+        return PlotUtils.urlData(table);
     }
 
     public static Data Data(Object[][] values) {
@@ -472,7 +482,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      */
     public static CornerRadius DomainMid(double value) {
         CornerRadius cornerRadius = new CornerRadius();
-        cornerRadius.doubleValue = value;
+        cornerRadius.value = value;
         return cornerRadius;
     }
 

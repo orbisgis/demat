@@ -53,7 +53,7 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = TitleAlignUnion.Deserializer.class)
 @JsonSerialize(using = TitleAlignUnion.Serializer.class)
 public class TitleAlignUnion {
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public Align enumValue;
 
     static class Deserializer extends JsonDeserializer<TitleAlignUnion> {
@@ -72,7 +72,7 @@ public class TitleAlignUnion {
                     }
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize TitleAlignUnion");
             }

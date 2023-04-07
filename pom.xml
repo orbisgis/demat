@@ -17,7 +17,7 @@
         <!-- Dependencies versions -->
         <j2html-version>1.5.0</j2html-version>
         <orbisdata-version>2.1.0-SNAPSHOT</orbisdata-version>
-        <graalvm.version>22.2.0</graalvm.version>
+        <graalvm.version>22.3.1</graalvm.version>
         <svgSalamander.version>1.1.4</svgSalamander.version>
         <jackson-core-version>2.13.2</jackson-core-version>
         <junit-version>5.8.2</junit-version>
@@ -40,6 +40,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.graalvm.sdk</groupId>
+            <artifactId>graal-sdk</artifactId>
+            <version>${graalvm.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.graalvm.js</groupId>
             <artifactId>js</artifactId>
@@ -91,6 +97,11 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.orbisgis.data</groupId>
+            <artifactId>data-api</artifactId>
+            <version>${orbisdata-version}</version>
         </dependency>
         <dependency>
             <groupId>org.orbisgis.data</groupId>
@@ -228,6 +239,32 @@
             </plugins>
         </pluginManagement>
         <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.orbisgis.demat.Plot</mainClass>
+                        </manifest>
+                    </archive>
+                    <finalName>${project.build.finalName}</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>

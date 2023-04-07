@@ -98,6 +98,7 @@ public class NormalizedSpec {
     private List<NormalizedSpec> concat;
     private List<NormalizedSpec> vconcat;
     private List<NormalizedSpec> hconcat;
+    private List<Parameter> params;
 
     /**
      * The alignment to apply to grid rows and columns. The supported string values are `"all"`,
@@ -409,4 +410,14 @@ public class NormalizedSpec {
     public List<NormalizedSpec> getHconcat() { return hconcat; }
     @JsonProperty("hconcat")
     public void setHconcat(List<NormalizedSpec> value) { this.hconcat = value; }
+
+
+
+    /**
+     * Dynamic variables that parameterize a visualization.
+     */
+    @JsonProperty("params")
+    public List<Parameter> getParams() { return params; }
+    @JsonProperty("params")
+    public void setParams(List<Parameter> value) { this.params = value; }
 }
