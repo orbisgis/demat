@@ -88,7 +88,7 @@ public class IOUtils {
                 "function svg() {\n" +
                 "var vegaspec = vegaLite.compile(JSON.parse(jsonFile)).spec;"+
                 "    var view = new vega.View(vega.parse(vegaspec))\n" +
-                "            .renderer('svg')\n" +
+                "            .renderer('canvas')\n" +
                 "            .initialize()\n" +
                 "            .run()\n" +
                 "            ;\n" +

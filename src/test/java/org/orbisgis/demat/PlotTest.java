@@ -237,13 +237,12 @@ public class PlotTest {
 
         //Data data = GeoJSON("/tmp/test.geojson");
 
-      /*h2GIS.getSpatialTable("rsu_indicators").columns("BUILDING_FRACTION", "st_transform(the_geom, 4326) as the_geom")
-                .filter("limit 1000").getSpatialTable().save("/tmp/test.geojson", true);*/
+      h2GIS.getSpatialTable("rsu_indicators").columns("BUILDING_FRACTION", "st_precisionreducer(st_transform(the_geom, 4326), 6) as the_geom")
+                .filter("limit 1000").getSpatialTable().save("/tmp/test.geojson", true);
         
         h2GIS.load("/tmp/test.geojson", true);
 
         ISpatialTable table = h2GIS.getSpatialTable("test");
-                
                 
         Data data_geo = Data(table);
 
