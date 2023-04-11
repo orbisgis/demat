@@ -68,6 +68,7 @@ public class JavetTest {
             v8Runtime.getGlobalObject().set("jsonFile", chart.toJson());
             try (V8ValuePromise v8ValuePromise = v8Runtime.getExecutor(
                     "svg();").execute()) {
+                v8Runtime.await();
                 if(v8ValuePromise.isFulfilled()){
                     V8Value result = v8ValuePromise.getResult();
                     try {
@@ -77,9 +78,7 @@ public class JavetTest {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-
                 }
-                v8Runtime.await();
             }
             v8Runtime.getGlobalObject().delete("jsonFile");
 
@@ -128,8 +127,11 @@ public class JavetTest {
                 v8Runtime.getGlobalObject().set("jsonFile", v8ValueObject);
             }
             v8Runtime.getGlobalObject().set("jsonFile", chart.toJson());
+
+
             try (V8ValuePromise v8ValuePromise = v8Runtime.getExecutor(
                     "svg();").execute()) {
+                v8Runtime.await();
                 if(v8ValuePromise.isFulfilled()){
                     V8Value result = v8ValuePromise.getResult();
                     try {
@@ -141,7 +143,6 @@ public class JavetTest {
                     }
 
                 }
-                v8Runtime.await();
             }
             v8Runtime.getGlobalObject().delete("jsonFile");
 
