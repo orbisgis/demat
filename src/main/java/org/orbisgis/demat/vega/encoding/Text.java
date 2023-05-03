@@ -63,7 +63,7 @@ public class Text extends ChannelCommonMethods<Text>{
     private String labelExpr;
     private TimeUnitUnion timeUnit;
     private PrimitiveValue datum;
-    private ConditionalPredicateValueDefTextExprRefText value;
+    private TextDef value;
 
     /**
      * Aggregation function for the field (e.g., `"mean"`, `"sum"`, `"median"`, `"min"`,
@@ -235,7 +235,7 @@ public class Text extends ChannelCommonMethods<Text>{
      * between `0` to `1` for opacity).
      */
     @JsonProperty("value")
-    public ConditionalPredicateValueDefTextExprRefText getValue() { return value; }
+    public TextDef getValue() { return value; }
     @JsonProperty("value")
-    public void setValue(ConditionalPredicateValueDefTextExprRefText value) { this.value = value; }
+    public void setValue(TextDef value) { this.value = value; }
 }

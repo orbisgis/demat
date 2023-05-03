@@ -46,10 +46,10 @@ package org.orbisgis.demat.vega.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.orbisgis.data.api.dataset.ITable;
 
 import java.io.IOException;
 
@@ -58,7 +58,7 @@ public class Data {
     private DataFormat format;
     private String name;
     private String url;
-    private DataValues values;
+    private DataValues dataValues;
     private SequenceParams sequence;
     private SphereUnion sphere;
     private Graticule graticule;
@@ -94,9 +94,9 @@ public class Data {
      * property. Strings are parsed according to the specified format type.
      */
     @JsonProperty("values")
-    public DataValues getValues() { return values; }
+    public DataValues getDataValues() { return dataValues; }
     @JsonProperty("values")
-    public void setValues(DataValues value) { this.values = value; }
+    public void setDataValues(DataValues value) { this.dataValues = value; }
 
     /**
      * Generate a sequence of numbers.
@@ -122,6 +122,13 @@ public class Data {
     @JsonProperty("graticule")
     public void setGraticule(Graticule value) { this.graticule = value; }
 
+    public void setTable(ITable table) {
+        if(dataValues ==null){
+            dataValues = new DataValues();
+        }
+        dataValues.setTable(table);
+    }
+
 
     static class Deserializer extends JsonDeserializer<Data> {
         @Override
@@ -133,7 +140,7 @@ public class Data {
                 case VALUE_STRING:
                     break;
                 case START_ARRAY:
-                    data.values = jsonParser.readValueAs(DataValues.class);
+                    data.dataValues = jsonParser.readValueAs(DataValues.class);
                     break;
                 case START_OBJECT:
                     break;

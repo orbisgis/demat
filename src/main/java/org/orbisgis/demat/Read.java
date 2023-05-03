@@ -100,7 +100,7 @@ public class Read {
             Data data = new Data();
             DataValues dataValues = new DataValues();
             dataValues.unionArrayValue = inlines;
-            data.setValues(dataValues);
+            data.setDataValues(dataValues);
             return data;
         }
         return null;
@@ -205,7 +205,7 @@ public class Read {
         Data data = new Data();
         DataValues dataValues = new DataValues();
         dataValues.unionArrayValue = inlines;
-        data.setValues(dataValues);
+        data.setDataValues(dataValues);
         return data;
     }
 }

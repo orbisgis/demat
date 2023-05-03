@@ -59,6 +59,7 @@ import org.orbisgis.demat.vega.encoding.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import org.h2gis.utilities.jts_utils.*;
 
 /**
  * Some Plot utilities
@@ -85,15 +86,15 @@ public class PlotUtils {
             InlineDataset row =  new InlineDataset();
             LinkedHashMap<String, Object> feature =  new LinkedHashMap();
             feature.put("type", "Feature");
-            feature.putAll(GeometryUtils.asMap(spatialTable.getGeometry()));
+            feature.putAll(GeometryFeatureUtils.toMap(spatialTable.getGeometry()));
             if(colummSize>0) {
                 feature.put("properties", getProperties(spatialTable, columns));
             }
-            row.anythingMapValue=feature;
+                row.anythingMapValue=feature;
             geojson.add(row);
         }
         urlDataInlineDataset.unionArrayValue = geojson;
-        urlData.setValues(urlDataInlineDataset);
+        urlData.setDataValues(urlDataInlineDataset);
         return urlData;
     }
 
@@ -115,7 +116,7 @@ public class PlotUtils {
                 geojson.add(row);
             }
             urlDataInlineDataset.unionArrayValue = geojson;
-            urlData.setValues(urlDataInlineDataset);
+            urlData.setDataValues(urlDataInlineDataset);
         }
         return urlData;
     }
@@ -138,20 +139,20 @@ public class PlotUtils {
         Data urlData = new Data();
         DataValues urlDataInlineDataset = new DataValues();
         urlDataInlineDataset.anythingMapValue = values;
-        urlData.setValues(urlDataInlineDataset);
+        urlData.setDataValues(urlDataInlineDataset);
         return urlData;
     }
 
     public static Data urlData(Object[][] values){
         Data urlData = new Data();
-        urlData.setValues(urlDataInlineDataset(values));
+        urlData.setDataValues(urlDataInlineDataset(values));
         return urlData;
     }
 
 
     public static Data urlData(List<Map> values){
         Data urlData = new Data();
-        urlData.setValues(urlDataInlineDataset(values));
+        urlData.setDataValues(urlDataInlineDataset(values));
         return urlData;
     }
 
@@ -168,20 +169,24 @@ public class PlotUtils {
     }
 
     public static DataValues urlDataInlineDataset(Object[][] values){
-        List<InlineDataset> inlines = new ArrayList<InlineDataset>();
-        Object[] firstRow = values[0];
-        for (int i = 1; i < values.length ; i++) {
-            InlineDataset inlineDataset = new InlineDataset();
-            Map<String, Object> rows = new HashMap<>();
-            Object[] cols = values[i];
-            for (int j = 0; j < values.length ; j++) {
-                rows.put(String.valueOf(firstRow[j]), cols[j]);
-            }
-            inlineDataset.anythingMapValue= rows;
-            inlines.add(inlineDataset);
-        }
         DataValues urlDataInlineDataset = new DataValues();
-        urlDataInlineDataset.unionArrayValue=inlines;
+        List<InlineDataset> inlines = new ArrayList<InlineDataset>();
+        if(values.length==0){
+            urlDataInlineDataset.unionArrayValue=inlines;
+        }else {
+            Object[] firstRow = values[0];
+            for (int i = 1; i < values.length; i++) {
+                InlineDataset inlineDataset = new InlineDataset();
+                Map<String, Object> rows = new HashMap<>();
+                Object[] cols = values[i];
+                for (int j = 0; j < values.length; j++) {
+                    rows.put(String.valueOf(firstRow[j]), cols[j]);
+                }
+                inlineDataset.anythingMapValue = rows;
+                inlines.add(inlineDataset);
+            }
+            urlDataInlineDataset.unionArrayValue = inlines;
+        }
         return urlDataInlineDataset;
     }
 

@@ -46,8 +46,8 @@ package org.orbisgis.demat
 
 
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.io.TempDir
 import org.orbisgis.demat.vega.Def
 import org.orbisgis.demat.vega.Mark
 import org.orbisgis.demat.vega.MarkFill
@@ -55,6 +55,7 @@ import org.orbisgis.demat.vega.MarkStroke
 
 import static org.orbisgis.demat.DataTests.*
 import static org.orbisgis.demat.Plot.*
+import org.junit.jupiter.api.io.CleanupMode;
 
 /**
  * @author Erwan Bocher, CNRS 2021 - 2023
@@ -65,7 +66,7 @@ class GroovyPlotTest {
     private static def GRID_INDICATORS = null
     private static def RSU_GEOINDICATORS = null
 
-    @TempDir
+    @TempDir(cleanup = CleanupMode.NEVER)
     static File folder
 
     @BeforeAll
@@ -83,9 +84,7 @@ class GroovyPlotTest {
                 ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
                 ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52]])).mark_bar().
                 encode(X("a").nominal(), Y("b").quantitative())
-        chart.save(File.createTempFile("demat",".html", folder))
-        chart.show()
-        //chart.save("/tmp/test.png")
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -95,8 +94,7 @@ class GroovyPlotTest {
                 ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
                 ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52]])).mark_bar().
                 encode(X("a").nominal().replaceLabels(["A": "Demat", "B": "is", "C": "good"]), Y("b").quantitative())
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -106,8 +104,7 @@ class GroovyPlotTest {
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("people").sum().title("population"), Y("age").ordinal().sort_minusX())
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -117,8 +114,7 @@ class GroovyPlotTest {
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("people").sum().title("population"), Y("age").ordinal().sort_x())
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -128,8 +124,7 @@ class GroovyPlotTest {
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("people").sum().title("population"), Y("age").ordinal().sort_minusY())
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -139,8 +134,7 @@ class GroovyPlotTest {
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("people").sum().title("population"), Y("age").ordinal().sort_y())
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -150,8 +144,7 @@ class GroovyPlotTest {
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("age").ordinal().sort_minusX(), Y("people").sum().title("population"))
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -161,8 +154,7 @@ class GroovyPlotTest {
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("age").ordinal().sort_x(), Y("people").sum().title("population"))
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -172,8 +164,7 @@ class GroovyPlotTest {
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("age").ordinal().sort_minusY(), Y("people").sum().title("population"))
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -183,8 +174,7 @@ class GroovyPlotTest {
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("age").ordinal().sort_y(), Y("people").sum().title("population"))
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -194,8 +184,7 @@ class GroovyPlotTest {
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("people").sum().sort_ascending().title("population"), Y("age").ordinal())
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -205,8 +194,7 @@ class GroovyPlotTest {
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("people").sum().title("population"), Y("age").ordinal().sort_ascending())
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -216,8 +204,7 @@ class GroovyPlotTest {
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("people").sum().sort_descending().title("population"), Y("age").ordinal())
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -227,8 +214,7 @@ class GroovyPlotTest {
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("people").sum().title("population"), Y("age").ordinal().sort_descending())
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -238,8 +224,7 @@ class GroovyPlotTest {
                 ["category": "C","sex": 1,"people": 2411067], ["category": "D","sex": 2,"people": 1359668],
                 ["category": "E","sex": 1,"people": 1260099], ["category": "F","sex": 2,"people": 1216114]])).mark_bar()
                 .encode(X("category").sort_color().title("population"), Y("people").quantitative(),Color("sex"))
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -249,8 +234,7 @@ class GroovyPlotTest {
                 ["category": "C","sex": 1,"people": 2411067], ["category": "D","sex": 2,"people": 1359668],
                 ["category": "E","sex": 1,"people": 1260099], ["category": "F","sex": 2,"people": 1216114]])).mark_bar()
                 .encode(X("people").quantitative(), Y("category").sort_color().title("population"),Color("sex"))
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -260,8 +244,7 @@ class GroovyPlotTest {
                 ["category": "C","sex": 1,"people": 2411067], ["category": "D","sex": 2,"people": 1359668],
                 ["category": "E","sex": 1,"people": 1260099], ["category": "F","sex": 2,"people": 1216114]])).mark_bar()
                 .encode(X("people").quantitative(), Y("category").sort_minusColor().title("population"),Color("sex"))
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -271,29 +254,28 @@ class GroovyPlotTest {
                 ["category": "C","sex": 1,"people": 2411067], ["category": "D","sex": 2,"people": 1359668],
                 ["category": "E","sex": 1,"people": 1260099], ["category": "F","sex": 2,"people": 1216114]])).mark_bar()
                 .encode(X("category").sort_minusColor().title("population"), Y("people").quantitative(),Color("sex"))
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
     void testResponsiveBarChart() {
         def chart = Chart(cars()).mark_bar()
                 .encode(X("Origin"), Y().count())
-        chart.save(File.createTempFile("demat",".html", folder))
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
     void testSimpleHistogram() {
         def chart = Chart(cars()).mark_bar()
                 .encode(X("Cylinders").quantitative().bin(true), Y().count())
-        chart.save(File.createTempFile("demat",".html", folder))
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
     void testSimpleStackedAreaChart() {
         def chart = Chart(seattle_weather()).mark_area()
                 .encode(X("date").temporal(), Y("precipitation").quantitative(), Color("weather").nominal())
-        chart.save(File.createTempFile("demat",".html", folder))
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -301,45 +283,42 @@ class GroovyPlotTest {
         def chart = Chart(seattle_weather()).mark_area()
                 .encode(X("date").temporal(), Y("precipitation").quantitative(),
                         Color("weather", ["drizzle": "red","rain": "blue", "sun":"yellow"]).nominal())
-        chart.save(File.createTempFile("demat",".html", folder))
-        chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
     void testSimpleStripPlot() {
         def chart = Chart(cars()).mark_tick()
                 .encode(X("Horsepower").quantitative(), Y("Cylinders").ordinal())
-        chart.save(File.createTempFile("demat",".html", folder))
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
     void testHorizontalStackedBarChart() {
         def chart = Chart(seattle_weather()).mark_bar()
                 .encode(X("precipitation").sum(), Y('weather'))
-        chart.save(File.createTempFile("demat",".html", folder))
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
     void testLineChart() {
         def chart = Chart(seattle_weather()).mark_line()
                 .encode(X("date").temporal(), Y('precipitation').quantitative())
-        chart.save(File.createTempFile("demat",".html", folder))
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
     void testPointChart() {
         def chart = Chart(seattle_weather()).mark_point()
                 .encode(X("date").temporal(), Y('precipitation').quantitative(), Color('weather'))
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
     void testSquareChart() {
         def chart = Chart(seattle_weather()).mark_square()
                 .encode(X("date").temporal(), Y('precipitation').quantitative(), Color('weather'))
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -352,20 +331,19 @@ class GroovyPlotTest {
         Plot(cars(),Title(["This is a global title ", "With a subTitle"], TitleParams().left()),
                 Transform(Count("num_cars"), GroupBy("Origin", "Cylinders")),
                 Encoding(Y("Origin").ordinal(), X("Cylinders").ordinal())).layer(rectChart, textChart)
-               .save(File.createTempFile("demat",".html", folder))
+               .save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
     void testDisplayMap () {
         def chart = Chart(RSU_GEOINDICATORS).height(500).width(500).mark_geoshape()
-        chart.save(File.createTempFile("demat",".html", folder))
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
     void testDisplayMapJSON () {
         def chart = Chart(Data("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[4.866735,46.263463],[4.866611,46.263508],[4.866568,46.263558],[4.866583,46.263596],[4.866645,46.263637],[4.866866,46.26371],[4.866915,46.263688],[4.866799,46.263561],[4.8667,46.26356],[4.866738,46.2635],[4.866735,46.263463]]]}}")).height(500).width(500).mark_geoshape()
-        chart.save(File.createTempFile("demat",".html", folder))
-       //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -381,20 +359,18 @@ class GroovyPlotTest {
         definition.stroke = markStrokeDef
         mark.def = definition
         def chart = Chart(RSU_GEOINDICATORS, mark).height(500).width(500)
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
     void testDisplayMapWithInterval() throws IOException {
-        def chart = Maps().choroplethMap(RSU_GEOINDICATORS).
+        def chart = Maps().choropleth(RSU_GEOINDICATORS).
                 field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5])
                 .range(["orange", "green", "blue", "black"])
                 .labels("{'0': 'Low', '0.1': 'Moderate', '0.2': 'High', '0.5': 'Very high'}[datum.label]")
                 .title("A Map with interval")
                 .height(500).width(700)
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -414,8 +390,7 @@ class GroovyPlotTest {
                 encode(X("a").nominal(), Y("b").quantitative())
         def chart_2 = Chart(Data().name("data_2")).mark_bar()
                 .encode(X("category").sort_color().title("population"), Y("people").quantitative(),Color("sex"))
-        plot.concat(chart_1, chart_2).save(File.createTempFile("demat",".html", folder))
-        plot.show()
+        plot.concat(chart_1, chart_2).save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -425,8 +400,7 @@ class GroovyPlotTest {
                 ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
                 ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52]])).mark_bar().
                 encode(X("a").nominal(), Y("b").quantitative(), Color("b",Scale(Domain([28,55]), Range(['#8b0101', '#cc0200']))))
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
@@ -438,30 +412,27 @@ class GroovyPlotTest {
                 encode(X("a").nominal(), Y("b").quantitative(),
                         Color("b",Scale(Domain([28,55]), Range(['#8b0101', '#cc0200'])),
                                 Legend("A title for the legend").labels("{'28': 'Slow', '55': 'Fast'}[datum.label]")))
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
 
-    @Disabled
     @Test
-    void testDisplayDebug() throws IOException {
-        def chart = Maps().choroplethMap(RSU_GEOINDICATORS).
+    void testConcatMaps() throws IOException {
+        def chart = Maps().choropleth(RSU_GEOINDICATORS).
                 field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5])
                 .range(["orange", "green", "blue", "black"])
                 .labels("{'0': 'Low', '0.1': 'Moderate', '0.2': 'High', '0.5': 'Very high'}[datum.label]")
-                .title("A Map with interval")
+                .title("HIGH_VEGETATION_FRACTION")
                 .height(500).width(700)
 
-        def chart1 = Maps().choroplethMap(RSU_GEOINDICATORS).
-                field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5])
+        def chart1 = Maps().choropleth(RSU_GEOINDICATORS).
+                field("properties.LOW_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5])
                 .range(["orange", "green", "blue", "black"])
-                .labels("{'0': 'Low', '0.1': 'Moderate', '0.2': 'High', '0.5': 'Very high'}[datum.label]")
-                .title("A Map with interval")
+                .labels("{'0': 'Low', '0.1': 'Moderate', '0.2': 'High', '0.5': 'Very high'}[datum.label]").legend("Fraction")
+                .title("LOW_VEGETATION_FRACTION")
                 .height(500).width(700)
-        chart.save(File.createTempFile("demat",".html", folder))
-        //chart.show()
-        Plot().concat(chart, chart1).save("/tmp/saveplot.png")
+        chart.save("/tmp/test.json")
+        Plot().concat(chart, chart1).save(File.createTempFile("demat",".svg", folder))
     }
 
 

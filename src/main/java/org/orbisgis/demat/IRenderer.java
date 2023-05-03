@@ -1,12 +1,9 @@
 package org.orbisgis.demat;
 
 
+import com.caoccao.javet.exceptions.JavetException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import j2html.tags.DomContent;
-import org.graalvm.polyglot.Context;
-import org.graalvm.polyglot.Engine;
-import org.graalvm.polyglot.HostAccess;
-import org.graalvm.polyglot.Source;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -15,7 +12,6 @@ import java.io.IOException;
 import static j2html.TagCreator.*;
 
 public interface IRenderer {
-
 
     String getHTMLDirectory();
 
@@ -74,15 +70,17 @@ public interface IRenderer {
     default String save(File outputFile, boolean delete) throws IOException {
         if(FileUtils.isExtensionWellFormated(outputFile,"png")){
             try {
-                IOUtils.saveAsPNG(toJson(), getHTMLDirectory(), outputFile, delete);
+                return IOUtils.saveAsPNG(toJson(), getHTMLDirectory(), outputFile, delete);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
         else if(FileUtils.isExtensionWellFormated(outputFile,"svg")){
             try {
-                IOUtils.saveAsSVG(toJson(), getHTMLDirectory(), outputFile, delete);
+                return IOUtils.saveAsSVG(toJson(), getHTMLDirectory(), outputFile, delete);
             } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (JavetException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -129,4 +127,5 @@ public interface IRenderer {
      * @throws JsonProcessingException
      */
     String toJson() throws JsonProcessingException;
+
 }

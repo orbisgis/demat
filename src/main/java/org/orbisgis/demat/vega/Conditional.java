@@ -49,7 +49,7 @@ import org.orbisgis.demat.vega.legend.LegendText;
 
 public class Conditional {
     private Filter test;
-    private ConditionalPredicateValueDefTextExprRefText value;
+    private TextDef value;
     private ConditionalValueDefNumberExprRefSelectionComposition selection;
     private Aggregate aggregate;
     private Double band;
@@ -81,9 +81,9 @@ public class Conditional {
      * between `0` to `1` for opacity).
      */
     @JsonProperty("value")
-    public ConditionalPredicateValueDefTextExprRefText getValue() { return value; }
+    public TextDef getValue() { return value; }
     @JsonProperty("value")
-    public void setValue(ConditionalPredicateValueDefTextExprRefText value) { this.value = value; }
+    public void setValue(TextDef value) { this.value = value; }
 
     /**
      * A [selection name](https://vega.github.io/vega-lite/docs/selection.html), or a series of

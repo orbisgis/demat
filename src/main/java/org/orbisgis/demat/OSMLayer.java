@@ -336,6 +336,11 @@ public class OSMLayer {
         return trans_;
     }
 
+    /**
+     * Find the best zoom according the bounding box
+     * @param bounds
+     * @return
+     */
     public double getZoomToFitBounds(Envelope bounds)
     {
         bounds.expandBy(0.05);
@@ -351,21 +356,7 @@ public class OSMLayer {
     public static double log2(double N)    {
         return (Math.log(N) / Math.log(2));
     }
-    /**
-     *
-     * @param bounds
-     * @param view_width
-     * @param view_height
-     * @return
-     */
-    public static double getZoomForExtent (Envelope bounds, int view_width, int view_height) {
-        var maxResolution= 2000;
-        var width = bounds.getWidth();
-        var height = bounds.getHeight();
-        var deg_per_pixel = (width > height ? width / view_width : height / view_height);
-        var zoom = Math.log(maxResolution / deg_per_pixel) / Math.log(2);
-        return Math.min(Math.floor(Math.max(zoom, 0)), MAX_ZOOM);
-    }
+
 
     public LayerElement getTileLayer(){
         LayerElement layerElement = new LayerElement();

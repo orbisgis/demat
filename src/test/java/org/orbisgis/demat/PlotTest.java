@@ -1,15 +1,13 @@
 package org.orbisgis.demat;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.io.CleanupMode;
+import org.junit.jupiter.api.io.TempDir;
 import org.orbisgis.data.H2GIS;
-import org.orbisgis.data.api.dataset.IJdbcSpatialTable;
 import org.orbisgis.data.api.dataset.ISpatialTable;
-import org.orbisgis.data.jdbc.resultset.StreamSpatialResultSet;
 import org.orbisgis.demat.maps.ManualIntervalMap;
 import org.orbisgis.demat.vega.TimeUnit;
 import org.orbisgis.demat.vega.data.Data;
@@ -23,6 +21,9 @@ import static org.orbisgis.demat.Plot.Plot;
 import static org.orbisgis.demat.Plot.*;
 
 public class PlotTest {
+
+    @TempDir(cleanup = CleanupMode.NEVER)
+    static File folder;
 
     private static Data GRID_INDICATORS = null;
     private static Data RSU_GEOINDICATORS = null;
@@ -39,9 +40,7 @@ public class PlotTest {
     void testSimpleBarChart(TestInfo testInfo) throws IOException {
         Chart chart = Chart(Data(new Object[][]{{"a", "b", "c"}, {1, 202, 12}, {200, 300, 400}})).mark_bar()
                 .encode(X("a").nominal(), Y("b"), Tooltip("b"));
-        //chart.save("target/" + testInfo.getDisplayName() + ".html");
-        //chart.show();
-        chart.save("/tmp/test.png");
+        chart.save(File.createTempFile("demat",".svg", folder));
     }
 
     @Test
@@ -51,32 +50,28 @@ public class PlotTest {
         newLabels.put(2, "demat");
         Chart chart = Chart(Data(new Object[][]{{"a", "b", "c"}, {1, 202, 12}, {200, 300, 400}})).mark_bar()
                 .encode(X("a").nominal().replaceLabels(newLabels), Y("b"), Tooltip("b"));
-        chart.save("target/" + testInfo.getDisplayName() + ".html");
-        //chart.show();
+        chart.save(File.createTempFile("demat",".svg", folder));
     }
 
     @Test
     void testSimpleBarChartCalculateFilter(TestInfo testInfo) throws IOException {
         Chart chart = Chart(Data(new Object[][]{{"a", "b", "c"}, {1, -202, 12}, {200, -300, 400}})).mark_bar()
                 .encode(X("a").nominal(), Y("b_abs")).calculate("abs(datum.b)", "b_abs").filter("datum.b> -300");
-        chart.save("target/" + testInfo.getDisplayName() + ".html");
-        //chart.show();
+        chart.save(File.createTempFile("demat",".svg", folder));
     }
 
     @Test
     void testResponsiveBarChart(TestInfo testInfo) throws IOException {
         Chart chart = Chart(DataTests.cars()).mark_bar()
                 .encode(X("Origin"), Y().count()).description("A grouping bar").name("Counting cars");
-        //chart.show();
-        chart.save("target/" + testInfo.getDisplayName() + ".html");
+        chart.save(File.createTempFile("demat",".svg", folder));
     }
 
     @Test
     void testBarChartWithTextWindow(TestInfo testInfo) throws IOException {
         Chart chart = Chart(DataTests.cars()).mark_bar()
                 .encode(X("Origin"), Y().count(), Text("The bar")).description("A grouping bar").name("Counting cars");
-        //chart.show();
-        chart.save("target/" + testInfo.getDisplayName() + ".html");
+        chart.save(File.createTempFile("demat",".svg", folder));
     }
 
     @Test
@@ -84,8 +79,7 @@ public class PlotTest {
         Chart chart = Chart(DataTests.seattle_weather())
                 .mark_bar()
                 .encode(X("date").ordinal().timeUnit(TimeUnit.MONTH), Y().count(), Color("weather"));
-        chart.save("target/" + testInfo.getDisplayName() + ".html");
-        //chart.show();
+        chart.save(File.createTempFile("demat",".svg", folder));
     }
 
     @Test
@@ -95,46 +89,45 @@ public class PlotTest {
                 .encode(X("a").nominal(), Y("b").quantitative());
         Chart chart2 = Chart().mark_line()
                 .encode(X("a").nominal(), Y("b").quantitative());
-        plot.hconcat(chart, chart2).show();
+        plot.hconcat(chart, chart2).save(File.createTempFile("demat",".svg", folder));
     }
 
     @Test
     void testUniqueValuesMap(TestInfo testInfo) throws IOException {
-        Chart chart = Maps().uniqueValuesMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION");
-        //chart.show();
+        Chart chart = Maps().uniqueValues(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION");
+        chart.save(File.createTempFile("demat",".svg", folder));
     }
 
     @Test
     void testUniqueValuesMapCustomColor(TestInfo testInfo) throws IOException {
-        Chart chart = Maps().uniqueValuesMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").
+        Chart chart = Maps().uniqueValues(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").
                 range(Arrays.asList("green", "blue", "black")).legend("Building fractions");
-        //chart.show();
+        chart.save(File.createTempFile("demat",".svg", folder));
     }
 
     @Test
     void testChoropleth(TestInfo testInfo) throws IOException {
-        Chart chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions");
-        //chart.show();
+        Chart chart = Maps().choropleth(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions");
+        chart.save(File.createTempFile("demat",".svg", folder));
     }
 
     @Test
     void testChoroplethDiscretizingScales(TestInfo testInfo) throws IOException {
-        Chart chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION", Quantile()).legend("Building fractions");
-        //chart.show();
+        Chart chart = Maps().choropleth(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION", Quantile()).legend("Building fractions");
+        chart.save(File.createTempFile("demat",".svg", folder));
     }
 
     @Test
     void testChoroplethDiscretizingScales2(TestInfo testInfo) throws IOException {
-        Chart chart = Maps().choroplethMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions").domain(Arrays.asList(0, 0.1, 0.2, 0.3));
-        //chart.show();
-        chart.save("/tmp/test.png");
+        Chart chart = Maps().choropleth(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions").domain(Arrays.asList(0, 0.1, 0.2, 0.3));
+        chart.save(File.createTempFile("demat",".svg", folder));
     }
 
     @Test
     void testManualIntervalMap(TestInfo testInfo) throws IOException {
-        Chart chart = Maps().manualIntervalMap(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions").
+        Chart chart = Maps().manualInterval(RSU_GEOINDICATORS).field("properties.BUILDING_FRACTION").legend("Building fractions").
                 domain(Arrays.asList(0.1, 0.2, 0.3)).scheme("accent");
-        //chart.show();
+        chart.save(File.createTempFile("demat",".svg", folder));
     }
 
     @Disabled
@@ -142,13 +135,13 @@ public class PlotTest {
     void testLCZAVGInterval(TestInfo testInfo) throws IOException {
         LinkedHashMap geojson = (LinkedHashMap) Read.json(new File("/home/ebocher/Téléchargements/1629214262874_BuildingEstimation_WithoutToulouse/NANTES_RsuIndic.geojson"));
         Plot plot = Plot(Data((List<Map>) geojson.get("features")));
-        Chart chart = Maps().manualIntervalMap().field("properties.AVG_HEIGHT_ROOF_TRUE")
+        Chart chart = Maps().manualInterval().field("properties.AVG_HEIGHT_ROOF_TRUE")
                 .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
                 .domain(Arrays.asList(0, 5, 7.5, 10, 12.5, 15, 20)).scheme("turbo").reflectY().title("AVG_HEIGHT_ROOF_TRUE");
-        Chart chart2 = Maps().manualIntervalMap().field("properties.AVG_HEIGHT_ROOF")
+        Chart chart2 = Maps().manualInterval().field("properties.AVG_HEIGHT_ROOF")
                 .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
                 .domain(Arrays.asList(0, 5, 7.5, 10, 12.5, 15, 20)).scheme("turbo").reflectY().legend("Height value (in meters)").title("AVG_HEIGHT_ROOF");
-        plot.concat(chart, chart2).show();
+        plot.concat(chart, chart2).save(File.createTempFile("demat",".svg", folder));
     }
 
     @Disabled
@@ -158,20 +151,20 @@ public class PlotTest {
         List<String> colorSchem = Arrays.asList("#00c0ff", "blue", "green", "orange", "red", "purple", "black");
         LinkedHashMap geojson = (LinkedHashMap) Read.json(new File("/home/ebocher/Téléchargements/1629214262874_BuildingEstimation_WithoutToulouse/NANTES_RsuIndic.geojson"));
         Plot plot = Plot(Data((List<Map>) geojson.get("features")));
-        Chart chart = Maps().manualIntervalMap().field("properties.AVG_HEIGHT_ROOF_TRUE")
+        Chart chart = Maps().manualInterval().field("properties.AVG_HEIGHT_ROOF_TRUE")
                 .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
                 .domain(mapIntervals).range(colorSchem).reflectY().legend("Reference building", "height value (m)");
-        Chart chart2 = Maps().manualIntervalMap().field("properties.AVG_HEIGHT_ROOF")
+        Chart chart2 = Maps().manualInterval().field("properties.AVG_HEIGHT_ROOF")
                 .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9")
                 .domain(mapIntervals).range(colorSchem).reflectY().legend("Estimated building", "height value (m)");
-        Chart chart3 = Maps().manualIntervalMap().field("abs")
+        Chart chart3 = Maps().manualInterval().field("abs")
                 .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED>0.9").calculate("abs(datum.properties.DIFF_AVG_HEIGHT_ROOF)", "abs")
                 .domain(Arrays.asList(2.5, 5)).range(Arrays.asList("green", "orange", "red")).reflectY().legend("Absolute building", "height error value (m)");
-        Chart chart4 = Maps().manualIntervalMap().field("properties.AVG_ESTIMATED")
+        Chart chart4 = Maps().manualInterval().field("properties.AVG_ESTIMATED")
                 .filter("datum.properties.AVG_HEIGHT_ROOF_TRUE>0 && datum.properties.AVG_ESTIMATED<0.9")
                 .domain(Arrays.asList(0.3, 0.6)).range(Arrays.asList("green", "orange", "red")).reflectY().legend("Fraction of OSM buildings", "having height information");
 
-        plot.concat(2, chart, chart2, chart3, chart4).resolve(ScaleResolve(ColorResolve().independent())).show();
+        plot.concat(2, chart, chart2, chart3, chart4).resolve(ScaleResolve(ColorResolve().independent())).save(File.createTempFile("demat",".svg", folder));
 
     }
 
@@ -180,15 +173,16 @@ public class PlotTest {
     @Test
     void testCont(TestInfo testInfo) throws IOException {
         Plot plot = Plot(RSU_GEOINDICATORS);
-        Chart chart = Maps().uniqueValuesMap().field("properties.ID_RSU");
-        Chart chart2 = Maps().choroplethMap().field("properties.WATER_FRACTION");
-        plot.concat(chart, chart2).show();
+        Chart chart = Maps().uniqueValues().field("properties.ID_RSU");
+        Chart chart2 = Maps().choropleth().field("properties.WATER_FRACTION");
+        plot.concat(chart, chart2).save(File.createTempFile("demat",".svg", folder));
+
     }
 
     @Disabled
     @Test
     void testDebug(TestInfo testInfo) throws IOException {
-        Plot().resolve(ScaleResolve(ColorResolve().independent())).show();
+        Plot().resolve(ScaleResolve(ColorResolve().independent())).save(File.createTempFile("demat",".svg", folder));
     }
 
     @Disabled
@@ -212,43 +206,25 @@ public class PlotTest {
         Plot plot = Plot();
         long end2 = System.currentTimeMillis();
         System.out.println("First " +(end2-end));
-        ManualIntervalMap map_buildings = Maps().manualIntervalMap(data).field("properties.NB_LEV").scheme("turbo").reflectY();
+        ManualIntervalMap map_buildings = Maps().manualInterval(data).field("properties.NB_LEV").scheme("turbo");
 
         plot.layer( map_buildings);
 
-        //plot.layer(map);
-
-        plot.save("/tmp/map.png");
-
+        plot.save(File.createTempFile("demat",".svg", folder));
 
     }
 
-
     @Test
-    void testSimpleMap() throws Exception {
-       H2GIS h2GIS= H2GIS.open("/tmp/ddb");
+    @Disabled
+    void testMapOSMTile() throws Exception {
+       H2GIS h2GIS= H2GIS.open(folder.getAbsolutePath()+File.separator+ this.getClass().getName()+";AUTO_SERVER=TRUE");
+       h2GIS.load(PlotTest.class.getClassLoader().getResource("rsu_geoindicators.geojson"), true);
 
-       /*h2GIS.execute("DROP TABLE IF EXISTS rsu_indicators;" +
-               "CREATE TABLE rsu_indicators AS SELECT ST_MAKEPOINT(0, 0) AS the_geom;");*/
-        //h2GIS.load("/media/ebocher/Extreme SSD/data/geoclimate/osm/Paris/rsu_indicators.geojson", true);
-       //h2GIS.save("(select st_precisionreducer(the_geom, 1) as the_geom , BUILDING_FRACTION from rsu_indicators" +
-          //      " where st_area(the_geom)>100)", "/tmp/test.geojson", true);
-        //h2GIS.save("rsu_indicators", "/tmp/test.geojson", true);
+       ISpatialTable table  = h2GIS.getSpatialTable("rsu_geoindicators").columns("BUILDING_FRACTION", "the_geom")
+                .filter("limit 2").getSpatialTable();
 
-        //Data data = GeoJSON("/tmp/test.geojson");
-
-      h2GIS.getSpatialTable("rsu_indicators").columns("BUILDING_FRACTION", "st_precisionreducer(st_transform(the_geom, 4326), 6) as the_geom")
-                .filter("limit 1000").getSpatialTable().save("/tmp/test.geojson", true);
-        
-        h2GIS.load("/tmp/test.geojson", true);
-
-        ISpatialTable table = h2GIS.getSpatialTable("test");
-                
-        Data data_geo = Data(table);
-
-        Chart chart = Maps().choroplethMap(data_geo).field("properties.BUILDING_FRACTION").legend("Building fractions").domain(Arrays.asList(0, 0.1, 0.2, 0.3))
-                .addOSMLayer(table.getExtent().getEnvelopeInternal());
-        chart.show();
-        chart.save("/tmp/test.svg");
+        Chart chart = Maps().choropleth(table).field("properties.BUILDING_FRACTION").legend("Building fractions").domain(Arrays.asList(0, 0.2, 0.3))
+                .addOSMLayer();
+        chart.save(File.createTempFile("demat",".svg", folder));
     }
 }

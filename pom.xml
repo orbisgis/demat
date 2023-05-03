@@ -17,10 +17,9 @@
         <!-- Dependencies versions -->
         <j2html-version>1.5.0</j2html-version>
         <orbisdata-version>2.1.0-SNAPSHOT</orbisdata-version>
-        <graalvm.version>22.3.1</graalvm.version>
         <svgSalamander.version>1.1.4</svgSalamander.version>
         <jackson-core-version>2.13.2</jackson-core-version>
-        <junit-version>5.8.2</junit-version>
+        <junit-version>5.9.1</junit-version>
         <slf4j-version>1.7.36</slf4j-version>
         <groovy-version>3.0.11</groovy-version>
 
@@ -38,30 +37,13 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.caoccao.javet</groupId>
             <artifactId>javet</artifactId>
             <version>2.1.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.graalvm.sdk</groupId>
-            <artifactId>graal-sdk</artifactId>
-            <version>${graalvm.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.graalvm.js</groupId>
-            <artifactId>js</artifactId>
-            <version>${graalvm.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.graalvm.js</groupId>
-            <artifactId>js-scriptengine</artifactId>
-            <version>${graalvm.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>svgSalamander</artifactId>
@@ -96,15 +78,28 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit-version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit-version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.orbisgis.data</groupId>
             <artifactId>data-api</artifactId>
+            <version>${orbisdata-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.orbisgis.data</groupId>
+            <artifactId>h2gis</artifactId>
             <version>${orbisdata-version}</version>
         </dependency>
         <dependency>

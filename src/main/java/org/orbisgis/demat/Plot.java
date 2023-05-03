@@ -52,6 +52,8 @@ import j2html.tags.ContainerTag;
 import j2html.tags.DomContent;
 import org.orbisgis.data.api.dataset.ISpatialTable;
 import org.orbisgis.data.api.dataset.ITable;
+import org.orbisgis.data.api.dsl.IFilterBuilder;
+import org.orbisgis.demat.decoration.Source;
 import org.orbisgis.demat.maps.Maps;
 import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.condition.ConditionalValueNumber;
@@ -118,6 +120,15 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
     // Methods for pattern builder
     //---------------
 
+    public static Source Source(String text) {
+        Source source = new Source();
+        return source.text(text);
+    }
+
+    public static Source Source() {
+        return new Source();
+    }
+
     public static Chart Chart(Object... elements) {
         Chart chart = new Chart();
         for (Object element : elements) {
@@ -125,7 +136,18 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
                 chart.setData((Data) element);
             } else if (element instanceof Mark) {
                 chart.setMark((Mark) element);
-            } else {
+            }
+            else if (element instanceof ITable) {
+                Data data = new Data();
+                data.setTable((ITable) element);
+                chart.setData(data);
+            }
+            else if (element instanceof IFilterBuilder) {
+                Data data = new Data();
+                data.setTable(((IFilterBuilder) element).getTable());
+                chart.setData(data);
+            }
+            else {
                 throw new RuntimeException("Unknown vega-lite element");
             }
         }
@@ -166,7 +188,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             Data data = new Data();
-            data.setValues(objectMapper.readValue(jsonValues, DataValues.class));
+            data.setDataValues(objectMapper.readValue(jsonValues, DataValues.class));
             return data;
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Cannot parse the json value");
@@ -204,7 +226,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         DataSet dataSet = new DataSet();
         for (Data data_tmp : data) {
             if (data_tmp.getName() != null) {
-                dataSet.addDataValues(data_tmp.getName(), data_tmp.getValues());
+                dataSet.addDataValues(data_tmp.getName(), data_tmp.getDataValues());
             }
         }
         return dataSet;
@@ -517,7 +539,9 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static X X() {
-        return new X();
+        X x = new X();
+        x.setScale(new Scale());
+        return x;
     }
 
     /**
@@ -527,6 +551,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      */
     public static X X(String fieldValue) {
         X x = new X();
+        x.setScale(new Scale());
         x.setField(new Field(fieldValue));
         return x;
     }
@@ -537,7 +562,9 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static Y Y() {
-        return new Y();
+        Y y = new Y();
+        y.setScale(new Scale());
+        return y;
     }
 
     /**
@@ -547,6 +574,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      */
     public static Y Y(String fieldValue) {
         Y y = new Y();
+        y.setScale(new Scale());
         y.setField(new Field(fieldValue));
         return y;
     }

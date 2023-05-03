@@ -147,7 +147,7 @@ public class StyleValue {
     private Opacity strokeOpacity;
     private FontSize strokeWidth;
     private CornerRadius tension;
-    private ConditionalPredicateValueDefTextExprRefText text;
+    private TextDef text;
     private Angle theta;
     private CornerRadius theta2;
     private Double timeUnitBand;
@@ -871,9 +871,9 @@ public class StyleValue {
      * Placeholder text if the `text` channel is not specified
      */
     @JsonProperty("text")
-    public ConditionalPredicateValueDefTextExprRefText getText() { return text; }
+    public TextDef getText() { return text; }
     @JsonProperty("text")
-    public void setText(ConditionalPredicateValueDefTextExprRefText value) { this.text = value; }
+    public void setText(TextDef value) { this.text = value; }
 
     /**
      * - For arc marks, the arc length in radians if theta2 is not specified, otherwise the

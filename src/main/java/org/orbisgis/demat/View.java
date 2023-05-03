@@ -532,7 +532,7 @@ public class View {
         ObjectMapper mapper = new ObjectMapper();
         DataValues dataValues = mapper.readValue(json, DataValues.class);
         Data data = new Data();
-        data.setValues(dataValues);
+        data.setDataValues(dataValues);
         this.setData(data);
         return this;
     }

@@ -218,7 +218,6 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
     @Override
     public DomContent getDomElements() {
         try {
-
             Title title = this.getTitle();
             ViewBackground viewBackground = new ViewBackground();
             Background background = new Background();
@@ -231,7 +230,7 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
             }
             StringBuilder json = new StringBuilder("vegaEmbed('#").append(this.getId()).append("',");
             json.append(toJson()).append(",{renderer: 'svg',downloadFileName :'").append(exportImageTitle).append("'}).catch(console.error);");
-            return join(div().withId("view"), script(rawHtml(json.toString())));
+            return join(div().withId(this.getId()), script(rawHtml(json.toString())));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -240,4 +239,5 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
     public String getId() {
         return id;
     }
+
 }
