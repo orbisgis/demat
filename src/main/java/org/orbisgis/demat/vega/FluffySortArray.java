@@ -82,7 +82,7 @@ public class FluffySortArray {
 
     static class Deserializer extends JsonDeserializer<FluffySortArray> {
         @Override
-        public FluffySortArray deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public FluffySortArray deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             FluffySortArray value = new FluffySortArray();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

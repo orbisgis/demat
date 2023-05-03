@@ -61,7 +61,7 @@ public class AngleBin {
 
     static class Deserializer extends JsonDeserializer<AngleBin> {
         @Override
-        public AngleBin deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public AngleBin deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             AngleBin value = new AngleBin();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

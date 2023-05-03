@@ -50,6 +50,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import j2html.tags.ContainerTag;
 import j2html.tags.DomContent;
+import org.orbisgis.data.api.dataset.ISpatialTable;
+import org.orbisgis.data.api.dataset.ITable;
+import org.orbisgis.data.api.dsl.IFilterBuilder;
+import org.orbisgis.demat.decoration.Source;
 import org.orbisgis.demat.maps.Maps;
 import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.condition.ConditionalValueNumber;
@@ -76,7 +80,7 @@ import static j2html.TagCreator.*;
  * A Vega-Lite top-level specification. This is the root class for all Vega-Lite
  * specifications.
  *
- * @author Erwan Bocher, CNRS 2021
+ * @author Erwan Bocher, CNRS 2021 - 2023
  */
 public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>, IRenderer {
 
@@ -116,6 +120,15 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
     // Methods for pattern builder
     //---------------
 
+    public static Source Source(String text) {
+        Source source = new Source();
+        return source.text(text);
+    }
+
+    public static Source Source() {
+        return new Source();
+    }
+
     public static Chart Chart(Object... elements) {
         Chart chart = new Chart();
         for (Object element : elements) {
@@ -123,7 +136,18 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
                 chart.setData((Data) element);
             } else if (element instanceof Mark) {
                 chart.setMark((Mark) element);
-            } else {
+            }
+            else if (element instanceof ITable) {
+                Data data = new Data();
+                data.setTable((ITable) element);
+                chart.setData(data);
+            }
+            else if (element instanceof IFilterBuilder) {
+                Data data = new Data();
+                data.setTable(((IFilterBuilder) element).getTable());
+                chart.setData(data);
+            }
+            else {
                 throw new RuntimeException("Unknown vega-lite element");
             }
         }
@@ -148,7 +172,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
     public static Data GeoJSON(String jsonPath) throws IOException {
         LinkedHashMap json = (LinkedHashMap) Read.geojson(new File(jsonPath));
         List<Map> data = (List<Map>) json.get("features");
-        if(data==null){
+        if (data == null) {
             throw new RuntimeException("Malformed geojson file");
         }
         return Data(data);
@@ -164,11 +188,19 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             Data data = new Data();
-            data.setValues(objectMapper.readValue(jsonValues, DataValues.class));
+            data.setDataValues(objectMapper.readValue(jsonValues, DataValues.class));
             return data;
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Cannot parse the json value");
         }
+    }
+
+    public static Data Data(ISpatialTable spatialTable) throws Exception {
+        return PlotUtils.urlData(spatialTable);
+    }
+
+    public static Data Data(ITable table) throws Exception {
+        return PlotUtils.urlData(table);
     }
 
     public static Data Data(Object[][] values) {
@@ -194,7 +226,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         DataSet dataSet = new DataSet();
         for (Data data_tmp : data) {
             if (data_tmp.getName() != null) {
-                dataSet.addDataValues(data_tmp.getName(), data_tmp.getValues());
+                dataSet.addDataValues(data_tmp.getName(), data_tmp.getDataValues());
             }
         }
         return dataSet;
@@ -253,6 +285,16 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
                 conditions.add(conditionalGradient);
                 colorCondition.conditionalGradients = conditions;
                 color.setCondition(colorCondition);
+            } else if (element instanceof Map) {
+                Map map = (Map) element;
+                Domain domain = new Domain();
+                domain.values = new ArrayList<>(map.keySet());
+                ScaleRange range = new ScaleRange();
+                range.values = new ArrayList<>(map.values());
+                Scale scale = new Scale();
+                scale.setDomain(domain);
+                scale.setRange(range);
+                color.setScale(scale);
             } else {
                 throw new RuntimeException("Unsupported element for color");
             }
@@ -375,6 +417,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         return new GroupBy(fields);
     }
 
+
     /**
      * Create a Scale element
      *
@@ -461,7 +504,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      */
     public static CornerRadius DomainMid(double value) {
         CornerRadius cornerRadius = new CornerRadius();
-        cornerRadius.doubleValue = value;
+        cornerRadius.value = value;
         return cornerRadius;
     }
 
@@ -496,7 +539,9 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static X X() {
-        return new X();
+        X x = new X();
+        x.setScale(new Scale());
+        return x;
     }
 
     /**
@@ -506,6 +551,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      */
     public static X X(String fieldValue) {
         X x = new X();
+        x.setScale(new Scale());
         x.setField(new Field(fieldValue));
         return x;
     }
@@ -516,7 +562,9 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static Y Y() {
-        return new Y();
+        Y y = new Y();
+        y.setScale(new Scale());
+        return y;
     }
 
     /**
@@ -526,6 +574,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      */
     public static Y Y(String fieldValue) {
         Y y = new Y();
+        y.setScale(new Scale());
         y.setField(new Field(fieldValue));
         return y;
     }
@@ -701,12 +750,12 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
     public static Title Title(Object... elements) {
         Title title = new Title();
         for (Object element : elements) {
-            if(element instanceof String){
-                title.title= (String) element;
-            } else if (element instanceof List ) {
-                title.titles= (List<String>) element;
+            if (element instanceof String) {
+                title.title = (String) element;
+            } else if (element instanceof List) {
+                title.titles = (List<String>) element;
             } else if (element instanceof TitleParams) {
-                title.titleParams= (TitleParams) element;
+                title.titleParams = (TitleParams) element;
             }
         }
         return title;
@@ -716,8 +765,6 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         TitleParams titleParams = new TitleParams();
         return titleParams;
     }
-
-
 
 
     private void setView(View view) {
@@ -758,13 +805,13 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
     }
 
     public Plot concat(Chart... charts) {
-        this.view.setConcat(Arrays.<NormalizedSpec>asList(charts));
+        this.view.setConcat(Arrays.asList(charts));
         return this;
     }
 
     public Plot concat(int columns, Chart... charts) {
         this.view.setColumns(columns);
-        this.view.setConcat(Arrays.<NormalizedSpec>asList(charts));
+        this.view.setConcat(Arrays.asList(charts));
         return this;
     }
 
@@ -808,32 +855,11 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         this.htmlDirectory = htmlDirectory;
     }
 
-    /**
-     * Build a json representation of the chart
-     *
-     * @return
-     * @throws JsonProcessingException
-     */
+    @Override
     public String toJson() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         return objectMapper.writeValueAsString(this.view);
-    }
-
-    public void saveAsPNG(String path) {
-        try {
-            IOUtils.saveAsPNG(toJson(), getHTMLDirectory(), path);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void saveAsSVG(String path) {
-        try {
-            IOUtils.saveAsSVG(toJson(), getHTMLDirectory(), path);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @JsonIgnore
@@ -842,13 +868,20 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         try {
             String div_identifier = UUID.randomUUID().toString();
             Title title = this.view.getTitle();
+            Config config = new Config();
+            ViewConfig viewConfig = new ViewConfig();
+            Background background = new Background();
+            background.value ="transparent";
+            viewConfig.setStroke(background);
+            config.setView(viewConfig);
+            this.view.setConfig(config);
             String exportImageTitle = "demat_plot";
             if (title != null) {
                 exportImageTitle = title.title;
             }
-            StringBuilder json = new StringBuilder("vegaEmbed('#vis").append(div_identifier).append("',");
-            json.append(toJson()).append(",{renderer: 'svg',downloadFileName :'").append(exportImageTitle).append("'}).catch(console.error);");
-            return join(this.withId("vis" + div_identifier), script(rawHtml(json.toString())));
+            String json = "vegaEmbed('#vis" + div_identifier + "'," +
+                    toJson() + ",{renderer: 'svg',downloadFileName :'" + exportImageTitle + "'}).catch(console.error);";
+            return join(this.withId("vis" + div_identifier), script(rawHtml(json)));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

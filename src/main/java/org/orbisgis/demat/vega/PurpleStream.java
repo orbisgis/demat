@@ -62,7 +62,7 @@ public class PurpleStream {
 
     static class Deserializer extends JsonDeserializer<PurpleStream> {
         @Override
-        public PurpleStream deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public PurpleStream deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             PurpleStream value = new PurpleStream();
             switch (jsonParser.currentToken()) {
                 case VALUE_NUMBER_INT:

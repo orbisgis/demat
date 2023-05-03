@@ -58,7 +58,7 @@ public class PurpleRange {
 
     static class Deserializer extends JsonDeserializer<PurpleRange> {
         @Override
-        public PurpleRange deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public PurpleRange deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             PurpleRange value = new PurpleRange();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

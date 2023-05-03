@@ -59,29 +59,29 @@ import java.util.List;
  *
  * The title text.
  */
-@JsonDeserialize(using = ConditionalPredicateValueDefTextExprRefText.Deserializer.class)
-@JsonSerialize(using = ConditionalPredicateValueDefTextExprRefText.Serializer.class)
-public class ConditionalPredicateValueDefTextExprRefText {
-    public List<String> stringArrayValue;
-    public BackgroundExprRef backgroundExprRefValue;
-    public String stringValue;
+@JsonDeserialize(using = TextDef.Deserializer.class)
+@JsonSerialize(using = TextDef.Serializer.class)
+public class TextDef {
+    public List<String> values;
+    public ExprRef exprRef;
+    public String value;
 
-    static class Deserializer extends JsonDeserializer<ConditionalPredicateValueDefTextExprRefText> {
+    static class Deserializer extends JsonDeserializer<TextDef> {
         @Override
-        public ConditionalPredicateValueDefTextExprRefText deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            ConditionalPredicateValueDefTextExprRefText value = new ConditionalPredicateValueDefTextExprRefText();
+        public TextDef deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+            TextDef value = new TextDef();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
                     break;
                 case VALUE_STRING:
                     String string = jsonParser.readValueAs(String.class);
-                    value.stringValue = string;
+                    value.value = string;
                     break;
                 case START_ARRAY:
-                    value.stringArrayValue = jsonParser.readValueAs(new TypeReference<List<String>>() {});
+                    value.values = jsonParser.readValueAs(new TypeReference<List<String>>() {});
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.exprRef = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize ConditionalPredicateValueDefTextExprRefText");
             }
@@ -89,19 +89,19 @@ public class ConditionalPredicateValueDefTextExprRefText {
         }
     }
 
-    static class Serializer extends JsonSerializer<ConditionalPredicateValueDefTextExprRefText> {
+    static class Serializer extends JsonSerializer<TextDef> {
         @Override
-        public void serialize(ConditionalPredicateValueDefTextExprRefText obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            if (obj.stringArrayValue != null) {
-                jsonGenerator.writeObject(obj.stringArrayValue);
+        public void serialize(TextDef obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+            if (obj.values != null) {
+                jsonGenerator.writeObject(obj.values);
                 return;
             }
-            if (obj.backgroundExprRefValue != null) {
-                jsonGenerator.writeObject(obj.backgroundExprRefValue);
+            if (obj.exprRef != null) {
+                jsonGenerator.writeObject(obj.exprRef);
                 return;
             }
-            if (obj.stringValue != null) {
-                jsonGenerator.writeObject(obj.stringValue);
+            if (obj.value != null) {
+                jsonGenerator.writeObject(obj.value);
                 return;
             }
             jsonGenerator.writeNull();

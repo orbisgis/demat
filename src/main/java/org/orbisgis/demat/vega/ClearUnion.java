@@ -59,7 +59,7 @@ public class ClearUnion {
 
     static class Deserializer extends JsonDeserializer<ClearUnion> {
         @Override
-        public ClearUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ClearUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ClearUnion value = new ClearUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

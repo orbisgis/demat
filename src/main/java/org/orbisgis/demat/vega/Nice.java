@@ -81,7 +81,7 @@ public class Nice {
 
     static class Deserializer extends JsonDeserializer<Nice> {
         @Override
-        public Nice deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Nice deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Nice value = new Nice();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

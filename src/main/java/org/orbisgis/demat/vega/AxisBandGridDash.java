@@ -60,7 +60,7 @@ public class AxisBandGridDash {
 
     static class Deserializer extends JsonDeserializer<AxisBandGridDash> {
         @Override
-        public AxisBandGridDash deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public AxisBandGridDash deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             AxisBandGridDash value = new AxisBandGridDash();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

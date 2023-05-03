@@ -13,6 +13,11 @@ public class FileUtils {
 
     public static final String JS_FOLDER = "js";
 
+    /**
+     * Deploy the vega js files into a script folder
+     * @param scriptDir
+     * @throws IOException
+     */
     public static void deployJSFiles(File scriptDir) throws IOException {
         File jsFolder = new File(scriptDir, JS_FOLDER);
         if (!jsFolder.exists()) {
@@ -57,5 +62,32 @@ public class FileUtils {
         } finally {
             inputStream.close();
         }
+    }
+
+    /**
+     * Check if the file has the good extension
+     * @param file
+     * @param prefixes
+     * @return
+     */
+    public static boolean isExtensionWellFormated(File file, String... prefixes) {
+        if(file==null){
+            throw new RuntimeException("The file is null.");
+        }
+        String path = file.getAbsolutePath();
+        String extension = "";
+        int i = path.lastIndexOf('.');
+        if (i >= 0) {
+            extension = path.substring(i + 1);
+        }
+
+        for (String prefix:prefixes) {
+            if(prefix!=null && !prefix.isEmpty()) {
+                if(extension.equalsIgnoreCase(prefix)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

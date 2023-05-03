@@ -61,11 +61,11 @@ import java.util.List;
 @JsonSerialize(using = StrokeDashUnion.Serializer.class)
 public class StrokeDashUnion {
     public List<Double> doubleArrayValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
 
     static class Deserializer extends JsonDeserializer<StrokeDashUnion> {
         @Override
-        public StrokeDashUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public StrokeDashUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             StrokeDashUnion value = new StrokeDashUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
@@ -74,7 +74,7 @@ public class StrokeDashUnion {
                     value.doubleArrayValue = jsonParser.readValueAs(new TypeReference<List<Double>>() {});
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize StrokeDashUnion");
             }

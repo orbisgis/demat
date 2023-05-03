@@ -91,7 +91,7 @@ public class SortUnion {
 
     static class Deserializer extends JsonDeserializer<SortUnion> {
         @Override
-        public SortUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public SortUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             SortUnion value = new SortUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

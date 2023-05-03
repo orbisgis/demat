@@ -58,7 +58,7 @@ public class StyleColor {
 
     static class Deserializer extends JsonDeserializer<StyleColor> {
         @Override
-        public StyleColor deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public StyleColor deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             StyleColor value = new StyleColor();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

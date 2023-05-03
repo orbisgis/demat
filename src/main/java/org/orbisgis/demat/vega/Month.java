@@ -63,7 +63,7 @@ public class Month {
 
     static class Deserializer extends JsonDeserializer<Month> {
         @Override
-        public Month deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Month deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Month value = new Month();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

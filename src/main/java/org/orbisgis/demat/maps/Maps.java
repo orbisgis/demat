@@ -1,5 +1,7 @@
 package org.orbisgis.demat.maps;
 
+import org.orbisgis.data.api.dataset.ITable;
+import org.orbisgis.data.api.dsl.IFilterBuilder;
 import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.data.Data;
 import org.orbisgis.demat.vega.encoding.Color;
@@ -15,7 +17,7 @@ public class Maps {
      *
      * @return
      */
-    public UniqueValuesMap uniqueValuesMap(Data data) {
+    public UniqueValuesMap uniqueValues(Data data) {
         UniqueValuesMap chart = new UniqueValuesMap();
         Projection projection = new Projection();
         projection.setType(ProjectionType.IDENTITY);
@@ -40,7 +42,7 @@ public class Maps {
         return chart;
     }
 
-    public UniqueValuesMap uniqueValuesMap() {
+    public UniqueValuesMap uniqueValues() {
         UniqueValuesMap chart = new UniqueValuesMap();
         Projection projection = new Projection();
         projection.setType(ProjectionType.IDENTITY);
@@ -63,7 +65,19 @@ public class Maps {
         return chart;
     }
 
-    public ChoroplethMap choroplethMap(Data data) {
+    public ChoroplethMap choropleth(IFilterBuilder tableBuilder) {
+        Data data = new Data();
+        data.setTable(tableBuilder.getTable());
+        return choropleth(data);
+    }
+
+    public ChoroplethMap choropleth(ITable table) {
+        Data data = new Data();
+        data.setTable(table);
+        return choropleth(data);
+    }
+
+    public ChoroplethMap choropleth(Data data) {
         ChoroplethMap chart = new ChoroplethMap();
         Projection projection = new Projection();
         projection.setType(ProjectionType.IDENTITY);
@@ -88,7 +102,7 @@ public class Maps {
         return chart;
     }
 
-    public ManualIntervalMap manualIntervalMap() {
+    public ManualIntervalMap manualInterval() {
         ManualIntervalMap chart = new ManualIntervalMap();
         Projection projection = new Projection();
         projection.setType(ProjectionType.IDENTITY);
@@ -113,7 +127,7 @@ public class Maps {
         return chart;
     }
 
-    public ManualIntervalMap manualIntervalMap(Data data) {
+    public ManualIntervalMap manualInterval(Data data) {
         ManualIntervalMap chart = new ManualIntervalMap();
         Projection projection = new Projection();
         projection.setType(ProjectionType.IDENTITY);
@@ -139,7 +153,7 @@ public class Maps {
         return chart;
     }
 
-    public ChoroplethMap choroplethMap() {
+    public ChoroplethMap choropleth() {
         ChoroplethMap chart = new ChoroplethMap();
         Projection projection = new Projection();
         projection.setType(ProjectionType.IDENTITY);

@@ -63,7 +63,7 @@ public class Equal {
 
     static class Deserializer extends JsonDeserializer<Equal> {
         @Override
-        public Equal deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Equal deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Equal value = new Equal();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

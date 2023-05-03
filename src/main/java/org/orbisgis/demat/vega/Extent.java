@@ -58,7 +58,7 @@ public class Extent {
 
     static class Deserializer extends JsonDeserializer<Extent> {
         @Override
-        public Extent deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Extent deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Extent value = new Extent();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

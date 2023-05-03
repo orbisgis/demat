@@ -64,7 +64,7 @@ public class ConditionalValueDefNumberExprRefSelectionComposition {
 
     static class Deserializer extends JsonDeserializer<ConditionalValueDefNumberExprRefSelectionComposition> {
         @Override
-        public ConditionalValueDefNumberExprRefSelectionComposition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ConditionalValueDefNumberExprRefSelectionComposition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ConditionalValueDefNumberExprRefSelectionComposition value = new ConditionalValueDefNumberExprRefSelectionComposition();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

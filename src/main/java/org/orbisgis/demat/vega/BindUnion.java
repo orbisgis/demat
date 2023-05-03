@@ -60,7 +60,7 @@ public class BindUnion {
 
     static class Deserializer extends JsonDeserializer<BindUnion> {
         @Override
-        public BindUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public BindUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             BindUnion value = new BindUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -58,7 +58,7 @@ public class DomainM {
 
     static class Deserializer extends JsonDeserializer<DomainM> {
         @Override
-        public DomainM deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public DomainM deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             DomainM value = new DomainM();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

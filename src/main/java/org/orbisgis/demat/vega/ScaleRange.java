@@ -109,7 +109,7 @@ public class ScaleRange {
 
     static class Deserializer extends JsonDeserializer<ScaleRange> {
         @Override
-        public ScaleRange deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ScaleRange deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ScaleRange value = new ScaleRange();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

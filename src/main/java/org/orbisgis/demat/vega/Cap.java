@@ -53,12 +53,12 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = Cap.Deserializer.class)
 @JsonSerialize(using = Cap.Serializer.class)
 public class Cap {
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public StrokeCap enumValue;
 
     static class Deserializer extends JsonDeserializer<Cap> {
         @Override
-        public Cap deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Cap deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Cap value = new Cap();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
@@ -72,7 +72,7 @@ public class Cap {
                     }
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize Cap");
             }

@@ -77,7 +77,7 @@ public class LabelFlush {
 
     static class Deserializer extends JsonDeserializer<LabelFlush> {
         @Override
-        public LabelFlush deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public LabelFlush deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             LabelFlush value = new LabelFlush();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

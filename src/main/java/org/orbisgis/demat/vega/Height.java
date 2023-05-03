@@ -64,7 +64,7 @@ public class Height {
 
     static class Deserializer extends JsonDeserializer<Height> {
         @Override
-        public Height deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Height deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Height value = new Height();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

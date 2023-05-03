@@ -63,7 +63,7 @@ import java.io.IOException;
 @JsonDeserialize(using = Mark.Deserializer.class)
 @JsonSerialize(using = Mark.Serializer.class)
 public class Mark {
-    public Def defValue;
+    public Def def;
     public String type;
 
     static class Deserializer extends JsonDeserializer<Mark> {
@@ -78,7 +78,7 @@ public class Mark {
                     value.type = string;
                     break;
                 case START_OBJECT:
-                    value.defValue = jsonParser.readValueAs(Def.class);
+                    value.def = jsonParser.readValueAs(Def.class);
                     break;
                 default: throw new IOException("Cannot deserialize AnyMark");
             }
@@ -89,8 +89,8 @@ public class Mark {
     static class Serializer extends JsonSerializer<Mark> {
         @Override
         public void serialize(Mark obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            if (obj.defValue != null) {
-                jsonGenerator.writeObject(obj.defValue);
+            if (obj.def != null) {
+                jsonGenerator.writeObject(obj.def);
                 return;
             }
             if (obj.type != null) {

@@ -88,7 +88,7 @@ public class NormalizedSpec {
     private Spacing spacing;
     private Title title;
     private List<Transform> transform;
-    private ViewBackground view;
+    private ViewBackground viewBackground;
     private Height width;
     private List<LayerElement> layer;
     private Number columns;
@@ -98,6 +98,7 @@ public class NormalizedSpec {
     private List<NormalizedSpec> concat;
     private List<NormalizedSpec> vconcat;
     private List<NormalizedSpec> hconcat;
+    private List<Parameter> params;
 
     /**
      * The alignment to apply to grid rows and columns. The supported string values are `"all"`,
@@ -291,9 +292,9 @@ public class NormalizedSpec {
      * __Default value:__ none (transparent)
      */
     @JsonProperty("view")
-    public ViewBackground getView() { return view; }
+    public ViewBackground getViewBackground() { return viewBackground; }
     @JsonProperty("view")
-    public void setView(ViewBackground value) { this.view = value; }
+    public void setViewBackground(ViewBackground value) { this.viewBackground = value; }
 
     /**
      * The width of a visualization.
@@ -409,4 +410,14 @@ public class NormalizedSpec {
     public List<NormalizedSpec> getHconcat() { return hconcat; }
     @JsonProperty("hconcat")
     public void setHconcat(List<NormalizedSpec> value) { this.hconcat = value; }
+
+
+
+    /**
+     * Dynamic variables that parameterize a visualization.
+     */
+    @JsonProperty("params")
+    public List<Parameter> getParams() { return params; }
+    @JsonProperty("params")
+    public void setParams(List<Parameter> value) { this.params = value; }
 }

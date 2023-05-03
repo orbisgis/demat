@@ -72,7 +72,7 @@ public class LegendBinding {
 
     static class Deserializer extends JsonDeserializer<LegendBinding> {
         @Override
-        public LegendBinding deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public LegendBinding deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             LegendBinding value = new LegendBinding();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -60,7 +60,7 @@ public class SelectionInitInterval {
 
     static class Deserializer extends JsonDeserializer<SelectionInitInterval> {
         @Override
-        public SelectionInitInterval deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public SelectionInitInterval deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             SelectionInitInterval value = new SelectionInitInterval();
             switch (jsonParser.currentToken()) {
                 case VALUE_NUMBER_INT:

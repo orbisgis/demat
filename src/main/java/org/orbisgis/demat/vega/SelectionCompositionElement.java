@@ -64,7 +64,7 @@ public class SelectionCompositionElement {
 
     static class Deserializer extends JsonDeserializer<SelectionCompositionElement> {
         @Override
-        public SelectionCompositionElement deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public SelectionCompositionElement deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             SelectionCompositionElement value = new SelectionCompositionElement();
             switch (jsonParser.currentToken()) {
                 case VALUE_STRING:

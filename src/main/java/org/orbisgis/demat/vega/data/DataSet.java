@@ -53,7 +53,7 @@ import java.util.Map;
  */
 public class DataSet {
 
-    private Map<String, DataValues> datasets;
+    private final Map<String, DataValues> datasets;
 
     public DataSet(){
         datasets =  new HashMap<String, DataValues>();

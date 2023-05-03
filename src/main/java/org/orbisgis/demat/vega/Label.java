@@ -55,11 +55,11 @@ import com.fasterxml.jackson.databind.annotation.*;
 public class Label {
     public Double doubleValue;
     public Boolean boolValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
 
     static class Deserializer extends JsonDeserializer<Label> {
         @Override
-        public Label deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Label deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Label value = new Label();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
@@ -73,7 +73,7 @@ public class Label {
                     value.boolValue = jsonParser.readValueAs(Boolean.class);
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize Label");
             }

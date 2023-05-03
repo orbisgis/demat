@@ -60,7 +60,7 @@ public class TentacledConditionalPredicateValueDefNumberNullExprRef {
 
     static class Deserializer extends JsonDeserializer<TentacledConditionalPredicateValueDefNumberNullExprRef> {
         @Override
-        public TentacledConditionalPredicateValueDefNumberNullExprRef deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public TentacledConditionalPredicateValueDefNumberNullExprRef deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             TentacledConditionalPredicateValueDefNumberNullExprRef value = new TentacledConditionalPredicateValueDefNumberNullExprRef();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

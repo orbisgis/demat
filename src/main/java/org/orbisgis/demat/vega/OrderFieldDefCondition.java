@@ -70,7 +70,7 @@ public class OrderFieldDefCondition {
 
     static class Deserializer extends JsonDeserializer<OrderFieldDefCondition> {
         @Override
-        public OrderFieldDefCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public OrderFieldDefCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             OrderFieldDefCondition value = new OrderFieldDefCondition();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

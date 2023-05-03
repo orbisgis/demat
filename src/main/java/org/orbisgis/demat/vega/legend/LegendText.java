@@ -109,7 +109,7 @@ public class LegendText {
 
     static class Deserializer extends JsonDeserializer<LegendText> {
         @Override
-        public LegendText deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public LegendText deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             LegendText value = new LegendText();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

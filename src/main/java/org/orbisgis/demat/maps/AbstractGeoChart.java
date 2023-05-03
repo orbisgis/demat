@@ -1,12 +1,17 @@
 package org.orbisgis.demat.maps;
 
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Envelope;
+import org.orbisgis.data.api.dataset.ISpatialTable;
 import org.orbisgis.demat.Chart;
-import org.orbisgis.demat.vega.Domain;
-import org.orbisgis.demat.vega.ProjectionType;
-import org.orbisgis.demat.vega.ScaleRange;
-import org.orbisgis.demat.vega.Scheme;
+import org.orbisgis.demat.OSMLayer;
+import org.orbisgis.demat.PlotUtils;
+import org.orbisgis.demat.vega.*;
+import org.orbisgis.demat.vega.data.Data;
+import org.orbisgis.demat.vega.data.DataValues;
 import org.orbisgis.demat.vega.legend.LegendText;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -88,4 +93,43 @@ public class AbstractGeoChart<T extends Chart> extends Chart {
         return (T) this;
     }
 
+    public Chart addOSMLayer() {
+        Data data = this.getData();
+        if(data!=null){
+            DataValues values = data.getDataValues();
+            if(values!=null){
+                if(values.getTable()!=null && values.getTable() instanceof ISpatialTable){
+                    Envelope bbox =   ((ISpatialTable<?>) values.getTable()).getExtent().getEnvelopeInternal();
+                    Chart chart = addOSMLayer(bbox);
+                    //Reload table object
+                    values.getTable().reload();
+                    return chart;
+                }
+            }
+        }
+        return this;
+    }
+
+    public Chart addOSMLayer(Envelope bounds) {
+        List<LayerElement> layers = this.getLayer();
+        OSMLayer osmLayer = new OSMLayer();
+        double tile_zoom  =osmLayer.getZoomToFitBounds(bounds);
+        osmLayer.setZoomLevel(tile_zoom);
+        Coordinate center = bounds.centre();
+        osmLayer.setCenter(center.x, center.y);
+        if(layers==null){
+            layers = new ArrayList<LayerElement>();
+            layers.add(osmLayer.getTileLayer());
+            LayerElement new_chart = PlotUtils.chartToLayerElement(this);
+            new_chart.setProjection(osmLayer.getProjection());
+            layers.add(new_chart);
+        }
+        else {
+            layers.add(osmLayer.getTileLayer());
+        }
+        Chart chart = new Chart();
+        chart.setParams(osmLayer.getParameters());
+        chart.setLayer(layers);
+        return chart;
+    }
 }

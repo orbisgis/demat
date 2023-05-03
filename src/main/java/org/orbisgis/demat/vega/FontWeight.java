@@ -59,7 +59,7 @@ public class FontWeight {
 
     static class Deserializer extends JsonDeserializer<FontWeight> {
         @Override
-        public FontWeight deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public FontWeight deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             FontWeight value = new FontWeight();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

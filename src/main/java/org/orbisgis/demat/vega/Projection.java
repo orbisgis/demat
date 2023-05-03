@@ -53,18 +53,18 @@ import java.util.List;
  * [projections](https://vega.github.io/vega-lite/docs/projection.html). For a full list of
  * projection configuration options, please see the [corresponding section of the projection
  * documentation](https://vega.github.io/vega-lite/docs/projection.html#config).
- *
+ * <p>
  * Any property of Projection can be in config
- *
+ * <p>
  * An object defining properties of geographic projection, which will be applied to `shape`
  * path for `"geoshape"` marks and to `latitude` and `"longitude"` channels for other
  * marks.
- *
+ * <p>
  * An object defining properties of the geographic projection shared by underlying layers.
  */
 public class Projection {
     private ProjectionType type;
-    private List<Double> center;
+    private Object center;
     private Double clipAngle;
     private List<List<Double>> clipExtent;
     private Double coefficient;
@@ -81,22 +81,34 @@ public class Projection {
     private Double ratio;
     private Boolean reflectX;
     private Boolean reflectY;
-    private List<Double> rotate;
-    private Double scale;
+    private Object rotate;
+    private Object scale;
     private List<Double> size;
     private Double spacing;
     private Double tilt;
-    private List<Double> translate;
+    private Object translate;
 
     /**
      * The projection's center, a two-element array of longitude and latitude in degrees.
-     *
+     * <p>
      * __Default value:__ `[0, 0]`
      */
     @JsonProperty("center")
-    public List<Double> getCenter() { return center; }
+    public Object getCenter() {
+        return center;
+    }
+
     @JsonProperty("center")
-    public void setCenter(List<Double> value) { this.center = value; }
+    public void setCenter(List<Double> value) {
+        this.center = value;
+    }
+
+    @JsonProperty("center")
+    public void setCenter(String expr) {
+        ExprRef backgroundExprRef = new ExprRef();
+        backgroundExprRef.setExpr(expr);
+        this.center = backgroundExprRef;
+    }
 
     /**
      * The projection's clipping circle radius to the specified angle in degrees. If `null`,
@@ -104,9 +116,14 @@ public class Projection {
      * small-circle clipping.
      */
     @JsonProperty("clipAngle")
-    public Double getClipAngle() { return clipAngle; }
+    public Double getClipAngle() {
+        return clipAngle;
+    }
+
     @JsonProperty("clipAngle")
-    public void setClipAngle(Double value) { this.clipAngle = value; }
+    public void setClipAngle(Double value) {
+        this.clipAngle = value;
+    }
 
     /**
      * The projection's viewport clip extent to the specified bounds in pixels. The extent
@@ -115,44 +132,84 @@ public class Projection {
      * viewport clipping is performed.
      */
     @JsonProperty("clipExtent")
-    public List<List<Double>> getClipExtent() { return clipExtent; }
+    public List<List<Double>> getClipExtent() {
+        return clipExtent;
+    }
+
     @JsonProperty("clipExtent")
-    public void setClipExtent(List<List<Double>> value) { this.clipExtent = value; }
+    public void setClipExtent(List<List<Double>> value) {
+        this.clipExtent = value;
+    }
 
     @JsonProperty("coefficient")
-    public Double getCoefficient() { return coefficient; }
+    public Double getCoefficient() {
+        return coefficient;
+    }
+
     @JsonProperty("coefficient")
-    public void setCoefficient(Double value) { this.coefficient = value; }
+    public void setCoefficient(Double value) {
+        this.coefficient = value;
+    }
 
     @JsonProperty("distance")
-    public Double getDistance() { return distance; }
+    public Double getDistance() {
+        return distance;
+    }
+
     @JsonProperty("distance")
-    public void setDistance(Double value) { this.distance = value; }
+    public void setDistance(Double value) {
+        this.distance = value;
+    }
 
     @JsonProperty("extent")
-    public List<List<Double>> getExtent() { return extent; }
+    public List<List<Double>> getExtent() {
+        return extent;
+    }
+
     @JsonProperty("extent")
-    public void setExtent(List<List<Double>> value) { this.extent = value; }
+    public void setExtent(List<List<Double>> value) {
+        this.extent = value;
+    }
 
     @JsonProperty("fit")
-    public Object getFit() { return fit; }
+    public Object getFit() {
+        return fit;
+    }
+
     @JsonProperty("fit")
-    public void setFit(Object value) { this.fit = value; }
+    public void setFit(Object value) {
+        this.fit = value;
+    }
 
     @JsonProperty("fraction")
-    public Double getFraction() { return fraction; }
+    public Double getFraction() {
+        return fraction;
+    }
+
     @JsonProperty("fraction")
-    public void setFraction(Double value) { this.fraction = value; }
+    public void setFraction(Double value) {
+        this.fraction = value;
+    }
 
     @JsonProperty("lobes")
-    public Double getLobes() { return lobes; }
+    public Double getLobes() {
+        return lobes;
+    }
+
     @JsonProperty("lobes")
-    public void setLobes(Double value) { this.lobes = value; }
+    public void setLobes(Double value) {
+        this.lobes = value;
+    }
 
     @JsonProperty("parallel")
-    public Double getParallel() { return parallel; }
+    public Double getParallel() {
+        return parallel;
+    }
+
     @JsonProperty("parallel")
-    public void setParallel(Double value) { this.parallel = value; }
+    public void setParallel(Double value) {
+        this.parallel = value;
+    }
 
     /**
      * For conic projections, the [two standard
@@ -160,22 +217,32 @@ public class Projection {
      * layout. The default depends on the specific conic projection used.
      */
     @JsonProperty("parallels")
-    public List<Double> getParallels() { return parallels; }
+    public List<Double> getParallels() {
+        return parallels;
+    }
+
     @JsonProperty("parallels")
-    public void setParallels(List<Double> value) { this.parallels = value; }
+    public void setParallels(List<Double> value) {
+        this.parallels = value;
+    }
 
     /**
      * The default radius (in pixels) to use when drawing GeoJSON `Point` and `MultiPoint`
      * geometries. This parameter sets a constant default value. To modify the point radius in
      * response to data, see the corresponding parameter of the GeoPath and GeoShape
      * transforms.
-     *
+     * <p>
      * __Default value:__ `4.5`
      */
     @JsonProperty("pointRadius")
-    public Double getPointRadius() { return pointRadius; }
+    public Double getPointRadius() {
+        return pointRadius;
+    }
+
     @JsonProperty("pointRadius")
-    public void setPointRadius(Double value) { this.pointRadius = value; }
+    public void setPointRadius(Double value) {
+        this.pointRadius = value;
+    }
 
     /**
      * The threshold for the projection's [adaptive
@@ -186,41 +253,78 @@ public class Projection {
      * which defaults to `√0.5 ≅ 0.70710…`.
      */
     @JsonProperty("precision")
-    public Double getPrecision() { return precision; }
+    public Double getPrecision() {
+        return precision;
+    }
+
     @JsonProperty("precision")
-    public void setPrecision(Double value) { this.precision = value; }
+    public void setPrecision(Double value) {
+        this.precision = value;
+    }
 
     @JsonProperty("radius")
-    public Double getRadius() { return radius; }
+    public Double getRadius() {
+        return radius;
+    }
+
     @JsonProperty("radius")
-    public void setRadius(Double value) { this.radius = value; }
+    public void setRadius(Double value) {
+        this.radius = value;
+    }
 
     @JsonProperty("ratio")
-    public Double getRatio() { return ratio; }
+    public Double getRatio() {
+        return ratio;
+    }
+
     @JsonProperty("ratio")
-    public void setRatio(Double value) { this.ratio = value; }
+    public void setRatio(Double value) {
+        this.ratio = value;
+    }
 
     @JsonProperty("reflectX")
-    public Boolean getReflectX() { return reflectX; }
+    public Boolean getReflectX() {
+        return reflectX;
+    }
+
     @JsonProperty("reflectX")
-    public void setReflectX(Boolean value) { this.reflectX = value; }
+    public void setReflectX(Boolean value) {
+        this.reflectX = value;
+    }
 
     @JsonProperty("reflectY")
-    public Boolean getReflectY() { return reflectY; }
+    public Boolean getReflectY() {
+        return reflectY;
+    }
+
     @JsonProperty("reflectY")
-    public void setReflectY(Boolean value) { this.reflectY = value; }
+    public void setReflectY(Boolean value) {
+        this.reflectY = value;
+    }
 
     /**
      * The projection's three-axis rotation to the specified angles, which must be a two- or
      * three-element array of numbers [`lambda`, `phi`, `gamma`] specifying the rotation angles
      * in degrees about each spherical axis. (These correspond to yaw, pitch and roll.)
-     *
+     * <p>
      * __Default value:__ `[0, 0, 0]`
      */
     @JsonProperty("rotate")
-    public List<Double> getRotate() { return rotate; }
+    public Object getRotate() {
+        return rotate;
+    }
+
     @JsonProperty("rotate")
-    public void setRotate(List<Double> value) { this.rotate = value; }
+    public void setRotate(List<Double> value) {
+        this.rotate = value;
+    }
+
+    @JsonProperty("rotate")
+    public void setRotate(String expr) {
+        ExprRef exprRef = new ExprRef();
+        exprRef.setExpr(expr);
+        this.rotate = exprRef;
+    }
 
     /**
      * The projection’s scale (zoom) factor, overriding automatic fitting. The default scale is
@@ -228,39 +332,79 @@ public class Projection {
      * projected points; however, scale factor values are not equivalent across projections.
      */
     @JsonProperty("scale")
-    public Double getScale() { return scale; }
+    public Object getScale() {
+        return scale;
+    }
+
     @JsonProperty("scale")
-    public void setScale(Double value) { this.scale = value; }
+    public void setScale(Double value) {
+        this.scale = value;
+    }
+
+    @JsonProperty("scale")
+    public void setScale(String expr) {
+        ExprRef exprRef = new ExprRef();
+        exprRef.setExpr(expr);
+        this.scale = exprRef;
+    }
+
 
     @JsonProperty("size")
-    public List<Double> getSize() { return size; }
+    public List<Double> getSize() {
+        return size;
+    }
+
     @JsonProperty("size")
-    public void setSize(List<Double> value) { this.size = value; }
+    public void setSize(List<Double> value) {
+        this.size = value;
+    }
 
     @JsonProperty("spacing")
-    public Double getSpacing() { return spacing; }
+    public Double getSpacing() {
+        return spacing;
+    }
+
     @JsonProperty("spacing")
-    public void setSpacing(Double value) { this.spacing = value; }
+    public void setSpacing(Double value) {
+        this.spacing = value;
+    }
 
     @JsonProperty("tilt")
-    public Double getTilt() { return tilt; }
+    public Double getTilt() {
+        return tilt;
+    }
+
     @JsonProperty("tilt")
-    public void setTilt(Double value) { this.tilt = value; }
+    public void setTilt(Double value) {
+        this.tilt = value;
+    }
 
     /**
      * The projection’s translation offset as a two-element array `[tx, ty]`.
      */
     @JsonProperty("translate")
-    public List<Double> getTranslate() { return translate; }
+    public Object getTranslate() {
+        return translate;
+    }
+
     @JsonProperty("translate")
-    public void setTranslate(List<Double> value) { this.translate = value; }
+    public void setTranslate(List<Double> value) {
+        this.translate = value;
+    }
+
+    @JsonProperty("translate")
+    public void setTranslate(String expr) {
+        ExprRef exprRef = new ExprRef();
+        exprRef.setExpr(expr);
+        this.translate = exprRef;
+    }
 
     /**
      * The cartographic projection to use. This value is case-insensitive, for example
      * `"albers"` and `"Albers"` indicate the same projection type. You can find all valid
      * projection types [in the
      * documentation](https://vega.github.io/vega-lite/docs/projection.html#projection-types).
-     *
+     * <p>
      * __Default value:__ `mercator`
      */
     @JsonProperty("type")

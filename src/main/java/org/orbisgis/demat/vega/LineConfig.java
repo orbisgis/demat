@@ -110,7 +110,7 @@ public class LineConfig {
     private Opacity strokeOpacity;
     private FontSize strokeWidth;
     private CornerRadius tension;
-    private ConditionalPredicateValueDefTextExprRefText text;
+    private TextDef text;
     private CornerRadius theta;
     private CornerRadius theta2;
     private Double timeUnitBand;
@@ -529,9 +529,9 @@ public class LineConfig {
     public void setTension(CornerRadius value) { this.tension = value; }
 
     @JsonProperty("text")
-    public ConditionalPredicateValueDefTextExprRefText getText() { return text; }
+    public TextDef getText() { return text; }
     @JsonProperty("text")
-    public void setText(ConditionalPredicateValueDefTextExprRefText value) { this.text = value; }
+    public void setText(TextDef value) { this.text = value; }
 
     /**
      * - For arc marks, the arc length in radians if theta2 is not specified, otherwise the

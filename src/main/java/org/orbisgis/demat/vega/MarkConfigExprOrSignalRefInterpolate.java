@@ -53,12 +53,12 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = MarkConfigExprOrSignalRefInterpolate.Deserializer.class)
 @JsonSerialize(using = MarkConfigExprOrSignalRefInterpolate.Serializer.class)
 public class MarkConfigExprOrSignalRefInterpolate {
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public Interpolate enumValue;
 
     static class Deserializer extends JsonDeserializer<MarkConfigExprOrSignalRefInterpolate> {
         @Override
-        public MarkConfigExprOrSignalRefInterpolate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public MarkConfigExprOrSignalRefInterpolate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             MarkConfigExprOrSignalRefInterpolate value = new MarkConfigExprOrSignalRefInterpolate();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
@@ -72,7 +72,7 @@ public class MarkConfigExprOrSignalRefInterpolate {
                     }
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize MarkConfigExprOrSignalRefInterpolate");
             }

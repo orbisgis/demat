@@ -60,7 +60,7 @@ public class TextCondition {
 
     static class Deserializer extends JsonDeserializer<TextCondition> {
         @Override
-        public TextCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public TextCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             TextCondition value = new TextCondition();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

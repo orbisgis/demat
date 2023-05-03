@@ -46,7 +46,7 @@ package org.orbisgis.demat.vega;
 
 import com.fasterxml.jackson.annotation.*;
 
-public class BackgroundExprRef {
+public class ExprRef {
     private String expr;
 
     /**

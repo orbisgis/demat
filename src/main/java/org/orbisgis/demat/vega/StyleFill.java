@@ -58,7 +58,7 @@ public class StyleFill {
 
     static class Deserializer extends JsonDeserializer<StyleFill> {
         @Override
-        public StyleFill deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public StyleFill deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             StyleFill value = new StyleFill();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -60,7 +60,7 @@ public class MarkConfigExprOrSignalRefTooltip {
 
     static class Deserializer extends JsonDeserializer<MarkConfigExprOrSignalRefTooltip> {
         @Override
-        public MarkConfigExprOrSignalRefTooltip deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public MarkConfigExprOrSignalRefTooltip deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             MarkConfigExprOrSignalRefTooltip value = new MarkConfigExprOrSignalRefTooltip();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

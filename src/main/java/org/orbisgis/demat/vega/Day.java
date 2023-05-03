@@ -66,7 +66,7 @@ public class Day {
 
     static class Deserializer extends JsonDeserializer<Day> {
         @Override
-        public Day deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Day deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Day value = new Day();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

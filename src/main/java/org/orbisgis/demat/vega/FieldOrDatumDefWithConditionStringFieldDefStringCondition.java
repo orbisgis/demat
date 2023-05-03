@@ -60,7 +60,7 @@ public class FieldOrDatumDefWithConditionStringFieldDefStringCondition {
 
     static class Deserializer extends JsonDeserializer<FieldOrDatumDefWithConditionStringFieldDefStringCondition> {
         @Override
-        public FieldOrDatumDefWithConditionStringFieldDefStringCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public FieldOrDatumDefWithConditionStringFieldDefStringCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             FieldOrDatumDefWithConditionStringFieldDefStringCondition value = new FieldOrDatumDefWithConditionStringFieldDefStringCondition();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

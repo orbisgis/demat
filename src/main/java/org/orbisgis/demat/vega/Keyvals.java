@@ -60,7 +60,7 @@ public class Keyvals {
 
     static class Deserializer extends JsonDeserializer<Keyvals> {
         @Override
-        public Keyvals deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Keyvals deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Keyvals value = new Keyvals();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

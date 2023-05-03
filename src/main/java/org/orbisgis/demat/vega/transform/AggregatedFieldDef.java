@@ -47,7 +47,7 @@ package org.orbisgis.demat.vega.transform;
 import com.fasterxml.jackson.annotation.*;
 
 /**
- * @author Erwan Bocher, CNRS 2021
+ * @author Erwan Bocher, CNRS 2021 - 2023
  */
 public class AggregatedFieldDef {
     private String as;

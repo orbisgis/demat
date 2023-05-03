@@ -64,7 +64,7 @@ public class MarkStroke {
 
     static class Deserializer extends JsonDeserializer<MarkStroke> {
         @Override
-        public MarkStroke deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public MarkStroke deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             MarkStroke value = new MarkStroke();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

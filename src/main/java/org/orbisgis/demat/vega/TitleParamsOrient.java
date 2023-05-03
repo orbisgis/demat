@@ -53,12 +53,12 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = TitleParamsOrient.Deserializer.class)
 @JsonSerialize(using = TitleParamsOrient.Serializer.class)
 public class TitleParamsOrient {
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public TitleOrient enumValue;
 
     static class Deserializer extends JsonDeserializer<TitleParamsOrient> {
         @Override
-        public TitleParamsOrient deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public TitleParamsOrient deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             TitleParamsOrient value = new TitleParamsOrient();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
@@ -72,7 +72,7 @@ public class TitleParamsOrient {
                     }
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize TitleParamsOrient");
             }

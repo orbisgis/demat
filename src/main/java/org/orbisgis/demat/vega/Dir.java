@@ -53,12 +53,12 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = Dir.Deserializer.class)
 @JsonSerialize(using = Dir.Serializer.class)
 public class Dir {
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public TextDirection enumValue;
 
     static class Deserializer extends JsonDeserializer<Dir> {
         @Override
-        public Dir deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Dir deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Dir value = new Dir();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
@@ -72,7 +72,7 @@ public class Dir {
                     }
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize Dir");
             }

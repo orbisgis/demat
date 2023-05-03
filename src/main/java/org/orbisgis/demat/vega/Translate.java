@@ -92,7 +92,7 @@ public class Translate {
 
     static class Deserializer extends JsonDeserializer<Translate> {
         @Override
-        public Translate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Translate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Translate value = new Translate();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

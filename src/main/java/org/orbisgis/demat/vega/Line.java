@@ -58,7 +58,7 @@ public class Line {
 
     static class Deserializer extends JsonDeserializer<Line> {
         @Override
-        public Line deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Line deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Line value = new Line();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

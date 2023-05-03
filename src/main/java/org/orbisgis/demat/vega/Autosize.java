@@ -65,7 +65,7 @@ public class Autosize {
 
     static class Deserializer extends JsonDeserializer<Autosize> {
         @Override
-        public Autosize deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Autosize deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Autosize value = new Autosize();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

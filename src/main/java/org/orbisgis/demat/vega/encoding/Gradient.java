@@ -59,7 +59,7 @@ public class Gradient {
 
     static class Deserializer extends JsonDeserializer<Gradient> {
         @Override
-        public Gradient deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Gradient deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Gradient value = new Gradient();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

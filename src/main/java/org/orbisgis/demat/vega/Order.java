@@ -60,7 +60,7 @@ public class Order {
 
     static class Deserializer extends JsonDeserializer<Order> {
         @Override
-        public Order deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Order deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Order value = new Order();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

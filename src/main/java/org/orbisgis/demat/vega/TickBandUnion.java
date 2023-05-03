@@ -53,12 +53,12 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = TickBandUnion.Deserializer.class)
 @JsonSerialize(using = TickBandUnion.Serializer.class)
 public class TickBandUnion {
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
     public TickBandEnum enumValue;
 
     static class Deserializer extends JsonDeserializer<TickBandUnion> {
         @Override
-        public TickBandUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public TickBandUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             TickBandUnion value = new TickBandUnion();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
@@ -72,7 +72,7 @@ public class TickBandUnion {
                     }
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize TickBandUnion");
             }

@@ -46,7 +46,6 @@ package org.orbisgis.demat.vega.data;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -54,10 +53,13 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.h2gis.utilities.jts_utils.GeometryFeatureUtils;
+import org.orbisgis.data.api.dataset.ISpatialTable;
+import org.orbisgis.data.api.dataset.ITable;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.sql.ResultSet;
+import java.util.*;
 
 /**
  * The full data set, included inline. This can be an array of objects or primitive values,
@@ -66,14 +68,23 @@ import java.util.Map;
  */
 @JsonDeserialize(using = DataValues.Deserializer.class)
 @JsonSerialize(using = DataValues.Serializer.class)
-public class DataValues {
+public class DataValues  {
     public List<InlineDataset> unionArrayValue;
     public Map<String, Object> anythingMapValue;
     public String stringValue;
+    public ITable table;
+
+    public void setTable(ITable table) {
+        this.table=table;
+    }
+
+    public ITable getTable() {
+        return table;
+    }
 
     static class Deserializer extends JsonDeserializer<DataValues> {
         @Override
-        public DataValues deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public DataValues deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             DataValues value = new DataValues();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
@@ -101,6 +112,14 @@ public class DataValues {
                 jsonGenerator.writeObject(obj.unionArrayValue);
                 return;
             }
+            if(obj.table!=null){
+                try {
+                    jsonGenerator.writeObject(writeTable(obj.table));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                return;
+            }
             if (obj.anythingMapValue != null) {
                 jsonGenerator.writeObject(obj.anythingMapValue);
                 return;
@@ -110,6 +129,44 @@ public class DataValues {
                 return;
             }
             jsonGenerator.writeNull();
+        }
+
+        /**
+         * Serialize the table on demand
+         * @param table
+         * @return
+         * @throws Exception
+         */
+        private  ArrayList<InlineDataset> writeTable(ITable table) throws Exception {
+            if(table instanceof ISpatialTable){
+                ArrayList<InlineDataset> geojson = new ArrayList<>();
+                ISpatialTable spatialTable = (ISpatialTable) table;
+                Object geomCol = spatialTable.getGeometricColumns().stream().findFirst().get();
+                Collection<String> columns = spatialTable.getColumns();
+                columns.remove(geomCol);
+                int colummSize = columns.size();
+                while (spatialTable.next()){
+                    InlineDataset row =  new InlineDataset();
+                    LinkedHashMap<String, Object> feature =  new LinkedHashMap();
+                    feature.put("type", "Feature");
+                    feature.putAll(GeometryFeatureUtils.toMap(spatialTable.getGeometry()));
+                    if(colummSize>0) {
+                        feature.put("properties", GeometryFeatureUtils.getProperties((ResultSet) spatialTable, columns));
+                    }
+                    row.anythingMapValue=feature;
+                    geojson.add(row);
+                }
+                return geojson;
+            }else {
+                ArrayList<InlineDataset> json = new ArrayList<>();
+                Collection<String> columns = table.getColumns();
+                while (table.next()) {
+                    InlineDataset row = new InlineDataset();
+                    row.anythingMapValue = GeometryFeatureUtils.getProperties((ResultSet) table, columns);
+                    json.add(row);
+                }
+                return json;
+            }
         }
     }
 }

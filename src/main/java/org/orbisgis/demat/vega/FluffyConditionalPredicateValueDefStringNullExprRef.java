@@ -60,7 +60,7 @@ public class FluffyConditionalPredicateValueDefStringNullExprRef {
 
     static class Deserializer extends JsonDeserializer<FluffyConditionalPredicateValueDefStringNullExprRef> {
         @Override
-        public FluffyConditionalPredicateValueDefStringNullExprRef deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public FluffyConditionalPredicateValueDefStringNullExprRef deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             FluffyConditionalPredicateValueDefStringNullExprRef value = new FluffyConditionalPredicateValueDefStringNullExprRef();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

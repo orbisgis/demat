@@ -67,7 +67,7 @@ public class Graticule {
 
     static class Deserializer extends JsonDeserializer<Graticule> {
         @Override
-        public Graticule deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Graticule deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Graticule value = new Graticule();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

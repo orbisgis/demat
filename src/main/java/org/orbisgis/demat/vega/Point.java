@@ -59,7 +59,7 @@ public class Point {
 
     static class Deserializer extends JsonDeserializer<Point> {
         @Override
-        public Point deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Point deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Point value = new Point();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

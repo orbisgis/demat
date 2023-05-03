@@ -54,11 +54,11 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonSerialize(using = ConditionalValueDefNumberExprRefValue.Serializer.class)
 public class ConditionalValueDefNumberExprRefValue {
     public Double doubleValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
 
     static class Deserializer extends JsonDeserializer<ConditionalValueDefNumberExprRefValue> {
         @Override
-        public ConditionalValueDefNumberExprRefValue deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ConditionalValueDefNumberExprRefValue deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ConditionalValueDefNumberExprRefValue value = new ConditionalValueDefNumberExprRefValue();
             switch (jsonParser.currentToken()) {
                 case VALUE_NUMBER_INT:
@@ -66,7 +66,7 @@ public class ConditionalValueDefNumberExprRefValue {
                     value.doubleValue = jsonParser.readValueAs(Double.class);
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize ConditionalValueDefNumberExprRefValue");
             }

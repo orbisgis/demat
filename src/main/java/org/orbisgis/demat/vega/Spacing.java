@@ -58,7 +58,7 @@ public class Spacing {
 
     static class Deserializer extends JsonDeserializer<Spacing> {
         @Override
-        public Spacing deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Spacing deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Spacing value = new Spacing();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

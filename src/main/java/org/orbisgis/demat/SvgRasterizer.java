@@ -30,7 +30,7 @@ public class SvgRasterizer {
             KEY_FRACTIONALMETRICS,
             VALUE_FRACTIONALMETRICS_ON,
             KEY_INTERPOLATION,
-            VALUE_INTERPOLATION_BICUBIC,
+            VALUE_INTERPOLATION_NEAREST_NEIGHBOR,
             KEY_RENDERING,
             VALUE_RENDER_QUALITY,
             KEY_STROKE_CONTROL,
@@ -46,18 +46,18 @@ public class SvgRasterizer {
      * The rendering hints are set to produce high quality output.
      *
      * @param path   Fully qualified path to the image resource to rasterize.
-     * @param dstDim The output image dimensions.
+     * @param ratio  The ratio to scale the image. Default if 1
      * @return The rasterized {@link Image}.
      * @throws SVGException Could not open, read, parse, or render SVG data.
      */
-    public BufferedImage rasterize(final InputStream path, final Dimension dstDim )
+    public BufferedImage rasterize(final InputStream path, final float ratio )
             throws SVGException, IOException {
         final SVGDiagram diagram = loadDiagram( path );
         final float wDiagram = diagram.getWidth();
         final float hDiagram = diagram.getHeight();
         final Dimension srcDim = new Dimension( (int) wDiagram, (int) hDiagram );
 
-        final Dimension scaled = fit( srcDim, dstDim );
+        final Dimension scaled = fit( srcDim, ratio );
         final int wScaled = (int) scaled.getWidth();
         final int hScaled = (int) scaled.getHeight();
 
@@ -123,18 +123,14 @@ public class SvgRasterizer {
      * the best fit.
      *
      * @param src The original vector graphic dimensions to change.
-     * @param dst The desired image dimensions to scale.
+     * @param ratio The desired ratio  to scale.
      * @return The given source dimensions scaled to the destination dimensions,
      * maintaining the aspect ratio.
      */
-    private Dimension fit( final Dimension src, final Dimension dst ) {
+    private Dimension fit( final Dimension src, final float ratio ) {
         final double srcWidth = src.getWidth();
         final double srcHeight = src.getHeight();
 
-        // Determine the ratio that will have the best fit.
-        final double ratio = Math.min(
-                dst.getWidth() / srcWidth, dst.getHeight() / srcHeight
-        );
         // Scale both dimensions with respect to the best fit ratio.
         return new Dimension( (int) (srcWidth * ratio), (int) (srcHeight * ratio) );
     }
@@ -143,12 +139,12 @@ public class SvgRasterizer {
      * Save the SVG as image
      * @param svg
      * @param dstDim
-     * @param path
+     * @param outputFile
      * @throws SVGException
      * @throws IOException
      */
-    void save(String svg, final Dimension dstDim, String path) throws SVGException, IOException {
-        BufferedImage bufferedImage = rasterize(new ByteArrayInputStream(svg.getBytes()), dstDim);
-        ImageIO.write(bufferedImage, "png", new File(path));
+    void save(String svg, final float ratio, File outputFile) throws SVGException, IOException {
+        BufferedImage bufferedImage = rasterize(new ByteArrayInputStream(svg.getBytes()), ratio);
+        ImageIO.write(bufferedImage, "png", outputFile);
     }
 }

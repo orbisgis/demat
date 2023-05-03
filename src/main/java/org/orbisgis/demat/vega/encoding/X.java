@@ -44,6 +44,7 @@
  */
 package org.orbisgis.demat.vega.encoding;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -196,6 +197,7 @@ public class X extends ChannelCommonMethods<X> {
     @JsonProperty("scale")
     public Scale getScale() { return scale; }
     @JsonProperty("scale")
+    @JsonInclude(JsonInclude.Include.ALWAYS)
     public void setScale(Scale value) { this.scale = value; }
 
     /**

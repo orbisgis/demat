@@ -66,7 +66,7 @@ public class Padding {
 
     static class Deserializer extends JsonDeserializer<Padding> {
         @Override
-        public Padding deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Padding deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Padding value = new Padding();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

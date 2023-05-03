@@ -48,6 +48,8 @@ package org.orbisgis.demat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.orbisgis.data.api.dataset.ISpatialTable;
+import org.orbisgis.data.api.dataset.ITable;
 import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.data.Data;
 import org.orbisgis.demat.vega.data.DataValues;
@@ -57,13 +59,75 @@ import org.orbisgis.demat.vega.encoding.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import org.h2gis.utilities.jts_utils.*;
 
 /**
  * Some Plot utilities
  *
- * @author Erwan Bocher, CNRS 2021
+ * @author Erwan Bocher, CNRS 2021 - 2023
  */
 public class PlotUtils {
+
+
+    /**
+     * Create a data object from a {@link ISpatialTable}
+     * @param spatialTable
+     * @return
+     */
+    public static Data urlData(ISpatialTable spatialTable) throws Exception {
+        Data urlData = new Data();
+        DataValues urlDataInlineDataset = new DataValues();
+        ArrayList<InlineDataset> geojson = new ArrayList<>();
+        Object geomCol = spatialTable.getGeometricColumns().stream().findFirst().get();
+        Collection<String> columns = spatialTable.getColumns();
+        columns.remove(geomCol);
+        int colummSize = columns.size();
+        while (spatialTable.next()){
+            InlineDataset row =  new InlineDataset();
+            LinkedHashMap<String, Object> feature =  new LinkedHashMap();
+            feature.put("type", "Feature");
+            feature.putAll(GeometryFeatureUtils.toMap(spatialTable.getGeometry()));
+            if(colummSize>0) {
+                feature.put("properties", getProperties(spatialTable, columns));
+            }
+                row.anythingMapValue=feature;
+            geojson.add(row);
+        }
+        urlDataInlineDataset.unionArrayValue = geojson;
+        urlData.setDataValues(urlDataInlineDataset);
+        return urlData;
+    }
+
+    /**
+     * Create a data object from a {@link ITable}
+     * @param table
+     * @return
+     */
+    public static Data urlData(ITable table) throws Exception {
+        Data urlData = new Data();
+        Collection<String> columns = table.getColumns();
+        int colummSize = columns.size();
+        if(colummSize>0) {
+            DataValues urlDataInlineDataset = new DataValues();
+            ArrayList<InlineDataset> geojson = new ArrayList<>();
+            while (table.next()) {
+                InlineDataset row = new InlineDataset();
+                row.anythingMapValue = getProperties(table, columns);
+                geojson.add(row);
+            }
+            urlDataInlineDataset.unionArrayValue = geojson;
+            urlData.setDataValues(urlDataInlineDataset);
+        }
+        return urlData;
+    }
+
+    private static LinkedHashMap getProperties(ITable table, Collection<String> columns) throws Exception {
+        LinkedHashMap properties = new LinkedHashMap();
+        for (String column:columns) {
+            properties.put(column, table.getObject(column));
+        }
+        return properties;
+    }
 
 
     /**
@@ -75,20 +139,20 @@ public class PlotUtils {
         Data urlData = new Data();
         DataValues urlDataInlineDataset = new DataValues();
         urlDataInlineDataset.anythingMapValue = values;
-        urlData.setValues(urlDataInlineDataset);
+        urlData.setDataValues(urlDataInlineDataset);
         return urlData;
     }
 
     public static Data urlData(Object[][] values){
         Data urlData = new Data();
-        urlData.setValues(urlDataInlineDataset(values));
+        urlData.setDataValues(urlDataInlineDataset(values));
         return urlData;
     }
 
 
     public static Data urlData(List<Map> values){
         Data urlData = new Data();
-        urlData.setValues(urlDataInlineDataset(values));
+        urlData.setDataValues(urlDataInlineDataset(values));
         return urlData;
     }
 
@@ -105,20 +169,24 @@ public class PlotUtils {
     }
 
     public static DataValues urlDataInlineDataset(Object[][] values){
-        List<InlineDataset> inlines = new ArrayList<InlineDataset>();
-        Object[] firstRow = values[0];
-        for (int i = 1; i < values.length ; i++) {
-            InlineDataset inlineDataset = new InlineDataset();
-            Map<String, Object> rows = new HashMap<>();
-            Object[] cols = values[i];
-            for (int j = 0; j < values.length ; j++) {
-                rows.put(String.valueOf(firstRow[j]), cols[j]);
-            }
-            inlineDataset.anythingMapValue= rows;
-            inlines.add(inlineDataset);
-        }
         DataValues urlDataInlineDataset = new DataValues();
-        urlDataInlineDataset.unionArrayValue=inlines;
+        List<InlineDataset> inlines = new ArrayList<InlineDataset>();
+        if(values.length==0){
+            urlDataInlineDataset.unionArrayValue=inlines;
+        }else {
+            Object[] firstRow = values[0];
+            for (int i = 1; i < values.length; i++) {
+                InlineDataset inlineDataset = new InlineDataset();
+                Map<String, Object> rows = new HashMap<>();
+                Object[] cols = values[i];
+                for (int j = 0; j < values.length; j++) {
+                    rows.put(String.valueOf(firstRow[j]), cols[j]);
+                }
+                inlineDataset.anythingMapValue = rows;
+                inlines.add(inlineDataset);
+            }
+            urlDataInlineDataset.unionArrayValue = inlines;
+        }
         return urlDataInlineDataset;
     }
 
@@ -223,7 +291,7 @@ public class PlotUtils {
         layerElement.setSelection(chart.getSelection());
         layerElement.setTitle(chart.getTitle());
         layerElement.setTransform(chart.getTransform());
-        layerElement.setView(chart.getView());
+        layerElement.setView(chart.getViewBackground());
         Encoding chartEncoding = chart.getEncoding();
         if(chartEncoding!=null) {
             LayerEncoding layerEncoding = new LayerEncoding();

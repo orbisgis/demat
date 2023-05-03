@@ -46,9 +46,8 @@ package org.orbisgis.demat
 
 
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInfo
+import org.junit.jupiter.api.io.TempDir
 import org.orbisgis.demat.vega.Def
 import org.orbisgis.demat.vega.Mark
 import org.orbisgis.demat.vega.MarkFill
@@ -56,282 +55,274 @@ import org.orbisgis.demat.vega.MarkStroke
 
 import static org.orbisgis.demat.DataTests.*
 import static org.orbisgis.demat.Plot.*
+import org.junit.jupiter.api.io.CleanupMode;
 
 /**
- * @author Erwan Bocher, CNRS 2021
+ * @author Erwan Bocher, CNRS 2021 - 2023
  */
 class GroovyPlotTest {
 
 
-    private static def GRID_INDICATORS = null;
-    private static def RSU_GEOINDICATORS = null;
+    private static def GRID_INDICATORS = null
+    private static def RSU_GEOINDICATORS = null
+
+    @TempDir(cleanup = CleanupMode.NEVER)
+    static File folder
 
     @BeforeAll
     static void loadData() {
-        LinkedHashMap geojson = (LinkedHashMap) Read.json(GroovyPlotTest.class.getClassLoader().getResourceAsStream("rsu_geoindicators.geojson"));
-        RSU_GEOINDICATORS = Data((List<Map>) geojson.get("features"));
-        geojson = (LinkedHashMap) Read.json(GroovyPlotTest.class.getClassLoader().getResourceAsStream("grid_indicators.geojson"));
-        GRID_INDICATORS = Data((List<Map>) geojson.get("features"));
+        LinkedHashMap geojson = (LinkedHashMap) Read.json(GroovyPlotTest.class.getClassLoader().getResourceAsStream("rsu_geoindicators.geojson"))
+        RSU_GEOINDICATORS = Data((List<Map>) geojson.get("features"))
+        geojson = (LinkedHashMap) Read.json(GroovyPlotTest.class.getClassLoader().getResourceAsStream("grid_indicators.geojson"))
+        GRID_INDICATORS = Data((List<Map>) geojson.get("features"))
     }
 
     @Test
-    void testSimpleBarChart(TestInfo testInfo) {
+    void testSimpleBarChart() {
         def chart = Chart(Data([
                 ["a": "A", "b": 28], ["a": "B", "b": 55], ["a": "C", "b": 43],
                 ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
                 ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52]])).mark_bar().
                 encode(X("a").nominal(), Y("b").quantitative())
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testSimpleBarChartReplaceLabels(TestInfo testInfo) {
+    void testSimpleBarChartReplaceLabels() {
         def chart = Chart(Data([
                 ["a": "A", "b": 28], ["a": "B", "b": 55], ["a": "C", "b": 43],
                 ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
                 ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52]])).mark_bar().
                 encode(X("a").nominal().replaceLabels(["A": "Demat", "B": "is", "C": "good"]), Y("b").quantitative())
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testMinusXSortedOnYAxisAggregateBarChart(TestInfo testInfo) {
+    void testMinusXSortedOnYAxisAggregateBarChart() {
         def chart = Chart(Data([
                 ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("people").sum().title("population"), Y("age").ordinal().sort_minusX())
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testXSortedOnYAxisAggregateBarChart(TestInfo testInfo) {
+    void testXSortedOnYAxisAggregateBarChart() {
         def chart = Chart(Data([
                 ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("people").sum().title("population"), Y("age").ordinal().sort_x())
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testMinusYSortedOnYAxisAggregateBarChart(TestInfo testInfo) {
+    void testMinusYSortedOnYAxisAggregateBarChart() {
         def chart = Chart(Data([
                 ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("people").sum().title("population"), Y("age").ordinal().sort_minusY())
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testYSortedOnYAxisAggregateBarChart(TestInfo testInfo) {
+    void testYSortedOnYAxisAggregateBarChart() {
         def chart = Chart(Data([
                 ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("people").sum().title("population"), Y("age").ordinal().sort_y())
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testMinusXSortedOnXAxisAggregateBarChart(TestInfo testInfo) {
+    void testMinusXSortedOnXAxisAggregateBarChart() {
         def chart = Chart(Data([
                 ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("age").ordinal().sort_minusX(), Y("people").sum().title("population"))
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testXSortedOnXAxisAggregateBarChart(TestInfo testInfo) {
+    void testXSortedOnXAxisAggregateBarChart() {
         def chart = Chart(Data([
                 ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("age").ordinal().sort_x(), Y("people").sum().title("population"))
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testMinusYSortedOnXAxisAggregateBarChart(TestInfo testInfo) {
+    void testMinusYSortedOnXAxisAggregateBarChart() {
         def chart = Chart(Data([
                 ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("age").ordinal().sort_minusY(), Y("people").sum().title("population"))
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testYSortedOnXAxisAggregateBarChart(TestInfo testInfo) {
+    void testYSortedOnXAxisAggregateBarChart() {
         def chart = Chart(Data([
                 ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
                 .encode(X("age").ordinal().sort_y(), Y("people").sum().title("population"))
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testXAscendingSortedAggregateBarChart(TestInfo testInfo) {
+    void testXAscendingSortedAggregateBarChart() {
         def chart = Chart(Data([
                 ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
-                .encode(X("people").sum().sort_ascending().title("population"), Y("age").ordinal());
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+                .encode(X("people").sum().sort_ascending().title("population"), Y("age").ordinal())
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testYAscendingSortedAggregateBarChart(TestInfo testInfo) {
+    void testYAscendingSortedAggregateBarChart() {
         def chart = Chart(Data([
                 ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
-                .encode(X("people").sum().title("population"), Y("age").ordinal().sort_ascending());
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+                .encode(X("people").sum().title("population"), Y("age").ordinal().sort_ascending())
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testXDescendingSortedAggregateBarChart(TestInfo testInfo) {
+    void testXDescendingSortedAggregateBarChart() {
         def chart = Chart(Data([
                 ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
-                .encode(X("people").sum().sort_descending().title("population"), Y("age").ordinal());
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+                .encode(X("people").sum().sort_descending().title("population"), Y("age").ordinal())
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testYDescendingSortedAggregateBarChart(TestInfo testInfo) {
+    void testYDescendingSortedAggregateBarChart() {
         def chart = Chart(Data([
                 ["age": 0,"people": 1483789], ["age": 0,"people": 1450376],
                 ["age": 5,"people": 2411067], ["age": 5,"people": 1359668],
                 ["age": 10,"people": 1260099], ["age": 10,"people": 1216114]])).mark_bar()
-                .encode(X("people").sum().title("population"), Y("age").ordinal().sort_descending());
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+                .encode(X("people").sum().title("population"), Y("age").ordinal().sort_descending())
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testXColorSortedAggregateBarChart(TestInfo testInfo) {
+    void testXColorSortedAggregateBarChart() {
         def chart = Chart(Data([
                 ["category": "A","sex": 1,"people": 1483789], ["category": "B","sex": 2,"people": 1450376],
                 ["category": "C","sex": 1,"people": 2411067], ["category": "D","sex": 2,"people": 1359668],
                 ["category": "E","sex": 1,"people": 1260099], ["category": "F","sex": 2,"people": 1216114]])).mark_bar()
-                .encode(X("category").sort_color().title("population"), Y("people").quantitative(),Color("sex"));
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+                .encode(X("category").sort_color().title("population"), Y("people").quantitative(),Color("sex"))
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testYColorSortedAggregateBarChart(TestInfo testInfo) {
+    void testYColorSortedAggregateBarChart() {
         def chart = Chart(Data([
                 ["category": "A","sex": 1,"people": 1483789], ["category": "B","sex": 2,"people": 1450376],
                 ["category": "C","sex": 1,"people": 2411067], ["category": "D","sex": 2,"people": 1359668],
                 ["category": "E","sex": 1,"people": 1260099], ["category": "F","sex": 2,"people": 1216114]])).mark_bar()
-                .encode(X("people").quantitative(), Y("category").sort_color().title("population"),Color("sex"));
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+                .encode(X("people").quantitative(), Y("category").sort_color().title("population"),Color("sex"))
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testYMinusColorSortedAggregateBarChart(TestInfo testInfo) {
+    void testYMinusColorSortedAggregateBarChart() {
         def chart = Chart(Data([
                 ["category": "A","sex": 1,"people": 1483789], ["category": "B","sex": 2,"people": 1450376],
                 ["category": "C","sex": 1,"people": 2411067], ["category": "D","sex": 2,"people": 1359668],
                 ["category": "E","sex": 1,"people": 1260099], ["category": "F","sex": 2,"people": 1216114]])).mark_bar()
-                .encode(X("people").quantitative(), Y("category").sort_minusColor().title("population"),Color("sex"));
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+                .encode(X("people").quantitative(), Y("category").sort_minusColor().title("population"),Color("sex"))
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testXMinusColorSortedAggregateBarChart(TestInfo testInfo) {
+    void testXMinusColorSortedAggregateBarChart() {
         def chart = Chart(Data([
                 ["category": "A","sex": 1,"people": 1483789], ["category": "B","sex": 2,"people": 1450376],
                 ["category": "C","sex": 1,"people": 2411067], ["category": "D","sex": 2,"people": 1359668],
                 ["category": "E","sex": 1,"people": 1260099], ["category": "F","sex": 2,"people": 1216114]])).mark_bar()
-                .encode(X("category").sort_minusColor().title("population"), Y("people").quantitative(),Color("sex"));
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+                .encode(X("category").sort_minusColor().title("population"), Y("people").quantitative(),Color("sex"))
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testResponsiveBarChart(TestInfo testInfo) {
+    void testResponsiveBarChart() {
         def chart = Chart(cars()).mark_bar()
                 .encode(X("Origin"), Y().count())
-        chart.save("target/${testInfo.displayName}.html")
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testSimpleHistogram(TestInfo testInfo) {
+    void testSimpleHistogram() {
         def chart = Chart(cars()).mark_bar()
                 .encode(X("Cylinders").quantitative().bin(true), Y().count())
-        chart.save("target/${testInfo.displayName}.html")
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testSimpleStackedAreaChart(TestInfo testInfo) {
+    void testSimpleStackedAreaChart() {
         def chart = Chart(seattle_weather()).mark_area()
                 .encode(X("date").temporal(), Y("precipitation").quantitative(), Color("weather").nominal())
-        chart.save("target/${testInfo.displayName}.html")
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testSimpleStripPlot(TestInfo testInfo) {
+    void testSimpleStackedAreaChartColored() {
+        def chart = Chart(seattle_weather()).mark_area()
+                .encode(X("date").temporal(), Y("precipitation").quantitative(),
+                        Color("weather", ["drizzle": "red","rain": "blue", "sun":"yellow"]).nominal())
+        chart.save(File.createTempFile("demat",".svg", folder))
+    }
+
+    @Test
+    void testSimpleStripPlot() {
         def chart = Chart(cars()).mark_tick()
                 .encode(X("Horsepower").quantitative(), Y("Cylinders").ordinal())
-        chart.save("target/${testInfo.displayName}.html")
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testHorizontalStackedBarChart(TestInfo testInfo) {
+    void testHorizontalStackedBarChart() {
         def chart = Chart(seattle_weather()).mark_bar()
                 .encode(X("precipitation").sum(), Y('weather'))
-        chart.save("target/${testInfo.displayName}.html")
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testLineChart(TestInfo testInfo) {
+    void testLineChart() {
         def chart = Chart(seattle_weather()).mark_line()
                 .encode(X("date").temporal(), Y('precipitation').quantitative())
-        chart.save("target/${testInfo.displayName}.html")
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testPointChart(TestInfo testInfo) {
+    void testPointChart() {
         def chart = Chart(seattle_weather()).mark_point()
                 .encode(X("date").temporal(), Y('precipitation').quantitative(), Color('weather'))
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testSquareChart(TestInfo testInfo) {
+    void testSquareChart() {
         def chart = Chart(seattle_weather()).mark_square()
                 .encode(X("date").temporal(), Y('precipitation').quantitative(), Color('weather'))
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testTextTableHeatmap(TestInfo testInfo) {
+    void testTextTableHeatmap() {
         Chart rectChart = Chart().mark_rect().encode(Color("num_cars",
                 Legend().horizontal().gradientLength(120)).quantitative().title("Count of Records"))
         Chart textChart = Chart().mark_text().encode(Text("num_cars").quantitative(),
@@ -340,26 +331,25 @@ class GroovyPlotTest {
         Plot(cars(),Title(["This is a global title ", "With a subTitle"], TitleParams().left()),
                 Transform(Count("num_cars"), GroupBy("Origin", "Cylinders")),
                 Encoding(Y("Origin").ordinal(), X("Cylinders").ordinal())).layer(rectChart, textChart)
-               .save("target/${testInfo.displayName}.html")
+               .save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testDisplayMap (TestInfo testInfo) {
-        def chart = Chart(RSU_GEOINDICATORS).height(500).width(500).mark_geoshape();
-        chart.save("target/${testInfo.displayName}.html")
+    void testDisplayMap () {
+        def chart = Chart(RSU_GEOINDICATORS).height(500).width(500).mark_geoshape()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testDisplayMapJSON (TestInfo testInfo) {
-        def chart = Chart(Data("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[4.866735,46.263463],[4.866611,46.263508],[4.866568,46.263558],[4.866583,46.263596],[4.866645,46.263637],[4.866866,46.26371],[4.866915,46.263688],[4.866799,46.263561],[4.8667,46.26356],[4.866738,46.2635],[4.866735,46.263463]]]}}")).height(500).width(500).mark_geoshape();
-        chart.save("target/${testInfo.displayName}.html")
-       //chart.show()
+    void testDisplayMapJSON () {
+        def chart = Chart(Data("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[4.866735,46.263463],[4.866611,46.263508],[4.866568,46.263558],[4.866583,46.263596],[4.866645,46.263637],[4.866866,46.26371],[4.866915,46.263688],[4.866799,46.263561],[4.8667,46.26356],[4.866738,46.2635],[4.866735,46.263463]]]}}")).height(500).width(500).mark_geoshape()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testDisplayMapWithCustomMark (TestInfo testInfo){
-        Mark mark = new Mark();
-        Def definition = new Def();
+    void testDisplayMapWithCustomMark (){
+        Mark mark = new Mark()
+        Def definition = new Def()
         definition.type = "geoshape"
         MarkFill markFill = new MarkFill()
         markFill.color = "#eee"
@@ -367,26 +357,24 @@ class GroovyPlotTest {
         MarkStroke markStrokeDef = new MarkStroke()
         markStrokeDef.color = "#757575"
         definition.stroke = markStrokeDef
-        mark.defValue = definition
+        mark.def = definition
         def chart = Chart(RSU_GEOINDICATORS, mark).height(500).width(500)
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testDisplayMapWithInterval(TestInfo testInfo) throws IOException {
-        def chart = Maps().choroplethMap(RSU_GEOINDICATORS).
+    void testDisplayMapWithInterval() throws IOException {
+        def chart = Maps().choropleth(RSU_GEOINDICATORS).
                 field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5])
                 .range(["orange", "green", "blue", "black"])
                 .labels("{'0': 'Low', '0.1': 'Moderate', '0.2': 'High', '0.5': 'Very high'}[datum.label]")
                 .title("A Map with interval")
                 .height(500).width(700)
-        chart.save("target/" + testInfo.getDisplayName() + ".html");
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testWithDataSet(TestInfo testInfo){
+    void testWithDataSet(){
         def data_1 = Data([
                 ["a": "A", "b": 28], ["a": "B", "b": 55], ["a": "C", "b": 43],
                 ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
@@ -401,24 +389,22 @@ class GroovyPlotTest {
         def chart_1 = Chart(Data().name("data_1")).mark_bar().
                 encode(X("a").nominal(), Y("b").quantitative())
         def chart_2 = Chart(Data().name("data_2")).mark_bar()
-                .encode(X("category").sort_color().title("population"), Y("people").quantitative(),Color("sex"));
-        plot.concat(chart_1, chart_2).save("target/" + testInfo.getDisplayName() + ".html");
-        plot.show()
+                .encode(X("category").sort_color().title("population"), Y("people").quantitative(),Color("sex"))
+        plot.concat(chart_1, chart_2).save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testDomainScaleRangeBarChart(TestInfo testInfo) {
+    void testDomainScaleRangeBarChart() {
         def chart = Chart(Data([
                 ["a": "A", "b": 28], ["a": "B", "b": 55], ["a": "C", "b": 43],
                 ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
                 ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52]])).mark_bar().
                 encode(X("a").nominal(), Y("b").quantitative(), Color("b",Scale(Domain([28,55]), Range(['#8b0101', '#cc0200']))))
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
     @Test
-    void testLabelsLegendBarChart(TestInfo testInfo) {
+    void testLabelsLegendBarChart() {
         def chart = Chart(Data([
                 ["a": "A", "b": 28], ["a": "B", "b": 55], ["a": "C", "b": 43],
                 ["a": "D", "b": 91], ["a": "E", "b": 81], ["a": "F", "b": 53],
@@ -426,29 +412,46 @@ class GroovyPlotTest {
                 encode(X("a").nominal(), Y("b").quantitative(),
                         Color("b",Scale(Domain([28,55]), Range(['#8b0101', '#cc0200'])),
                                 Legend("A title for the legend").labels("{'28': 'Slow', '55': 'Fast'}[datum.label]")))
-        chart.save("target/${testInfo.displayName}.html")
-        //chart.show()
+        chart.save(File.createTempFile("demat",".svg", folder))
     }
 
 
-    @Disabled
     @Test
-    void testDisplayDebug(TestInfo testInfo) throws IOException {
-        def chart = Maps().choroplethMap(RSU_GEOINDICATORS).
+    void testConcatMaps() throws IOException {
+        def chart = Maps().choropleth(RSU_GEOINDICATORS).
                 field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5])
                 .range(["orange", "green", "blue", "black"])
                 .labels("{'0': 'Low', '0.1': 'Moderate', '0.2': 'High', '0.5': 'Very high'}[datum.label]")
-                .title("A Map with interval")
+                .title("HIGH_VEGETATION_FRACTION")
                 .height(500).width(700)
 
-        def chart1 = Maps().choroplethMap(RSU_GEOINDICATORS).
-                field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5])
+        def chart1 = Maps().choropleth(RSU_GEOINDICATORS).
+                field("properties.LOW_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5])
                 .range(["orange", "green", "blue", "black"])
-                .labels("{'0': 'Low', '0.1': 'Moderate', '0.2': 'High', '0.5': 'Very high'}[datum.label]")
-                .title("A Map with interval")
+                .labels("{'0': 'Low', '0.1': 'Moderate', '0.2': 'High', '0.5': 'Very high'}[datum.label]").legend("Fraction")
+                .title("LOW_VEGETATION_FRACTION")
                 .height(500).width(700)
-        chart.save("target/" + testInfo.getDisplayName() + ".html");
-        //chart.show()
-        Plot().concat(chart, chart1).saveAsPNG("/tmp/saveplot.png")
+        chart.save("/tmp/test.json")
+        Plot().concat(chart, chart1).save(File.createTempFile("demat",".svg", folder))
     }
+
+
+    //Exemples
+    /*
+    Add text source
+    {
+      "data": {"name": "empty"},
+      "mark": {
+        "type": "text",
+        "dx": -85,
+        "dy": 10,
+        "text": "(C) OpenStreetMap contributors"
+      },
+      "encoding": {
+        "x": {"value": {"expr": 400}},
+        "y": {"value": {"expr": 400}}
+        //"width" : default param
+      }
+    }
+     */
 }

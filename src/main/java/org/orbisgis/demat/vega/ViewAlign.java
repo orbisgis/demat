@@ -73,7 +73,7 @@ public class ViewAlign {
 
     static class Deserializer extends JsonDeserializer<ViewAlign> {
         @Override
-        public ViewAlign deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ViewAlign deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ViewAlign value = new ViewAlign();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

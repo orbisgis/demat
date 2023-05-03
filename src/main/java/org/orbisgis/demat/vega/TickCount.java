@@ -59,7 +59,7 @@ public class TickCount {
 
     static class Deserializer extends JsonDeserializer<TickCount> {
         @Override
-        public TickCount deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public TickCount deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             TickCount value = new TickCount();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

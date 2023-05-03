@@ -60,7 +60,7 @@ public class AxisTickDash {
 
     static class Deserializer extends JsonDeserializer<AxisTickDash> {
         @Override
-        public AxisTickDash deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public AxisTickDash deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             AxisTickDash value = new AxisTickDash();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

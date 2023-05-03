@@ -54,11 +54,11 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonSerialize(using = FontSize.Serializer.class)
 public class FontSize {
     public Double doubleValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
 
     static class Deserializer extends JsonDeserializer<FontSize> {
         @Override
-        public FontSize deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public FontSize deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             FontSize value = new FontSize();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
@@ -68,7 +68,7 @@ public class FontSize {
                     value.doubleValue = jsonParser.readValueAs(Double.class);
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize FontSize");
             }

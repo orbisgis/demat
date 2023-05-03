@@ -58,7 +58,7 @@ public class ConditionalAxisPropertyFontStyleNull {
 
     static class Deserializer extends JsonDeserializer<ConditionalAxisPropertyFontStyleNull> {
         @Override
-        public ConditionalAxisPropertyFontStyleNull deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ConditionalAxisPropertyFontStyleNull deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ConditionalAxisPropertyFontStyleNull value = new ConditionalAxisPropertyFontStyleNull();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

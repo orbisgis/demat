@@ -89,7 +89,7 @@ public class PredicateCompositionElement {
 
     static class Deserializer extends JsonDeserializer<PredicateCompositionElement> {
         @Override
-        public PredicateCompositionElement deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public PredicateCompositionElement deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             PredicateCompositionElement value = new PredicateCompositionElement();
             switch (jsonParser.currentToken()) {
                 case VALUE_STRING:

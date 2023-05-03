@@ -84,7 +84,7 @@ public class Field {
 
     static class Deserializer extends JsonDeserializer<Field> {
         @Override
-        public Field deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Field deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Field value = new Field();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

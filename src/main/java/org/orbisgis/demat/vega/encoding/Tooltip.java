@@ -74,7 +74,7 @@ public class Tooltip {
 
     static class Deserializer extends JsonDeserializer<Tooltip> {
         @Override
-        public Tooltip deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Tooltip deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Tooltip value = new Tooltip();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

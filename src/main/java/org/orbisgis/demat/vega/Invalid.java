@@ -52,8 +52,8 @@ public enum Invalid {
 
     @JsonValue
     public String toValue() {
-        switch (this) {
-            case FILTER: return "filter";
+        if (this == Invalid.FILTER) {
+            return "filter";
         }
         return null;
     }

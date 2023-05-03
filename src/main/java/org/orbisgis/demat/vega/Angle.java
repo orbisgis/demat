@@ -54,11 +54,11 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonSerialize(using = Angle.Serializer.class)
 public class Angle {
     public Double doubleValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
 
     static class Deserializer extends JsonDeserializer<Angle> {
         @Override
-        public Angle deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Angle deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Angle value = new Angle();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
@@ -68,7 +68,7 @@ public class Angle {
                     value.doubleValue = jsonParser.readValueAs(Double.class);
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize Angle");
             }

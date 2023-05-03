@@ -61,11 +61,11 @@ import java.util.List;
 @JsonSerialize(using = Values.Serializer.class)
 public class Values {
     public List<SelectionInitInterval> unionArrayValue;
-    public BackgroundExprRef backgroundExprRefValue;
+    public ExprRef backgroundExprRefValue;
 
     static class Deserializer extends JsonDeserializer<Values> {
         @Override
-        public Values deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Values deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Values value = new Values();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
@@ -74,7 +74,7 @@ public class Values {
                     value.unionArrayValue = jsonParser.readValueAs(new TypeReference<List<SelectionInitInterval>>() {});
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(BackgroundExprRef.class);
+                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize Values");
             }

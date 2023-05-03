@@ -65,7 +65,7 @@ import java.util.Map;
  * A Vega-Lite top-level specification. This is the root class for all Vega-Lite
  * specifications. (The json schema is generated from this type.)
  *
- * @author Erwan Bocher, CNRS 2021
+ * @author Erwan Bocher, CNRS 2021 - 2023
  */
 public class View {
     private String schema;
@@ -102,7 +102,7 @@ public class View {
     private List<NormalizedSpec> concat;
     private List<NormalizedSpec> vconcat;
 
-    private String showDir = System.getProperty("java.io.tmpdir")+File.separator+"demat";
+    private final String showDir = System.getProperty("java.io.tmpdir")+File.separator+"demat";
 
     /**
      * URL to [JSON schema](http://json-schema.org/) for a Vega-Lite specification. Unless you
@@ -532,7 +532,7 @@ public class View {
         ObjectMapper mapper = new ObjectMapper();
         DataValues dataValues = mapper.readValue(json, DataValues.class);
         Data data = new Data();
-        data.setValues(dataValues);
+        data.setDataValues(dataValues);
         this.setData(data);
         return this;
     }

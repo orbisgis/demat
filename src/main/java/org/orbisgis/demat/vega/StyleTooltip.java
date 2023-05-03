@@ -60,7 +60,7 @@ public class StyleTooltip {
 
     static class Deserializer extends JsonDeserializer<StyleTooltip> {
         @Override
-        public StyleTooltip deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public StyleTooltip deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             StyleTooltip value = new StyleTooltip();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:

@@ -60,7 +60,7 @@ public class ShapeCondition {
 
     static class Deserializer extends JsonDeserializer<ShapeCondition> {
         @Override
-        public ShapeCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ShapeCondition deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             ShapeCondition value = new ShapeCondition();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
