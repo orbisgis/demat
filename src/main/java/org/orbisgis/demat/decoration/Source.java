@@ -14,7 +14,7 @@ import java.util.HashMap;
 /**
  * A Text chart to manage text decoration on a chart
  */
-public class Source extends  Chart{
+public class Source extends Chart{
 
     public Source(){
         Mark mark = new Mark();

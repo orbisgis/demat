@@ -48,18 +48,23 @@ package org.orbisgis.demat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.h2gis.utilities.JDBCUtilities;
+import org.h2gis.utilities.jts_utils.GeometryFeatureUtils;
 import org.orbisgis.data.api.dataset.ISpatialTable;
 import org.orbisgis.data.api.dataset.ITable;
-import org.orbisgis.demat.vega.*;
+import org.orbisgis.data.api.dsl.IFilterBuilder;
+import org.orbisgis.demat.vega.LayerElement;
+import org.orbisgis.demat.vega.LayerEncoding;
 import org.orbisgis.demat.vega.data.Data;
 import org.orbisgis.demat.vega.data.DataValues;
 import org.orbisgis.demat.vega.data.InlineDataset;
-import org.orbisgis.demat.vega.encoding.*;
+import org.orbisgis.demat.vega.encoding.Encoding;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.*;
-import org.h2gis.utilities.jts_utils.*;
 
 /**
  * Some Plot utilities
@@ -71,6 +76,7 @@ public class PlotUtils {
 
     /**
      * Create a data object from a {@link ISpatialTable}
+     *
      * @param spatialTable
      * @return
      */
@@ -82,15 +88,15 @@ public class PlotUtils {
         Collection<String> columns = spatialTable.getColumns();
         columns.remove(geomCol);
         int colummSize = columns.size();
-        while (spatialTable.next()){
-            InlineDataset row =  new InlineDataset();
-            LinkedHashMap<String, Object> feature =  new LinkedHashMap();
+        while (spatialTable.next()) {
+            InlineDataset row = new InlineDataset();
+            LinkedHashMap<String, Object> feature = new LinkedHashMap();
             feature.put("type", "Feature");
             feature.putAll(GeometryFeatureUtils.toMap(spatialTable.getGeometry()));
-            if(colummSize>0) {
+            if (colummSize > 0) {
                 feature.put("properties", getProperties(spatialTable, columns));
             }
-                row.anythingMapValue=feature;
+            row.anythingMapValue = feature;
             geojson.add(row);
         }
         urlDataInlineDataset.unionArrayValue = geojson;
@@ -100,6 +106,7 @@ public class PlotUtils {
 
     /**
      * Create a data object from a {@link ITable}
+     *
      * @param table
      * @return
      */
@@ -107,7 +114,7 @@ public class PlotUtils {
         Data urlData = new Data();
         Collection<String> columns = table.getColumns();
         int colummSize = columns.size();
-        if(colummSize>0) {
+        if (colummSize > 0) {
             DataValues urlDataInlineDataset = new DataValues();
             ArrayList<InlineDataset> geojson = new ArrayList<>();
             while (table.next()) {
@@ -123,7 +130,7 @@ public class PlotUtils {
 
     private static LinkedHashMap getProperties(ITable table, Collection<String> columns) throws Exception {
         LinkedHashMap properties = new LinkedHashMap();
-        for (String column:columns) {
+        for (String column : columns) {
             properties.put(column, table.getObject(column));
         }
         return properties;
@@ -132,6 +139,7 @@ public class PlotUtils {
 
     /**
      * Create a data object from a map of values
+     *
      * @param values
      * @return
      */
@@ -143,14 +151,14 @@ public class PlotUtils {
         return urlData;
     }
 
-    public static Data urlData(Object[][] values){
+    public static Data urlData(Object[][] values) {
         Data urlData = new Data();
         urlData.setDataValues(urlDataInlineDataset(values));
         return urlData;
     }
 
 
-    public static Data urlData(List<Map> values){
+    public static Data urlData(List<Map> values) {
         Data urlData = new Data();
         urlData.setDataValues(urlDataInlineDataset(values));
         return urlData;
@@ -158,22 +166,22 @@ public class PlotUtils {
 
     public static DataValues urlDataInlineDataset(List<Map> values) {
         List<InlineDataset> inlines = new ArrayList<InlineDataset>();
-        for (Map map :values) {
+        for (Map map : values) {
             InlineDataset inlineDataset = new InlineDataset();
-            inlineDataset.anythingMapValue=map;
+            inlineDataset.anythingMapValue = map;
             inlines.add(inlineDataset);
         }
         DataValues urlDataInlineDataset = new DataValues();
-        urlDataInlineDataset.unionArrayValue=inlines;
+        urlDataInlineDataset.unionArrayValue = inlines;
         return urlDataInlineDataset;
     }
 
-    public static DataValues urlDataInlineDataset(Object[][] values){
+    public static DataValues urlDataInlineDataset(Object[][] values) {
         DataValues urlDataInlineDataset = new DataValues();
         List<InlineDataset> inlines = new ArrayList<InlineDataset>();
-        if(values.length==0){
-            urlDataInlineDataset.unionArrayValue=inlines;
-        }else {
+        if (values.length == 0) {
+            urlDataInlineDataset.unionArrayValue = inlines;
+        } else {
             Object[] firstRow = values[0];
             for (int i = 1; i < values.length; i++) {
                 InlineDataset inlineDataset = new InlineDataset();
@@ -197,8 +205,8 @@ public class PlotUtils {
      * @param url
      * @throws Exception
      */
-    public static void  openBrowser( String url) throws Exception {
-        if (url==null || url.isEmpty()){
+    public static void openBrowser(String url) throws Exception {
+        if (url == null || url.isEmpty()) {
             throw new RuntimeException("The URL cannot be null or empty");
         }
         String osname = System.getProperty("os.name");
@@ -206,7 +214,7 @@ public class PlotUtils {
         boolean isMac = !isWin && osname.startsWith("mac");
         if (isMac) {
             Runtime.getRuntime().exec("open " + url);
-        }else if (isWin) {
+        } else if (isWin) {
             String cmd = "rundll32 url.dll,FileProtocolHandler " + url;
             if (osname.startsWith("Windows 2000"))
                 cmd = "rundll32 shell32.dll,ShellExec_RunDLL " + url;
@@ -224,12 +232,12 @@ public class PlotUtils {
             // Based on BareBonesBrowserLaunch (http://www.centerkey.com/java/browser/)
             // The utility 'xdg-open' launches the URL in the user's preferred browser,
             // therefore we try to use it first, before trying to discover other browsers.
-            String[] browsers = {"xdg-open", "netscape", "firefox", "konqueror", "mozilla", "opera", "epiphany", "lynx" };
+            String[] browsers = {"xdg-open", "netscape", "firefox", "konqueror", "mozilla", "opera", "epiphany", "lynx"};
             String browserName = null;
             try {
-                for (int count=0; count<browsers.length && browserName==null; count++) {
-                    String[] c = new String[] {"which", browsers[count]};
-                    if (Runtime.getRuntime().exec(c).waitFor()==0)
+                for (int count = 0; count < browsers.length && browserName == null; count++) {
+                    String[] c = new String[]{"which", browsers[count]};
+                    if (Runtime.getRuntime().exec(c).waitFor() == 0)
                         browserName = browsers[count];
                 }
                 if (browserName == null) {
@@ -274,10 +282,11 @@ public class PlotUtils {
 
     /**
      * Convert a Chart to a LayerElement
+     *
      * @param chart
      * @return
      */
-    public static LayerElement chartToLayerElement(Chart chart){
+    public static LayerElement chartToLayerElement(Chart chart) {
         LayerElement layerElement = new LayerElement();
         layerElement.setData(chart.getData());
         layerElement.setLayer(chart.getLayer());
@@ -293,7 +302,7 @@ public class PlotUtils {
         layerElement.setTransform(chart.getTransform());
         layerElement.setView(chart.getViewBackground());
         Encoding chartEncoding = chart.getEncoding();
-        if(chartEncoding!=null) {
+        if (chartEncoding != null) {
             LayerEncoding layerEncoding = new LayerEncoding();
             layerEncoding.setAngle(chartEncoding.getAngle());
             layerEncoding.setColor(chartEncoding.getColor());
@@ -333,5 +342,54 @@ public class PlotUtils {
             layerElement.setEncoding(layerEncoding);
         }
         return layerElement;
+    }
+
+    /**
+     * Return the first no geometric column
+     *
+     * @param filteredTable
+     * @return
+     */
+    public static String getFirstNoGeomColumn(IFilterBuilder filteredTable) {
+        return getFirstNoGeomColumn(filteredTable.getTable());
+    }
+
+    /**
+     * Return the first no geometric column
+     *
+     * @param table
+     * @return
+     */
+    public static String getFirstNoGeomColumn(ITable table) {
+        Map<String, String> columns = table.getColumnsTypes();
+        return columns.entrySet().stream().filter(map -> !map.getValue().toLowerCase().startsWith("geometry")).findFirst().get().getKey();
+    }
+
+    /**
+     * Return the first numeric column
+     *
+     * @param filteredTable
+     * @return
+     */
+    public static String getFirstNumericColumn(IFilterBuilder filteredTable) {
+        try {
+            return JDBCUtilities.getFirstNumericColumn((ResultSetMetaData) filteredTable.getTable().getMetaData());
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Return the first numeric column
+     *
+     * @param table
+     * @return
+     */
+    public static String getFirstNumericColumn(ITable table) {
+        try {
+            return JDBCUtilities.getFirstNumericColumn((ResultSetMetaData) table.getMetaData());
+        } catch (SQLException e) {
+            return null;
+        }
     }
 }
