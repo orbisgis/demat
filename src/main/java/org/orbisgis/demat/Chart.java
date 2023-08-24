@@ -27,122 +27,9 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
         this.id = "vis" + UUID.randomUUID();
     }
 
-    /**
-     * Create a mark_geoshape
-     *
-     * @return
-     */
-    public Chart mark_geoshape() {
+    public Chart mark(Def def){
         Mark mark = new Mark();
-        mark.type = "geoshape";
-        this.setMark(mark);
-        return this;
-    }
-
-    /**
-     * Create a mark_image
-     *
-     * @return
-     */
-    public Chart mark_image() {
-        Mark mark = new Mark();
-        mark.type = "image";
-        this.setMark(mark);
-        return this;
-    }
-
-    /**
-     * Create a mark_bar
-     *
-     * @return
-     */
-    public Chart mark_bar() {
-        Mark mark = new Mark();
-        mark.type = "bar";
-        this.setMark(mark);
-        return this;
-    }
-
-    /**
-     * Create a mark_rect
-     *
-     * @return
-     */
-    public Chart mark_rect() {
-        Mark mark = new Mark();
-        mark.type = "rect";
-        this.setMark(mark);
-        return this;
-    }
-
-    /**
-     * Create a mark_area
-     *
-     * @return
-     */
-    public Chart mark_area() {
-        Mark mark = new Mark();
-        mark.type = "area";
-        this.setMark(mark);
-        return this;
-    }
-
-    /**
-     * Create a mark_tick
-     *
-     * @return
-     */
-    public Chart mark_tick() {
-        Mark mark = new Mark();
-        mark.type = "tick";
-        this.setMark(mark);
-        return this;
-    }
-
-    /**
-     * Create a mark_line
-     *
-     * @return
-     */
-    public Chart mark_line() {
-        Mark mark = new Mark();
-        mark.type = "line";
-        this.setMark(mark);
-        return this;
-    }
-
-    /**
-     * Create a mark_line
-     *
-     * @return
-     */
-    public Chart mark_point() {
-        Mark mark = new Mark();
-        mark.type = "point";
-        this.setMark(mark);
-        return this;
-    }
-
-    /**
-     * Create a mark_square
-     *
-     * @return
-     */
-    public Chart mark_square() {
-        Mark mark = new Mark();
-        mark.type = "square";
-        this.setMark(mark);
-        return this;
-    }
-
-    /**
-     * Create a mark_text
-     *
-     * @return
-     */
-    public Chart mark_text() {
-        Mark mark = new Mark();
-        mark.type = "text";
+        mark.def=def;
         this.setMark(mark);
         return this;
     }
@@ -172,10 +59,12 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
                 encoding.setY((Y) element);
             } else if (element instanceof Color) {
                 encoding.setColor((Color) element);
-            } else if (element instanceof Tooltip) {
-                encoding.setTooltip((Tooltip) element);
+            } else if (element instanceof org.orbisgis.demat.vega.encoding.Tooltip) {
+                encoding.setTooltip((org.orbisgis.demat.vega.encoding.Tooltip) element);
             }else if (element instanceof Text) {
                 encoding.setText((Text) element);
+            } else if (element instanceof  Theta) {
+                encoding.setTheta((Theta) element);
             }
         }
         this.setEncoding(encoding);

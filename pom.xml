@@ -41,7 +41,7 @@
         <dependency>
             <groupId>com.caoccao.javet</groupId>
             <artifactId>javet</artifactId>
-            <version>2.1.1</version>
+            <version>2.1.2</version>
         </dependency>
 
         <dependency>
@@ -237,7 +237,7 @@
             </plugins>
         </pluginManagement>
         <plugins>
-            <!--<plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
@@ -254,14 +254,14 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>make-assembly</id> &lt;!&ndash; this is used for inheritance merges &ndash;&gt;
-                        <phase>package</phase> &lt;!&ndash; bind to the packaging phase &ndash;&gt;
+                        <id>make-assembly</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>

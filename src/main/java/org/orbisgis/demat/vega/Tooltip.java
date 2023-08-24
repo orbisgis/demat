@@ -50,18 +50,18 @@ import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.*;
 
-@JsonDeserialize(using = MarkConfigExprOrSignalRefTooltip.Deserializer.class)
-@JsonSerialize(using = MarkConfigExprOrSignalRefTooltip.Serializer.class)
-public class MarkConfigExprOrSignalRefTooltip {
+@JsonDeserialize(using = Tooltip.Deserializer.class)
+@JsonSerialize(using = Tooltip.Serializer.class)
+public class Tooltip {
     public Double doubleValue;
     public Boolean boolValue;
     public PurpleTooltipContent purpleTooltipContentValue;
     public String stringValue;
 
-    static class Deserializer extends JsonDeserializer<MarkConfigExprOrSignalRefTooltip> {
+    static class Deserializer extends JsonDeserializer<Tooltip> {
         @Override
-        public MarkConfigExprOrSignalRefTooltip deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-            MarkConfigExprOrSignalRefTooltip value = new MarkConfigExprOrSignalRefTooltip();
+        public Tooltip deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+            Tooltip value = new Tooltip();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
                     break;
@@ -86,9 +86,9 @@ public class MarkConfigExprOrSignalRefTooltip {
         }
     }
 
-    static class Serializer extends JsonSerializer<MarkConfigExprOrSignalRefTooltip> {
+    static class Serializer extends JsonSerializer<Tooltip> {
         @Override
-        public void serialize(MarkConfigExprOrSignalRefTooltip obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(Tooltip obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.doubleValue != null) {
                 jsonGenerator.writeObject(obj.doubleValue);
                 return;

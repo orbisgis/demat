@@ -131,7 +131,7 @@ public class Def {
     private CornerRadius thetaOffset;
     private Double timeUnitBand;
     private Double timeUnitBandPosition;
-    private MarkConfigExprOrSignalRefTooltip tooltip;
+    private Tooltip tooltip;
     private Background url;
     private CornerRadius width;
     private Coordinate coordinate;
@@ -852,9 +852,9 @@ public class Def {
      * __Default value:__ `null`
      */
     @JsonProperty("tooltip")
-    public MarkConfigExprOrSignalRefTooltip getTooltip() { return tooltip; }
+    public Tooltip getTooltip() { return tooltip; }
     @JsonProperty("tooltip")
-    public void setTooltip(MarkConfigExprOrSignalRefTooltip value) { this.tooltip = value; }
+    public void setTooltip(Tooltip value) { this.tooltip = value; }
 
     @JsonProperty("url")
     public Background getURL() { return url; }
@@ -943,4 +943,112 @@ public class Def {
     public CornerRadius getYOffset() { return yOffset; }
     @JsonProperty("yOffset")
     public void setYOffset(CornerRadius value) { this.yOffset = value; }
+
+
+    //Builder functions
+
+    public Def radius(double value){
+        CornerRadius c = new CornerRadius();
+        c.value=value;
+        setRadius(c);
+        return this;
+    }
+
+    public Def radius(String expression){
+        CornerRadius c = new CornerRadius();
+        ExprRef exprRef= new ExprRef();
+        exprRef.setExpr(expression);
+        c.exprRef=exprRef;
+        setRadius(c);
+        return this;
+    }
+
+    public Def radius2(double value){
+        CornerRadius c = new CornerRadius();
+        c.value=value;
+        setRadius2(c);
+        return this;
+    }
+
+    public Def radius2(String expression){
+        CornerRadius c = new CornerRadius();
+        ExprRef exprRef= new ExprRef();
+        exprRef.setExpr(expression);
+        c.exprRef=exprRef;
+        setRadius2(c);
+        return this;
+    }
+
+    public Def innerRadius(double value){
+        CornerRadius c = new CornerRadius();
+        c.value=value;
+        setInnerRadius(c);
+        return this;
+    }
+
+    public Def innerRadius(String expression){
+        CornerRadius c = new CornerRadius();
+        ExprRef exprRef= new ExprRef();
+        exprRef.setExpr(expression);
+        c.exprRef=exprRef;
+        setInnerRadius(c);
+        return this;
+    }
+
+    public Def outerRadius(double value){
+        CornerRadius c = new CornerRadius();
+        c.value=value;
+        setOuterRadius(c);
+        return this;
+    }
+
+    public Def outerRadius(String expression){
+        CornerRadius c = new CornerRadius();
+        ExprRef exprRef= new ExprRef();
+        exprRef.setExpr(expression);
+        c.exprRef=exprRef;
+        setOuterRadius(c);
+        return this;
+    }
+
+    public Def radiusOffset(double value){
+        CornerRadius c = new CornerRadius();
+        c.value=value;
+        setRadiusOffset(c);
+        return this;
+    }
+
+    public Def radiusOffset(String expression){
+        CornerRadius c = new CornerRadius();
+        ExprRef exprRef= new ExprRef();
+        exprRef.setExpr(expression);
+        c.exprRef=exprRef;
+        setRadiusOffset(c);
+        return this;
+    }
+
+    public Def thetaOffset(double value){
+        CornerRadius c = new CornerRadius();
+        c.value=value;
+        setThetaOffset(c);
+        return this;
+    }
+
+    public Def thetaOffset(String expression){
+        CornerRadius c = new CornerRadius();
+        ExprRef exprRef= new ExprRef();
+        exprRef.setExpr(expression);
+        c.exprRef=exprRef;
+        setThetaOffset(c);
+        return this;
+    }
+
+    public Def tooltip(boolean value) {
+        Tooltip tooltip1 = new Tooltip();
+        tooltip1.boolValue=value;
+        setTooltip(tooltip1);
+        return this;
+    }
+
+
 }

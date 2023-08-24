@@ -80,7 +80,7 @@ public class Encoding {
     private StrokeOpacityClass strokeOpacity;
     private StrokeWidthClass strokeWidth;
     private Text text;
-    private ThetaClass theta;
+    private Theta theta;
     private Theta2Class theta2;
     private Tooltip tooltip;
     private URLClass url;
@@ -384,9 +384,9 @@ public class Encoding {
      * - For text marks, polar coordinate angle in radians.
      */
     @JsonProperty("theta")
-    public ThetaClass getTheta() { return theta; }
+    public Theta getTheta() { return theta; }
     @JsonProperty("theta")
-    public void setTheta(ThetaClass value) { this.theta = value; }
+    public void setTheta(Theta value) { this.theta = value; }
 
     /**
      * The end angle of arc marks in radians. A value of 0 indicates up or “north”, increasing

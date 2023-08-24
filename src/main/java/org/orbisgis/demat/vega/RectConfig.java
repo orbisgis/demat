@@ -119,7 +119,7 @@ public class RectConfig {
     private CornerRadius theta2;
     private Double timeUnitBand;
     private Double timeUnitBandPosition;
-    private MarkConfigExprOrSignalRefTooltip tooltip;
+    private Tooltip tooltip;
     private Background url;
     private CornerRadius width;
     private Coordinate coordinate;
@@ -603,9 +603,9 @@ public class RectConfig {
      * __Default value:__ `null`
      */
     @JsonProperty("tooltip")
-    public MarkConfigExprOrSignalRefTooltip getTooltip() { return tooltip; }
+    public Tooltip getTooltip() { return tooltip; }
     @JsonProperty("tooltip")
-    public void setTooltip(MarkConfigExprOrSignalRefTooltip value) { this.tooltip = value; }
+    public void setTooltip(Tooltip value) { this.tooltip = value; }
 
     @JsonProperty("url")
     public Background getURL() { return url; }

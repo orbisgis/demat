@@ -54,7 +54,10 @@ import org.orbisgis.data.api.dataset.ISpatialTable;
 import org.orbisgis.data.api.dataset.ITable;
 import org.orbisgis.data.api.dsl.IFilterBuilder;
 import org.orbisgis.demat.decoration.Source;
+import org.orbisgis.demat.maps.ChoroplethMap;
+import org.orbisgis.demat.maps.ManualIntervalMap;
 import org.orbisgis.demat.maps.Maps;
+import org.orbisgis.demat.maps.UniqueValuesMap;
 import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.condition.ConditionalValueNumber;
 import org.orbisgis.demat.vega.condition.ConditionalValueString;
@@ -62,6 +65,7 @@ import org.orbisgis.demat.vega.data.Data;
 import org.orbisgis.demat.vega.data.DataSet;
 import org.orbisgis.demat.vega.data.DataValues;
 import org.orbisgis.demat.vega.encoding.*;
+import org.orbisgis.demat.vega.encoding.Tooltip;
 import org.orbisgis.demat.vega.legend.Legend;
 import org.orbisgis.demat.vega.legend.LegendText;
 import org.orbisgis.demat.vega.resolve.*;
@@ -136,18 +140,15 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
                 chart.setData((Data) element);
             } else if (element instanceof Mark) {
                 chart.setMark((Mark) element);
-            }
-            else if (element instanceof ITable) {
+            } else if (element instanceof ITable) {
                 Data data = new Data();
                 data.setTable((ITable) element);
                 chart.setData(data);
-            }
-            else if (element instanceof IFilterBuilder) {
+            } else if (element instanceof IFilterBuilder) {
                 Data data = new Data();
                 data.setTable(((IFilterBuilder) element).getTable());
                 chart.setData(data);
-            }
-            else {
+            } else {
                 throw new RuntimeException("Unknown vega-lite element");
             }
         }
@@ -232,9 +233,78 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         return dataSet;
     }
 
+    /**
+     * Create a Choropleth Map
+     * @param data input data
+     * @return
+     */
+    public static ChoroplethMap ChoroplethMap(Object data) {
+        if (data instanceof Data) {
+            return Maps.choropleth((Data) data);
+        } else if (data instanceof ITable) {
+            return Maps.choropleth((ITable) data);
+        } else if (data instanceof IFilterBuilder) {
+            return Maps.choropleth((IFilterBuilder) data);
+        } else {
+            throw new RuntimeException("Unknown data type");
+        }
+    }
 
-    public static Maps Maps() {
-        return new Maps();
+    /**
+     * Create a Choropleth Map
+     * @return
+     */
+    public static ChoroplethMap ChoroplethMap() {
+            return Maps.choropleth();
+    }
+
+    /**
+     * Create a unique values map
+     * @param data
+     * @return
+     */
+    public static UniqueValuesMap UniqueValuesMap(Object data) {
+        if (data instanceof Data) {
+            return Maps.uniqueValues((Data) data);
+        } else if (data instanceof ITable) {
+            return Maps.uniqueValues((ITable) data);
+        } else if (data instanceof IFilterBuilder) {
+            return Maps.uniqueValues((IFilterBuilder) data);
+        } else {
+            throw new RuntimeException("Unknown data type");
+        }
+    }
+    /**
+     * Create a unique values map
+     * @return
+     */
+    public static UniqueValuesMap UniqueValuesMap() {
+         return Maps.uniqueValues();
+    }
+
+    /**
+     * Create a manual interval map
+     * @param data
+     * @return
+     */
+    public static ManualIntervalMap ManualIntervalMap(Object data){
+        if (data instanceof Data) {
+            return Maps.manualInterval((Data) data);
+        } else if (data instanceof ITable) {
+            Data data1 = new Data();
+            data1.setTable((ITable) data);
+            return Maps.manualInterval(data1);
+        } else if (data instanceof IFilterBuilder) {
+            Data data1 = new Data();
+            data1.setTable(((IFilterBuilder) data).getTable());
+            return Maps.manualInterval(data1);
+        } else {
+            throw new RuntimeException("Unknown data type");
+        }
+    }
+
+    public static ManualIntervalMap ManualIntervalMap(){
+        return Maps.manualInterval();
     }
 
     /**
@@ -591,6 +661,160 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         return text;
     }
 
+    /**
+     * Return a Theta encoding class
+     *
+     * @return
+     */
+    public static Theta Theta(String fieldValue) {
+        Theta theta = new Theta();
+        theta.setField(new Field(fieldValue));
+        return theta;
+    }
+
+
+    /**
+     * Create a mark arc def
+     * @return
+     */
+    public static Def Arc(){
+        Def def =  new Def();
+        def.setType("arc");
+        return def;
+    }
+
+    /**
+     * Create a mark boxplot def
+     *
+     * @return
+     */
+    public static Def BoxPlot() {
+        Def def =  new Def();
+        def.setType("boxplot");
+        return def;
+    }
+
+    /**
+     * Create a text def
+     *
+     * @return
+     */
+    public static Def Text() {
+        Def def =  new Def();
+        def.setType("text");
+        return def;
+    }
+
+    /**
+     * Create a square def
+     *
+     * @return
+     */
+    public static Def Square() {
+        Def def =  new Def();
+        def.setType("square");
+        return def;
+    }
+
+    /**
+     * Create a point def
+     *
+     * @return
+     */
+    public static Def Point() {
+        Def def =  new Def();
+        def.setType("point");
+        return def;
+    }
+
+    /**
+     * Create a line def
+     *
+     * @return
+     */
+    public static Def Line() {
+        Def def =  new Def();
+        def.setType("line");
+        return def;
+    }
+
+    /**
+     * Create a tick def
+     *
+     * @return
+     */
+    public static Def Tick() {
+        Def def =  new Def();
+        def.setType("tick");
+        return def;
+    }
+
+    /**
+     * Create a rect def
+     *
+     * @return
+     */
+    public static Def Rect() {
+        Def def =  new Def();
+        def.setType("rect");
+        return def;
+    }
+
+    /**
+     * Create a image def
+     *
+     * @return
+     */
+    public static Def Image() {
+        Def def =  new Def();
+        def.setType("image");
+        return def;
+    }
+
+    /**
+     * Create a geoshape def
+     *
+     * @return
+     */
+    public static Def Geoshape() {
+        Def def =  new Def();
+        def.setType("geoshape");
+        return def;
+    }
+
+    /**
+     * Create a circle def
+     *
+     * @return
+     */
+    public static Def Circle() {
+        Def def =  new Def();
+        def.setType("circle");
+        return def;
+    }
+
+
+    /**
+     * Create a area def
+     *
+     * @return
+     */
+    public static Def Area() {
+        Def def =  new Def();
+        def.setType("area");
+        return def;
+    }
+
+    /**
+     * Create a mark bar def
+     * @return
+     */
+    public static Def Bar(){
+        Def def =  new Def();
+        def.setType("bar");
+        return def;
+    }
+
     public static Projection Projection() {
         return new Projection();
     }
@@ -871,7 +1095,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
             Config config = new Config();
             ViewConfig viewConfig = new ViewConfig();
             Background background = new Background();
-            background.value ="transparent";
+            background.value = "transparent";
             viewConfig.setStroke(background);
             config.setView(viewConfig);
             this.view.setConfig(config);
