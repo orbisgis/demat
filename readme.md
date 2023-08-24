@@ -22,7 +22,7 @@ import static org.orbisgis.demat.Demat.*
 
 def chart = Chart().description("A simple bar chart").name("A simple name")
         .data(new Object[][]{{"a", "b", "c"}, {1, 22, 12}, {200, 300, 400}})
-        .mark_bar()
+        .mark(Bar())
         .encode(X("a").nominal(), Y("b").quantitative())
 chart.show()
 ```
