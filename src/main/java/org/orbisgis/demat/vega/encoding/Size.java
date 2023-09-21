@@ -42,27 +42,57 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.orbisgis.demat.vega;
+package org.orbisgis.demat.vega.encoding;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.*;
+import org.orbisgis.demat.vega.legend.Legend;
 import org.orbisgis.demat.vega.legend.LegendText;
 
 /**
- * Latitude position of geographically projected marks.
+ * Rotation angle of point and text marks.
  *
- * Longitude position of geographically projected marks.
+ * Fill opacity of the marks.
  *
- * Definition object for a constant value (primitive value or gradient definition) of an
- * encoding channel.
+ * __Default value:__ If undefined, the default opacity depends on [mark
+ * config](https://vega.github.io/vega-lite/docs/config.html#mark-config)'s `fillOpacity`
+ * property.
+ *
+ * Opacity of the marks.
+ *
+ * __Default value:__ If undefined, the default opacity depends on [mark
+ * config](https://vega.github.io/vega-lite/docs/config.html#mark-config)'s `opacity`
+ * property.
+ *
+ * Size of the mark. - For `"point"`, `"square"` and `"circle"`, – the symbol size, or pixel
+ * area of the mark. - For `"bar"` and `"tick"` – the bar and tick's size. - For `"text"` –
+ * the text's font size. - Size is unsupported for `"line"`, `"area"`, and `"rect"`. (Use
+ * `"trail"` instead of line with varying size)
+ *
+ * Stroke opacity of the marks.
+ *
+ * __Default value:__ If undefined, the default opacity depends on [mark
+ * config](https://vega.github.io/vega-lite/docs/config.html#mark-config)'s `strokeOpacity`
+ * property.
+ *
+ * Stroke width of the marks.
+ *
+ * __Default value:__ If undefined, the default stroke width depends on [mark
+ * config](https://vega.github.io/vega-lite/docs/config.html#mark-config)'s `strokeWidth`
+ * property.
+ *
+ * A FieldDef with Condition<ValueDef> {    condition: {value: ...},    field: ...,    ... }
  */
-public class LatitudeClass {
+public class Size extends ChannelCommonMethods<Color>{
     private Aggregate aggregate;
     private Double band;
-    private Object bin;
+    private AngleBin bin;
+    private AngleCondition condition;
     private Field field;
+    private Legend legend;
+    private Scale scale;
+    private SortUnion sort;
     private TimeUnitUnion timeUnit;
-    private LegendText title;
-    private String type;
     private PrimitiveValue datum;
     private CornerRadius value;
 
@@ -116,9 +146,24 @@ public class LatitudeClass {
      * __See also:__ [`bin`](https://vega.github.io/vega-lite/docs/bin.html) documentation.
      */
     @JsonProperty("bin")
-    public Object getBin() { return bin; }
+    public AngleBin getBin() { return bin; }
     @JsonProperty("bin")
-    public void setBin(Object value) { this.bin = value; }
+    public void setBin(AngleBin value) { this.bin = value; }
+
+    /**
+     * One or more value definition(s) with [a selection or a test
+     * predicate](https://vega.github.io/vega-lite/docs/condition.html).
+     *
+     * __Note:__ A field definition's `condition` property can only contain [conditional value
+     * definitions](https://vega.github.io/vega-lite/docs/condition.html#value) since Vega-Lite
+     * only allows at most one encoded field per encoding channel.
+     *
+     * A field definition or one or more value definition(s) with a selection predicate.
+     */
+    @JsonProperty("condition")
+    public AngleCondition getCondition() { return condition; }
+    @JsonProperty("condition")
+    public void setCondition(AngleCondition value) { this.condition = value; }
 
     /**
      * __Required.__ A string defining the name of the field from which to pull a data value or
@@ -138,6 +183,73 @@ public class LatitudeClass {
     public Field getField() { return field; }
     @JsonProperty("field")
     public void setField(Field value) { this.field = value; }
+
+    /**
+     * An object defining properties of the legend. If `null`, the legend for the encoding
+     * channel will be removed.
+     *
+     * __Default value:__ If undefined, default [legend
+     * properties](https://vega.github.io/vega-lite/docs/legend.html) are applied.
+     *
+     * __See also:__ [`legend`](https://vega.github.io/vega-lite/docs/legend.html) documentation.
+     */
+    @JsonProperty("legend")
+    public Legend getLegend() { return legend; }
+    @JsonProperty("legend")
+    public void setLegend(Legend value) { this.legend = value; }
+
+    /**
+     * An object defining properties of the channel's scale, which is the function that
+     * transforms values in the data domain (numbers, dates, strings, etc) to visual values
+     * (pixels, colors, sizes) of the encoding channels.
+     *
+     * If `null`, the scale will be [disabled and the data value will be directly
+     * encoded](https://vega.github.io/vega-lite/docs/scale.html#disable).
+     *
+     * __Default value:__ If undefined, default [scale
+     * properties](https://vega.github.io/vega-lite/docs/scale.html) are applied.
+     *
+     * __See also:__ [`scale`](https://vega.github.io/vega-lite/docs/scale.html) documentation.
+     */
+    @JsonProperty("scale")
+    public Scale getScale() { return scale; }
+    @JsonProperty("scale")
+    public void setScale(Scale value) { this.scale = value; }
+
+    /**
+     * Sort order for the encoded field.
+     *
+     * For continuous fields (quantitative or temporal), `sort` can be either `"ascending"` or
+     * `"descending"`.
+     *
+     * For discrete fields, `sort` can be one of the following: - `"ascending"` or
+     * `"descending"` -- for sorting by the values' natural order in JavaScript. - [A string
+     * indicating an encoding channel name to sort
+     * by](https://vega.github.io/vega-lite/docs/sort.html#sort-by-encoding) (e.g., `"x"` or
+     * `"y"`) with an optional minus prefix for descending sort (e.g., `"-x"` to sort by
+     * x-field, descending). This channel string is short-form of [a sort-by-encoding
+     * definition](https://vega.github.io/vega-lite/docs/sort.html#sort-by-encoding). For
+     * example, `"sort": "-x"` is equivalent to `"sort": {"encoding": "x", "order":
+     * "descending"}`. - [A sort field
+     * definition](https://vega.github.io/vega-lite/docs/sort.html#sort-field) for sorting by
+     * another field. - [An array specifying the field values in preferred
+     * order](https://vega.github.io/vega-lite/docs/sort.html#sort-array). In this case, the
+     * sort order will obey the values in the array, followed by any unspecified values in their
+     * original order. For discrete time field, values in the sort array can be [date-time
+     * definition objects](types#datetime). In addition, for time units `"month"` and `"day"`,
+     * the values can be the month or day names (case insensitive) or their 3-letter initials
+     * (e.g., `"Mon"`, `"Tue"`). - `null` indicating no sort.
+     *
+     * __Default value:__ `"ascending"`
+     *
+     * __Note:__ `null` and sorting by another channel is not supported for `row` and `column`.
+     *
+     * __See also:__ [`sort`](https://vega.github.io/vega-lite/docs/sort.html) documentation.
+     */
+    @JsonProperty("sort")
+    public SortUnion getSort() { return sort; }
+    @JsonProperty("sort")
+    public void setSort(SortUnion value) { this.sort = value; }
 
     /**
      * Time unit (e.g., `year`, `yearmonth`, `month`, `hours`) for a temporal field. or [a
@@ -232,9 +344,9 @@ public class LatitudeClass {
      * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
      */
     @JsonProperty("type")
-    public String getType() { return type; }
+    public Type getType() { return type; }
     @JsonProperty("type")
-    public void setType(String value) { this.type = value; }
+    public void setType(Type value) { this.type = value; }
 
     /**
      * A constant value in data domain.

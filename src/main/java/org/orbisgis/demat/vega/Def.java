@@ -50,7 +50,7 @@ import org.orbisgis.demat.vega.legend.LegendText;
 public class Def {
     private Box box;
     private Boolean clip;
-    private MarkConfigExprOrSignalRefColor color;
+    private MarkColorConfig color;
     private Extent extent;
     private Box median;
     private CornerRadius opacity;
@@ -168,9 +168,9 @@ public class Def {
      * `stroke` properties have higher precedence than `color` and will override `color`.
      */
     @JsonProperty("color")
-    public MarkConfigExprOrSignalRefColor getColor() { return color; }
+    public MarkColorConfig getColor() { return color; }
     @JsonProperty("color")
-    public void setColor(MarkConfigExprOrSignalRefColor value) { this.color = value; }
+    public void setColor(MarkColorConfig value) { this.color = value; }
 
     /**
      * The extent of the whiskers. Available options include: - `"min-max"`: min and max are the
@@ -959,14 +959,14 @@ public class Def {
         ExprRef exprRef= new ExprRef();
         exprRef.setExpr(expression);
         c.exprRef=exprRef;
-        setRadius(c);
+        this.setRadius(c);
         return this;
     }
 
     public Def radius2(double value){
         CornerRadius c = new CornerRadius();
         c.value=value;
-        setRadius2(c);
+        this.setRadius2(c);
         return this;
     }
 
@@ -975,14 +975,14 @@ public class Def {
         ExprRef exprRef= new ExprRef();
         exprRef.setExpr(expression);
         c.exprRef=exprRef;
-        setRadius2(c);
+        this.setRadius2(c);
         return this;
     }
 
     public Def innerRadius(double value){
         CornerRadius c = new CornerRadius();
         c.value=value;
-        setInnerRadius(c);
+        this.setInnerRadius(c);
         return this;
     }
 
@@ -991,14 +991,14 @@ public class Def {
         ExprRef exprRef= new ExprRef();
         exprRef.setExpr(expression);
         c.exprRef=exprRef;
-        setInnerRadius(c);
+        this.setInnerRadius(c);
         return this;
     }
 
     public Def outerRadius(double value){
         CornerRadius c = new CornerRadius();
         c.value=value;
-        setOuterRadius(c);
+        this.setOuterRadius(c);
         return this;
     }
 
@@ -1007,14 +1007,14 @@ public class Def {
         ExprRef exprRef= new ExprRef();
         exprRef.setExpr(expression);
         c.exprRef=exprRef;
-        setOuterRadius(c);
+        this.setOuterRadius(c);
         return this;
     }
 
     public Def radiusOffset(double value){
         CornerRadius c = new CornerRadius();
         c.value=value;
-        setRadiusOffset(c);
+        this.setRadiusOffset(c);
         return this;
     }
 
@@ -1023,32 +1023,110 @@ public class Def {
         ExprRef exprRef= new ExprRef();
         exprRef.setExpr(expression);
         c.exprRef=exprRef;
-        setRadiusOffset(c);
+        this.setRadiusOffset(c);
+        return this;
+    }
+
+    public Def theta(double value){
+        CornerRadius c = new CornerRadius();
+        c.value=value;
+        this.setTheta(c);
+        return this;
+    }
+
+    public Def theta2(double value){
+        CornerRadius c = new CornerRadius();
+        c.value=value;
+        this.setTheta2(c);
         return this;
     }
 
     public Def thetaOffset(double value){
         CornerRadius c = new CornerRadius();
         c.value=value;
-        setThetaOffset(c);
+        this.setThetaOffset(c);
         return this;
     }
 
     public Def thetaOffset(String expression){
-        CornerRadius c = new CornerRadius();
-        ExprRef exprRef= new ExprRef();
-        exprRef.setExpr(expression);
-        c.exprRef=exprRef;
-        setThetaOffset(c);
+        this.setThetaOffset(VegaFactory.createCornerExpression(expression));
         return this;
     }
 
     public Def tooltip(boolean value) {
         Tooltip tooltip1 = new Tooltip();
         tooltip1.boolValue=value;
-        setTooltip(tooltip1);
+        this.setTooltip(tooltip1);
         return this;
     }
 
+    public Def stroke(String value){
+        MarkStroke markStroke = new MarkStroke();
+        markStroke.color=value;
+        this.setStroke(markStroke);
+        return this;
+    }
+
+    public Def strokeWidth(double value){
+        FontSize   fontSize = new FontSize();
+        fontSize.value = value;
+        this.setStrokeWidth(fontSize);
+        return this;
+    }
+
+    public Def strokeWidth(String expression){
+        FontSize   fontSize = new FontSize();
+        fontSize.exprRef = VegaFactory.createExpression(expression);
+        this.setStrokeWidth(fontSize);
+        return this;
+    }
+
+
+    public Def fill(String color) {
+        MarkFill markFill =  new MarkFill();
+        markFill.color=color;
+        this.setFill(markFill);
+        return this;
+    }
+
+    public Def filled(boolean value) {
+        this.setFilled(value);
+        return this;
+    }
+
+    public Def fillOpacity(double value){
+        this.setFillOpacity(VegaFactory.createOpacity(value));
+        return this;
+    }
+
+    public Def fillOpacity(String expression){
+        this.setFillOpacity(VegaFactory.createOpacity(expression));
+        return this;
+    }
+
+    public Def yOffset(double value){
+        this.setYOffset(VegaFactory.createCornerValue(value));
+        return  this;
+    }
+
+    public Def yOffset(ExprRef expression){
+        this.setYOffset(VegaFactory.createCornerExpression(expression));
+        return  this;
+    }
+
+    public Def xOffset(double value){
+        this.setXOffset(VegaFactory.createCornerValue(value));
+        return  this;
+    }
+
+    public Def xOffset(ExprRef expression){
+        this.setXOffset(VegaFactory.createCornerExpression(expression));
+        return  this;
+    }
+
+    public Def color(String value){
+        this.setColor(VegaFactory.createMarkColorConfig(value));
+        return this;
+    }
 
 }

@@ -20,8 +20,9 @@
         <svgSalamander.version>1.1.4</svgSalamander.version>
         <jackson-core-version>2.13.2</jackson-core-version>
         <junit-version>5.9.1</junit-version>
-        <slf4j-version>1.7.36</slf4j-version>
+        <slf4j-version>2.0.9</slf4j-version>
         <groovy-version>3.0.11</groovy-version>
+        <javet-version>2.2.2</javet-version>
 
         <!-- Plugins versions -->
         <exec-maven-version>3.0.0</exec-maven-version>
@@ -41,7 +42,7 @@
         <dependency>
             <groupId>com.caoccao.javet</groupId>
             <artifactId>javet</artifactId>
-            <version>2.1.2</version>
+            <version>${javet-version}</version>
         </dependency>
         <dependency>
             <groupId>com.formdev</groupId>
@@ -86,12 +87,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>${junit-version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.orbisgis.data</groupId>
             <artifactId>data-api</artifactId>
             <version>${orbisdata-version}</version>
@@ -100,6 +95,7 @@
             <groupId>org.orbisgis.data</groupId>
             <artifactId>h2gis</artifactId>
             <version>${orbisdata-version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

@@ -57,7 +57,7 @@ public class OverlayMarkDef {
     private Background baseline;
     private BlendUnion blend;
     private Boolean clip;
-    private MarkConfigExprOrSignalRefColor color;
+    private MarkColorConfig color;
     private CornerRadius cornerRadius;
     private CornerRadius cornerRadiusBottomLeft;
     private CornerRadius cornerRadiusBottomRight;
@@ -204,9 +204,9 @@ public class OverlayMarkDef {
      * `stroke` properties have higher precedence than `color` and will override `color`.
      */
     @JsonProperty("color")
-    public MarkConfigExprOrSignalRefColor getColor() { return color; }
+    public MarkColorConfig getColor() { return color; }
     @JsonProperty("color")
-    public void setColor(MarkConfigExprOrSignalRefColor value) { this.color = value; }
+    public void setColor(MarkColorConfig value) { this.color = value; }
 
     @JsonProperty("cornerRadius")
     public CornerRadius getCornerRadius() { return cornerRadius; }

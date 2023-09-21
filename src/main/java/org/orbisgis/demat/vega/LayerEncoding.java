@@ -62,16 +62,16 @@ public class LayerEncoding {
     private FillOpacityClass fillOpacity;
     private HrefClass href;
     private KeyClass key;
-    private LatitudeClass latitude;
-    private Latitude2Class latitude2;
-    private LongitudeClass longitude;
-    private Longitude2Class longitude2;
+    private Latitude latitude;
+    private Latitude2 latitude2;
+    private Longitude longitude;
+    private Longitude2 longitude2;
     private OpacityClass opacity;
     private Order order;
-    private RadiusClass radius;
+    private Radius radius;
     private Radius2Class radius2;
     private MarkPropDefStringNullTypeForShape shape;
-    private SizeClass size;
+    private Size size;
     private StrokeClass stroke;
     private MarkPropDefNumber strokeDash;
     private StrokeOpacityClass strokeOpacity;
@@ -184,35 +184,35 @@ public class LayerEncoding {
      * Latitude position of geographically projected marks.
      */
     @JsonProperty("latitude")
-    public LatitudeClass getLatitude() { return latitude; }
+    public Latitude getLatitude() { return latitude; }
     @JsonProperty("latitude")
-    public void setLatitude(LatitudeClass value) { this.latitude = value; }
+    public void setLatitude(Latitude value) { this.latitude = value; }
 
     /**
      * Latitude-2 position for geographically projected ranged `"area"`, `"bar"`, `"rect"`, and
      * `"rule"`.
      */
     @JsonProperty("latitude2")
-    public Latitude2Class getLatitude2() { return latitude2; }
+    public Latitude2 getLatitude2() { return latitude2; }
     @JsonProperty("latitude2")
-    public void setLatitude2(Latitude2Class value) { this.latitude2 = value; }
+    public void setLatitude2(Latitude2 value) { this.latitude2 = value; }
 
     /**
      * Longitude position of geographically projected marks.
      */
     @JsonProperty("longitude")
-    public LongitudeClass getLongitude() { return longitude; }
+    public Longitude getLongitude() { return longitude; }
     @JsonProperty("longitude")
-    public void setLongitude(LongitudeClass value) { this.longitude = value; }
+    public void setLongitude(Longitude value) { this.longitude = value; }
 
     /**
      * Longitude-2 position for geographically projected ranged `"area"`, `"bar"`, `"rect"`,
      * and  `"rule"`.
      */
     @JsonProperty("longitude2")
-    public Longitude2Class getLongitude2() { return longitude2; }
+    public Longitude2 getLongitude2() { return longitude2; }
     @JsonProperty("longitude2")
-    public void setLongitude2(Longitude2Class value) { this.longitude2 = value; }
+    public void setLongitude2(Longitude2 value) { this.longitude2 = value; }
 
     /**
      * Opacity of the marks.
@@ -247,9 +247,9 @@ public class LayerEncoding {
      * The outer radius in pixels of arc marks.
      */
     @JsonProperty("radius")
-    public RadiusClass getRadius() { return radius; }
+    public Radius getRadius() { return radius; }
     @JsonProperty("radius")
-    public void setRadius(RadiusClass value) { this.radius = value; }
+    public void setRadius(Radius value) { this.radius = value; }
 
     /**
      * The inner radius in pixels of arc marks.
@@ -288,9 +288,9 @@ public class LayerEncoding {
      * `"trail"` instead of line with varying size)
      */
     @JsonProperty("size")
-    public SizeClass getSize() { return size; }
+    public Size getSize() { return size; }
     @JsonProperty("size")
-    public void setSize(SizeClass value) { this.size = value; }
+    public void setSize(Size value) { this.size = value; }
 
     /**
      * Stroke color of the marks. __Default value:__ If undefined, the default color depends on

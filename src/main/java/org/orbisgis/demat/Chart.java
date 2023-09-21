@@ -27,9 +27,9 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
         this.id = "vis" + UUID.randomUUID();
     }
 
-    public Chart mark(Def def){
+    public Chart mark(Def def) {
         Mark mark = new Mark();
-        mark.def=def;
+        mark.def = def;
         this.setMark(mark);
         return this;
     }
@@ -61,10 +61,20 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
                 encoding.setColor((Color) element);
             } else if (element instanceof org.orbisgis.demat.vega.encoding.Tooltip) {
                 encoding.setTooltip((org.orbisgis.demat.vega.encoding.Tooltip) element);
-            }else if (element instanceof Text) {
+            } else if (element instanceof Text) {
                 encoding.setText((Text) element);
-            } else if (element instanceof  Theta) {
+            } else if (element instanceof Theta) {
                 encoding.setTheta((Theta) element);
+            } else if (element instanceof Latitude) {
+                encoding.setLatitude((Latitude) element);
+            } else if (element instanceof Longitude) {
+                encoding.setLongitude((Longitude) element);
+            } else if (element instanceof Latitude2) {
+                encoding.setLatitude2((Latitude2) element);
+            } else if (element instanceof Longitude2) {
+                encoding.setLongitude2((Longitude2) element);
+            } else {
+                throw new RuntimeException("Unknown vega-lite element : " + element.getClass());
             }
         }
         this.setEncoding(encoding);
@@ -110,7 +120,7 @@ public class Chart extends NormalizedSpec implements ViewCommonMethods<Chart>, I
             Title title = this.getTitle();
             ViewBackground viewBackground = new ViewBackground();
             Background background = new Background();
-            background.value ="transparent";
+            background.value = "transparent";
             viewBackground.setStroke(background);
             this.setViewBackground(viewBackground);
             String exportImageTitle = "demat_chart";

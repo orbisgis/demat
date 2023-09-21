@@ -573,7 +573,7 @@ public class Legend {
 
     public Legend gradientLength(Double value){
         FontSize  fs = new FontSize();
-        fs.doubleValue=value;
+        fs.value =value;
         this.setGradientLength(fs);
         return this;
     }

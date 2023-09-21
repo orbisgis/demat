@@ -417,8 +417,103 @@ public class Projection {
         this.type = value;
     }
 
+
+
+    public Projection reflectY(boolean value) {
+        this.setReflectY(value);
+        return this;
+    }
+
+    public Projection reflectX(boolean value) {
+        this.setReflectX(value);
+        return this;
+    }
+
+    public Projection rotate(String expression) {
+        this.setRotate(expression);
+        return this;
+    }
+
+    public Projection rotate(List<Double> values) {
+        this.setRotate(values);
+        return this;
+    }
+
     public Projection identity() {
         this.setType(ProjectionType.IDENTITY);
+        return this;
+    }
+
+    public Projection albers() {
+        this.setType(ProjectionType.ALBERS);
+        return this;
+    }
+
+    public Projection mercator() {
+        this.setType(ProjectionType.MERCATOR);
+        return this;
+    }
+
+
+    public Projection albers_usa() {
+        this.setType(ProjectionType.ALBERS_USA);
+        return this;
+    }
+
+
+    public Projection azimuthalEqualArea() {
+        this.setType(ProjectionType.AZIMUTHAL_EQUAL_AREA);
+        return this;
+    }
+
+
+    public Projection conicConformal() {
+        this.setType(ProjectionType.CONIC_CONFORMAL);
+        return this;
+    }
+
+    public Projection conicEquidistant() {
+        this.setType(ProjectionType.CONIC_EQUIDISTANT);
+        return this;
+    }
+
+    public Projection conicEqualArea() {
+        this.setType(ProjectionType.CONIC_EQUAL_AREA);
+        return this;
+    }
+
+    public Projection azimuthalEquidistant() {
+        this.setType(ProjectionType.AZIMUTHAL_EQUIDISTANT);
+        return this;
+    }
+
+    public Projection equalEarth() {
+        this.setType(ProjectionType.EQUAL_EARTH);
+        return this;
+    }
+
+    public Projection equiRectangular() {
+        this.setType(ProjectionType.EQUIRECTANGULAR);
+        return this;
+    }
+
+    public Projection gnomonic() {
+        this.setType(ProjectionType.GNOMONIC);
+        return this;
+    }
+
+    public Projection orthographic() {
+        this.setType(ProjectionType.ORTHOGRAPHIC);
+        return this;
+    }
+
+    public Projection stereographic() {
+        this.setType(ProjectionType.STEREOGRAPHIC);
+        return this;
+    }
+
+    public Projection transverseMercator() {
+        this.setType(ProjectionType.TRANSVERSE_MERCATOR);
         return this;
     }
 }

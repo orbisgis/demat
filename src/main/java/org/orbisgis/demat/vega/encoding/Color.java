@@ -442,4 +442,16 @@ public class Color extends ChannelCommonMethods<Color> {
         this.setTitle(legendText);
         return this;
     }
+
+    /**
+     * Add a custom color
+     * @param value hexa color value
+     * @return
+     */
+    public Color value(String value) {
+        Gradient color = new Gradient();
+        color.value=value;
+        this.setValue(color);
+        return this;
+    }
 }

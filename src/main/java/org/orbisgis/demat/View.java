@@ -52,6 +52,7 @@ import org.orbisgis.demat.vega.data.Data;
 import org.orbisgis.demat.vega.data.DataSet;
 import org.orbisgis.demat.vega.data.DataValues;
 import org.orbisgis.demat.vega.encoding.Encoding;
+import org.orbisgis.demat.vega.layout.Layer;
 import org.orbisgis.demat.vega.resolve.Resolve;
 import org.orbisgis.demat.vega.transform.Transform;
 
@@ -562,5 +563,9 @@ public class View {
     }
     public void setTransform(Transform... transforms) {
         this.transform= Arrays.asList(transforms);
+    }
+
+    public void setLayer(Layer element) {
+        this.setLayer(element.getLayerElements());
     }
 }

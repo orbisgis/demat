@@ -49,37 +49,37 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public class GraticuleParams {
-    private List<List<Double>> extent;
-    private List<List<Double>> extentMajor;
-    private List<List<Double>> extentMinor;
-    private Double precision;
-    private List<Double> step;
-    private List<Double> stepMajor;
-    private List<Double> stepMinor;
+    private List<List<Number>> extent;
+    private List<List<Number>> extentMajor;
+    private List<List<Number>> extentMinor;
+    private Number precision;
+    private List<Number> step;
+    private List<Number> stepMajor;
+    private List<Number> stepMinor;
 
     /**
      * Sets both the major and minor extents to the same values.
      */
     @JsonProperty("extent")
-    public List<List<Double>> getExtent() { return extent; }
+    public List<List<Number>> getExtent() { return extent; }
     @JsonProperty("extent")
-    public void setExtent(List<List<Double>> value) { this.extent = value; }
+    public void setExtent(List<List<Number>> value) { this.extent = value; }
 
     /**
      * The major extent of the graticule as a two-element array of coordinates.
      */
     @JsonProperty("extentMajor")
-    public List<List<Double>> getExtentMajor() { return extentMajor; }
+    public List<List<Number>> getExtentMajor() { return extentMajor; }
     @JsonProperty("extentMajor")
-    public void setExtentMajor(List<List<Double>> value) { this.extentMajor = value; }
+    public void setExtentMajor(List<List<Number>> value) { this.extentMajor = value; }
 
     /**
      * The minor extent of the graticule as a two-element array of coordinates.
      */
     @JsonProperty("extentMinor")
-    public List<List<Double>> getExtentMinor() { return extentMinor; }
+    public List<List<Number>> getExtentMinor() { return extentMinor; }
     @JsonProperty("extentMinor")
-    public void setExtentMinor(List<List<Double>> value) { this.extentMinor = value; }
+    public void setExtentMinor(List<List<Number>> value) { this.extentMinor = value; }
 
     /**
      * The precision of the graticule in degrees.
@@ -87,17 +87,17 @@ public class GraticuleParams {
      * __Default value:__ `2.5`
      */
     @JsonProperty("precision")
-    public Double getPrecision() { return precision; }
+    public Number getPrecision() { return precision; }
     @JsonProperty("precision")
-    public void setPrecision(Double value) { this.precision = value; }
+    public void setPrecision(Number value) { this.precision = value; }
 
     /**
      * Sets both the major and minor step angles to the same values.
      */
     @JsonProperty("step")
-    public List<Double> getStep() { return step; }
+    public List<Number> getStep() { return step; }
     @JsonProperty("step")
-    public void setStep(List<Double> value) { this.step = value; }
+    public void setStep(List<Number> value) { this.step = value; }
 
     /**
      * The major step angles of the graticule.
@@ -106,9 +106,9 @@ public class GraticuleParams {
      * __Default value:__ `[90, 360]`
      */
     @JsonProperty("stepMajor")
-    public List<Double> getStepMajor() { return stepMajor; }
+    public List<Number> getStepMajor() { return stepMajor; }
     @JsonProperty("stepMajor")
-    public void setStepMajor(List<Double> value) { this.stepMajor = value; }
+    public void setStepMajor(List<Number> value) { this.stepMajor = value; }
 
     /**
      * The minor step angles of the graticule.
@@ -116,7 +116,7 @@ public class GraticuleParams {
      * __Default value:__ `[10, 10]`
      */
     @JsonProperty("stepMinor")
-    public List<Double> getStepMinor() { return stepMinor; }
+    public List<Number> getStepMinor() { return stepMinor; }
     @JsonProperty("stepMinor")
-    public void setStepMinor(List<Double> value) { this.stepMinor = value; }
+    public void setStepMinor(List<Number> value) { this.stepMinor = value; }
 }

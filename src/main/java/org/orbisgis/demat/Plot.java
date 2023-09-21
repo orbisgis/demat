@@ -54,18 +54,14 @@ import org.orbisgis.data.api.dataset.ISpatialTable;
 import org.orbisgis.data.api.dataset.ITable;
 import org.orbisgis.data.api.dsl.IFilterBuilder;
 import org.orbisgis.demat.decoration.Source;
-import org.orbisgis.demat.maps.ChoroplethMap;
-import org.orbisgis.demat.maps.ManualIntervalMap;
-import org.orbisgis.demat.maps.Maps;
-import org.orbisgis.demat.maps.UniqueValuesMap;
+import org.orbisgis.demat.maps.*;
 import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.condition.ConditionalValueNumber;
 import org.orbisgis.demat.vega.condition.ConditionalValueString;
-import org.orbisgis.demat.vega.data.Data;
-import org.orbisgis.demat.vega.data.DataSet;
-import org.orbisgis.demat.vega.data.DataValues;
+import org.orbisgis.demat.vega.data.*;
 import org.orbisgis.demat.vega.encoding.*;
 import org.orbisgis.demat.vega.encoding.Tooltip;
+import org.orbisgis.demat.vega.layout.Layer;
 import org.orbisgis.demat.vega.legend.Legend;
 import org.orbisgis.demat.vega.legend.LegendText;
 import org.orbisgis.demat.vega.resolve.*;
@@ -112,8 +108,15 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
                 view_.setTitle((Title) element);
             } else if (element instanceof Transform) {
                 view_.setTransform((Transform) element);
-            } else {
-                throw new RuntimeException("Unknown vega-lite element");
+            } else if (element instanceof Layer) {
+                view_.setLayer((Layer) element);
+            } else if (element instanceof Projection) {
+                view_.setProjection((Projection) element);
+            }else if (element instanceof Projection) {
+                view_.setProjection((Projection) element);
+            }
+            else {
+                throw new RuntimeException("Unknown vega-lite element : " + element.getClass());
             }
         }
         plot.setView(view_);
@@ -161,7 +164,11 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static Data Data() {
-        return new Data();
+        Data data = new Data();
+        DataValues dataValues = new DataValues();
+        dataValues.anythingMapValue=new HashMap<>();
+        data.setDataValues(dataValues);
+        return data;
     }
 
 
@@ -196,6 +203,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         }
     }
 
+
     public static Data Data(ISpatialTable spatialTable) throws Exception {
         return PlotUtils.urlData(spatialTable);
     }
@@ -214,6 +222,40 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
 
     public static Data Data(LinkedHashMap values) {
         return PlotUtils.urlData(values);
+    }
+
+    public static Data Data(Object... elements) {
+        Data data = new Data();
+        for (Object element : elements) {
+            if (element instanceof LinkedHashMap) {
+                DataValues urlDataInlineDataset = new DataValues();
+                urlDataInlineDataset.anythingMapValue = (Map<String, Object>) element;
+                data.setDataValues(urlDataInlineDataset);
+            } else if (element instanceof ITable) {
+                try {
+                    data.setDataValues(PlotUtils.dataValues((ITable) element));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (element instanceof ISpatialTable) {
+                try {
+                    data.setDataValues(PlotUtils.dataValues((ISpatialTable) element));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (element instanceof Graticule) {
+                data.setGraticule((Graticule) element);
+            }
+        }
+        return data;
+
+    }
+
+
+    public static Graticule Graticule() {
+        Graticule graticule = new Graticule();
+        graticule.graticuleParamsValue = new GraticuleParams();
+        return graticule;
     }
 
 
@@ -235,6 +277,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
 
     /**
      * Create a Choropleth Map
+     *
      * @param data input data
      * @return
      */
@@ -252,14 +295,16 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
 
     /**
      * Create a Choropleth Map
+     *
      * @return
      */
     public static ChoroplethMap ChoroplethMap() {
-            return Maps.choropleth();
+        return Maps.choropleth();
     }
 
     /**
      * Create a unique values map
+     *
      * @param data
      * @return
      */
@@ -274,20 +319,23 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
             throw new RuntimeException("Unknown data type");
         }
     }
+
     /**
      * Create a unique values map
+     *
      * @return
      */
     public static UniqueValuesMap UniqueValuesMap() {
-         return Maps.uniqueValues();
+        return Maps.uniqueValues();
     }
 
     /**
      * Create a manual interval map
+     *
      * @param data
      * @return
      */
-    public static ManualIntervalMap ManualIntervalMap(Object data){
+    public static ManualIntervalMap ManualIntervalMap(Object data) {
         if (data instanceof Data) {
             return Maps.manualInterval((Data) data);
         } else if (data instanceof ITable) {
@@ -303,8 +351,34 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         }
     }
 
-    public static ManualIntervalMap ManualIntervalMap(){
+    public static ManualIntervalMap ManualIntervalMap() {
         return Maps.manualInterval();
+    }
+
+    public static SingleSymbolMap SingleSymbolMap(Object data) {
+        if (data instanceof Data) {
+            SingleSymbolMap map = Maps.singleSymbolMap();
+            map.setData((Data) data);
+            return map;
+        } else if (data instanceof ITable) {
+            Data data1 = new Data();
+            data1.setTable((ITable) data);
+            SingleSymbolMap map = Maps.singleSymbolMap();
+            map.setData(data1);
+            return map;
+        } else if (data instanceof IFilterBuilder) {
+            Data data1 = new Data();
+            data1.setTable(((IFilterBuilder) data).getTable());
+            SingleSymbolMap map = Maps.singleSymbolMap();
+            map.setData(data1);
+            return map;
+        } else {
+            throw new RuntimeException("Unknown data type");
+        }
+    }
+
+    public static SingleSymbolMap SingleSymbolMap() {
+        return Maps.singleSymbolMap();
     }
 
     /**
@@ -425,10 +499,13 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
                 encoding.setX2((X2) element);
             } else if (element instanceof Y2) {
                 encoding.setY2((Y2) element);
+            } else if (element instanceof Radius) {
+                encoding.setRadius((Radius) element);
+            } else if (element instanceof Theta) {
+                encoding.setTheta((Theta) element);
             } else {
-                throw new RuntimeException("Unsupported element for encoding");
+                throw new RuntimeException("Unsupported element " + element.getClass() + " for encoding");
             }
-
         }
         return encoding;
     }
@@ -513,6 +590,10 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
 
     public static ScaleType Quantile() {
         return ScaleType.QUANTILE;
+    }
+
+    public static ScaleType SQRT() {
+        return ScaleType.SQRT;
     }
 
 
@@ -661,6 +742,35 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         return text;
     }
 
+    public static Longitude Longitude(String fieldValue){
+        Longitude longitude = new Longitude();
+        longitude.setField(new Field(fieldValue));
+        return longitude;
+    }
+    public static Latitude Latitude(String fieldValue){
+        Latitude latitude = new Latitude();
+        latitude.setField(new Field(fieldValue));
+        return latitude;
+    }
+
+
+    /**
+     * Return a Radius encoding class
+     *
+     * @return
+     */
+    public static Radius Radius(Object... elements) {
+        Radius radius = new Radius();
+        for (Object element : elements) {
+            if (element instanceof String) {
+                radius.setField(new Field((String) element));
+            } else if (element instanceof Scale) {
+                radius.setScale((Scale) element);
+            }
+        }
+        return radius;
+    }
+
     /**
      * Return a Theta encoding class
      *
@@ -672,15 +782,48 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         return theta;
     }
 
+    /**
+     * Create a Size encoding
+     *
+     * @return
+     */
+    public static Size Size(String fieldValue) {
+        Size size = new Size();
+        size.setField(new Field(fieldValue));
+        return size;
+    }
+
+    /**
+     * Create a Size encoding
+     *
+     * @return
+     */
+    public static Size Size() {
+        Size size = new Size();
+        return size;
+    }
+
 
     /**
      * Create a mark arc def
+     *
      * @return
      */
-    public static Def Arc(){
-        Def def =  new Def();
+    public static Def Arc() {
+        Def def = new Def();
         def.setType("arc");
         return def;
+    }
+
+    /**
+     * Create a mark
+     *
+     * @return
+     */
+    public static Mark Mark(Def def) {
+        Mark mark = new Mark();
+        mark.def = def;
+        return mark;
     }
 
     /**
@@ -689,7 +832,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static Def BoxPlot() {
-        Def def =  new Def();
+        Def def = new Def();
         def.setType("boxplot");
         return def;
     }
@@ -700,7 +843,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static Def Text() {
-        Def def =  new Def();
+        Def def = new Def();
         def.setType("text");
         return def;
     }
@@ -711,7 +854,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static Def Square() {
-        Def def =  new Def();
+        Def def = new Def();
         def.setType("square");
         return def;
     }
@@ -722,7 +865,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static Def Point() {
-        Def def =  new Def();
+        Def def = new Def();
         def.setType("point");
         return def;
     }
@@ -733,7 +876,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static Def Line() {
-        Def def =  new Def();
+        Def def = new Def();
         def.setType("line");
         return def;
     }
@@ -744,7 +887,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static Def Tick() {
-        Def def =  new Def();
+        Def def = new Def();
         def.setType("tick");
         return def;
     }
@@ -755,7 +898,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static Def Rect() {
-        Def def =  new Def();
+        Def def = new Def();
         def.setType("rect");
         return def;
     }
@@ -766,7 +909,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static Def Image() {
-        Def def =  new Def();
+        Def def = new Def();
         def.setType("image");
         return def;
     }
@@ -777,7 +920,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static Def Geoshape() {
-        Def def =  new Def();
+        Def def = new Def();
         def.setType("geoshape");
         return def;
     }
@@ -788,7 +931,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static Def Circle() {
-        Def def =  new Def();
+        Def def = new Def();
         def.setType("circle");
         return def;
     }
@@ -800,19 +943,37 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
      * @return
      */
     public static Def Area() {
-        Def def =  new Def();
+        Def def = new Def();
         def.setType("area");
         return def;
     }
 
     /**
      * Create a mark bar def
+     *
      * @return
      */
-    public static Def Bar(){
-        Def def =  new Def();
+    public static Def Bar() {
+        Def def = new Def();
         def.setType("bar");
         return def;
+    }
+
+    public static Layer Layer() {
+        return new Layer();
+    }
+
+    public static Layer Layer(Object... elements) {
+        Layer layer = new Layer();
+        for (Object element : elements) {
+            if(element instanceof Chart){
+                layer.setLayerElement(PlotUtils.chartToLayerElement((Chart) element));
+            }
+            else {
+                throw new RuntimeException("Unsupported element for Layer : "+ element);
+            }
+        }
+        return layer;
     }
 
     public static Projection Projection() {
@@ -865,7 +1026,7 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
                 legendText.title = (String) element;
                 legend.setTitle(legendText);
             } else {
-                throw new RuntimeException("Unsupported element for Legend");
+                throw new RuntimeException("Unsupported element for Legend : "+ element);
             }
         }
         return legend;
@@ -990,6 +1151,10 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         return titleParams;
     }
 
+    public static double Radians(double value){
+        return  Math.toRadians(value);
+    }
+
 
     private void setView(View view) {
         this.view = view;
@@ -1039,10 +1204,16 @@ public class Plot extends ContainerTag<Plot> implements ViewCommonMethods<Plot>,
         return this;
     }
 
-    public Plot layer(Chart... charts) {
+    public Plot layer(Object... elements) {
         List<LayerElement> layers = new ArrayList<LayerElement>();
-        for (Chart chart : charts) {
-            layers.add(PlotUtils.chartToLayerElement(chart));
+        for (Object element : elements) {
+            if (element instanceof Chart) {
+                layers.add(PlotUtils.chartToLayerElement((Chart) element));
+            } else if (element instanceof Mark) {
+                LayerElement layerElement = new LayerElement();
+                layerElement.setMark((Mark) element);
+                layers.add(layerElement);
+            }
         }
         this.view.setLayer(layers);
         return this;

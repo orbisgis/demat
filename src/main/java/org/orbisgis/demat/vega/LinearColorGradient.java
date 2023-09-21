@@ -47,7 +47,7 @@ package org.orbisgis.demat.vega;
 import com.fasterxml.jackson.annotation.*;
 import java.util.List;
 
-public class PurpleLinearGradient {
+public class LinearColorGradient {
     private String gradient;
     private String id;
     private List<GradientStop> stops;
