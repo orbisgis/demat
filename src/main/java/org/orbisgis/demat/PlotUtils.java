@@ -82,7 +82,12 @@ public class PlotUtils {
      */
     public static Data urlData(ISpatialTable spatialTable) throws Exception {
         Data urlData = new Data();
-        DataValues urlDataInlineDataset = new DataValues();
+        urlData.setDataValues(dataValues(spatialTable));
+        return urlData;
+    }
+
+    public static DataValues dataValues(ISpatialTable spatialTable) throws Exception {
+        DataValues dataValues = new DataValues();
         ArrayList<InlineDataset> geojson = new ArrayList<>();
         Object geomCol = spatialTable.getGeometricColumns().stream().findFirst().get();
         Collection<String> columns = spatialTable.getColumns();
@@ -99,9 +104,8 @@ public class PlotUtils {
             row.anythingMapValue = feature;
             geojson.add(row);
         }
-        urlDataInlineDataset.unionArrayValue = geojson;
-        urlData.setDataValues(urlDataInlineDataset);
-        return urlData;
+        dataValues.unionArrayValue = geojson;
+        return dataValues;
     }
 
     /**
@@ -112,6 +116,11 @@ public class PlotUtils {
      */
     public static Data urlData(ITable table) throws Exception {
         Data urlData = new Data();
+        urlData.setDataValues(dataValues(table));
+        return urlData;
+    }
+
+    public static DataValues dataValues(ITable table) throws Exception {
         Collection<String> columns = table.getColumns();
         int colummSize = columns.size();
         if (colummSize > 0) {
@@ -123,9 +132,9 @@ public class PlotUtils {
                 geojson.add(row);
             }
             urlDataInlineDataset.unionArrayValue = geojson;
-            urlData.setDataValues(urlDataInlineDataset);
+            return urlDataInlineDataset;
         }
-        return urlData;
+        return null;
     }
 
     private static LinkedHashMap getProperties(ITable table, Collection<String> columns) throws Exception {

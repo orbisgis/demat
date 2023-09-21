@@ -3,6 +3,7 @@ package org.orbisgis.demat.maps;
 import org.h2gis.utilities.JDBCUtilities;
 import org.orbisgis.data.api.dataset.ITable;
 import org.orbisgis.data.api.dsl.IFilterBuilder;
+import org.orbisgis.demat.Plot;
 import org.orbisgis.demat.PlotUtils;
 import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.data.Data;
@@ -211,6 +212,23 @@ public class Maps {
         color.setLegend(legend);
         color.setScale(scale);
         encoding.setColor(color);
+        chart.setEncoding(encoding);
+        return chart;
+    }
+
+    public static SingleSymbolMap singleSymbolMap() {
+        SingleSymbolMap chart = new SingleSymbolMap();
+        Projection projection = new Projection();
+        projection.setType(ProjectionType.IDENTITY);
+        chart.setProjection(projection);
+        Height height = new Height();
+        height.size = DEFAULT_MAP_SIZE;
+        chart.setHeight(height);
+        chart.setWidth(height);
+        Mark mark = new Mark();
+        mark.def = Plot.Geoshape();
+        chart.setMark(mark);
+        Encoding encoding = new Encoding();
         chart.setEncoding(encoding);
         return chart;
     }

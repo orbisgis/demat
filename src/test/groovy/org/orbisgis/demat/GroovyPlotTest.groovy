@@ -467,6 +467,31 @@ class GroovyPlotTest {
     }
 
     @Test
+    void testPieChartDirections() {
+        Data data = Data([["category": "N", "value": 236142.1],
+                     ["category": "NNE", "value": 198490.641],
+                     ["category": "NE", "value": 180178.693],
+                     ["category": "ENE", "value": 225907.263],
+                     ["category": "E", "value": 285517.046],
+                     ["category": "ESE", "value": 314869.103],
+                     ["category": "SE", "value": 401478.068],
+                     ["category": "SSE", "value": 329396.276],
+                     ["category": "S", "value": 208707.178],
+                     ["category": "SSW", "value": 359787.985],
+                     ["category": "SW", "value": 153546.442],
+                     ["category": "WSW", "value": 93985.971],
+                     ["category": "W", "value": 51060.691],
+                     ["category": "WNW", "value": 107711.766],
+                     ["category": "NW", "value": 309127.719],
+                     ["category": "NNW", "value": 449500.89]])
+
+        Plot(data, Encoding(Theta("category").nominal(),
+                Radius("value", Scale().quantile().zero().rangeMin(5)), Color().value("#87afe0")))
+                .layer(Mark(Arc().innerRadius(20).stroke("#55759a")),
+                        Chart().mark(Text().radiusOffset(20)).encode(Text("category").nominal())).save("/tmp/donut.svg")
+    }
+
+    @Test
     void testConcatMaps() throws IOException {
         def chart = ChoroplethMap(RSU_GEOINDICATORS).
                 field("properties.HIGH_VEGETATION_FRACTION").domain([0, 0.1, 0.2, 0.5])
@@ -483,6 +508,33 @@ class GroovyPlotTest {
                 .height(500).width(700)
         chart.save("/tmp/test.json")
         Plot().concat(chart, chart1).save(File.createTempFile("demat",".svg", folder))
+    }
+
+    @Test
+    void testPolarChart()  throws IOException {
+        lot(Projection().azimuthalEquidistant().rotate([0,90,180]),
+                Layer(
+                        Chart(Data(Graticule().step([45,45]))).mark(Geoshape().filled(false).
+                                strokeWidth(0.2).color("black")),
+                        Chart(Data([[   "theta": 0, "r": 100, "label": "N"],
+                                    ["theta": 22.5, "r": 125, "label": "NNE"],
+                                    ["theta": 45, "r": 100, "label": "NE"],
+                                    ["theta": 90, "r": 100, "label": "E"],
+                                    ["theta": 135, "r": 100, "label": "SE"],
+                                    ["theta": -180, "r": 100, "label": "S"],
+                                    ["theta": -135, "r": 100, "label": "SW"],
+                                    ["theta": -90, "r": 100, "label": "W"],
+                                    ["theta": -45, "r": 100, "label": "NW"]])).encode(Longitude("theta"),
+                                Latitude("r"),Text("label")).mark(Text()),
+                        Chart(Data()).mark(Arc().theta(Radians(-22.5)).theta2(Radians(22.5)).radius(100)),
+                        Chart(Data()).mark(Arc().theta(Radians(22.5)).theta2(Radians(67.5)).radius(10)),
+                        Chart(Data()).mark(Arc().theta(Radians(67.5)).theta2(Radians(112.5)).radius(80)),
+                        Chart(Data()).mark(Arc().theta(Radians(112.5)).theta2(Radians(157.5)).radius(50)),
+                        Chart(Data()).mark(Arc().theta(Radians(157.5)).theta2(Radians(202.5)).radius(150)),
+                        Chart(Data()).mark(Arc().theta(Radians(202.5)).theta2(Radians(247.5)).radius(10)),
+                        Chart(Data()).mark(Arc().theta(Radians(247.5)).theta2(Radians(292.5)).radius(115)),
+                        Chart(Data()).mark(Arc().theta(Radians(292.5)).theta2(Radians(337.5)).radius(50))
+                )).height(500).width(500).save(File.createTempFile("demat",".svg", folder))
     }
 
 

@@ -59,25 +59,25 @@ import com.fasterxml.jackson.databind.annotation.*;
  * config](https://vega.github.io/vega-lite/docs/mark.html#style-config). - The `fill` and
  * `stroke` properties have higher precedence than `color` and will override `color`.
  */
-@JsonDeserialize(using = MarkConfigExprOrSignalRefColor.Deserializer.class)
-@JsonSerialize(using = MarkConfigExprOrSignalRefColor.Serializer.class)
-public class MarkConfigExprOrSignalRefColor {
-    public PurpleLinearGradient purpleLinearGradientValue;
-    public String stringValue;
+@JsonDeserialize(using = MarkColorConfig.Deserializer.class)
+@JsonSerialize(using = MarkColorConfig.Serializer.class)
+public class MarkColorConfig {
+    public LinearColorGradient linearColorGradient;
+    public String value;
 
-    static class Deserializer extends JsonDeserializer<MarkConfigExprOrSignalRefColor> {
+    static class Deserializer extends JsonDeserializer<MarkColorConfig> {
         @Override
-        public MarkConfigExprOrSignalRefColor deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-            MarkConfigExprOrSignalRefColor value = new MarkConfigExprOrSignalRefColor();
+        public MarkColorConfig deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+            MarkColorConfig value = new MarkColorConfig();
             switch (jsonParser.currentToken()) {
                 case VALUE_NULL:
                     break;
                 case VALUE_STRING:
                     String string = jsonParser.readValueAs(String.class);
-                    value.stringValue = string;
+                    value.value = string;
                     break;
                 case START_OBJECT:
-                    value.purpleLinearGradientValue = jsonParser.readValueAs(PurpleLinearGradient.class);
+                    value.linearColorGradient = jsonParser.readValueAs(LinearColorGradient.class);
                     break;
                 default: throw new IOException("Cannot deserialize MarkConfigExprOrSignalRefColor");
             }
@@ -85,15 +85,15 @@ public class MarkConfigExprOrSignalRefColor {
         }
     }
 
-    static class Serializer extends JsonSerializer<MarkConfigExprOrSignalRefColor> {
+    static class Serializer extends JsonSerializer<MarkColorConfig> {
         @Override
-        public void serialize(MarkConfigExprOrSignalRefColor obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            if (obj.purpleLinearGradientValue != null) {
-                jsonGenerator.writeObject(obj.purpleLinearGradientValue);
+        public void serialize(MarkColorConfig obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+            if (obj.linearColorGradient != null) {
+                jsonGenerator.writeObject(obj.linearColorGradient);
                 return;
             }
-            if (obj.stringValue != null) {
-                jsonGenerator.writeObject(obj.stringValue);
+            if (obj.value != null) {
+                jsonGenerator.writeObject(obj.value);
                 return;
             }
             jsonGenerator.writeNull();

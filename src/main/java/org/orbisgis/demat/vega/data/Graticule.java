@@ -55,6 +55,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Generate graticule GeoJSON data for geographic reference lines.
@@ -98,5 +99,25 @@ public class Graticule {
             }
             jsonGenerator.writeNull();
         }
+    }
+
+    public Graticule step(List<Number> values){
+        this.graticuleParamsValue.setStep(values);
+        return this;
+    }
+
+    public Graticule precision(Number value){
+        this.graticuleParamsValue.setPrecision(value);
+        return this;
+    }
+
+    public Graticule stepMajor(List<Number> values){
+        this.graticuleParamsValue.setStepMajor(values);
+        return this;
+    }
+
+    public Graticule stepMinor(List<Number> values){
+        this.graticuleParamsValue.setStepMinor(values);
+        return this;
     }
 }

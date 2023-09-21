@@ -42,29 +42,50 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.orbisgis.demat.vega;
+package org.orbisgis.demat.vega.encoding;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.orbisgis.demat.vega.*;
 import org.orbisgis.demat.vega.legend.LegendText;
 
 /**
- * Latitude position of geographically projected marks.
+ * Latitude-2 position for geographically projected ranged `"area"`, `"bar"`, `"rect"`, and
+ * `"rule"`.
  *
- * Longitude position of geographically projected marks.
+ * Longitude-2 position for geographically projected ranged `"area"`, `"bar"`, `"rect"`,
+ * and  `"rule"`.
+ *
+ * The inner radius in pixels of arc marks.
+ *
+ * The end angle of arc marks in radians. A value of 0 indicates up or “north”, increasing
+ * values proceed clockwise.
+ *
+ * X2 coordinates for ranged `"area"`, `"bar"`, `"rect"`, and  `"rule"`.
+ *
+ * The `value` of this channel can be a number or a string `"width"` for the width of the
+ * plot.
+ *
+ * Y2 coordinates for ranged `"area"`, `"bar"`, `"rect"`, and  `"rule"`.
+ *
+ * The `value` of this channel can be a number or a string `"height"` for the height of the
+ * plot.
+ *
+ * A field definition of a secondary channel that shares a scale with another primary
+ * channel. For example, `x2`, `xError` and `xError2` share the same scale with `x`.
  *
  * Definition object for a constant value (primitive value or gradient definition) of an
  * encoding channel.
  */
-public class LongitudeClass {
+public class Latitude2 {
     private Aggregate aggregate;
     private Double band;
     private Object bin;
     private Field field;
     private TimeUnitUnion timeUnit;
     private LegendText title;
-    private String type;
     private PrimitiveValue datum;
-    private CornerRadius value;
+    private Type type;
+    private Coordinate value;
 
     /**
      * Aggregation function for the field (e.g., `"mean"`, `"sum"`, `"median"`, `"min"`,
@@ -181,6 +202,14 @@ public class LongitudeClass {
     public void setTitle(LegendText value) { this.title = value; }
 
     /**
+     * A constant value in data domain.
+     */
+    @JsonProperty("datum")
+    public PrimitiveValue getDatum() { return datum; }
+    @JsonProperty("datum")
+    public void setDatum(PrimitiveValue value) { this.datum = value; }
+
+    /**
      * The type of measurement (`"quantitative"`, `"temporal"`, `"ordinal"`, or `"nominal"`) for
      * the encoded field or constant value (`datum`). It can also be a `"geojson"` type for
      * encoding ['geoshape'](https://vega.github.io/vega-lite/docs/geoshape.html).
@@ -232,17 +261,9 @@ public class LongitudeClass {
      * __See also:__ [`type`](https://vega.github.io/vega-lite/docs/type.html) documentation.
      */
     @JsonProperty("type")
-    public String getType() { return type; }
+    public Type getType() { return type; }
     @JsonProperty("type")
-    public void setType(String value) { this.type = value; }
-
-    /**
-     * A constant value in data domain.
-     */
-    @JsonProperty("datum")
-    public PrimitiveValue getDatum() { return datum; }
-    @JsonProperty("datum")
-    public void setDatum(PrimitiveValue value) { this.datum = value; }
+    public void setType(Type value) { this.type = value; }
 
     /**
      * A constant value in visual domain (e.g., `"red"` / `"#0099ff"` / [gradient
@@ -250,7 +271,7 @@ public class LongitudeClass {
      * between `0` to `1` for opacity).
      */
     @JsonProperty("value")
-    public CornerRadius getValue() { return value; }
+    public Coordinate getValue() { return value; }
     @JsonProperty("value")
-    public void setValue(CornerRadius value) { this.value = value; }
+    public void setValue(Coordinate value) { this.value = value; }
 }

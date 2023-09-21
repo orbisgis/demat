@@ -53,8 +53,8 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonDeserialize(using = FontSize.Deserializer.class)
 @JsonSerialize(using = FontSize.Serializer.class)
 public class FontSize {
-    public Double doubleValue;
-    public ExprRef backgroundExprRefValue;
+    public Double value;
+    public ExprRef exprRef;
 
     static class Deserializer extends JsonDeserializer<FontSize> {
         @Override
@@ -65,10 +65,10 @@ public class FontSize {
                     break;
                 case VALUE_NUMBER_INT:
                 case VALUE_NUMBER_FLOAT:
-                    value.doubleValue = jsonParser.readValueAs(Double.class);
+                    value.value = jsonParser.readValueAs(Double.class);
                     break;
                 case START_OBJECT:
-                    value.backgroundExprRefValue = jsonParser.readValueAs(ExprRef.class);
+                    value.exprRef = jsonParser.readValueAs(ExprRef.class);
                     break;
                 default: throw new IOException("Cannot deserialize FontSize");
             }
@@ -79,12 +79,12 @@ public class FontSize {
     static class Serializer extends JsonSerializer<FontSize> {
         @Override
         public void serialize(FontSize obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            if (obj.doubleValue != null) {
-                jsonGenerator.writeObject(obj.doubleValue);
+            if (obj.value != null) {
+                jsonGenerator.writeObject(obj.value);
                 return;
             }
-            if (obj.backgroundExprRefValue != null) {
-                jsonGenerator.writeObject(obj.backgroundExprRefValue);
+            if (obj.exprRef != null) {
+                jsonGenerator.writeObject(obj.exprRef);
                 return;
             }
             jsonGenerator.writeNull();

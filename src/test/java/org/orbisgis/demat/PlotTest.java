@@ -130,6 +130,12 @@ public class PlotTest {
         chart.save(File.createTempFile("demat",".svg", folder));
     }
 
+    @Test
+    void testSingleSymbolMap(TestInfo testInfo) throws IOException {
+        Chart chart = SingleSymbolMap(RSU_GEOINDICATORS).fill("blue").stroke("black").strokeWidth(2).title("Single symbol");
+        chart.save(File.createTempFile("demat",".svg", folder));
+    }
+
     @Disabled
     @Test
     void testLCZAVGInterval(TestInfo testInfo) throws IOException {
@@ -176,7 +182,6 @@ public class PlotTest {
         Chart chart = UniqueValuesMap().field("properties.ID_RSU");
         Chart chart2 = ChoroplethMap().field("properties.WATER_FRACTION");
         plot.concat(chart, chart2).save(File.createTempFile("demat",".svg", folder));
-
     }
 
     @Disabled

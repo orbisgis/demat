@@ -63,7 +63,7 @@ public class RectConfig {
     private Background baseline;
     private Double binSpacing;
     private BlendUnion blend;
-    private MarkConfigExprOrSignalRefColor color;
+    private MarkColorConfig color;
     private Double continuousBandSize;
     private CornerRadius cornerRadius;
     private CornerRadius cornerRadiusBottomLeft;
@@ -206,9 +206,9 @@ public class RectConfig {
      * `stroke` properties have higher precedence than `color` and will override `color`.
      */
     @JsonProperty("color")
-    public MarkConfigExprOrSignalRefColor getColor() { return color; }
+    public MarkColorConfig getColor() { return color; }
     @JsonProperty("color")
-    public void setColor(MarkConfigExprOrSignalRefColor value) { this.color = value; }
+    public void setColor(MarkColorConfig value) { this.color = value; }
 
     /**
      * The default size of the bars on continuous scales.
