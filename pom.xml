@@ -21,7 +21,7 @@
         <jackson-core-version>2.13.2</jackson-core-version>
         <junit-version>5.9.1</junit-version>
         <slf4j-version>2.0.9</slf4j-version>
-        <groovy-version>3.0.11</groovy-version>
+        <groovy-version>3.0.19</groovy-version>
         <javet-version>2.2.2</javet-version>
 
         <!-- Plugins versions -->
