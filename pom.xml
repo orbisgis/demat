@@ -16,13 +16,13 @@
 
         <!-- Dependencies versions -->
         <j2html-version>1.5.0</j2html-version>
-        <orbisdata-version>2.1.0-SNAPSHOT</orbisdata-version>
+        <orbisdata-version>2.1.0</orbisdata-version>
         <svgSalamander.version>1.1.4</svgSalamander.version>
         <jackson-core-version>2.13.2</jackson-core-version>
         <junit-version>5.9.1</junit-version>
-        <slf4j-version>2.0.9</slf4j-version>
-        <groovy-version>3.0.19</groovy-version>
-        <javet-version>2.2.2</javet-version>
+        <slf4j-version>2.0.10</slf4j-version>
+        <groovy-version>4.0.17</groovy-version>
+        <javet-version>3.0.2</javet-version>
 
         <!-- Plugins versions -->
         <exec-maven-version>3.0.0</exec-maven-version>
@@ -70,7 +70,7 @@
             <version>${jackson-core-version}</version>
         </dependency>
         <dependency>
-            <groupId>org.codehaus.groovy</groupId>
+            <groupId>org.apache.groovy</groupId>
             <artifactId>groovy</artifactId>
             <version>${groovy-version}</version>
         </dependency>
