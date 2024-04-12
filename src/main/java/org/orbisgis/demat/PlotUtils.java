@@ -45,21 +45,9 @@
 package org.orbisgis.demat;
 
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.h2gis.utilities.JDBCUtilities;
-import org.h2gis.utilities.jts_utils.GeometryFeatureUtils;
-import org.orbisgis.data.api.dataset.ISpatialTable;
 import org.orbisgis.data.api.dataset.ITable;
 import org.orbisgis.data.api.dsl.IFilterBuilder;
-import org.orbisgis.demat.vega.LayerElement;
-import org.orbisgis.demat.vega.LayerEncoding;
-import org.orbisgis.demat.vega.data.Data;
-import org.orbisgis.demat.vega.data.DataValues;
-import org.orbisgis.demat.vega.data.InlineDataset;
-import org.orbisgis.demat.vega.encoding.Encoding;
-
 import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSetMetaData;
@@ -69,73 +57,10 @@ import java.util.*;
 /**
  * Some Plot utilities
  *
- * @author Erwan Bocher, CNRS 2021 - 2023
+ * @author Erwan Bocher, CNRS 2021 - 2024
  */
 public class PlotUtils {
 
-
-    /**
-     * Create a data object from a {@link ISpatialTable}
-     *
-     * @param spatialTable
-     * @return
-     */
-    public static Data urlData(ISpatialTable spatialTable) throws Exception {
-        Data urlData = new Data();
-        urlData.setDataValues(dataValues(spatialTable));
-        return urlData;
-    }
-
-    public static DataValues dataValues(ISpatialTable spatialTable) throws Exception {
-        DataValues dataValues = new DataValues();
-        ArrayList<InlineDataset> geojson = new ArrayList<>();
-        Object geomCol = spatialTable.getGeometricColumns().stream().findFirst().get();
-        Collection<String> columns = spatialTable.getColumns();
-        columns.remove(geomCol);
-        int colummSize = columns.size();
-        while (spatialTable.next()) {
-            InlineDataset row = new InlineDataset();
-            LinkedHashMap<String, Object> feature = new LinkedHashMap();
-            feature.put("type", "Feature");
-            feature.putAll(GeometryFeatureUtils.toMap(spatialTable.getGeometry()));
-            if (colummSize > 0) {
-                feature.put("properties", getProperties(spatialTable, columns));
-            }
-            row.anythingMapValue = feature;
-            geojson.add(row);
-        }
-        dataValues.unionArrayValue = geojson;
-        return dataValues;
-    }
-
-    /**
-     * Create a data object from a {@link ITable}
-     *
-     * @param table
-     * @return
-     */
-    public static Data urlData(ITable table) throws Exception {
-        Data urlData = new Data();
-        urlData.setDataValues(dataValues(table));
-        return urlData;
-    }
-
-    public static DataValues dataValues(ITable table) throws Exception {
-        Collection<String> columns = table.getColumns();
-        int colummSize = columns.size();
-        if (colummSize > 0) {
-            DataValues urlDataInlineDataset = new DataValues();
-            ArrayList<InlineDataset> geojson = new ArrayList<>();
-            while (table.next()) {
-                InlineDataset row = new InlineDataset();
-                row.anythingMapValue = getProperties(table, columns);
-                geojson.add(row);
-            }
-            urlDataInlineDataset.unionArrayValue = geojson;
-            return urlDataInlineDataset;
-        }
-        return null;
-    }
 
     private static LinkedHashMap getProperties(ITable table, Collection<String> columns) throws Exception {
         LinkedHashMap properties = new LinkedHashMap();
@@ -143,68 +68,6 @@ public class PlotUtils {
             properties.put(column, table.getObject(column));
         }
         return properties;
-    }
-
-
-    /**
-     * Create a data object from a map of values
-     *
-     * @param values
-     * @return
-     */
-    public static Data urlData(LinkedHashMap values) {
-        Data urlData = new Data();
-        DataValues urlDataInlineDataset = new DataValues();
-        urlDataInlineDataset.anythingMapValue = values;
-        urlData.setDataValues(urlDataInlineDataset);
-        return urlData;
-    }
-
-    public static Data urlData(Object[][] values) {
-        Data urlData = new Data();
-        urlData.setDataValues(urlDataInlineDataset(values));
-        return urlData;
-    }
-
-
-    public static Data urlData(List<Map> values) {
-        Data urlData = new Data();
-        urlData.setDataValues(urlDataInlineDataset(values));
-        return urlData;
-    }
-
-    public static DataValues urlDataInlineDataset(List<Map> values) {
-        List<InlineDataset> inlines = new ArrayList<InlineDataset>();
-        for (Map map : values) {
-            InlineDataset inlineDataset = new InlineDataset();
-            inlineDataset.anythingMapValue = map;
-            inlines.add(inlineDataset);
-        }
-        DataValues urlDataInlineDataset = new DataValues();
-        urlDataInlineDataset.unionArrayValue = inlines;
-        return urlDataInlineDataset;
-    }
-
-    public static DataValues urlDataInlineDataset(Object[][] values) {
-        DataValues urlDataInlineDataset = new DataValues();
-        List<InlineDataset> inlines = new ArrayList<InlineDataset>();
-        if (values.length == 0) {
-            urlDataInlineDataset.unionArrayValue = inlines;
-        } else {
-            Object[] firstRow = values[0];
-            for (int i = 1; i < values.length; i++) {
-                InlineDataset inlineDataset = new InlineDataset();
-                Map<String, Object> rows = new HashMap<>();
-                Object[] cols = values[i];
-                for (int j = 0; j < values.length; j++) {
-                    rows.put(String.valueOf(firstRow[j]), cols[j]);
-                }
-                inlineDataset.anythingMapValue = rows;
-                inlines.add(inlineDataset);
-            }
-            urlDataInlineDataset.unionArrayValue = inlines;
-        }
-        return urlDataInlineDataset;
     }
 
     /**
@@ -260,18 +123,7 @@ public class PlotUtils {
         }
     }
 
-    /**
-     * Build a json representation of the view
-     *
-     * @param view
-     * @return
-     * @throws JsonProcessingException
-     */
-    public static String toJson(View view) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        return objectMapper.writeValueAsString(view);
-    }
+
 
     /**
      * Check the show directory file
@@ -286,71 +138,6 @@ public class PlotUtils {
             throw new RuntimeException("Invalid directory path");
         }
         return showDirFile;
-    }
-
-
-    /**
-     * Convert a Chart to a LayerElement
-     *
-     * @param chart
-     * @return
-     */
-    public static LayerElement chartToLayerElement(Chart chart) {
-        LayerElement layerElement = new LayerElement();
-        layerElement.setData(chart.getData());
-        layerElement.setLayer(chart.getLayer());
-        layerElement.setMark(chart.getMark());
-        layerElement.setDescription(chart.getDescription());
-        layerElement.setHeight(chart.getHeight());
-        layerElement.setWidth(chart.getWidth());
-        layerElement.setName(chart.getName());
-        layerElement.setProjection(chart.getProjection());
-        layerElement.setResolve(chart.getResolve());
-        layerElement.setSelection(chart.getSelection());
-        layerElement.setTitle(chart.getTitle());
-        layerElement.setTransform(chart.getTransform());
-        layerElement.setView(chart.getViewBackground());
-        Encoding chartEncoding = chart.getEncoding();
-        if (chartEncoding != null) {
-            LayerEncoding layerEncoding = new LayerEncoding();
-            layerEncoding.setAngle(chartEncoding.getAngle());
-            layerEncoding.setColor(chartEncoding.getColor());
-            layerEncoding.setDescription(chartEncoding.getDescription());
-            layerEncoding.setDetail(chartEncoding.getDetail());
-            layerEncoding.setFill(chartEncoding.getFill());
-            layerEncoding.setFillOpacity(chartEncoding.getFillOpacity());
-            layerEncoding.setHref(chartEncoding.getHref());
-            layerEncoding.setKey(chartEncoding.getKey());
-            layerEncoding.setLatitude(chartEncoding.getLatitude());
-            layerEncoding.setLatitude2(chartEncoding.getLatitude2());
-            layerEncoding.setLongitude(chartEncoding.getLongitude());
-            layerEncoding.setLongitude2(chartEncoding.getLongitude2());
-            layerEncoding.setOpacity(chartEncoding.getOpacity());
-            layerEncoding.setOrder(chartEncoding.getOrder());
-            layerEncoding.setRadius(chartEncoding.getRadius());
-            layerEncoding.setRadius2(chartEncoding.getRadius2());
-            layerEncoding.setShape(chartEncoding.getShape());
-            layerEncoding.setSize(chartEncoding.getSize());
-            layerEncoding.setStroke(chartEncoding.getStroke());
-            layerEncoding.setStrokeDash(chartEncoding.getStrokeDash());
-            layerEncoding.setStrokeOpacity(chartEncoding.getStrokeOpacity());
-            layerEncoding.setStrokeWidth(chartEncoding.getStrokeWidth());
-            layerEncoding.setText(chartEncoding.getText());
-            layerEncoding.setTheta(chartEncoding.getTheta());
-            layerEncoding.setTheta2(chartEncoding.getTheta2());
-            layerEncoding.setTooltip(chartEncoding.getTooltip());
-            layerEncoding.setURL(chartEncoding.getURL());
-            layerEncoding.setX(chartEncoding.getX());
-            layerEncoding.setX2(chartEncoding.getX2());
-            layerEncoding.setXError(chartEncoding.getXError());
-            layerEncoding.setXError2(chartEncoding.getXError2());
-            layerEncoding.setY(chartEncoding.getY());
-            layerEncoding.setY2(chartEncoding.getY2());
-            layerEncoding.setYError(chartEncoding.getYError());
-            layerEncoding.setYError2(chartEncoding.getYError2());
-            layerElement.setEncoding(layerEncoding);
-        }
-        return layerElement;
     }
 
     /**

@@ -45,9 +45,6 @@
 package org.orbisgis.demat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.orbisgis.demat.vega.data.Data;
-import org.orbisgis.demat.vega.data.DataValues;
-import org.orbisgis.demat.vega.data.InlineDataset;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -62,60 +59,6 @@ import java.util.Map;
  */
 public class Read {
 
-    /**
-     * Read a CSV file and convert it to a Data object
-     * @param csvFile
-     * @return
-     * @throws IOException
-     */
-    public  static Data csv(File csvFile) throws IOException {
-        if(FileUtils.isExtensionWellFormated(csvFile, "csv")) {
-            List<InlineDataset> inlines = new ArrayList<InlineDataset>();
-            String line = "";
-            //use comma as separator
-            String splitBy = ",";
-            try (BufferedReader br =
-                         new BufferedReader(new FileReader(csvFile))) {
-                //Header
-                line = br.readLine();
-                String[]  header = null;
-                if(line!=null){
-                    header = line.split(splitBy);
-                }
-                while ((line = br.readLine()) != null)
-                {
-                    Map<String, Object> values = new HashMap<>();
-                    String[] csvValues = line.split(splitBy);
-                    for (int i = 0; i < header.length; i++) {
-                        values.put(header[i], csvValues[i]);
-                    }
-                    InlineDataset inlineDataset = new InlineDataset();
-                    inlineDataset.anythingMapValue=values;
-                    inlines.add(inlineDataset);
-                }
-            }
-            if(inlines.isEmpty()){
-                return null;
-            }
-            Data data = new Data();
-            DataValues dataValues = new DataValues();
-            dataValues.unionArrayValue = inlines;
-            data.setDataValues(dataValues);
-            return data;
-        }
-        return null;
-    }
-
-
-    /**
-     * @param reader
-     * @return
-     * @throws IOException
-     */
-    public static Data fromJSON(InputStream reader) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(reader, Data.class);
-    }
 
     /**
      *
@@ -161,51 +104,40 @@ public class Read {
     }
 
 
-
-
     /**
-     * Read a CSV {@link InputStream} and convert it to a Data object
-     * @param inputStream
+     * Read a CSV {@link File} and convert it to a Data object
+     * @param csvFile
      * @return
      * @throws IOException
      */
-    public static Data csv(InputStream inputStream) throws IOException {
-        if(inputStream==null){
-            throw new RuntimeException("The input stream data is null");
-        }
+    public static List csv(File csvFile) throws IOException {
+        if(FileUtils.isExtensionWellFormated(csvFile,  "csv")) {
+            String line = "";
+            //use comma as separator
+            String splitBy = ",";
 
-        String line = "";
-        //use comma as separator
-        String splitBy = ",";
-        List<InlineDataset> inlines = new ArrayList<InlineDataset>();
-        try (BufferedReader br =
-                     new BufferedReader(new InputStreamReader(inputStream))) {
+            ArrayList lines = new ArrayList();
+            try (BufferedReader br =
+                         new BufferedReader(new FileReader(csvFile))) {
 
-            //Header
-            line = br.readLine();
-            String[]  header = null;
-            if(line!=null){
-                header = line.split(splitBy);
-            }
-            while ((line = br.readLine()) != null)
-            {
-                Map<String, Object> values = new HashMap<>();
-                String[] csvValues = line.split(splitBy);
-                for (int i = 0; i < header.length; i++) {
-                    values.put(header[i], csvValues[i]);
+                //Header
+                line = br.readLine();
+                String[] header = null;
+                if (line != null) {
+                    header = line.split(splitBy);
                 }
-                InlineDataset inlineDataset = new InlineDataset();
-                inlineDataset.anythingMapValue=values;
-                inlines.add(inlineDataset);
+                while ((line = br.readLine()) != null) {
+                    Map<String, Object> values = new HashMap<>();
+                    String[] csvValues = line.split(splitBy);
+                    for (int i = 0; i < header.length; i++) {
+                        values.put(header[i], csvValues[i]);
+                    }
+                    lines.add(values);
+                }
             }
+
+            return lines;
         }
-        if(inlines.isEmpty()){
-            return null;
-        }
-        Data data = new Data();
-        DataValues dataValues = new DataValues();
-        dataValues.unionArrayValue = inlines;
-        data.setDataValues(dataValues);
-        return data;
+        return null;
     }
 }
