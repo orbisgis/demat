@@ -138,7 +138,6 @@ public class SvgRasterizer {
     /**
      * Save the SVG as image
      * @param svg
-     * @param dstDim
      * @param outputFile
      * @throws SVGException
      * @throws IOException
