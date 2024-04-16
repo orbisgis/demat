@@ -137,10 +137,9 @@ public class Plot {
     static ObjectMapper getJSONMapper() {
         if (jsonMapper == null) {
             jsonMapper = new ObjectMapper();
-            SimpleModule module = new SimpleModule();
-            module.addSerializer(ISpatialTable.class, new SpatialTableSerializer());
-            module.addSerializer(ITable.class, new TableSerializer());
-            jsonMapper.registerModule(module);
+            SimpleModule tableModule = new SimpleModule();
+            tableModule.addSerializer(ITable.class, new TableSerializer());
+            jsonMapper.registerModule(tableModule);
         }
         return jsonMapper;
     }
