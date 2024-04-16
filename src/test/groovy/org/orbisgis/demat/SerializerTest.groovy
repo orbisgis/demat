@@ -53,6 +53,7 @@ import org.junit.jupiter.api.io.CleanupMode
 import org.junit.jupiter.api.io.TempDir
 import org.orbisgis.data.H2GIS
 import org.orbisgis.data.api.dataset.ISpatialTable
+import org.orbisgis.data.api.dataset.ITable
 
 class SerializerTest {
 
@@ -70,7 +71,7 @@ class SerializerTest {
     void saveISpatialTableTest(){
         ObjectMapper mapper = new ObjectMapper()
         SimpleModule module = new SimpleModule()
-        module.addSerializer(ISpatialTable.class, new SpatialTableSerializer())
+        module.addSerializer(ITable.class, new TableSerializer())
         mapper.registerModule(module)
         String serialized = mapper.writeValueAsString(h2GIS.getSpatialTable("(SELECT the_geom from rsu_geoindicators limit 1)"))
         Assertions.assertEquals("[{\"type\":\"Feature\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[4.866735,46.263463],[4.866611,46.263508],[4.866568,46.263558],[4.866583,46.263596],[4.866645,46.263637],[4.866866,46.26371],[4.866915,46.263688],[4.866799,46.263561],[4.8667,46.26356],[4.866738,46.2635],[4.866735,46.263463]]]}}]",

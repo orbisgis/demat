@@ -74,20 +74,44 @@ public class TableSerializer extends StdSerializer<ITable> {
 
     @Override
     public void serialize(ITable table, JsonGenerator jgen, SerializerProvider serializerProvider) throws IOException {
-        try {
-            ArrayList json = new ArrayList<>();
-            Collection<String> columns = table.getColumns();
-            int colummSize = columns.size();
-            while (table.next()) {
-                LinkedHashMap<String, Object> feature =  new LinkedHashMap();
-                if(colummSize>0) {
-                    feature.put("properties", GeometryFeatureUtils.getProperties((ResultSet) table, columns));
+        if(table instanceof ISpatialTable){
+            try {
+                ISpatialTable spatialTable = table.getSpatialTable();
+                ArrayList json = new ArrayList<>();
+                Object geomCol = spatialTable.getGeometricColumns().stream().findFirst().get();
+                Collection<String> columns = spatialTable.getColumns();
+                columns.remove(geomCol);
+                int colummSize = columns.size();
+                while (spatialTable.next()) {
+                    LinkedHashMap<String, Object> feature =  new LinkedHashMap();
+                    feature.put("type", "Feature");
+                    feature.putAll(GeometryFeatureUtils.toMap(spatialTable.getGeometry()));
+                    if(colummSize>0) {
+                        feature.put("properties", GeometryFeatureUtils.getProperties((ResultSet) spatialTable, columns));
+                    }
+                    json.add(feature);
                 }
-                json.add(feature);
+                jgen.writeObject(json);
+            } catch (Exception e) {
+                throw new IOException("Cannot serialize the spatial table " + table.getName(), e);
             }
-            jgen.writeObject(json);
-        } catch (Exception e) {
-            throw new IOException("Cannot serialize the table " + table.getName(), e);
+        }
+        else {
+            try {
+                ArrayList json = new ArrayList<>();
+                Collection<String> columns = table.getColumns();
+                int colummSize = columns.size();
+                while (table.next()) {
+                    LinkedHashMap<String, Object> feature = new LinkedHashMap();
+                    if (colummSize > 0) {
+                        feature.put("properties", GeometryFeatureUtils.getProperties((ResultSet) table, columns));
+                    }
+                    json.add(feature);
+                }
+                jgen.writeObject(json);
+            } catch (Exception e) {
+                throw new IOException("Cannot serialize the table " + table.getName(), e);
+            }
         }
     }
 }

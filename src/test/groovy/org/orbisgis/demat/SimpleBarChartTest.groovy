@@ -43,6 +43,9 @@
  * info_at_ orbisgis.org
  */
 
+package org.orbisgis.demat
+
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo
@@ -57,11 +60,19 @@ class SimpleBarChartTest {
 
     @TempDir(cleanup = CleanupMode.ALWAYS)
     static File folder
-    private TestInfo testInfo;
+    private TestInfo testInfo
+    private static H2GIS h2GIS
 
+    @BeforeAll
+    static void init(){
+        folder = new File("/tmp/test")
+        folder.mkdir()
+        h2GIS = H2GIS.open("${folder.getAbsolutePath()+File.separator+ this.getClass().getName()}")
+        h2GIS.load(SimpleBarChartTest.class.getResource("grid_indicators.geojson"), true)
+    }
 
     @BeforeEach
-    void initEach(TestInfo testInfo) {
+     void initEach(TestInfo testInfo) {
         this.testInfo = testInfo;
     }
 
@@ -82,12 +93,10 @@ class SimpleBarChartTest {
     }
 
     @Test
-    void testStackedBarChart2() {
-        H2GIS h2GIS = H2GIS.open("${folder.getAbsolutePath()+File.separator+ this.getClass().getName()}")
-        h2GIS.load(SimpleBarChartTest.class.getClassLoader().getResource("rsu_geoindicators.geojson"), true)
+    void testGeoShape() {
           def spec =
           [  data : [
-                      values : h2GIS.getSpatialTable("(SELECT the_geom FROM rsu_geoindicators limit 10)")],
+                      values : h2GIS.getSpatialTable("(SELECT the_geom FROM grid_indicators limit 10)")],
               mark: [type : "geoshape", stroke: "blue", strokeWidth:1, "fill":null], projection:[type:"identity"],
                   "height":800, "width":800
           ]
@@ -95,11 +104,24 @@ class SimpleBarChartTest {
     }
 
     @Test
-    void testStackedBarChart3() {
+    void testGeoShape2() {
         def spec =
                 [  data : [
-                        values : toValues(SimpleBarChartTest.class.getClassLoader().getResource("rsu_geoindicators.geojson"))],
+                        values : toValues(SimpleBarChartTest.class.getClassLoader().getResource("rsu_geoindicators.geojson").toURI())],
                    mark: [type : "geoshape", stroke: "blue", strokeWidth:1, "fill":null], projection:[type:"identity"],
+                   "height":800, "width":800
+                ]
+        toSVG(spec, File.createTempFile(testInfo.displayName, ".svg", folder))
+    }
+
+    @Test
+    void testSimpleChart() {
+        def spec =
+                [  data : [
+                        values : h2GIS.getTable("(SELECT LCZ_PRIMARY, SUM(ST_AREA(THE_GEOM)) AS AREA FROM grid_indicators group by LCZ_PRIMARY ORDER BY LCZ_PRIMARY)")],
+                   mark: [type : "bar"],
+                        encoding:[ x:[field:"properties.LCZ_PRIMARY", type: "nominal"], y:[field:"properties.AREA", type:"quantitative"],
+                                   color:[field:"properties.LCZ_PRIMARY", type: "nominal"]],
                    "height":800, "width":800
                 ]
         toSVG(spec, File.createTempFile(testInfo.displayName, ".svg", folder))
