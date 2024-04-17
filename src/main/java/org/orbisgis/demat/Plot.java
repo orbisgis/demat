@@ -54,6 +54,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
 import java.util.Map;
 
 /**
@@ -72,6 +73,13 @@ public class Plot {
     /**
      * Method to transform the VEGA spec as SVG file
      */
+    static public void toSVG(Map spec, String path) throws IOException, JavetException {
+         toSVG(spec, Path.of(path).toFile());
+    }
+
+    /**
+     * Method to transform the VEGA spec as SVG file
+     */
     static public void toSVG(Map spec, File path) throws IOException, JavetException {
         if (spec == null || spec.isEmpty()) {
             throw new RuntimeException("The input spec cannot be null or empty");
@@ -83,6 +91,13 @@ public class Plot {
         } else {
             throw new RuntimeException("Wrong file extension. Please set .svg");
         }
+    }
+
+    /**
+     * Method to transform the VEGA spec as JSON file
+     */
+    static public void toJSON(Map spec, String path) throws IOException, JavetException {
+        toJSON(spec,  Path.of(path).toFile());
     }
 
     /**
@@ -104,6 +119,13 @@ public class Plot {
     /**
      * Method to transform the VEGA spec as PNG file
      */
+    static public void toPNG(Map spec, String path) throws IOException, JavetException {
+        toPNG(spec,  Path.of(path).toFile());
+    }
+
+    /**
+     * Method to transform the VEGA spec as PNG file
+     */
     static public void toPNG(Map spec, File path) throws IOException, JavetException {
         if (spec == null || spec.isEmpty()) {
             throw new RuntimeException("The input spec cannot be null or empty");
@@ -120,6 +142,15 @@ public class Plot {
     /**
      * Method to transform the VEGA spec as HTML file
      */
+    static public void toHTML(Map spec, String path) throws IOException, JavetException {
+        toHTML(spec, Path.of(path).toFile());
+    }
+
+
+
+        /**
+         * Method to transform the VEGA spec as HTML file
+         */
     static public void toHTML(Map spec, File path) throws IOException, JavetException {
         if (spec == null || spec.isEmpty()) {
             throw new RuntimeException("The input spec cannot be null or empty");
@@ -213,7 +244,7 @@ public class Plot {
      */
     static public Object toValues(URI path) {
         try {
-            File file = new File(path.getPath());
+            File file = Path.of(path).toFile();
             if (FileUtils.isExtensionWellFormated(file, "json", "geojson")) {
                 return FileUtils.json(file);
             } else if (FileUtils.isExtensionWellFormated(file,"csv")) {

@@ -120,8 +120,8 @@ class SimpleBarChartTest {
                 [  data : [
                         values : h2GIS.getTable("(SELECT LCZ_PRIMARY, SUM(ST_AREA(THE_GEOM)) AS AREA FROM grid_indicators group by LCZ_PRIMARY ORDER BY LCZ_PRIMARY)")],
                    mark: [type : "bar"],
-                        encoding:[ x:[field:"properties.LCZ_PRIMARY", type: "nominal"], y:[field:"properties.AREA", type:"quantitative"],
-                                   color:[field:"properties.LCZ_PRIMARY", type: "nominal"]],
+                        encoding:[ x:[field:"LCZ_PRIMARY", type: "nominal"], y:[field:"AREA", type:"quantitative"],
+                                   color:[field:"LCZ_PRIMARY", type: "nominal"]],
                    "height":800, "width":800
                 ]
         toSVG(spec, File.createTempFile(testInfo.displayName, ".svg", folder))
