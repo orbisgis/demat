@@ -102,11 +102,9 @@ public class TableSerializer extends StdSerializer<ITable> {
                 Collection<String> columns = table.getColumns();
                 int colummSize = columns.size();
                 while (table.next()) {
-                    LinkedHashMap<String, Object> feature = new LinkedHashMap();
                     if (colummSize > 0) {
-                        feature.put("properties", GeometryFeatureUtils.getProperties((ResultSet) table, columns));
+                        json.add(GeometryFeatureUtils.getProperties((ResultSet) table, columns));
                     }
-                    json.add(feature);
                 }
                 jgen.writeObject(json);
             } catch (Exception e) {
