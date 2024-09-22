@@ -56,7 +56,7 @@ import org.orbisgis.data.H2GIS
 import static org.orbisgis.demat.Plot.*
 
 
-class SimpleBarChartTest {
+class ChartsTest {
 
     @TempDir(cleanup = CleanupMode.ALWAYS)
     static File folder
@@ -68,7 +68,7 @@ class SimpleBarChartTest {
         folder = new File("/tmp/test")
         folder.mkdir()
         h2GIS = H2GIS.open("${folder.getAbsolutePath()+File.separator+ this.getClass().getName()}")
-        h2GIS.load(SimpleBarChartTest.class.getResource("grid_indicators.geojson"), true)
+        h2GIS.load(ChartsTest.class.getResource("grid_indicators.geojson"), true)
     }
 
     @BeforeEach
@@ -100,14 +100,14 @@ class SimpleBarChartTest {
               mark: [type : "geoshape", stroke: "blue", strokeWidth:1, "fill":null], projection:[type:"identity"],
                   "height":800, "width":800
           ]
-        toSVG(spec, File.createTempFile(testInfo.displayName, ".svg", folder))
+        toSVG(spec,File.createTempFile(testInfo.displayName, ".svg", folder))
     }
 
     @Test
     void testGeoShape2() {
         def spec =
                 [  data : [
-                        values : toValues(SimpleBarChartTest.class.getClassLoader().getResource("rsu_geoindicators.geojson").toURI())],
+                        values : toValues(ChartsTest.class.getClassLoader().getResource("rsu_geoindicators.geojson").toURI())],
                    mark: [type : "geoshape", stroke: "blue", strokeWidth:1, "fill":null], projection:[type:"identity"],
                    "height":800, "width":800
                 ]
@@ -124,6 +124,64 @@ class SimpleBarChartTest {
                                    color:[field:"LCZ_PRIMARY", type: "nominal"]],
                    "height":800, "width":800
                 ]
+        toSVG(spec, File.createTempFile(testInfo.displayName, ".svg", folder))
+    }
+
+    @Test
+    void testPolarChart(){
+        def spec=[
+                "height":500,"width":500,
+                "projection":["type" : "azimuthalEquidistant", "rotate" : [0,90,180]],
+                "layer":[
+                        ["data": ["values":[[   "theta": 0, "r": 100, "label": "N"],
+                                            ["theta": 22.5, "r": 125, "label": "NNE"],
+                                            ["theta": 45, "r": 100, "label": "NE"],
+                                            ["theta": 90, "r": 100, "label": "E"],
+                                            ["theta": 135, "r": 100, "label": "SE"],
+                                            ["theta": -180, "r": 100, "label": "S"],
+                                            ["theta": -135, "r": 100, "label": "SW"],
+                                            ["theta": -90, "r": 100, "label": "W"],
+                                            ["theta": -45, "r": 100, "label": "NW"]]],
+                         "encoding":["longitude": ["field":"theta"], "latitude":["field":"r"], "text":["field":"label"]],
+                         "mark":"text"],
+                        ["data":["values":[[]]],
+                         "mark":["type":"arc","theta":Math.toRadians(-22.5),"theta2":Math.toRadians(22.5),
+                                 "radius":100]
+                        ],  ["data":["values":[[]]],
+                             "mark":["type":"arc","theta":Math.toRadians(22.5),"theta2":Math.toRadians(67.5),
+                                     "radius":10]
+                        ],  ["data":["values":[[]]],
+                             "mark":["type":"arc","theta":Math.toRadians(67.5),"theta2":Math.toRadians(112.5),
+                                     "radius":20]
+                        ],  ["data":["values":[[]]],
+                             "mark":["type":"arc","theta":Math.toRadians(112.5),"theta2":Math.toRadians(157.5),
+                                     "radius":80]
+                        ],  ["data":["values":[[]]],
+                             "mark":["type":"arc","theta":Math.toRadians(157.5),"theta2":Math.toRadians(202.5),
+                                     "radius":100]
+                        ],  ["data":["values":[[]]],
+                             "mark":["type":"arc","theta":Math.toRadians(202.5),"theta2":Math.toRadians(247.5),
+                                     "radius":150]
+                        ],  ["data":["values":[[]]],
+                             "mark":["type":"arc","theta":Math.toRadians(247.5),"theta2":Math.toRadians(292.5),
+                                     "radius":100]
+                        ],  ["data":["values":[[]]],
+                             "mark":["type":"arc","theta":Math.toRadians(292.5),"theta2":Math.toRadians(337.5),
+                                     "radius":100]
+                        ],
+                        ["data": [
+                                "graticule": [
+                                        "step": [
+                                                45,
+                                                45
+                                        ]
+                                ]
+                        ],
+                         "mark": [
+                                 "type": "geoshape", "filled":false, "strokeWidth":0.2,"color":"black"
+                         ]]
+                ]
+        ]
         toSVG(spec, File.createTempFile(testInfo.displayName, ".svg", folder))
     }
 

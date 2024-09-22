@@ -80,7 +80,7 @@ public class JavascriptEngine {
     public JavascriptEngine(String jsDirectory) {
         v8Host = V8Host.getNodeInstance();
         javetEnginePool = new JavetEnginePool<>();
-        javetEnginePool.getConfig().setEngineGuardCheckIntervalMillis(1000);
+        //TODO update -> javetEnginePool.getConfig().setEngineGuardCheckIntervalMillis(1000);
         javetEnginePool.getConfig().setJSRuntimeType(v8Host.getJSRuntimeType());
         this.jsDirectory = jsDirectory;
         try {

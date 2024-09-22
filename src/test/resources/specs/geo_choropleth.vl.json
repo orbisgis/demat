@@ -20,7 +20,7 @@
     }
   }],
   "projection": {
-    "type": "albersUsa"
+      "type": "albersUsa"
   },
   "mark": "geoshape",
   "encoding": {
