@@ -23,7 +23,7 @@
  *
  * DEMAT is distributed under LGPL 3 license.
  *
- * Copyright (C) 2021 CNRS (Lab-STICC UMR CNRS 6285)
+ * Copyright (C) 2021-2024 CNRS (Lab-STICC UMR CNRS 6285)
  *
  *
  * DEMAT is free software: you can redistribute it and/or modify it under the
@@ -79,7 +79,7 @@ public class TableSerializer extends StdSerializer<ITable> {
                 ISpatialTable spatialTable = table.getSpatialTable();
                 ArrayList json = new ArrayList<>();
                 Object geomCol = spatialTable.getGeometricColumns().stream().findFirst().get();
-                Collection<String> columns = spatialTable.getColumns();
+                Collection<String> columns = spatialTable.getColumnNames();
                 columns.remove(geomCol);
                 int colummSize = columns.size();
                 while (spatialTable.next()) {
@@ -99,7 +99,7 @@ public class TableSerializer extends StdSerializer<ITable> {
         else {
             try {
                 ArrayList json = new ArrayList<>();
-                Collection<String> columns = table.getColumns();
+                Collection<String> columns = table.getColumnNames();
                 int colummSize = columns.size();
                 while (table.next()) {
                     if (colummSize > 0) {

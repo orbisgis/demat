@@ -23,7 +23,7 @@
  *
  * DEMAT is distributed under LGPL 3 license.
  *
- * Copyright (C) 2021 CNRS (Lab-STICC UMR CNRS 6285)
+ * Copyright (C) 2021-2024 CNRS (Lab-STICC UMR CNRS 6285)
  *
  *
  * DEMAT is free software: you can redistribute it and/or modify it under the
@@ -80,7 +80,7 @@ public class JavascriptEngine {
     public JavascriptEngine(String jsDirectory) {
         v8Host = V8Host.getNodeInstance();
         javetEnginePool = new JavetEnginePool<>();
-        javetEnginePool.getConfig().setEngineGuardCheckIntervalMillis(1000);
+        //TODO update -> javetEnginePool.getConfig().setEngineGuardCheckIntervalMillis(1000);
         javetEnginePool.getConfig().setJSRuntimeType(v8Host.getJSRuntimeType());
         this.jsDirectory = jsDirectory;
         try {

@@ -23,7 +23,7 @@
  *
  * DEMAT is distributed under LGPL 3 license.
  *
- * Copyright (C) 2021 CNRS (Lab-STICC UMR CNRS 6285)
+ * Copyright (C) 2021-2024 CNRS (Lab-STICC UMR CNRS 6285)
  *
  *
  * DEMAT is free software: you can redistribute it and/or modify it under the
@@ -47,14 +47,12 @@ package org.orbisgis.demat;
 import com.caoccao.javet.exceptions.JavetException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.orbisgis.data.api.dataset.ISpatialTable;
 import org.orbisgis.data.api.dataset.ITable;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -84,8 +82,7 @@ public class Plot {
         if (spec == null || spec.isEmpty()) {
             throw new RuntimeException("The input spec cannot be null or empty");
         }
-        //Put the default vega json schema
-        spec.put("$schema", VEGA_SCHEMA);
+        prepareSpec(spec);
         if (FileUtils.isExtensionWellFormated(path, "svg")) {
             IOUtils.saveAsSVG(getJSONMapper().writeValueAsString(spec), DEMAT_FOLDER, path, true);
         } else {
@@ -107,8 +104,7 @@ public class Plot {
         if (spec == null || spec.isEmpty()) {
             throw new RuntimeException("The input spec cannot be null or empty");
         }
-        //Put the default vega json schema
-        spec.put("$schema", VEGA_SCHEMA);
+        prepareSpec(spec);
         if (FileUtils.isExtensionWellFormated(path, "json")) {
             IOUtils.saveAsJSON(getJSONMapper().writeValueAsString(spec), path, true);
         } else {
@@ -130,8 +126,7 @@ public class Plot {
         if (spec == null || spec.isEmpty()) {
             throw new RuntimeException("The input spec cannot be null or empty");
         }
-        //Put the default vega json schema
-        spec.put("$schema", VEGA_SCHEMA);
+        prepareSpec(spec);
         if (FileUtils.isExtensionWellFormated(path, "png")) {
             IOUtils.saveAsPNG(getJSONMapper().writeValueAsString(spec), DEMAT_FOLDER, path, true);
         } else {
@@ -171,6 +166,9 @@ public class Plot {
             SimpleModule tableModule = new SimpleModule();
             tableModule.addSerializer(ITable.class, new TableSerializer());
             jsonMapper.registerModule(tableModule);
+            SimpleModule localFileModule = new SimpleModule();
+            localFileModule.addSerializer(LocalFile.class, new LocalFileSerializer());
+            jsonMapper.registerModule(localFileModule);
         }
         return jsonMapper;
     }
@@ -224,38 +222,54 @@ public class Plot {
     }
 
     /**
-     * Read a file an convert it as a table of values for vega spec
-     *
+     * Iterate over the vega spec to replace local file
+     * @param spec
      * @return
      */
-    static public Object toValues(String path) {
-        try {
-            return toValues(new URI(path));
-        } catch (URISyntaxException ex ) {
-            // Not a valid uri
-            throw new RuntimeException("Invalid path" + path);
+    private static Map prepareSpec(Map spec ){
+        if (spec == null || spec.isEmpty()) {
+            throw new RuntimeException("The input spec cannot be null or empty");
+        }
+        //Put the default vega json schema
+        spec.put("$schema", VEGA_SCHEMA);
+        findDeep(spec);
+        return spec;
+    }
+
+    /**
+     * Replace the local file set in data:url to use an internal serializer
+     * that read the file
+     * @param m input map
+     */
+    static void findDeep(Object m) {
+        if (m instanceof List) {
+            ((List<?>) m).forEach(val -> findDeep(val));
+        } else if (m instanceof Map) {
+            for (var entry : ((Map<?, ?>) m).entrySet()) {
+                if(entry.getValue() instanceof Map){
+                    replace((Map) entry.getValue());
+                }else{
+                    findDeep(entry.getValue());
+                }
+            }
         }
     }
 
     /**
-     * Read a file an convert it as a table of values for vega spec
-     *
-     * @return
+     * Replace the local file by the serializer
+     * @param data input data entry
      */
-    static public Object toValues(URI path) {
-        try {
-            File file = Path.of(path).toFile();
-            if (FileUtils.isExtensionWellFormated(file, "json", "geojson")) {
-                return FileUtils.json(file);
-            } else if (FileUtils.isExtensionWellFormated(file,"csv")) {
-                return FileUtils.csv(file);
-            } else if (FileUtils.isExtensionWellFormated(file, "tsv")) {
-                return FileUtils.tsv(file);
-            }else{
-                throw new RuntimeException("Unsupported file "+ path);
+    static void replace (Map data) {
+        String url = (String) data.get("url");
+        if (url!=null) {
+            if (!url.startsWith("http")) {
+                if (url.endsWith(".json") || url.endsWith(".csv") || url.endsWith(".tsv")|| url.endsWith(".geojson")) {
+                    //Let's replace it with by the LocalFile object.
+                    data.remove("url");
+                    data.put("values", new LocalFile(url));
+                }
             }
-        } catch (IOException e) {
-            throw new RuntimeException("Cannot read the file "+ path);
         }
     }
+
 }
