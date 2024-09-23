@@ -332,6 +332,9 @@
     </issueManagement>
     <scm>
         <connection>scm:git:git://github.com/orbisgis/demat</connection>
+        <developerConnection>scm:git:https://github.com/orbisgis/demat.git</developerConnection>
+        <url>git@github.com:orbisgis/demat.git</url>
+        <tag>HEAD</tag>
     </scm>
     <repositories>
         <repository>
