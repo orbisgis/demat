@@ -30,7 +30,7 @@ def spec=[
 def spec=[
         "height":500,"width":500,
         "projection":["type" : "albersUsa"],
-        "data":["url": "../orbisgis/demat/refs/heads/main/src/test/resources/data/us-10m.json",
+        "data":["url": "/home/ebocher/Autres/codes/new_demat/demat/src/test/resources/data/us-10m.json",
                 "format": [
                         "type": "topojson",
                         "feature": "counties"

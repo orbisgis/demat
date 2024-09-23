@@ -23,7 +23,7 @@
  *
  * DEMAT is distributed under LGPL 3 license.
  *
- * Copyright (C) 2021 CNRS (Lab-STICC UMR CNRS 6285)
+ * Copyright (C) 2021-2024 CNRS (Lab-STICC UMR CNRS 6285)
  *
  *
  * DEMAT is free software: you can redistribute it and/or modify it under the
@@ -45,6 +45,7 @@
 
 package org.orbisgis.demat
 
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -56,6 +57,9 @@ import org.orbisgis.data.H2GIS
 import static org.orbisgis.demat.Plot.*
 
 
+/**
+ * @author Erwan Bocher, CNRS 2023-2024
+ */
 class ChartsTest {
 
     @TempDir(cleanup = CleanupMode.ALWAYS)
@@ -107,11 +111,11 @@ class ChartsTest {
     void testGeoShape2() {
         def spec =
                 [  data : [
-                        values : toValues(ChartsTest.class.getClassLoader().getResource("rsu_geoindicators.geojson").toURI())],
+                        url : ChartsTest.class.getResource("rsu_geoindicators.geojson").getPath()],
                    mark: [type : "geoshape", stroke: "blue", strokeWidth:1, "fill":null], projection:[type:"identity"],
                    "height":800, "width":800
                 ]
-        toSVG(spec, File.createTempFile(testInfo.displayName, ".svg", folder))
+        toSVG(spec, "/tmp/test.svg")//File.createTempFile(testInfo.displayName, ".svg", folder))
     }
 
     @Test
@@ -185,4 +189,13 @@ class ChartsTest {
         toSVG(spec, File.createTempFile(testInfo.displayName, ".svg", folder))
     }
 
+    @Test
+    void testSpecLocalFile() {
+        def spec = [data: [url:"/test"]]
+        findDeep(spec )
+        Assertions.assertEquals([data: [url:"/test"]],spec )
+        spec = [data: [url:"/test.json"]]
+        findDeep(spec )
+        Assertions.assertTrue(spec.data.values instanceof LocalFile )
+    }
 }

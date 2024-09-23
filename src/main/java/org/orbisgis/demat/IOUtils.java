@@ -23,7 +23,7 @@
  *
  * DEMAT is distributed under LGPL 3 license.
  *
- * Copyright (C) 2021 CNRS (Lab-STICC UMR CNRS 6285)
+ * Copyright (C) 2021-2024 CNRS (Lab-STICC UMR CNRS 6285)
  *
  *
  * DEMAT is free software: you can redistribute it and/or modify it under the
@@ -52,6 +52,9 @@ import java.util.Map;
 
 import static j2html.TagCreator.*;
 
+/**
+ * @author Erwan Bocher, CNRS 2023-2024
+ */
 public class IOUtils{
     private static JavascriptEngine javascriptEngine;
 
