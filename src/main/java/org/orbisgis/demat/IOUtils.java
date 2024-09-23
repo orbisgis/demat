@@ -48,7 +48,6 @@ import com.caoccao.javet.exceptions.JavetException;
 import j2html.tags.UnescapedText;
 
 import java.io.*;
-import java.util.Map;
 
 import static j2html.TagCreator.*;
 
