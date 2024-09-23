@@ -6,7 +6,7 @@ Demat is a French Brittany word to said Hello (http://devri.bzh/dictionnaire/d/d
 
 Demat is a java library to generate [Vega-lite](https://vega.github.io/vega-lite/) representations.
 
-Demat uses the JAVET library to execute JS code.
+Demat uses the excellent [JAVET](https://github.com/caoccao/Javet) library to execute JS code.
 
 
 # Use it
