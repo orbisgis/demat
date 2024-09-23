@@ -48,10 +48,12 @@ jobs:
       #   - upload release to maven repo
       - name: Release
         run: |
+          VERSION=${{ github.event.inputs.nextVersion }}
           mvn \
-            --no-transfer-progress \
+            -ntp \
             --batch-mode \
             -P deploy \
+            -Dmaven.test.skip=true \
             release:prepare release:perform \
             -Dusername=$GITHUB_ACTOR -Dpassword=$GITHUB_TOKEN ${VERSION:+"-DdevelopmentVersion="$VERSION"-SNAPSHOT"}
         env:
