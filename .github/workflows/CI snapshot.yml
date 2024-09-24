@@ -41,7 +41,7 @@ jobs:
 
       # Deploy the snapshot
       - name: Deploy
-        run: mvn deploy --no-transfer-progress --batch-mode
+        run: mvn deploy -ntp --batch-mode
         env:
           MAVEN_USERNAME: ${{ secrets.MVN_CENTRAL_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MVN_CENTRAL_PASSWORD }}
