@@ -58,32 +58,30 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 
-import static java.awt.RenderingHints.*;
-import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 /**
  * @author Erwan Bocher, CNRS 2023-2024
  */
 public class SvgRasterizer {
     public final static Map<Object, Object> RENDERING_HINTS = Map.of(
-            KEY_ANTIALIASING,
-            VALUE_ANTIALIAS_ON,
-            KEY_ALPHA_INTERPOLATION,
-            VALUE_ALPHA_INTERPOLATION_QUALITY,
-            KEY_COLOR_RENDERING,
-            VALUE_COLOR_RENDER_QUALITY,
-            KEY_DITHERING,
-            VALUE_DITHER_DISABLE,
-            KEY_FRACTIONALMETRICS,
-            VALUE_FRACTIONALMETRICS_ON,
-            KEY_INTERPOLATION,
-            VALUE_INTERPOLATION_NEAREST_NEIGHBOR,
-            KEY_RENDERING,
-            VALUE_RENDER_QUALITY,
-            KEY_STROKE_CONTROL,
-            VALUE_STROKE_PURE,
-            KEY_TEXT_ANTIALIASING,
-            VALUE_TEXT_ANTIALIAS_ON
+            RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON,
+            RenderingHints.KEY_ALPHA_INTERPOLATION,
+            RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY,
+            RenderingHints.KEY_COLOR_RENDERING,
+            RenderingHints.VALUE_COLOR_RENDER_QUALITY,
+            RenderingHints.KEY_DITHERING,
+            RenderingHints.VALUE_DITHER_DISABLE,
+            RenderingHints.KEY_FRACTIONALMETRICS,
+            RenderingHints.VALUE_FRACTIONALMETRICS_ON,
+            RenderingHints.KEY_INTERPOLATION,
+            RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR,
+            RenderingHints.KEY_RENDERING,
+            RenderingHints.VALUE_RENDER_QUALITY,
+            RenderingHints.KEY_STROKE_CONTROL,
+            RenderingHints.VALUE_STROKE_PURE,
+            RenderingHints.KEY_TEXT_ANTIALIASING,
+            RenderingHints.VALUE_TEXT_ANTIALIAS_ON
     );
 
     private final static SVGUniverse sRenderer = new SVGUniverse();
@@ -108,7 +106,7 @@ public class SvgRasterizer {
         final int wScaled = (int) scaled.getWidth();
         final int hScaled = (int) scaled.getHeight();
 
-        final BufferedImage image = new BufferedImage( wScaled, hScaled, TYPE_INT_ARGB );
+        final BufferedImage image = new BufferedImage( wScaled, hScaled, BufferedImage.TYPE_INT_ARGB );
 
         final Graphics2D g = image.createGraphics();
         g.setRenderingHints( RENDERING_HINTS );

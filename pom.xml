@@ -4,7 +4,7 @@
     <groupId>org.orbisgis</groupId>
     <artifactId>demat</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <description>Demat is breton word to said "Hello". Demat is library to run Vega-lite specifications.</description>
     <!-- Properties -->
     <properties>
@@ -26,8 +26,11 @@
 
         <!-- Plugins versions -->
         <exec-maven-version>3.0.0</exec-maven-version>
+        <gmaven-version>3.0.2</gmaven-version>
         <maven-assembly-version>3.3.0</maven-assembly-version>
         <maven-bundle-version>5.1.2</maven-bundle-version>
+        <maven-clean-version>3.1.0</maven-clean-version>
+        <maven-compiler-version>3.8.1</maven-compiler-version>
         <maven-enforcer-version>3.0.0</maven-enforcer-version>
         <maven-gpg-plugin-version>3.0.1</maven-gpg-plugin-version>
         <maven-jar-version>3.2.0</maven-jar-version>
@@ -387,8 +390,8 @@
     <url>https://github.com/ebocher/demat</url>
     <licenses>
         <license>
-            <name>The GNU General Public License, Version 3.0</name>
-            <url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+            <name>GNU Lesser General Public License (LGPLV3+)</name>
+            <url>http://www.gnu.org/licenses/lgpl-3.0.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
