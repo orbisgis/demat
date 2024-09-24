@@ -138,17 +138,35 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${maven-jar-version}</version>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            </manifest>
-                            <manifestEntries>
-                                <Specification-Vendor-URL>${project.organization.url}</Specification-Vendor-URL>
-                                <Specification-URL>${project.url}</Specification-URL>
-                            </manifestEntries>
-                        </archive>
-                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>default-jar</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>javadoc-jar</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <configuration>
+                                <classifier>javadoc</classifier>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>sources-jar</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <configuration>
+                                <classifier>sources</classifier>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
                 <!-- Generation of the OSGI bundle -->
                 <plugin>
@@ -213,6 +231,15 @@
                         <doclint>all,-missing</doclint>
                         <quiet>true</quiet>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <!-- Maven release generation -->
                 <plugin>
