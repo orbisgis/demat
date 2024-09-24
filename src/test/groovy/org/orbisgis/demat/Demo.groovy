@@ -1,3 +1,4 @@
+package org.orbisgis.demat
 
 import static org.orbisgis.demat.Plot.*
 
