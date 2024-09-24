@@ -14,10 +14,9 @@ Demat uses the excellent [JAVET](https://github.com/caoccao/Javet) library to ex
 Let's run this script with Groovy to draw a simple bar chart and save it in a svg file.
 
 ```groovy
-@GrabResolver(name = 'orbisgis', root = 'https://oss.sonatype.org/content/repositories/snapshots/')
-@Grab(group = 'org.orbisgis', module = 'demat', version = '1.0.0-SNAPSHOT')
+@Grab(group = 'org.orbisgis', module = 'demat', version = '1.0.0')
 
-import static org.orbisgis.demat.Demat.*
+import static org.orbisgis.demat.Plot.*
 
 def spec = [
         description:"A simple bar chart with embedded data.",
@@ -33,3 +32,37 @@ toSVG(spec,  "/tmp/bar_chart.svg")
 ```
 
 shows https://vega.github.io/vega-lite/examples/bar.html
+
+Use online data.
+
+```groovy
+@Grab(group = 'org.orbisgis', module = 'demat', version = '1.0.0')
+
+import static org.orbisgis.demat.Plot.*
+
+def spec=[
+        "height":500,"width":500,
+        "projection":["type" : "albersUsa"],
+        "data":["url": "https://raw.githubusercontent.com/vega/vega-datasets/refs/heads/main/data/us-10m.json",
+                "format": [
+                    "type": "topojson",
+                    "feature": "counties"
+                ]],
+        "transform": [["lookup": "id",
+                       "from": [
+                        "data": [
+                                "url": "https://raw.githubusercontent.com/vega/vega-datasets/refs/heads/main/data/unemployment.tsv"],
+                        "key": "id",
+                        "fields": ["rate"]]
+                      ]],
+        "mark": "geoshape",
+        "encoding": [
+            "color": [
+                "field": "rate",
+                "type": "quantitative"
+            ]
+            ]
+        ]
+toSVG(spec,  "/tmp/bar_chart.svg")
+```
+shows https://vega.github.io/vega-lite/examples/geo_choropleth.html
