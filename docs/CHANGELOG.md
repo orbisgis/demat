@@ -1,3 +1,4 @@
-## Changelog for v1.0.1
+## Changelog for v1.0.0
 
-- empty
+- Update Javet to 3.1.8
+- Add a new json serializer to load local files
