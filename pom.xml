@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.orbisgis</groupId>
     <artifactId>demat</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <description>Demat is breton word to said "Hello". Demat is library to run Vega-lite specifications.</description>
     <!-- Properties -->
@@ -410,7 +410,7 @@
         <connection>scm:git:git://github.com/orbisgis/demat</connection>
         <developerConnection>scm:git:https://github.com/orbisgis/demat.git</developerConnection>
         <url>git@github.com:orbisgis/demat.git</url>
-        <tag>v1.0.1</tag>
+        <tag>HEAD</tag>
     </scm>
     <repositories>
         <repository>
