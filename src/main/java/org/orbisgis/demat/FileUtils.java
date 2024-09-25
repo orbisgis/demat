@@ -68,8 +68,8 @@ public class FileUtils {
 
     /**
      * Deploy the vega js files into a script folder
-     * @param scriptDir
-     * @throws IOException
+     * @param scriptDir directory to store the js scripts
+     * @throws IOException an exception if the js files cannot be deployed
      */
     public static void deployJSFiles(File scriptDir) throws IOException {
         File jsFolder = new File(scriptDir, JS_FOLDER);
@@ -119,9 +119,9 @@ public class FileUtils {
 
     /**
      * Check if the file has the good extension
-     * @param file
-     * @param prefixes
-     * @return
+     * @param file input file
+     * @param prefixes file extension
+     * @return true is the extension is supported
      */
     public static boolean isExtensionWellFormated(File file, String... prefixes) {
         if(file==null){
@@ -144,26 +144,11 @@ public class FileUtils {
         return false;
     }
 
-    /**
-     *
-     * @param reader
-     * @return
-     * @throws IOException
-     */
-    public static Object json(InputStream reader)  {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.readValue(reader, Object.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     /**
-     *
-     * @param jsonFile
-     * @return
-     * @throws IOException
+     * Read a json file
+     * @param jsonFile input json file
+     * @return a map with all json values
      */
     public static Object json(File jsonFile) throws IOException {
         if(FileUtils.isExtensionWellFormated(jsonFile, "json", "geojson")) {
@@ -174,10 +159,9 @@ public class FileUtils {
     }
 
     /**
-     *
-     * @param jsonFile
-     * @return
-     * @throws IOException
+     * Read a geojson file
+     * @param jsonFile input geojson file
+     * @return a map with all json values
      */
     public static Object geojson(File jsonFile) throws IOException {
         if(FileUtils.isExtensionWellFormated(jsonFile,  "json", "geojson")) {
@@ -190,9 +174,8 @@ public class FileUtils {
 
     /**
      * Read a CSV {@link File} and convert it to a Data object
-     * @param csvFile
-     * @return
-     * @throws IOException
+     * @param csvFile input csv file
+     * @return csv data as list
      */
     public static List csv(File csvFile) throws IOException {
         if(FileUtils.isExtensionWellFormated(csvFile,  "csv")) {
@@ -226,9 +209,8 @@ public class FileUtils {
     }
     /**
      * Read a CSV {@link File} and convert it to a Data object
-     * @param tsvFile
-     * @return
-     * @throws IOException
+     * @param tsvFile input tsv file
+     * @return tsv data as list
      */
     public static List tsv(File tsvFile) throws IOException {
         if(FileUtils.isExtensionWellFormated(tsvFile,  "tsv")) {
@@ -262,8 +244,7 @@ public class FileUtils {
      * Method to open a browser
      * Used by ImageJ
      *
-     * @param url
-     * @throws Exception
+     * @param url to open the browser
      */
     public static void openBrowser(String url) throws Exception {
         if (url == null || url.isEmpty()) {
