@@ -117,15 +117,13 @@ public class JavascriptEngine {
                 "}";
         v8Runtime.getExecutor(svgFunction).executeVoid();
         jsonMapper = new ObjectMapper();
-
     }
 
     /**
      * Save the vega-lite chart in a SVG file
      *
-     * @param outputFile
-     * @return
-     * @throws JavetException
+     * @param outputFile the file to store the result
+     * @return the absolute path of the file
      */
     public String saveSVG(String json, File outputFile, boolean delete) throws JavetException, IOException {
         if (outputFile.exists()) {
@@ -162,13 +160,12 @@ public class JavascriptEngine {
         return outputFile.getAbsolutePath();
     }
 
-
     /**
      * Save the vega-lite chart in a PNG file
      *
-     * @param outputFile
-     * @return
-     * @throws JavetException
+     * @param vega_spec the input vega spec
+     * @param outputFile the file to store the result
+     * @return the absolute path of the file
      */
     public String savePNG(String vega_spec, File outputFile, boolean delete, float ratio) throws JavetException {
         if (outputFile.exists()) {
@@ -203,7 +200,6 @@ public class JavascriptEngine {
         }
         return outputFile.getAbsolutePath();
     }
-
 
     public void setDirectory(String jsDirectory) throws JavetException, IOException {
         if (!this.jsDirectory.equals(jsDirectory)) {

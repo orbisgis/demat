@@ -4,13 +4,15 @@
     <groupId>org.orbisgis</groupId>
     <artifactId>demat</artifactId>
     <version>1.0.1-SNAPSHOT</version>
-    <packaging>bundle</packaging>
+    <packaging>jar</packaging>
     <description>Demat is breton word to said "Hello". Demat is library to run Vega-lite specifications.</description>
     <!-- Properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.build.timestamp.format>YYYY-MM-dd</maven.build.timestamp.format>
         <buildNumber>${maven.build.timestamp}</buildNumber>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
         <maven-version>3.5.0</maven-version>
         <java-version>11</java-version>
 
@@ -27,19 +29,26 @@
         <!-- Plugins versions -->
         <exec-maven-version>3.0.0</exec-maven-version>
         <gmaven-version>3.0.2</gmaven-version>
+        <maven-archetype-plugin-version>3.2.0</maven-archetype-plugin-version>
         <maven-assembly-version>3.3.0</maven-assembly-version>
         <maven-bundle-version>5.1.2</maven-bundle-version>
         <maven-clean-version>3.1.0</maven-clean-version>
         <maven-compiler-version>3.8.1</maven-compiler-version>
+        <maven-deploy-version>3.0.0-M1</maven-deploy-version>
         <maven-enforcer-version>3.0.0</maven-enforcer-version>
         <maven-gpg-plugin-version>3.0.1</maven-gpg-plugin-version>
+        <maven-install-version>3.0.0-M1</maven-install-version>
         <maven-jar-version>3.2.0</maven-jar-version>
         <maven-javadoc-version>3.3.1</maven-javadoc-version>
         <maven-release-version>3.0.0-M4</maven-release-version>
+        <maven-resources-version>3.2.0</maven-resources-version>
+        <maven-site-version>3.9.1</maven-site-version>
         <maven-surefire-version>3.0.0-M5</maven-surefire-version>
         <version-maven-version>2.8.1</version-maven-version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+
+        <!-- Extensions version -->
+        <archetype-packaging-version>3.1.2</archetype-packaging-version>
+
     </properties>
     <dependencies>
         <dependency>
@@ -105,6 +114,14 @@
 
     <!-- Build Settings -->
     <build>
+        <!-- Extension for Maven archetype -->
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.archetype</groupId>
+                <artifactId>archetype-packaging</artifactId>
+                <version>${archetype-packaging-version}</version>
+            </extension>
+        </extensions>
         <pluginManagement>
             <plugins>
                 <!-- Clean -->
@@ -289,7 +306,7 @@
                         <doclint>all,-missing</doclint>
                         <quiet>true</quiet>
                     </configuration>
-                    <executions>
+                    <!--<executions>
                         <execution>
                             <id>attach-javadocs</id>
                             <phase>verify</phase>
@@ -297,7 +314,7 @@
                                 <goal>jar</goal>
                             </goals>
                         </execution>
-                    </executions>
+                    </executions>-->
                 </plugin>
                 <!-- Maven release generation -->
                 <plugin>
