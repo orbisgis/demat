@@ -16,7 +16,7 @@
 
         <!-- Dependencies versions -->
         <j2html-version>1.5.0</j2html-version>
-        <orbisdata-version>2.1.1</orbisdata-version>
+        <orbisdata-version>2.1.2-SNAPSHOT</orbisdata-version>
         <svgSalamander.version>1.1.4</svgSalamander.version>
         <jackson-core-version>2.17.2</jackson-core-version>
         <junit-version>5.9.1</junit-version>
