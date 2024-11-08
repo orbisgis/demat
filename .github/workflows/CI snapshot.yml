@@ -28,7 +28,7 @@ jobs:
           server-id: ossrh
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
-          gpg-private-key: ${{ secrets.GPG_SIGNING_KEY }}
+          gpg-private-key: ${{ secrets.GPG_KEY_NAME}}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
    
@@ -36,7 +36,7 @@ jobs:
       # Install the GPG secret key
       - name: Install gpg secret key
         run: |
-          cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
+          cat <(echo -e "${{ secrets.MAVEN_SIGNGING_KEY }}") | gpg --batch --import
           gpg --list-secret-keys --keyid-format LONG
 
       # Deploy the snapshot
@@ -45,4 +45,4 @@ jobs:
         env:
           MAVEN_USERNAME: ${{ secrets.MVN_CENTRAL_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MVN_CENTRAL_PASSWORD}}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE}}
