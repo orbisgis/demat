@@ -27,7 +27,7 @@ def spec = [
                 ["a": "G", "b": 19], ["a": "H", "b": 87], ["a": "I", "b": 52]]
         ],
         mark:"bar",
-        encoding : [x : [field:"a",axis:[LabelAngle:0],type:"nominal"],
+        encoding : [x : [field:"a",axis:[labelAngle:0],type:"nominal"],
                     y:  [field:"b","type":"quantitative"]]]
 toSVG(spec,  "/tmp/bar_chart.svg")
 ```
