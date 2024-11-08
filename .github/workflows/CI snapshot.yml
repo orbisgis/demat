@@ -36,7 +36,7 @@ jobs:
       # Install the GPG secret key
       - name: Install gpg secret key
         run: |
-          cat <(echo -e "${{ secrets.GPG_KEY_NAME}}") | gpg --batch --import
+          cat <(echo -e "${{ secrets.MAVEN_SIGNGING_KEY}}") | gpg --batch --import
           gpg --list-secret-keys --keyid-format LONG
 
       # Deploy the snapshot
