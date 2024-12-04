@@ -1,3 +1,3 @@
 ## Changelog for v1.0.2
 
-- TODO
+- Update to JAVET 4.1.0

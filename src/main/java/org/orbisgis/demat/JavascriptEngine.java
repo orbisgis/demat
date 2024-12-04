@@ -45,6 +45,7 @@
 package org.orbisgis.demat;
 
 import com.caoccao.javet.exceptions.JavetException;
+import com.caoccao.javet.interop.V8Guard;
 import com.caoccao.javet.interop.V8Host;
 import com.caoccao.javet.interop.V8Runtime;
 import com.caoccao.javet.interop.engine.IJavetEngine;
@@ -100,7 +101,8 @@ public class JavascriptEngine {
         IJavetEngine iJavetEngine = javetEnginePool.getEngine();
         v8Runtime = iJavetEngine.getV8Runtime();
         v8Runtime.allowEval(true);
-        //Loading the vega-lite libs
+        try (V8Guard v8Guard = iJavetEngine.getGuard(30000)) {
+            //Loading the vega-lite libs
         v8Runtime.getExecutor(new File(jsDirectory + File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[0])).executeVoid();
         v8Runtime.getExecutor(new File(jsDirectory + File.separator + FileUtils.JS_FOLDER + File.separator + FileUtils.JS_FILES[1])).executeVoid();
 
@@ -117,7 +119,7 @@ public class JavascriptEngine {
                 "}";
         v8Runtime.getExecutor(svgFunction).executeVoid();
         jsonMapper = new ObjectMapper();
-
+        }
     }
 
     /**
