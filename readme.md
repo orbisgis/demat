@@ -37,7 +37,6 @@ shows https://vega.github.io/vega-lite/examples/bar.html
 Use online data.
 
 ```groovy
-@GrabConfig(systemClassLoader=true)
 @Grab(group = 'org.orbisgis', module = 'demat', version = '1.0.0')
 
 import static org.orbisgis.demat.Plot.*
