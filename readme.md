@@ -14,7 +14,6 @@ Demat uses the excellent [JAVET](https://github.com/caoccao/Javet) library to ex
 Let's run this script with Groovy to draw a simple bar chart and save it in a svg file.
 
 ```groovy
-@GrabConfig(systemClassLoader=true)
 @Grab(group = 'org.orbisgis', module = 'demat', version = '1.0.0')
 
 import static org.orbisgis.demat.Plot.*
