@@ -70,8 +70,8 @@ class BatchSpecsTest {
     @Disabled
     @Test
     void runBatchTest(){
-        //folder = new File("/tmp/demat")
-        //folder.mkdir()
+        folder = new File("/tmp/demat_test")
+        folder.mkdir()
         String data_path =new File(BatchSpecsTest.getResource("/data").toURI()).getAbsolutePath()
         Path specs_path =new File(BatchSpecsTest.getResource("/specs").toURI()).toPath()
         //specs_path = new File("/tmp/specs/geo_custom_projection.vl.json").toPath()

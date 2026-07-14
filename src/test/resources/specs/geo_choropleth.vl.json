@@ -1,5 +1,5 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": 500,
   "height": 300,
   "data": {
@@ -20,7 +20,7 @@
     }
   }],
   "projection": {
-      "type": "albersUsa"
+    "type": "albersUsa"
   },
   "mark": "geoshape",
   "encoding": {
