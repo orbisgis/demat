@@ -50,9 +50,9 @@ package org.orbisgis.demat
  * @author Erwan Bocher, CNRS 2023-2024
  */
 
-def libs = ["vega":"https://cdn.jsdelivr.net/npm/vega@5",
-            "vega-lite":"https://cdn.jsdelivr.net/npm/vega-lite@5",
-            "vega-embed":"https://cdn.jsdelivr.net/npm/vega-embed@6"]
+def libs = ["vega":"https://cdn.jsdelivr.net/npm/vega@6",
+            "vega-lite":"https://cdn.jsdelivr.net/npm/vega-lite@6",
+            "vega-embed":"https://cdn.jsdelivr.net/npm/vega-embed@7"]
 
 
 

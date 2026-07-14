@@ -23,7 +23,7 @@
         <junit-version>5.9.2</junit-version>
         <slf4j-version>2.0.17</slf4j-version>
         <groovy-version>4.0.29</groovy-version>
-        <javet-version>4.1.0</javet-version>
+        <javet-version>5.0.9</javet-version>
 
         <!-- Plugins versions -->
         <exec-maven-version>3.0.0</exec-maven-version>
