@@ -24,8 +24,8 @@ jobs:
       - name: Setup java 11 using adoptOpenJDK
         uses: actions/setup-java@v4
         with:
-          distribution: adopt
-          java-version: 11
+          distribution: 'temurin'
+          java-version: '11'
 
     
       # Build the project using
